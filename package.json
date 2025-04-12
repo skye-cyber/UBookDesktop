@@ -1,0 +1,87 @@
+{
+  "name": "UBookDesktop",
+  "version": "1.0.0",
+  "description": "An application providing urantia book content.",
+  "main": "src/main/index.js",
+  "homepage": "src/renderer/home.html",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=production npx tailwindcss -i ./src/renderer/css/config.css -o ./src/renderer/css/styles.css --minify",
+    "watch": "npx tailwindcss -i ./src/renderer/css/config.css -o ./src/renderer/css/styles.css --watch",
+    "package": "electron-packager .",
+    "forge": "electron-forge package"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Wambua Mwikya aka Skye",
+    "email": "swskye17@gmail.com"
+  },
+  "license": "GNU",
+  "devDependencies": {
+    "@babel/core": "latest",
+    "babel-loader": "latest",
+    "child-process-promise": "latest",
+    "electron": "latest",
+    "electron-builder": "latest",
+    "fs": "latest",
+    "webpack": "latest"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "latest",
+    "audit": "^0.0.6",
+    "fix": "^0.0.6"
+  },
+  "files": [
+    "README.md",
+    "package.json",
+    "assets/documentation.html",
+    "src/**/*"
+  ],
+  "build": {
+    "appId": "com.UBookDesktop.app",
+    "productName": "UBookDesktop",
+    "electronDownload": {
+      "cache": true
+    },
+    "asar": true,
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "identity": null,
+      "icon": "src/assets/UBookDesktop.icns"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "src/assets/UBookDesktop.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Utility",
+      "icon": "src/assets/UBookDesktop.png",
+      "extraResources": [
+        {
+          "from": "src/assets/",
+          "to": "assets/"
+        },
+        {
+          "from": "src/assets/UBookDesktop.png",
+          "to": "/usr/share/icons/UBookDesktop.png"
+        }
+      ]
+    }
+  }
+}

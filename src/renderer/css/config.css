@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.scrollbar-hide {
+    /* Hide scrollbar for Chrome, Safari, and Edge */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+    overflow: -moz-scrollbars-none; /* Older Firefox */
+    overflow-y: scroll; /* Add this to ensure the content is scrollable */
+    &::-webkit-scrollbar {
+        display: none;  /* Hide scrollbar for Chrome, Safari, and Edge */
+    }
+}
+
+.pulse {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+}
+
+.pulse:hover {
+    transform: scale(1.1);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse-hover {
+    display: inline-block;
+}
+
+.pulse-hover:hover {
+    animation: pulse 1s infinite;
+}
+/* Reset default scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Light theme scrollbar */
+::-webkit-scrollbar-track {
+    background:#2c2c2c;
+    border-radius: 4px;
+    opacity:0.5;
+}
+
+.dark ::-webkit-scrollbar-track {
+    background:#24486b;
+    border-radius: 4px;
+    opacity:0.5;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(145deg, #00aa7f, #aaffff, #00aaff);
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555500;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(135deg, #aa55ff, #aaaaff, #ff55ff);
+}
+
+/* Optional: Add transitions for more natural feel */
+ython.assistant-unused
+.note:-webkit-scrollbar {
+    scroll-behavior: smooth;
+}
+
+/* Simulate a placeholder on the contenteditable div */
+#userInput:empty:before {
+content: attr(data-placeholder);
+color: #9CA3AF;
+}
+/* Always ensure an extra empty row at the bottom */
+#userInput::after {
+content: "\A"; /* Inserts a newline */
+white-space: pre;
+display: block;
+visibility: hidden;
+height: 2.4em; /* Adjust this value to match the height of an empty row */
+}
+
+
+@keyframes modalEnter {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes modalExit {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+.animate-enter {
+    animation: modalEnter 0.4s ease-out forwards;
+}
+
+.animate-exit {
+    animation: modalExit 0.3s ease-in forwards;
+}
+
+@keyframes singleRipple {
+    0% {
+        transform: scale(0.8);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
+.ripple-single-1 {
+    position: absolute;
+    border: 3px solid;
+    border-image: linear-gradient(45deg, #ff8a65, #ff7043) 1;
+    width: 80%;
+    height: 80%;
+    animation: singleRipple 1.8s infinite;
+    pointer-events: none;
+}
+
+.ripple-single-2 {
+    position: absolute;
+    border: 3px solid;
+    border-image: linear-gradient(45deg, #ff8a65, #55aaff) 1;
+    width: 80%;
+    height: 80%;
+    animation: singleRipple 1.8s infinite;
+    pointer-events: none;
+}
+.ripple-single-3 {
+    position: absolute;
+    border: 3px solid;
+    border-image: linear-gradient(45deg, #55ff7f, #ff7043) 1;
+    border-radius: 50%;
+    width: 80%;
+    height: 80%;
+    animation: singleRipple 1.8s infinite;
+    pointer-events: none;
+}
+.ripple-single-1 {
+    animation-delay: 0s;
+}
+.ripple-single-2 {
+    animation-delay: 0.6s;
+}
+.ripple-single-3 {
+    animation-delay: 1.2s;
+}

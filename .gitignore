@@ -1,0 +1,9 @@
+dist/**
+electron/
+bin/
+tests/**
+true/**
+reload.html
+*~
+node_modules/**
+.kateproject.notes

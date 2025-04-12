@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/styles.css" rel="stylesheet">
+    <script type="text/javascript" src="js/themes.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/keyshortcuts.js"></script>
+    <title>Urantia Book Desktop</title>
+</head>
+<body class="bg-gray-200 dark:bg-slate-800 flex transition-colors duration-1000">
+    <header class="fixed flex items-center w-full max-h-[8vh] top-0 justify-between px-4 py-3 bg-blue-700 dark:bg-zinc-900 shadow-md transition-colors duration-700">
+        <section class="relative flex items-center">
+            <!-- 3-line Hamburger Icon -->
+            <button id="sidepane-toggle" class="flex flex-col justify-between h-6 w-6 focus:outline-none hover:text-cyan-400">
+                <svg class="w-6 h-6 stroke-white dark:stroke-white" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </section>
+        <!-- Search Bar -->
+        <div id="search-container" class="opacity-0 pointer-events-none flex-1 mx-4 tranform transition-all duration-700 ease-in-out">
+            <input
+            type="text"
+            placeholder="Search..."
+            class="w-full px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-800 dark:text-gray-200 focus:outline-none"
+            />
+        </div>
+
+        <!-- 3 Dots Icon (Vertical) -->
+        <button id="search-toggle" class="text-gray-800 dark:text-gray-200">
+            <svg class="w-6 h-6 stroke-white dark:stroke-white fill-white" viewBox="0 0 20 20">
+            <path d="M10 3a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM10 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM10 14a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
+            </svg>
+        </button>
+    </header>
+
+
+    <!-- Sidebar -->
+    <section id="sidepaneMask" class="bg-slate-700/10 -translate-x-full mt-[8vh] w-full fixed inset-0 transform transition-transform -translate-x-full transition-colors duration-1000 ease-in-out">
+        <div id="sidepane" class="relative bg-blue-500 dark:bg-gray-900 w-64 h-[calc(100vh-7vh)] shadow-lg transform transition-transform -translate-x-full transition-colors duration-700 ease-in-out">
+            <div class="flex items-center p-4">
+                <img class="h-12 w-16 rounded-full" src="images/UBook.png">
+                <h1 class="text-white dark:text-gray-200 text-2xl ml-2">Listening Urantia Book</h1>
+            </div>
+            <ul class="mt-4">
+                <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-gray-700 cursor-pointer">
+                    <svg class="h-6 w-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 5V3H6V5h3zm-6 1h4V1h1v5H3v5H2V6zm12 10v2h-3v-2h3zM6 17h3v2H6v-2zm8-4h1v4h-1v-4zM9 14h1v1H9v-1zm4 0h1v1h-1v-1zM3 15v1h10v-1H3zm1-1V3h1v11H4zm12-2V1h-9v6h6V4h3v8h1z" />
+                    </svg>
+                    Foreword
+                </li>
+                <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-gray-700 cursor-pointer">
+                    <svg class="h-6 w-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm1 15H9v-2h2v2zm0-4H9V7h2v4z" />
+                    </svg>
+                    The Central and Superuniverses
+                </li>
+                <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-gray-700 cursor-pointer">
+                    <svg class="h-6 w-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm1 15H9v-2h2v2zm0-4H9V7h2v4z" />
+                    </svg>
+                    The Local Universe
+                </li>
+                <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-gray-700 cursor-pointer">
+                    <svg class="h-6 w-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm1 15H9v-2h2v2zm0-4H9V7h2v4z" />
+                    </svg>
+                    The History of Urantia
+                </li>
+                <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-gray-700 cursor-pointer">
+                    <svg class="h-6 w-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm1 15H9v-2h2v2zm0-4H9V7h2v4z" />
+                    </svg>
+                    The Life and Teachings of Jesus
+                </li>
+                <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-gray-700 cursor-pointer">
+                    <svg class="w-6 h-6 mr-2 stroke-red-600 fill-red-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/>
+                    </svg>
+                    Favourite
+                </li>
+                <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-gray-700 cursor-pointer">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                    </svg>
+                    Bookmarks
+                </li>
+                <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-gray-700 cursor-pointer">
+                    <svg class="h-6 w-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zm1 15H9v-2h2v2zm0-4H9V7h2v4z" />
+                    </svg>
+                    More Application
+                </li>
+                <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-gray-700 cursor-pointer">
+                    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                    </svg>
+                    Exit
+                </li>
+            </ul>
+
+            <!-- Theme Toggle Switch -->
+            <div class="absolute left-0 bottom-4 flex items-center">
+                <span class="text-teal-950 font-bold dark:text-gray-200 mr-2">Light</span>
+
+                <label class="relative inline-block w-16 h-8 cursor-pointer select-none">
+                    <input type="checkbox" id="theme-toggle" class="peer hidden">
+                    <span
+                        class="absolute inset-0 bg-gray-300 peer-checked:bg-blue-500 transition rounded-full"
+                    ></span>
+                    <span
+                        class="absolute left-1 bottom-1 w-6 h-6 bg-white rounded-full transition peer-checked:translate-x-8"
+                    ></span>
+                </label>
+
+                <span class="text-teal-950 font-bold dark:text-gray-200 ml-2">Dark</span>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="mt-[7vh] w-screen max-h-[calc(100vh-0vh)]">
+        <div class="flex-1 p-10">
+            <div class="flex flex-col">
+                <div class="mb-4 h-6 w-6 border border-gray-500 dark:border-gray-400 rounded-full"></div>
+                <!-- Placeholder for future content -->
+                <p class="text-gray-800 dark:text-gray-200 transition-colors duration-1000">Main content goes here</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
