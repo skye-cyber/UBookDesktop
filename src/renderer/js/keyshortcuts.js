@@ -1,5 +1,9 @@
 // shortcut implementations
 document.addEventListener('keydown', (event) => {
+    // 1) if it’s F11, do nothing here and let the browser/Electron handle it
+    if (event.key === "F11" || event.code === "F11") {
+        return;
+    }
     if (event.ctrlKey && event.key === 'S' || event.ctrlKey && event.key === 's') {
         event.preventDefault(); // Prevent the default Save action in browsers
         document.getElementById("search-toggle").click()

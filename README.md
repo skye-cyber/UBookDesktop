@@ -50,4 +50,4 @@ Special thanks to the Urantia Foundation for making **The Urantia Book** availab
 - **Community Forum**: Integrate a discussion forum for users.
 
 ## Contact
-For questions or suggestions, please contact [Your Email](mailto:swskye17@gmail.com).
+For questions or suggestions, please contact [swskye17@gmail.com](mailto:swskye17@gmail.com).

@@ -63,7 +63,11 @@ const template = [
     label: 'Window',
     submenu: [
         { label: 'Minimize', accelerator: 'CmdOrCtrl+M', role: 'minimize' },
-        { label: 'Close', accelerator: 'CmdOrCtrl+W', role: 'close' }
+        { label: 'Close', accelerator: 'CmdOrCtrl+W', role: 'close' },
+        {   label: 'Toggle Full Screen',
+            role: 'togglefullscreen',       // built-in behavior
+            accelerator: 'F11'              // explicit on all platforms
+        }
     ]
 },
 {

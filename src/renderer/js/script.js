@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', ()=>{
+    const scripts = ['displayHandler', 'readerHandler']
+    for (const item of scripts) {
+        addScripts(item);
+    }
+
     const navToggle = document.getElementById('sidepane-toggle');
     const sidepane = document.getElementById('sidepane');
     const sidepaneMask = document.getElementById('sidepaneMask');
@@ -19,3 +24,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
         searchContainer.classList.toggle('pointer-events-none');
     });
 });
+
+function addScripts(target_script) {
+    const script = document.createElement('script');
+    script.src = `js/${target_script}.js`;
+    script.async = true; // Optional: load the script asynchronously
+    document.body.appendChild(script);
+    console.log(`Added ${target_script} script`);
+}
