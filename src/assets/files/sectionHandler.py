@@ -1008,130 +1008,429 @@ def history_urantia():
         80: [
             "Andite Expansion in the Occident",
             "The Adamite Enter Europe",
+            "Climatic and Geologic Changes",
+            "The Cro-Magnoid Blue Man",
+            "The Andite Invasion of Europe",
+            "The Andite Conquest of the Northern Europe",
+            "The Andites Along the Nile",
+            "The Andite of The Mediterranian Isle",
+            "The Danubian Andonites",
+            "The three White Races"
         ],
         81: [
             "Development of Modern Civilization",
+            "The Cradle of Civilization",
+            "The Tools of Civilization",
+            "Cities, Manufacture, and Commerce",
+            "The Mixed Races",
+            "Cultural Society",
+            "The Maintenance of Civilization"
 
         ],
         82: [
             "The Evolution of Marriage",
+            "The Mating Instinct",
+            "Restrictive Taboos",
+            "Early Marriage Mores",
+            "Marriage Under the Property Mores",
+            "Endogamy and Exogamy",
+            "Racial Mixtures"
 
         ],
         83: [
             "The Marriage Institution",
+            "Marriage as a Societal Institution",
+            "Courtship and Betrothal",
+            "Purchase and Dowry",
+            "The Wedding Ceremony",
+            "Plural Marriages",
+            "True Monogamy - Pair Marriage"
 
         ],
         84: [
             "Marriage and Family Life",
+            "Primitive Pair Associations",
+            "The Early Mother Family",
+            "The Family under Father Dominance",
+            "Woman under the Developing Mores",
+            "Woman under the Later Mores",
+            "The Partnership of Man and Woman",
+            "The Ideals of Family Life",
+            "Dangers of Self-Gratification"
         ],
         85: [
             "The Origins of Worship",
+            "Worship of Stones and Hills",
+            "Worship of Plants and Trees",
+            "The Worship of Animals",
+            "Worship of the Elements",
+            "Worship of the Heavenly Bodies",
+            "Worship of Man",
+            "The Adjutants of Worship and Wisdom"
         ],
         86: [
             "Early Evolution of Religion",
+            "Chance: Good Luck and Bad Luck",
+            "The Personification of Chance",
+            "Death—The Inexplicable",
+            "The Death-Survival Concept",
+            "The Ghost-Soul Concept",
+            "The Ghost-Spirit Environment",
+            "The Function of Primitive Religion"
+
         ],
         87: [
             "The Ghost Cults",
+            "The Ghost-Fear Concept",
+            "Ghost Placation",
+            "Ancestor Worship",
+            "Good and Bad Spirit Ghosts",
+            "The Advancing Ghost Cult",
+            "Coercion and Exorcism",
+            "Nature of Cultism"
         ],
         88: [
             "Fetishes, Charms, and Magic",
+            "Believe In Fetishes",
+            "Evolution of The Fetish",
+            "Totemism",
+            "Magic",
+            "Magical Charms",
+            "The Practise of Magic"
         ],
         89: [
             "Sin, Sacrifice, and Atonement",
+            "The Taboo",
+            "The Concept of Sin",
+            "Renunciation and Humiliation",
+            "Origins of Sacrifice",
+            "Sacrifices and Canibalism",
+            "Evolution of Human Sacrifice",
+            "Modification of Human Sacrifice",
+            "Redemption of Covenants",
+            "Sacrifices and Sacraments",
+            "Forgiveness of Sin"
         ],
         90: [
             "Shamanism — Medicine Men and Priests",
+            "The First Shamans - The Medicine Men",
+            "Shamanistic Practices",
+            "The Shemanic Theory of Disease and Death",
+            "Medicines Under the Shamans",
+            "Priests and Rituals"
         ],
         91: [
             "The Evolution of Prayer",
+            "Primitive Prayer",
+            "Evolving Prayer",
+            "Prayer and the Alter Ego",
+            "Ethical Praying",
+            "Social Repercussions of Prayer",
+            "The Province of Prayer",
+            "Mysticism, Ecstasy, and Inspiration",
+            "Praying as a Personal Experience",
+            "Conditions of Effective Prayer"
         ],
         92: [
             "The Later Evolution of Religion",
+            "The Evolutionary Nature of Religion",
+            "Religion and the Mores",
+            "The Nature of Evolutionary Religion",
+            "The Gift of Revelation",
+            "The Great Religious Leaders",
+            "The Composite Religions",
+            "The Further Evolution of Religion"
         ],
         93: [
             "Machiventa Melchizedek",
+            "The Incarnation of Machiventa Melchizedek",
+            "The Sage of Salem -- The Katroite Priesthood",
+            "The Teachings of Melchizedek",
+            "The Salem Religion",
+            "The Religion of Salem",
+            "Selection of Abraham-(Melchizedek's Covenant with Abraham)",
+            "The Melchizedek Missionaries",
+            "Departure of Melchizedek",
+            "After Melchizedek's Departure",
+            "Present Status of Machiventa Melchizedek"
         ],
         94: [
             "The Melchizedek Teachings in the Orient",
+            "The Salem Religion in Vedic India",
+            "Brahmanism",
+            "Brahmanic Philosophy",
+            "The Hindu Religion",
+            "The Struggle for Truth in China",
+            "Lao-Tse and Confucius"
+            "Gautama Siddhartha",
+            "The Buddhist Faith",
+            "The Spread of Buddhism",
+            "Religion in Tibet",
+            "Buddhist Philosophy",
+            "The God Concept of Buddhism"
         ],
         95: [
             "The Melchizedek Teachings in the Levant",
+            "The Salem Religion in Mesopotamia",
+            "Early Egyptian Religion",
+            "Evolution of Moral Concepts",
+            "The Teachings of Amenemope",
+            "The Remarkable Ikhnaton",
+            "The Salem Doctrines in Iran",
+            "The Salem Teachings in Arabia"
         ],
         96: [
             "Yahweh — God of the Hebrews",
+            "Deity Concepts among the Semites",
+            "The Semitic Peoples",
+            "The Matchless Moses",
+            "The Proclamation of Yahweh",
+            "The Teachings of Moses",
+            "The God Concept after Moses' Death",
+            "Psalms and the Book of Job"
         ],
         97: [
             "Evolution of the God Concept Among the Hebrews",
+            "Samuel—First of the Hebrew Prophets",
+            "Elijah and Elisha",
+            "Yahweh and Baal",
+            "Amos and Hosea",
+            "The First Isaiah",
+            "Jeremiah the Fearless",
+            "The Second Isaiah",
+            "Sacred and Profane History",
+            "Hebrew History",
+            "The Hebrew Religion"
         ],
         98: [
             "The Melchizedek Teachings in the Occident",
+            "The Salem Religion among the Greeks",
+            "Greek Philosophic Thought",
+            "The Melchizedek Teachings in Rome",
+            "The Mystery Cults",
+            "The Cult of Mithras",
+            "Mithraism and Christianity",
+            "The Christian Religion"
         ],
         99: [
             "The Social Problems of Religion",
-        ],
+            "Religion and Social Reconstruction",
+            "Weakness of Institutional Religion",
+            "Religion and the Religionist",
+            "Transition Difficulties",
+            "Social Aspects of Religion",
+            "Institutional Religion",
+            "Religion's Contribution"
+            ],
         100: [
             "Religion in Human Experience",
+            "Religious Growth",
+            "Spiritual Growth",
+            "Concepts of Supreme Value",
+            "Problems of Growth",
+            "Conversion and Mysticism",
+            "Marks of Religious Living",
+            "The Acme of Religious Living"
         ],
         101: [
             "The Real Nature of Religion",
+            "True Religion",
+            "The Fact of Religion",
+            "The Characteristics of Religion",
+            "The Limitations of Revelation",
+            "Religion Expanded by Revelation",
+            "Progressive Religious Experience",
+            "A Personal Philosophy of Religion",
+            "Faith and Belief",
+            "Religion and Morality",
+            "Religion as Man’s Liberator"
         ],
         102: [
             "The Foundations of Religious Faith",
+            "Assurances of Faith",
+            "Religion and Reality",
+            "Knowledge, Wisdom, and Insight",
+            "The Fact of Experience",
+            "The Supremacy of Purposive Potential",
+            "The Certainty of Religious Faith",
+            "The Certitude of the Divine",
+            "The Evidences of Religion"
         ],
         103: [
             "The Reality of Religious Experience",
+            "Philosophy of Religion",
+            "Religion and the Individual",
+            "Religion and the Human Race",
+            "Spiritual Communion",
+            "The Origin of Ideals",
+            "Philosophic Co-ordination",
+            "Science and Religion",
+            "Philosophy and Religion",
+            "The Essence of Religion"
         ],
         104: [
             "Growth of the Trinity Concept",
+            "Urantian Trinity Concepts",
+            "Trinity Unity and Deity Plurality",
+            "Trinities and Triunities",
+            "The Seven Triunities",
+            "Triodities"
         ],
         105: [
             "Deity and Reality",
+            "The Philosophic Concept of I AM",
+            "The I AM as Triune and as Sevenfold",
+            "The Seve Absolutes of Infinity",
+            "Unity, Duality, and Triunity",
+            "Promulgation of Finite Reality",
+            "Repercussions of Finite Reality",
+            "Eventuation of Transcendentals"
         ],
         106: [
             "Universe Levels of Reality",
+            "Primary Association of Finite Functionals",
+            "Secondary Supreme Finite Integration",
+            "Transcendental Tertiary Reality Association",
+            "Ultimate Quartan Integration",
+            "Coabsolute or Fifth-Phase Association",
+            "Absolute or Sixth-Phase Integration",
+            "Finality of Destiny",
+            "The Trinity of Trinities",
+            "Existential Infinite Unification"
         ],
         107: [
             "Origin and Nature of Thought Adjusters",
+            "Origin of Thought Adjusters",
+            "Classification of Adjusters",
+            "The Divinington Home of Adjusters",
+            "Nature and Presence of Adjusters",
+            "Adjusters as Pure Spirits",
+            "Adjusters as Personalities",
+            "Adjusters and Personality"
         ],
         108: [
             "Mission and Ministry of Thought Adjusters",
+            "Selection and Assignment",
+            "Prerequisites of Adjuster Indwelling",
+            "Organization and Administration",
+            "Relation to Other Spiritual Influences",
+            "The Adjuster’s Mission",
+            "God In Man"
         ],
         109: [
             "Relation of Adjusters to Universe Creatures",
+            "Development of Adjusters",
+            "Self-Acting Adjusters",
+            "Relation to Mortal Creatures",
+            "Adjusters and Human Personality",
+            "Material Handicaps to Adjuster Indwelling",
+            "The Persistence of True Values",
+            "The Destiny of Personalized Adjusters"
         ],
         110: [
             "Relation of Adjusters to Individual Mortals",
+            "Indwelling the Mortal Mind",
+            "Adjusters and Human Will",
+            "Co-operation with the Adjuster",
+            "The Adjuster’s Work in the Mind",
+            "Erroneous Concepts of Adjuster Guidance",
+            "The Seven Psychic Circles",
+            "The Attainment of Immortality"
         ],
         111: [
             "The Adjuster and the Soul",
+            "The Mind Arena of Choice",
+            "Nature of the Soul",
+            "The Evolving Soul",
+            "The Inner Life",
+            "The Consecration of Choice",
+            "The Human Paradox",
+            "The Adjuster’s Problem"
         ],
         112: [
             "Personality Survival",
-        ],
+            "Personality and Reality",
+            "The Self",
+            "The Phenomena of Death",
+            "Adjuster After Death",
+            "Survival of the Human Self",
+            "The Morontia Self",
+            "Adjuster Fusion",
+            ],
         113: [
             "Seraphic Guardians of Destiny",
+            "The Guardian Angels",
+            "The Destiny Guardians",
+            "Relation to Other Spirit Influences",
+            "Seraphic Domains of Action",
+            "Seraphic Ministry to Mortals",
+            "Guardian Angels after Death",
+            "Seraphim and the Ascendent Career"
         ],
         114: [
             "Seraphic Planetary Government",
+            "The Sovereignty of Urantia",
+            "The Board of Planetary Supervisors",
+            "The Resident Governor General",
+            "The Most High Observer",
+            "The Planetary Government",
+            "The Master Seraphim of Planetary Supervision",
+            "The Reserved Corps of Destiny"
         ],
         115: [
             "The Supreme Being",
+            "Relativity of Concept Frames",
+            "The Absolute Basic of Supremacy",
+            "Original, Actual, and Potential",
+            "Sources of Supreme Reality",
+            "Relation of the Supreme to the Paradise Trinity",
+            "Relation of the Supreme to the Triodities",
+            "The Nature of the Supreme"
         ],
         116: [
             "The Almighty Supreme",
+            "The Supreme Mind",
+            "The Almighty and God the Sevenfold",
+            "The Almighty and Paradise Deity",
+            "The Almighty and the Supreme Creators",
+            "The Almighty and the Sevenfold Controllers",
+            "Spirit Dominance",
+            "The Living Organisms of Grand Universe"
         ],
         117: [
             "God the Supreme",
+            "Nature of the Supreme Being",
+            "The Source of Evolutionary Growth",
+            "Significance of the Supreme to Universe Creatures",
+            "The Finite God",
+            "The Oversoul of Creation",
+            "The Quest for the Supreme",
+            "The Future of the Supreme"
         ],
         118: [
             "Supreme and Ultimate — Time and Space",
+            "Time and Eternity",
+            "Omnipresence and Ubiquity",
+            "Time-Space Relationships",
+            "Primary and Secondary Causation",
+            "Omnipotence and Compossibility",
+            "Omnipotence and Omniscience",
+            "Reflectivity and the Universe Mind",
+            "Control and Overcontrol",
+            "Universe Mechanisms",
+            "Functions of Providence"
         ],
         119: [
             "The Bestowals of Christ Michael",
-        ],
-        120: [
-            "The Bestowal of Michael on Urantia",
-        ]
+            "The First Bestowal",
+            "The Second Bestowal",
+            "The Third Bestowal",
+            "The Fourth Bestowal",
+            "The Fifth Bestowal",
+            "The Sixth Bestowal",
+            "The Seventh and Final Bestowal",
+            "Michael’s Postbestowal Status"
+            ]
     }
 
     # --- Load your raw paragraphs JSON ---
@@ -1205,245 +1504,13 @@ def history_urantia():
 
 
 def jesus_life_teachings():
-    # --- Section Titles Mapping for Papers 1–31 ---
-    life_and_teachings_of_jesus_paper_titles = {
-        121: [
-            "The Times of Michael's Bestowal"
-        ],
-        122: [
-            "Birth and Infancy of Jesus"
-        ],
-        123: [
-            "The Early Childhood of Jesus"
-        ],
-        124: [
-            "The Later Childhood of Jesus"
-        ],
-        125: [
-            "Jesus at Jerusalem"
-        ],
-        126: [
-            "The Two Crucial Years"
-        ],
-        127: [
-            "The Adolescent Years"
-        ],
-        128: [
-            "Jesus' Early Manhood"
-        ],
-        129: [
-            "The Later Adult Life of Jesus"
-        ],
-        130: [
-            "On the Way to Rome"
-        ],
-        131: [
-            "The World's Religions"
-        ],
-        132: [
-            "The Sojourn at Rome"
-        ],
-        133: [
-            "The Return from Rome"
-        ],
-        134: [
-            "The Transition Years"
-        ],
-        135: [
-            "John the Baptist"
-        ],
-        136: [
-            "Baptism and the Forty Days"
-        ],
-        137: [
-            "Tarrying Time in Galilee"
-        ],
-        138: [
-            "Training the Kingdom's Messengers"
-        ],
-        139: [
-            "The Twelve Apostles"
-        ],
-        140: [
-            "The Ordination of the Twelve"
-        ],
-        141: [
-            "Beginning the Public Work"
-        ],
-        142: [
-            "The Passover at Jerusalem"
-        ],
-        143: [
-            "Going Through Samaria"
-        ],
-        144: [
-            "At Gilboa and in the Decapolis"
-        ],
-        145: [
-            "Four Eventful Days at Capernaum"
-        ],
-        146: [
-            "First Preaching Tour of Galilee"
-        ],
-        147: [
-            "The Interlude Visit to Jerusalem"
-        ],
-        148: [
-            "Training Evangelists at Bethsaida"
-        ],
-        149: [
-            "The Second Preaching Tour"
-        ],
-        150: [
-            "The Third Preaching Tour"
-        ],
-        151: [
-            "Tarrying and Teaching by the Seaside"
-        ],
-        152: [
-            "Events Leading Up to the Capernaum Crisis"
-        ],
-        153: [
-            "The Crisis at Capernaum"
-        ],
-        154: [
-            "Last Days at Capernaum"
-        ],
-        155: [
-            "Fleeing Through Northern Galilee"
-        ],
-        156: [
-            "The Sojourn at Tyre and Sidon"
-        ],
-        157: [
-            "At Caesarea-Philippi"
-        ],
-        158: [
-            "The Mount of Transfiguration"
-        ],
-        159: [
-            "The Decapolis Tour"
-        ],
-        160: [
-            "Rodan of Alexandria"
-        ],
-        161: [
-            "Further Discussions with Rodan"
-        ],
-        162: [
-            "At the Feast of Tabernacles"
-        ],
-        163: [
-            "Ordination of the Seventy at Magadan"
-        ],
-        164: [
-            "At the Feast of Dedication"
-        ],
-        165: [
-            "The Perean Mission Begins"
-        ],
-        166: [
-            "Last Visit to Northern Perea"
-        ],
-        167: [
-            "The Visit to Philadelphia"
-        ],
-        168: [
-            "The Resurrection of Lazarus"
-        ],
-        169: [
-            "Last Teaching at Pella"
-        ],
-        170: [
-            "The Kingdom of Heaven"
-        ],
-        171: [
-            "On the Way to Jerusalem"
-        ],
-        172: [
-            "Going into Jerusalem"
-        ],
-        173: [
-            "Monday in Jerusalem"
-        ],
-        174: [
-            "Tuesday Morning in the Temple"
-        ],
-        175: [
-            "The Last Temple Discourse"
-        ],
-        176: [
-            "Tuesday Evening on Mount Olivet"
-        ],
-        177: [
-            "Wednesday, the Rest Day"
-        ],
-        178: [
-            "Last Day at the Camp"
-        ],
-        179: [
-            "The Last Supper"
-        ],
-        180: [
-            "The Farewell Discourse"
-        ],
-        181: [
-            "Final Admonitions and Warnings"
-        ],
-        182: [
-            "In Gethsemane"
-        ],
-        183: [
-            "The Betrayal and Arrest of Jesus"
-        ],
-        184: [
-            "Before the Sanhedrin Court"
-        ],
-        185: [
-            "The Trial Before Pilate"
-        ],
-        186: [
-            "Just Before the Crucifixion"
-        ],
-        187: [
-            "The Crucifixion"
-        ],
-        188: [
-            "The Time of the Tomb"
-        ],
-        189: [
-            "The Resurrection"
-        ],
-        190: [
-            "Morontia Appearances of Jesus"
-        ],
-        191: [
-            "Appearances to the Apostles and Other Leaders"
-        ],
-        192: [
-            "Appearances in Galilee"
-        ],
-        193: [
-            "Final Appearances and Ascension"
-        ],
-        194: [
-            "Bestowal of the Spirit of Truth"
-        ],
-        195: [
-            "After Pentecost"
-        ],
-        196: [
-            "The Faith of Jesus"
-        ]
-    }
-
     life_and_teachings_of_jesus_titles = {
         120: [
             "The Bestowal of Michael on Urantia",
             "The Seventh Bestowal Commission",
             "Bestowal Limitations",
             "Further Council and Advice",
-            "The Incarnation Taking Two One"
+            "The Incarnation—Making Two One"
             ],
         121: [
             "The Times of Michael's Bestowal",
@@ -1743,41 +1810,61 @@ def jesus_life_teachings():
         ],
         148: [
             "Training Evangelists at Bethsaida",
-            "A Week of Rest",
+            "A New School of the Prophets",
             "The Bethsaida Hospital",
-            "The Father’s Business",
-            "Evil, Sin, and Iniquity"
+            "The Father's Business",
+            "Evil, Sin, and Iniquity",
+            "The Purpose of Affliction",
+            "The Misunderstanding of Suffering—Discourse on Job",
+            "The Man with the Withered Hand",
+            "Last Week at Bethsaida",
+            "Healing the Paralytic"
         ],
         149: [
             "The Second Preaching Tour",
-            "The Healing at Sundown",
-            "The Jehovah Concept",
-            "Jesus’ Attitude Toward Women",
-            "The Kingdom of Heaven"
+            "The Widespread Fame of Jesus",
+            "Attitude of the People",
+            "Hostility of the Religious Leaders",
+            "Progress of the Preaching Tour",
+            "Lesson Regarding Contentment",
+            "The 'Fear of the Lord'"
+            "Returning to Bethsaida"
         ],
         150: [
             "The Third Preaching Tour",
-            "The Women's Evangelistic Corps",
-            "At the Bethlehem Synagogue",
-            "The Gospel at Hebron",
-            "Teaching in Southern Judea"
+            "The Women’s Evangelistic Corps",
+            "The Stop at Magdala",
+            "Sabbath at Tiberias",
+            "Sending the Apostles Out Two and Two",
+            "What Must I Do to Be Saved?",
+            "The Evening at Lessons",
+            "The Sojourn at Nazareth",
+            "The Sabbath Service",
+            "The Nazareth Rejection"
         ],
         151: [
             "Tarrying and Teaching by the Seaside",
             "The Parable of the Sower",
-            "More About Parables",
+            "Interpretation of the Parable"
+            "More about Parables",
             "More Parables by the Sea",
-            "Teaching About Parables"
+            "The Visit to Kheresa",
+            "The Kheresa Lunatic"
         ],
         152: [
             "Events Leading Up to the Capernaum Crisis",
             "At Jairus’s House",
             "Feeding the Five Thousand",
+            "The King-Making Episode",
+            "Simon Peter’s Night Vision",
+            "Back in Bethsaida",
             "At Gennesaret",
-            "Back at Capernaum"
+            "At Jerusalem"
+
         ],
         153: [
             "The Crisis at Capernaum",
+            "The Setting of the Stage",
             "The Epochal Sermon",
             "The After Meeting",
             "Last Words in the Synagogue",
@@ -1786,66 +1873,208 @@ def jesus_life_teachings():
         154: [
             "Last Days at Capernaum",
             "A Week of Counsel",
-            "The Events of a Sabbath Day",
-            "The Crises in Jesus’ Earth Life",
-            "Lessons on the Hill"
+            "A Week of Rest",
+            "The Second Tiberias Conference",
+            "Saturday Night in Capernaum",
+            "The Eventful Sunday Morning",
+            "Jesus’ Family Arrives",
+            "The Hasty Flight"
         ],
         155: [
             "Fleeing Through Northern Galilee",
-            "At Leontopolis",
-            "Lessons on Faith",
+            "Why Do the Heathen Rage?",
+            "The Evangelists in Chorazin",
+            "At Caesarea-Philippi",
+            "On the Way to Phoenicia",
             "The Discourse on True Religion",
-            "What Must I Do To Be Saved?"
+            "The Second Discourse on Religion"
         ],
         156: [
             "The Sojourn at Tyre and Sidon",
-            "The Syrian Woman",
+            "The Syrophoenician Woman",
             "Teaching in Sidon",
+            "The Journey Up the Coast",
             "At Tyre",
-            "The Return to Magadan"
+            "Jesus’ Teaching at Tyre",
+            "The Return from Phoenicia"
         ],
         157: [
             "At Caesarea-Philippi",
-            "The New Concept",
+            "The Temple-Tax Collector",
+            "At Bethsaida-Julias",
             "Peter’s Confession",
-            "The Talk About the Kingdom",
-            "The New Teaching"
+            "The Talk about the Kingdom",
+            "The New Concept",
+            "The Next Afternoon",
+            "Andrew’s Conference"
         ],
         158: [
             "The Mount of Transfiguration",
+            "The Transfiguration",
             "Coming Down the Mountain",
+            "Meaning of the Transfiguration",
             "The Epileptic Boy",
+            "Jesus Heals the Boy",
             "In Celsus’ Garden",
-            "Peter’s Temple-Tax Coin"
+            "Peter’s Protest",
+            "At Peter’s House"
         ],
         159: [
             "The Decapolis Tour",
             "The Sermon on Forgiveness",
-            "In the Region of Gerasa",
+            "The Strange Preacher",
             "Instruction for Teachers and Believers",
-            "At Philadelphia"
+            "The Talk with Nathaniel",
+            "The Positive Nature of Jesus’ Religion",
+            "The Return to Magdan"
         ],
         160: [
             "Rodan of Alexandria",
-            "The Greek Philosopher's Views",
-            "The Divine Nature of Jesus",
-            "Human Life on Urantia",
-            "The Accomplishment of the Individual"
+            "Rodan’s Greek Philosophy",
+            "The Art of Living",
+            "The Lures of Maturity",
+            "The Balance of Maturity",
+            "The Religion of the Ideal"
         ],
         161: [
             "Further Discussions with Rodan",
-            "Jesus’ Human and Divine Minds",
-            "God the Father’s Presence",
-            "The Personality of God",
-            "The Rewards of Faith"
+            "The personality of God",
+            "The Divine Nature of Jesus",
+            "Jesus’ Human and Divine Minds"
         ],
         162: [
             "At the Feast of Tabernacles",
-            "The First Preaching in the Temple",
-            "The Discussion About the Light of the World",
-            "The Discourse on the Water of Life",
-            "The Officers' Report"
-        ]
+            "The Dangers of the Visit to Jerusalem",
+            "The First Temple Talk",
+            "The Woman Taken in Adultery",
+            "The Feast of Tabernacles",
+            "Sermon on the Light of the World",
+            "Discourse on the Water of Life",
+            "The Discourse on Spiritual Freedom",
+            "The Visit with Martha and Mary",
+            "At Bethlehem with Abner"
+
+        ],
+        163: [
+            "Ordination of the Seventy",
+            "Ordination of the Seventy at Magadan",
+            "The Rich Young Man and Others",
+            "The Discussion about Wealth",
+            "Farewell to the Seventy",
+            "Moving the Camp to Pella",
+            "The Return of the Seventy",
+            "Preparation for the Last Mission"
+            ],
+        164: [
+            "At the Feast of Dedication",
+            "Story of the Good Samaritan",
+            "At Jerusalem",
+            "Healing the Blind Beggar",
+            "Josiah Before the Sanhedrin",
+            "Teaching in Solomon’s Porch"
+            ],
+        165: [
+            "The Perean Mission Begins",
+            "At the Pellas Camp",
+            "Sermon on the Good Shepherd",
+            "Sabbath Sermon at Pella",
+            "Dividing the Inheritance",
+            "The Danger of Riches",
+            "Answer to Peter’s Question"
+            ],
+        166: [
+            "Last Visit to Northern Perea",
+            "The Pharisees at Ragaba",
+            "The Ten Lepers",
+            "The Sermon at Gerasa",
+            "Teaching about Accidents",
+            "The Congregation at Philadelphia"
+            ],
+        167: [
+            "The Visit to Philadelphia",
+            "Breakfast with the Pharisees",
+            "Parable of the Great Supper",
+            "The Woman with the Spirit of Infirmity",
+            "The Message from Bethany",
+            "On the Way to Bethany",
+            "Blessing the Little Children",
+            "The Talk About Angels"
+            ],
+        168: [
+            "The Resurrection of Lazarus",
+            "At the Tomb of Lazarus",
+            "The Resurrection of Lazarus",
+            "Meeting of the Sanhedrin",
+            "The Answer to Prayer",
+            "What Became of Lazarus"
+            ],
+        169: [
+            "Last Teaching at Pella",
+            "Parable of the Lost Son",
+            "Parable of the Shrewd Steward",
+            "The Rich Man and the Beggar",
+            "The Father and His Kingdom"
+            ],
+        170: [
+            "The Kingdom of Heaven",
+            "Concepts of the Kingdom of Heaven",
+            "Jesus’ Concept of the Kingdom",
+            "In Relation to Righteousness",
+            "Jesus’ Teaching about the Kingdom",
+            "Later Ideas of the Kingdom"
+            ],
+        171: [
+            ],
+        172: [
+            ],
+        173: [
+            ],
+        174: [
+            ],
+        175: [
+            ],
+        176: [
+            ],
+        177: [
+            ],
+        178: [
+            ],
+        179: [
+            ],
+        180: [
+            ],
+        181: [
+            ],
+        182: [
+            ],
+        183: [
+            ],
+        184: [
+            ],
+        185: [
+            ],
+        186: [
+            ],
+        187: [
+            ],
+        188: [
+            ],
+        189: [
+            ],
+        190: [
+            ],
+        191: [
+            ],
+        192: [
+            ],
+        193: [
+            ],
+        194: [
+            ],
+        195: [
+            ],
+        196: [
+            ]
     }
 
     # --- Load your raw paragraphs JSON ---
