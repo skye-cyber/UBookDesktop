@@ -1,0 +1,1924 @@
+import json
+
+
+def central_superuniverses():
+    # --- Section Titles Mapping for Papers 1–31 ---
+    central_superuniverses_titles = {
+        1: [
+            "The Universal Father",
+            "The Father's Name",
+            "The Reality of God",
+            "God is a Universal Spirit",
+            "The Mystery of God",
+            "Personality of the Universal Father",
+            "Personality in the Universe",
+            "Spiritual Value of the Personality Concept"
+        ],
+        2: [
+            "The Nature of God",
+            "The Infinity of God",
+            "God's Omnipresence",
+            "God's Universal Power",
+            "The Limitlessness of God",
+            "The Eternity of God",
+            "God's Constancy",
+            "Divine Truth and Beauty"
+        ],
+        3: [
+            "The Attributes of God",
+            "God's Everywhereness",
+            "God's Infinite Power",
+            "God's Universal Knowledge",
+            "God's Limitlessness",
+            "The Father's Supreme Rule",
+            "The Father's Primacy",
+            "The Father's Perfection",
+            "The Father's Love",
+            "The Father's Mercy",
+            "The Father's Justice"
+        ],
+        4: [
+            "God's Relation to the Universe",
+            "The Universe Attitude of the Father",
+            "God and Nature",
+            "God's Unchanging Character",
+            "The Realization of God",
+            "Erroneous Ideas of God",
+            "The God of Personality"
+        ],
+        5: [
+            "God's Relation to the Individual",
+            "The Approach to God",
+            "The Presence of God",
+            "True Worship",
+            "God in Religion",
+            "The Consciousness of God",
+            "The God of Personality"
+        ],
+        6: [
+            "The Eternal Son",
+            "Identity of the Eternal Son",
+            "Nature of the Eternal Son",
+            "Ministry of the Father's Love",
+            "Attributes of the Eternal Son",
+            "Limitations of the Eternal Son",
+            "The Spirit Mindedness of the Eternal Son",
+            "Personality of the Eternal Son"
+        ],
+        7: [
+            "Relation of the Eternal Son to the Universe",
+            "The Spirit-Gravity Circuit",
+            "The Administration of the Eternal Son",
+            "Relation of the Eternal Son to the Individual",
+            "The Divine Perfection Plans",
+            "The Spirit of Bestowal",
+            "The Paradise Sons of God",
+            "The Supreme Revelation of the Father"
+        ],
+        8: [
+            "The Infinite Spirit",
+            "The God of Action",
+            "Nature of the Infinite Spirit",
+            "Relation of the Spirit to the Father and the Son",
+            "The Spirit of Divine Ministry",
+            "The Presence of God",
+            "Personality of the Infinite Spirit"
+        ],
+        9: [
+            "Relation of the Infinite Spirit to the Universe",
+            "Attributes of the Third Source and Center",
+            "The Omnipresent Spirit",
+            "The Universal Manipulator",
+            "The Absolute Mind",
+            "The Ministry of Mind",
+            "The Mind-Gravity Circuit",
+            "Universe Reflectivity",
+            "Personalities of the Infinite Spirit"
+        ],
+        10: [
+            "The Paradise Trinity",
+            "Self-Distribution of the First Source and Center",
+            "Deity Personalization",
+            "The Three Persons of Deity",
+            "The Functions of Deity",
+            "The Triunity of Deity",
+            "The Stationary Sons of the Trinity",
+            "The Overcontrol of Supremacy",
+            "The Trinity Beyond the Finite"
+        ],
+        11: [
+            "The Eternal Isle of Paradise",
+            "The Divine Residence",
+            "Nature of the Eternal Isle",
+            "The Paradise Gravity",
+            "Space Respiration",
+            "Space and Time",
+            "Space Functions of Paradise",
+            "Space Directions",
+            "Paradise Gravity"
+        ],
+        12: [
+            "The Universe of Universes",
+            "Space Levels of the Master Universe",
+            "The Domains of the Unqualified Absolute",
+            "Universal Gravity",
+            "Space and Motion",
+            "Space and Time",
+            "Universal Overcontrol",
+            "The Part and the Whole"
+        ],
+        13: [
+            "The Sacred Spheres of Paradise",
+            "The Seven Sacred Worlds of the Father",
+            "Father-World Relationships",
+            "The Sacred Worlds of the Eternal Son",
+            "The Worlds of the Infinite Spirit",
+            "The Seven Supreme Executives",
+            "The Local Universe Headquarters"
+        ],
+        14: [
+            "The Central and Divine Universe",
+            "The Havona Worlds",
+            "Constitution of Havona",
+            "The Havona Worlds",
+            "Creatures of the Central Universe",
+            "Life in Havona",
+            "Energy and Matter in Havona",
+            "The Purpose of the Central Universe"
+        ],
+        15: [
+            "The Seven Superuniverses",
+            "The Superuniverse Space Level",
+            "Organization of the Superuniverses",
+            "The Superuniverse of Orvonton",
+            "Nebulae—The Ancestors of Universes",
+            "The Origin of Space Bodies",
+            "The Spheres of Space",
+            "The Architectural Spheres",
+            "Energy Control and Regulation",
+            "Circuits of the Superuniverses",
+            "Rulers of the Superuniverses",
+            "The Deliberative Assemblies",
+            "The Supreme Tribunals",
+            "The Sector Governments",
+            "Purposes of the Seven Superuniverses"
+        ],
+        16: [
+            "The Seven Master Spirits",
+            "Relation to Triodity Deity",
+            "Relation to the Supreme Being",
+            "Identity and Diversity of the Master Spirits",
+            "Attributes and Functions of the Master Spirits",
+            "Relation to Creatures",
+            "The Cosmic Mind"
+        ],
+        17: [
+            "The Seven Supreme Spirit Groups",
+            "The Seven Supreme Executives",
+            "The Seven Groups of Supreme Spirits",
+            "The Seven Supreme Power Directors",
+            "The Supreme Power Centers",
+            "The Master Physical Controllers",
+            "The Morontia Power Supervisors",
+            "The Universe Power Directors"
+        ],
+        18: [
+            "The Supreme Trinity Personalities",
+            "The Trinity-Origin Beings",
+            "The Eternals of Days",
+            "The Ancients of Days",
+            "The Perfections of Days",
+            "The Recents of Days",
+            "The Unions of Days",
+            "The Faithfuls of Days",
+            "The Trinity Teacher Sons",
+            "The Celestial Guardians",
+            "High Commissioners"
+        ],
+        19: [
+            "The Co-ordinate Trinity-Origin Beings",
+            "The Trinity Teacher Sons",
+            "The Perfectors of Wisdom",
+            "The Divine Counselors",
+            "The Universal Censors",
+            "Inspired Trinity Spirits",
+            "Havona Servitals",
+            "The Paradise Companions",
+            "The Son-Spirit Aids",
+            "Technique of Trinity Personalization"
+        ],
+        20: [
+            "The Paradise Sons of God",
+            "The Descending Sons of God",
+            "The Nature of the Paradise Sons of God",
+            "The Avonal Sons",
+            "The Bestowal Missions",
+            "The Magisterial Missions",
+            "The Trinity Teacher Sons",
+            "The Trinity Teacher Sons' Ministry",
+            "The Trinity Teacher Sons' Mission",
+            "The Trinity Teacher Sons' Ministry to the Superuniverses"
+        ],
+        21: [
+            "The Paradise Creator Sons",
+            "Origin and Nature of Creator Sons",
+            "Creator Sons and Created Universes",
+            "Local Universe Sovereignty",
+            "The Michael Bestowals",
+            "Relation of Master Sons to the Universe",
+            "Destiny of the Master Michaels"
+        ],
+        22: [
+            "The Trinitized Sons of God",
+            "Trinitization of Ascendant Mortals",
+            "The Nature of Trinitized Sons",
+            "The Destiny of Trinitized Sons",
+            "The Ascendant Trinitized Sons",
+            "The Trinitized Sons of Destiny",
+            "The Trinitized Sons of Attainment",
+            "The Trinitized Sons of God"
+        ],
+        23: [
+            "The Solitary Messengers",
+            "Nature and Origin",
+            "Assignments and Functions",
+            "Time and Space Service",
+            "Special Ministry",
+            "The Messenger Hosts"
+        ],
+        24: [
+            "Higher Personalities of the Infinite Spirit",
+            "The Universe Circuit Supervisors",
+            "The Associate Inspectors",
+            "The Assigned Sentinels",
+            "The Graduate Guides",
+            "The Havona Servitals"
+        ],
+        25: [
+            "The Messenger Hosts of Space",
+            "The Havona Servitals",
+            "The Universal Conciliators",
+            "The Technical Advisers",
+            "The Custodians of Records",
+            "The Celestial Recorders",
+            "The Morontia Companions",
+            "The Paradise Companions"
+        ],
+        26: [
+            "Ministering Spirits of the Central Universe",
+            "The Ministering Spirits",
+            "The Havona Servitals",
+            "The Graduate Guides",
+            "The Ascendant Pilgrims",
+            "The Ascendant Citizens",
+            "The Havona Natives",
+            "The Paradise Citizens"
+        ],
+        27: [
+            "Ministry of the Primary Supernaphim",
+            "The Primary Supernaphim",
+            "The Conductors of Worship",
+            "The Masters of Philosophy",
+            "The Custodians of Knowledge",
+            "The Directors of Conduct",
+            "The Interpreters of Ethics",
+            "The Directors of Assignment"
+        ],
+        28: [
+            "Ministering Spirits of the Superuniverses",
+            "The Supernaphim",
+            "The Seconaphim",
+            "The Tertiaphim",
+            "The Omniaphim",
+            "The Guardian Angels",
+            "The Ascending Mortals"
+        ],
+        29: [
+            "The Universe Power Directors",
+            "The Master Physical Controllers",
+            "The Power Centers",
+            "The Universe Power Centers",
+            "The Local Universe Power Centers",
+            "The System Power Centers",
+            "The Planetary Power Centers"
+        ],
+        30: [
+            "Personalities of the Grand Universe",
+            "The Paradise Sons of God",
+            "The Trinity-Origin Beings",
+            "The Supreme Trinity Personalities",
+            "The Co-ordinate Trinity-Origin Beings",
+            "The Trinity Teacher Sons",
+            "The Solitary Messengers",
+            "The Universe Circuit Supervisors",
+            "The Associate Inspectors",
+            "The Assigned Sentinels"
+        ],
+        31: [
+            "The Corps of Mortal Finaliters",
+            "The Havona Natives",
+            'Gravity Messengers',
+            "The Glorified Mortals",
+            "Adopted Seraphim",
+            "Glorified Material Sons",
+            "Glorified Midway Creatures",
+            "The Evangels of Light",
+            "The Transcendentalers",
+            "The Architects of the Master Universe",
+            "The Ultimate Adventure"
+        ]
+    }
+
+    # --- Load your raw paragraphs JSON ---
+    with open('structured_urantia.json') as f:
+        raw_data = json.load(f)
+
+    # Initialize output structure for part 1
+    structured = {
+        "parts": [
+            {
+                "id": 1,
+                "title": "The Central and Superuniverses",
+                "range": [1, 32],
+                "papers": []
+            }
+        ]
+    }
+
+    # Access part 1 from structured input
+    central_part = structured["parts"][0]
+
+    # Loop through all paragraphs in part 1 only (papers 1-31)
+    # Paper 31 is last of part 1
+    for paper in raw_data["parts"][1]["papers"]:
+        for section in paper["sections"]:
+            for para in section["paragraphs"]:
+                para_id = para["paragraph_number"]
+                paper_no = int(para_id.split(":")[0])
+                section_no = int(para_id.split(":")[1].split(".")[0])
+
+                if not (1 <= paper_no <= 31):
+                    continue
+
+                # --- Find or create paper entry ---
+                paper = next(
+                    (p for p in central_part["papers"] if p["paper_id"] == paper_no), None)
+                if not paper:
+                    title_list = central_superuniverses_titles.get(paper_no, [
+                                                                   ""])
+                    paper = {
+                        "paper_id": paper_no,
+                        "title": title_list[0] if title_list else "",
+                        "sections": []
+                    }
+                    central_part["papers"].append(paper)
+
+                # --- Find or create section entry ---
+                section_entry = next(
+                    (s for s in paper["sections"] if s["section_number"] == section_no), None)
+                if not section_entry:
+                    title_list = central_superuniverses_titles.get(
+                        paper_no, [])
+                    section_title = title_list[section_no] if section_no < len(
+                        title_list) else ""
+                    section_entry = {
+                        "section_number": section_no,
+                        "title": section_title,
+                        "paragraphs": []
+                    }
+                    paper["sections"].append(section_entry)
+
+                # --- Append paragraph ---
+                section_entry["paragraphs"].append({
+                    "paragraph_number": para_id,
+                    "text": para["text"]
+                })
+
+    # --- Output the structured file for part 1 only ---
+    with open('central_superuniverses_structured.json', 'w') as f:
+        json.dump(structured, f, indent=2)
+
+    print("Central and Superuniverse done ✅")
+
+
+def local_universe():
+    # --- Section Titles Mapping for Papers 1–31 ---
+    local_universe_titles = {
+        32: [
+            "The Evolution of the Local Universe",
+            "Physical Emergence of Universes",
+            "Universe Organization",
+            "The Evolutionary Idea",
+            "God's Relation to the Local Universe",
+            "The Eternal and Divine Purpose"
+        ],
+        33: [
+            "Administration of the Local Universe",
+            "Michael of Nebadon",
+            "The Sovereign of Nebadon",
+            "The Universe Son and Spirit",
+            "Gabriel—Chief Executive",
+            "The Trinity Ambassadors",
+            "General Administration",
+            "The Courts of Nebadon",
+            "The Legislative and Executive Functions",
+        ],
+        34: [
+            "The Local Universe Mother Spirit",
+            "Personalization of the Creative Spirit",
+            "Nature of The Divine Minister",
+            "The Son and Spirit in Time and Space",
+            "The Local Universe Circuits",
+            "The Ministry of the Spirit",
+            "The Spirit in Man",
+            "The Spirit and the Flesh"
+        ],
+        35: [
+            "The Local Universe sons of God",
+            "The Father Melchizedek",
+            "The Melchizedek Sons",
+            "The Melchizedek Worlds",
+            "Special Work of the Melchizedeks",
+            "The Vorondadek Sons",
+            "The Constellation Fathers",
+            "The Vorondadek Worlds",
+            "The Lanonandek Sons",
+            "The Lanonandek Rulers",
+            "The Lononandek Worlds",
+        ],
+        36: [
+            "The Life Carriers",
+            "Origin and Nature of Life Carriers",
+            "The Life Carrier Worlds",
+            "Life Transplantation",
+            "The Melchizedek Life Carriers"
+            "The Seven Adjutant Mind-Spirits",
+            "Living Forces"
+        ],
+        37: [
+            "Personalities of the Local Universe",
+            "The Universe Aids",
+            "The Brilliant Evening Stars",
+            "The Archangels",
+            "Most High Assistants",
+            "The High Commissioners",
+            "Celestial Overseers",
+            "Mansion World Teachers",
+            "Higher Spirit Orders of Assignment",
+            "Permanent Citizens of the Local Universe",
+            "Other Local Universe Groups"
+        ],
+        38: [
+            "Ministering Spirits of the Local Universe"
+            "Origin of Seraphim",
+            "The Seraphic Worlds",
+            "Seraphic Training",
+            "Seraphic Organization",
+            "Cherubim and Sanobim",
+            "Evolution of Cherubim and Sanobim",
+            "The Midway Creatures"
+        ],
+        39: [
+            "The Seraphic Hosts",
+            "The Supreme Seraphim",
+            "The Superior Seraphim",
+            "The Supervisor Seraphim",
+            "Administrator Seraphim",
+            "Planetary Helpers",
+            "Transition Ministers",
+            "Seraphim of the Future",
+            "Seraphic Destiny",
+            "The Corps of Seraphic Completion"
+        ],
+        40: [
+            "The Ascending Mortals",
+            "Evolutionary Seraphim",
+            "Ascending Material Sons",
+            "Translated Midwayers",
+            "Personalized Adjusters",
+            "Mortals of Time and Space",
+            "The Faith Sons of God",
+            "Father-Fused Mortals",
+            "Son-Fused Mortals",
+            "Spirit-Fused Mortals",
+            "Ascendant Destinies"
+        ],
+        41: [
+            "Physical Aspects of the Local Universe",
+            "The Nebadon Power Centers",
+            "The Satania Physical Controllers",
+            "Our Stationary Associates",
+            "Sun Density",
+            "Solar Radiation",
+            "Calcium - the Wanderer of Space",
+            "Sources of Solar Energy",
+            "Solar-Energy-Reactions",
+            "Sun Stability",
+            "Origin of Inhibited Worlds"
+        ],
+        42: [
+            "Energy - Mind and Matter",
+            "Paradise Forces and Energies",
+            "Universal Nonspiritual Energy Systems (Physical Energies)",
+            "Classification of Matter",
+            "Energy and Matter Transmutations",
+            "Wave-Energy Manifestations",
+            "Ultimatons, Electrons, and Atoms",
+            "Atomic Matter",
+            "Atomic Cohesion",
+            "Natural Philosophy",
+            "Universal Nonspiritual Energy Systems (Material Mind Systems)",
+            "Universe Mechanisms",
+            "Pattern and Form - Mind Dominance"
+        ],
+        43: [
+            "The Constellations",
+            "The Constellation Headquarters",
+            "The Constellation Government",
+            "The Most Highs of Norlatiadek",
+            "Mount Assembly - The Faithful of Days",
+            "The Edentia Fathers Since the Lucifer Rebellion",
+            "The Gardens of God",
+            "The Univitatia",
+            "The Edentia Training Worlds",
+            "Citizenship of Edentia",
+        ],
+        44: [
+            "The Celestial Artisans",
+            "The Celestial Musicians",
+            "The Heavenly Reproducers",
+            "The Divine Builders",
+            "The Thought Recorders",
+            "The Energy Manipulators",
+            "The Designers and Embellishers",
+            "The Harmony Workers",
+            "Mortal Aspirations and Morontia Achievements"
+        ],
+        45: [
+            "The Local System Administration",
+            "Transitional Cultural Worlds",
+            "The System Sovereign",
+            "The System Government",
+            "The Four and Twenty Counselors",
+            "Material Sons",
+            "Adamic Training of Ascenders",
+            "The Melchizedek Schools",
+        ],
+        46: [
+            "The Local System Capital(Headquarters)",
+            "The Physical Aspects of Jerusem",
+            "The Physical Features of Jerusem",
+            "The Jerusem Broadcasts",
+            "The Residential and Administrative Areas",
+            "The Jerusem Circles",
+            "The Executive Administrative Squares",
+            "The Rectangles - The Spornagia",
+            "The Jerusem Triangles"
+        ],
+        47: [
+            "The Seven Mansion Worlds",
+            "The Finaliters' Worlds",
+            "The Probationary Nursery"
+            "The First Mansion World",
+            "The Second Mansion World",
+            "The Third Mansion World",
+            "The Fourth Mansion World",
+            "The Fifth Mansion World",
+            "The Sixth Mansion World",
+            "The Seventh Mansion World",
+            "Jerusem Citizenship"
+        ],
+        48: [
+            "The Morontia Life",
+            "Morontia Materials",
+            "Morontia Power Supervisors",
+            "Morontia Companions",
+            "The Reversion Directors",
+            "The Mansion World Teachers",
+            "Morontia World Seraphim - Transition Ministers",
+            "Morontia Mota",
+            "Morontia Progressors"
+        ],
+        49: [
+            "The Inhibited Worlds",
+            "Planetary Life",
+            "Planetary Physical Types",
+            "Worlds of the Nonbreathers",
+            "Evolutionary Will Creatures",
+            "The Planetary Series of Mortals",
+            "Terrestrial Escape"
+        ],
+        50: [
+            "The Planetary Princes",
+            "Mission of the Princes"
+            "The Planetary Administration",
+            "The Planetary Prince's Corporeal Staff",
+            "The Planetary Headquarters and Schools",
+            "Progressive Civilization",
+            "Planetary Culture",
+            "The Rewards of Isolation"
+        ],
+        51: [
+            "The Planetary Adams",
+            "The Origin and Nature of the Material Sons of God",
+            "Transit of the Planetary Adams",
+            "The Planetary Adams",
+            "The Adamic Mission",
+            "The Six Evolutionary Races",
+            "Racia Almagamation - Bestowal of the Adamic Blood",
+            "The Edenic Regime",
+            "United Administration",
+        ],
+        52: [
+            "The Planetary Mortal Epochs",
+            "Primitive Man",
+            "Post-Planetary Prince Man",
+            "Post-Adamic Man"
+            "The Post-Magisterial Son Age",
+            "The Post-Bestowal Son Age",
+            "Urantia's Post-Bestowal Age",
+            "Post-Teacher Son Man"
+        ],
+        53: [
+            "The Lucifer Rebellion",
+            "The Leaders of Rebellion",
+            "The Causes of Rebelion",
+            "The Lucifer Manifesto",
+            "The Outbreak of Rebellion",
+            "Nature of the Conflict",
+            "A Loyal Seraphic Commander",
+            "History of the Rebellion"
+            "The Son of Man On Urantia",
+            "Present Status of the Rebellion"
+        ],
+        54: [
+            "Problems of the Lucifer Rebellion",
+            "True and False Liberty",
+            "The Theft of Liberty",
+            "The Time Lag of Justice",
+            "The Mercy Time Lag",
+            "The Wisdom of Delay",
+            "The Triumph of Love"
+        ],
+        55: [
+            "The Spheres of Light and Life",
+            "The Morontia Temple",
+            "Death and Translation",
+            "The Golden Ages",
+            "The Administrative and Readjustements",
+            "The Acme of Material Development",
+            "The Individual Mortal",
+            "The First of Planetery Stage",
+            "The Second or System Stage",
+            "The Third and Constellation Stage",
+            "The Fourth and Local Universe Stage",
+            "The Minor and Major  Sector Stages",
+            "The Seventh or Superuniverse Stage"
+        ],
+        56: [
+            "Universe Reality",
+            "Physical Co-ordination",
+            "Intellectual Unity",
+            "Spiritual Unification",
+            "Personality Unification",
+            "Diety Unity",
+            "Unification of Evolutionary Diety",
+            "Universal Evolutionary Repercussions",
+            "The Supreme Unifier",
+            "The Universal Absolute Unity",
+            "Truth, Beauty, and Goodness"
+        ]
+    }
+
+    # --- Load your raw paragraphs JSON ---
+    with open('structured_urantia.json') as f:
+        raw_data = json.load(f)
+
+    # Initialize output structure for part 1
+    structured = {
+        "parts": [
+            {
+                "id": 2,
+                "title": "The Local Universe",
+                "range": [32, 57],
+                "papers": []
+            }
+        ]
+    }
+
+    # Access part 1 from structured input
+    local_part = structured["parts"][0]
+
+    # Loop through all paragraphs in part 1 only (papers 1-31)
+    # Paper 31 is last of part 1
+    for paper in raw_data["parts"][2]["papers"]:
+        for section in paper["sections"]:
+            for para in section["paragraphs"]:
+                para_id = para["paragraph_number"]
+                paper_no = int(para_id.split(":")[0])
+                section_no = int(para_id.split(":")[1].split(".")[0])
+
+                if not (32 <= paper_no <= 57):
+                    continue
+
+                # --- Find or create paper entry ---
+                paper = next(
+                    (p for p in local_part["papers"] if p["paper_id"] == paper_no), None)
+                if not paper:
+                    title_list = local_universe_titles.get(paper_no, [""])
+                    paper = {
+                        "paper_id": paper_no,
+                        "title": title_list[0] if title_list else "",
+                        "sections": []
+                    }
+                    local_part["papers"].append(paper)
+
+                # --- Find or create section entry ---
+                section_entry = next(
+                    (s for s in paper["sections"] if s["section_number"] == section_no), None)
+                if not section_entry:
+                    title_list = local_universe_titles.get(paper_no, [])
+                    section_title = title_list[section_no] if section_no < len(
+                        title_list) else ""
+                    section_entry = {
+                        "section_number": section_no,
+                        "title": section_title,
+                        "paragraphs": []
+                    }
+                    paper["sections"].append(section_entry)
+
+                # --- Append paragraph ---
+                section_entry["paragraphs"].append({
+                    "paragraph_number": para_id,
+                    "text": para["text"]
+                })
+
+    # --- Output the structured file for part 1 only ---
+    with open('Local_Universe_structured.json', 'w') as f:
+        json.dump(structured, f, indent=2)
+
+    print("Local Universe done ✅")
+
+
+def history_urantia():
+    # --- Section Titles Mapping for Papers 1–31 ---
+    history_of_urantia_titles = {
+        57: [
+            "The Origin of Urantia",
+            "The Andronover Nebula",
+            "The Primary Nebular Stage",
+            "The Secondary Nebular Stage",
+            "Tertiary and Quartan Stages",
+            "Origin of Monmatia—The Urantia Solar System",
+            "The Solar System Stage",
+            "The Meteoric Era",
+            "The Crustal Stabilization"
+        ],
+        58: [
+            "Life Establishment on Urantia",
+            "Physical-Life Prerequisites",
+            "The Urantia Atmosphere",
+            "Spatial Environment",
+            "The Life-Dawn Era",
+            "The Continental Drift",
+            "The Transition Period",
+            "The Geologic History Book"
+        ],
+        59: [
+            "Early Marine Life in the Shallow Seas",
+            "The First Continental Flood Stage",
+            "The Second Great Flood Stage",
+            "The Great Land-Emergence Stage",
+            "The Crustal-shifting Stage",
+            "The Climatic Transition Stage"
+        ],
+        60: [
+            "Urantia During the Early Land-Life Era",
+            "The Early Reptile Age",
+            "The Later Reptilian Age",
+            "The Cretaceous Stage",
+            "The End of the Chalk Period",
+        ],
+        61: [
+            "The Mammalian Era on Urantia",
+            "The New Continental Land Stage",
+            "The Recent Flood Stage",
+            "The Modern Mountain Stage",
+            "The Recent Continental-Elevation Stage",
+            "The Early Ice Age",
+            "Primitive Man in the Ice Age",
+            "The Continuing Ice Age"
+        ],
+        62: [
+            "The Dawn of Races of Early Man",
+            "The Early Lemur Types",
+            "The Dawn Mammals",
+            "The Mid-Mammals",
+            "The Primates",
+            "The First Human Beings",
+            "Evolution of the Human Mind",
+            "Recognition as an Inhibited World"
+        ],
+        63: [
+            "The First Human Family",
+            "Andon and Fonta",
+            "The Flight of the Twins",
+            "Andonic Clans",
+            "The Andonic Dispersion",
+            "Onagar - The First Truth Teacher",
+            "The Survival of Andon and Fonta"
+        ],
+        64: [
+            "Evolutionary Races of Color",
+            "The Andonic Aborigines",
+            "The Foxhall Peoples",
+            "The Badonan Tribes",
+            "The Neanderthal Races",
+            "Origin of the Colored Races",
+            "The six Sangik Races of Urantia",
+            "Dispersion of the Colored Races"
+        ],
+        65: [
+            "The Overcontrol of Evolution",
+            "Life Carrier Functions",
+            "The Evolutionary Panorama",
+            "The Urantia Adventure",
+            "The Evolutionary Mind",
+            "Life Evolution Vicissitudes",
+            "Evolutionary Techniques of Life",
+            "Evolutionary Mind Levels",
+            "Evolution in Time and Space"
+        ],
+        66: [
+            "The Planetary Prince or Urantia",
+            "Prince Caligastia",
+            "The Prince’s Staff",
+            "The Prince’s Headquarters (Dalamatia)",
+            "Early Days of the One Hundred",
+            "Organization of the One Hundred",
+            "The Prince’s Reign",
+            "Life in Dalamatia",
+            "Misfortunes of Caligatia"
+        ],
+        67: [
+            "The Planetary Rebellion",
+            "The Caligastia Betrayal",
+            "The Outbreak of Rebellion",
+            "The Seven Crucial Years",
+            "The Caligastia One Hundred after Rebellion",
+            "Immediate Results of Rebellion",
+            "Van—The Steadfast",
+            "Remote Repercussions of Sin",
+            "The Human Hero of the Rebellion"
+        ],
+        68: [
+            "The Dawn of Civilization",
+            "Protective Socialization",
+            "Factors in Social Progression",
+            "Socializing Influence of Ghost Fear",
+            "Evolution of the Mores",
+            "Land Techniques—Maintenance Arts",
+            "Evolution of Culture"
+        ],
+        69: [
+            "Primitive Human Institutions",
+            "Basic Human Institutions",
+            "The Dawn of Industry",
+            "The Specialization of Labor",
+            "The Beginnings of Trade",
+            "The Beginnings of Capital",
+            "Fire in Relation to Civilization",
+            "The Utilization of Animals",
+            "Slavery as a Factor in Civilization",
+            "Private Property"
+        ],
+        70: [
+            "The Evolution of Human Government",
+            "The Genesis of War",
+            "The Social Value of War",
+            "Early Human Associations",
+            "Clans and Tribes",
+            "The Beginnings of Government",
+            "Monarchial Government",
+            "Primitive Clubs and Secret Societies",
+            "Social Classes",
+            "Human Rights",
+            "Evolution of Justice",
+            "Laws and Courts",
+            "Allocation of Civil Authority"
+        ],
+        71: [
+            "Development of the State",
+            "The Cradle of Civilization - Embryonic State",
+            "The Evolution of the State(Representative Government)",
+            "The Ideals of Statehood",
+            "Progressive Civilization",
+            "The Evolution of Competition",
+            "The Profit Motive",
+            "Education",
+            "The Character of Statehood",
+        ],
+        72: [
+            "Government on Neighboring Planet",
+            "The Continental Nation",
+            "Political Organization",
+            "The Home Life",
+            "The Educational System",
+            "Industrial Organization",
+            "Old Age Insurance",
+            "Taxation",
+            "The Special Colleges",
+            "The Plan of Universal Suffrage",
+            "Dealing With Crime",
+            "Military Preparedness",
+            "The Other Nations"
+        ],
+        73: [
+            "The Garden of Eden",
+            "The Nodites and the Amandonites",
+            "Planning the Garden",
+            "The Site of Eden",
+            "Establishing the Garden",
+        ],
+        74: [
+            "Adam and Eve",
+            "Adam and Eve on Jerusem",
+            "Arrival of Adam and Eve",
+            "Adam and Eve Learn About the Planet",
+            "The First Upheaval",
+            "Adam's Administration",
+            "Home Life of Adam and Eve",
+            "Life in the Garden",
+            "The Legend of Creation",
+        ],
+        75: [
+            "The Default of Adam and Eve",
+            "The Urantia Problem",
+            "Caligastia's Plot",
+            "The Temptation of Eve",
+            "The Realization of Default",
+            "Repercussions of Default",
+            "Adam and Eve Leave the Garden",
+            "Degradation of Adam and Eve",
+            "The So-Called Fall of Man",
+        ],
+        76: [
+            "The Second Garden",
+            "The Edenites Enter Mesopotamia",
+            "Cain and Abel",
+            "Life in Mesopotamia",
+            "The Violet Race",
+            "Death of Adam and Eve",
+            "Survival of Adam and Eve"
+        ],
+        77: [
+            "The Midway Creatures",
+            "The Primary Midwayers",
+            "The Nodite Race",
+            "The Tower of Babel",
+            "Nodite Centers of Civilization",
+            "Adamson and Ratta",
+            "The Secondary Midwayers",
+            "The Rebel Midwayers",
+            "The United Midwayers",
+            "The permanent Citizens of Urantia"
+        ],
+        78: [
+            "The Violet Race After the Days of Adam",
+            "Racial and Cultural Distribution",
+            "The Adamites in the Second Garden",
+            "Early Expansions of the Adamites",
+            "Andites",
+            "The Andite Migrations",
+            "The Last Andite Dispersion",
+            "The Floods in Mesopotamia",
+            "The Sumerians -- The Last of Andites"
+        ],
+        79: [
+            "Andite Expansion in the Orient",
+            "The Andites of Turkestan",
+            "The Andite Conquest of India",
+            "Dravidian India",
+            "The Aryan Inversion of India",
+            "Red Man and Yellow Man",
+            "Dawn of Chines Civilization",
+            "The Andites Enter China",
+            "Later Chines Civilization"
+        ],
+        80: [
+            "Andite Expansion in the Occident",
+            "The Adamite Enter Europe",
+        ],
+        81: [
+            "Development of Modern Civilization",
+
+        ],
+        82: [
+            "The Evolution of Marriage",
+
+        ],
+        83: [
+            "The Marriage Institution",
+
+        ],
+        84: [
+            "Marriage and Family Life",
+        ],
+        85: [
+            "The Origins of Worship",
+        ],
+        86: [
+            "Early Evolution of Religion",
+        ],
+        87: [
+            "The Ghost Cults",
+        ],
+        88: [
+            "Fetishes, Charms, and Magic",
+        ],
+        89: [
+            "Sin, Sacrifice, and Atonement",
+        ],
+        90: [
+            "Shamanism — Medicine Men and Priests",
+        ],
+        91: [
+            "The Evolution of Prayer",
+        ],
+        92: [
+            "The Later Evolution of Religion",
+        ],
+        93: [
+            "Machiventa Melchizedek",
+        ],
+        94: [
+            "The Melchizedek Teachings in the Orient",
+        ],
+        95: [
+            "The Melchizedek Teachings in the Levant",
+        ],
+        96: [
+            "Yahweh — God of the Hebrews",
+        ],
+        97: [
+            "Evolution of the God Concept Among the Hebrews",
+        ],
+        98: [
+            "The Melchizedek Teachings in the Occident",
+        ],
+        99: [
+            "The Social Problems of Religion",
+        ],
+        100: [
+            "Religion in Human Experience",
+        ],
+        101: [
+            "The Real Nature of Religion",
+        ],
+        102: [
+            "The Foundations of Religious Faith",
+        ],
+        103: [
+            "The Reality of Religious Experience",
+        ],
+        104: [
+            "Growth of the Trinity Concept",
+        ],
+        105: [
+            "Deity and Reality",
+        ],
+        106: [
+            "Universe Levels of Reality",
+        ],
+        107: [
+            "Origin and Nature of Thought Adjusters",
+        ],
+        108: [
+            "Mission and Ministry of Thought Adjusters",
+        ],
+        109: [
+            "Relation of Adjusters to Universe Creatures",
+        ],
+        110: [
+            "Relation of Adjusters to Individual Mortals",
+        ],
+        111: [
+            "The Adjuster and the Soul",
+        ],
+        112: [
+            "Personality Survival",
+        ],
+        113: [
+            "Seraphic Guardians of Destiny",
+        ],
+        114: [
+            "Seraphic Planetary Government",
+        ],
+        115: [
+            "The Supreme Being",
+        ],
+        116: [
+            "The Almighty Supreme",
+        ],
+        117: [
+            "God the Supreme",
+        ],
+        118: [
+            "Supreme and Ultimate — Time and Space",
+        ],
+        119: [
+            "The Bestowals of Christ Michael",
+        ],
+        120: [
+            "The Bestowal of Michael on Urantia",
+        ]
+    }
+
+    # --- Load your raw paragraphs JSON ---
+    with open('structured_urantia.json') as f:
+        raw_data = json.load(f)
+
+    # Initialize output structure for part 1
+    structured = {
+        "parts": [
+            {
+                "id": 3,
+                "title": "The History Of Urantia",
+                "range": [57, 120],
+                "papers": []
+            }
+        ]
+    }
+
+    # Access part 1 from structured input
+    urantia_part = structured["parts"][0]
+
+    # Loop through all paragraphs in part 1 only (papers 1-31)
+    # Paper 31 is last of part 1
+    for paper in raw_data["parts"][3]["papers"]:
+        for section in paper["sections"]:
+            for para in section["paragraphs"]:
+                para_id = para["paragraph_number"]
+                paper_no = int(para_id.split(":")[0])
+                section_no = int(para_id.split(":")[1].split(".")[0])
+
+                if not (57 <= paper_no <= 120):
+                    continue
+
+                # --- Find or create paper entry ---
+                paper = next(
+                    (p for p in urantia_part["papers"] if p["paper_id"] == paper_no), None)
+                if not paper:
+                    title_list = history_of_urantia_titles.get(paper_no, [""])
+                    paper = {
+                        "paper_id": paper_no,
+                        "title": title_list[0] if title_list else "",
+                        "sections": []
+                    }
+                    urantia_part["papers"].append(paper)
+
+                # --- Find or create section entry ---
+                section_entry = next(
+                    (s for s in paper["sections"] if s["section_number"] == section_no), None)
+                if not section_entry:
+                    title_list = history_of_urantia_titles.get(paper_no, [])
+                    section_title = title_list[section_no] if section_no < len(
+                        title_list) else ""
+                    section_entry = {
+                        "section_number": section_no,
+                        "title": section_title,
+                        "paragraphs": []
+                    }
+                    paper["sections"].append(section_entry)
+
+                # --- Append paragraph ---
+                section_entry["paragraphs"].append({
+                    "paragraph_number": para_id,
+                    "text": para["text"]
+                })
+
+    # --- Output the structured file for part 1 only ---
+    with open('History_of_Urantia_structured.json', 'w') as f:
+        json.dump(structured, f, indent=2)
+
+    print("History of Urantia done ✅")
+
+
+def jesus_life_teachings():
+    # --- Section Titles Mapping for Papers 1–31 ---
+    life_and_teachings_of_jesus_paper_titles = {
+        121: [
+            "The Times of Michael's Bestowal"
+        ],
+        122: [
+            "Birth and Infancy of Jesus"
+        ],
+        123: [
+            "The Early Childhood of Jesus"
+        ],
+        124: [
+            "The Later Childhood of Jesus"
+        ],
+        125: [
+            "Jesus at Jerusalem"
+        ],
+        126: [
+            "The Two Crucial Years"
+        ],
+        127: [
+            "The Adolescent Years"
+        ],
+        128: [
+            "Jesus' Early Manhood"
+        ],
+        129: [
+            "The Later Adult Life of Jesus"
+        ],
+        130: [
+            "On the Way to Rome"
+        ],
+        131: [
+            "The World's Religions"
+        ],
+        132: [
+            "The Sojourn at Rome"
+        ],
+        133: [
+            "The Return from Rome"
+        ],
+        134: [
+            "The Transition Years"
+        ],
+        135: [
+            "John the Baptist"
+        ],
+        136: [
+            "Baptism and the Forty Days"
+        ],
+        137: [
+            "Tarrying Time in Galilee"
+        ],
+        138: [
+            "Training the Kingdom's Messengers"
+        ],
+        139: [
+            "The Twelve Apostles"
+        ],
+        140: [
+            "The Ordination of the Twelve"
+        ],
+        141: [
+            "Beginning the Public Work"
+        ],
+        142: [
+            "The Passover at Jerusalem"
+        ],
+        143: [
+            "Going Through Samaria"
+        ],
+        144: [
+            "At Gilboa and in the Decapolis"
+        ],
+        145: [
+            "Four Eventful Days at Capernaum"
+        ],
+        146: [
+            "First Preaching Tour of Galilee"
+        ],
+        147: [
+            "The Interlude Visit to Jerusalem"
+        ],
+        148: [
+            "Training Evangelists at Bethsaida"
+        ],
+        149: [
+            "The Second Preaching Tour"
+        ],
+        150: [
+            "The Third Preaching Tour"
+        ],
+        151: [
+            "Tarrying and Teaching by the Seaside"
+        ],
+        152: [
+            "Events Leading Up to the Capernaum Crisis"
+        ],
+        153: [
+            "The Crisis at Capernaum"
+        ],
+        154: [
+            "Last Days at Capernaum"
+        ],
+        155: [
+            "Fleeing Through Northern Galilee"
+        ],
+        156: [
+            "The Sojourn at Tyre and Sidon"
+        ],
+        157: [
+            "At Caesarea-Philippi"
+        ],
+        158: [
+            "The Mount of Transfiguration"
+        ],
+        159: [
+            "The Decapolis Tour"
+        ],
+        160: [
+            "Rodan of Alexandria"
+        ],
+        161: [
+            "Further Discussions with Rodan"
+        ],
+        162: [
+            "At the Feast of Tabernacles"
+        ],
+        163: [
+            "Ordination of the Seventy at Magadan"
+        ],
+        164: [
+            "At the Feast of Dedication"
+        ],
+        165: [
+            "The Perean Mission Begins"
+        ],
+        166: [
+            "Last Visit to Northern Perea"
+        ],
+        167: [
+            "The Visit to Philadelphia"
+        ],
+        168: [
+            "The Resurrection of Lazarus"
+        ],
+        169: [
+            "Last Teaching at Pella"
+        ],
+        170: [
+            "The Kingdom of Heaven"
+        ],
+        171: [
+            "On the Way to Jerusalem"
+        ],
+        172: [
+            "Going into Jerusalem"
+        ],
+        173: [
+            "Monday in Jerusalem"
+        ],
+        174: [
+            "Tuesday Morning in the Temple"
+        ],
+        175: [
+            "The Last Temple Discourse"
+        ],
+        176: [
+            "Tuesday Evening on Mount Olivet"
+        ],
+        177: [
+            "Wednesday, the Rest Day"
+        ],
+        178: [
+            "Last Day at the Camp"
+        ],
+        179: [
+            "The Last Supper"
+        ],
+        180: [
+            "The Farewell Discourse"
+        ],
+        181: [
+            "Final Admonitions and Warnings"
+        ],
+        182: [
+            "In Gethsemane"
+        ],
+        183: [
+            "The Betrayal and Arrest of Jesus"
+        ],
+        184: [
+            "Before the Sanhedrin Court"
+        ],
+        185: [
+            "The Trial Before Pilate"
+        ],
+        186: [
+            "Just Before the Crucifixion"
+        ],
+        187: [
+            "The Crucifixion"
+        ],
+        188: [
+            "The Time of the Tomb"
+        ],
+        189: [
+            "The Resurrection"
+        ],
+        190: [
+            "Morontia Appearances of Jesus"
+        ],
+        191: [
+            "Appearances to the Apostles and Other Leaders"
+        ],
+        192: [
+            "Appearances in Galilee"
+        ],
+        193: [
+            "Final Appearances and Ascension"
+        ],
+        194: [
+            "Bestowal of the Spirit of Truth"
+        ],
+        195: [
+            "After Pentecost"
+        ],
+        196: [
+            "The Faith of Jesus"
+        ]
+    }
+
+    life_and_teachings_of_jesus_titles = {
+        120: [
+            "The Bestowal of Michael on Urantia",
+            "The Seventh Bestowal Commission",
+            "Bestowal Limitations",
+            "Further Council and Advice",
+            "The Incarnation Taking Two One"
+            ],
+        121: [
+            "The Times of Michael's Bestowal",
+            "The Occident of the First Century After Christ",
+            "The Jewish People"
+            "Among the Gentiles",
+            "Gentile Philosophy",
+            "The Gentile Religion",
+            "The Hebrew Religion",
+            "Jews and Gentiles",
+            "Previous Written Records"
+        ],
+        122: [
+            "The Birth and Infancy of Jesus",
+            "Joseph and Mary",
+            "Gabriel Appearance to Elizabeth",
+            "Gabriel's Announcement to Mary"
+            "Joseph's Dream",
+            "Jesus' Earth Parents",
+            "The Home of Nazareth",
+            "The Trip to Bethlehem"
+            "The Birth of Jesus",
+            "The Presentation in the Temple",
+            "The Herod Acts"
+        ],
+        123: [
+            "The Early Childhood of Jesus",
+            "Back in Nazareth",
+            "The Fifth Year (2 B.C)",
+            "Events of the Sixth Year (1 B.C)",
+            "Jesus' Seventh Year (A.D. 1)",
+            "School Days in Nazareth"
+            "His Eight Year (2 A.D)"
+        ],
+        124: [
+            "The Later Childhood of Jesus",
+            "His Ninth Year (A.D. 3)",
+            "His Tenth Year (A.D. 4)",
+            "His Eleventh Year (A.D. 5)"
+            "His Twelfth Year (A.D. 6)",
+            "His Thirteenth Year (A.D. 7)",
+            "The Journey to Jerusalem"
+        ],
+        125: [
+            "Jesus at Jerusalem",
+            "Jesus Views the Temple",
+            "Jesus and the Passover",
+            "Departure of Joseph and Mary",
+            "First and Second Days in the Temple",
+            "The Third Day in the Temple",
+            "The Fourth Day in the Temple",
+        ],
+        126: [
+            "The Two Crucial Years",
+            "His Fourteenth Year (A.D. 8)",
+            "The Death of Joseph",
+            "His Fifteenth Year (A.D. 9)",
+            "First Sermon in the Synagogue",
+            "The Financia Struggle",
+        ],
+        127: [
+            "The Adolescent Years",
+            "His Sixteenth Year (A.D. 10)",
+            "His Seventeenth Year (A.D. 11)"
+            "The Eighteenth Year (A.D. 12)",
+            "The Nineteenth Year (A.D. 13)",
+            "Rebecca, the Daughter of Ezra",
+            "The Twentieth Year (A.D. 14)",
+
+        ],
+        128: [
+            "Jesus' Early Manhood",
+            "The Twenty-First Year (A.D. 15)"
+            "The Twenty-Second Year (A.D. 16)",
+            "The Twenty-Third Year (A.D. 17)",
+            "The Damascus Episode",
+            "The Twenty-Fourth Year (A.D. 18)",
+            "The Twenty-Fifth Year (A.D. 19)"
+            "The Twenty-Sixth Year (A.D. 20)"
+        ],
+        129: [
+            "The Later Adult Life of Jesus",
+            "The Twenty-Seventh Year (A.D. 21)",
+            "The Twenty-Eighth Year (A.D. 22)",
+            "The Twenty-Ninth Year (A.D. 23)",
+            "The Human Jesus"
+        ],
+        130: [
+            "On the Way to Rome",
+            "At Joppa — Discourse on Jonah",
+            "At Caesarea",
+            "At Alexandria",
+            "Discourse on Reality",
+            "On the Island of Crete",
+            "Young Man Who Was Afraid",
+            "At Carthage — Discourse on Time and Space",
+            "On the Way to Naples and Rome"
+        ],
+        131: [
+            "The World's Religions",
+            "Cynicism",
+            "Judaism",
+            "Buddhism",
+            "Hinduism",
+            "Zoroastriansm",
+            "Suduanism (Jainism)",
+            "Shinto",
+            "Taoism",
+            "Confucianism",
+            "Our Religion"
+        ],
+        132: [
+            "The Sojourn at Rome",
+            "True Values",
+            "Good and Evil",
+            "Truth and Faith",
+            "Personal Ministry",
+            "Social Ministry",
+            "Trips About Rome"
+            ],
+        133: [
+            "The Return from Rome",
+            "Mercy and Justice",
+            "Embarking at Tarentum",
+            "At Corinth",
+            "Personal Work in Corinth",
+            "At Athens -- Discource on the Science",
+            "At Ephesus -- Discource on the Soul",
+            "The Sojourn at Cyprus -- Discourse on Mind",
+            "At Antioch",
+            "In Mesopotamia"
+        ],
+        134: [
+            "The Transition Years",
+            "The Thirtieth Year (A.D. 24)",
+            "The Caravan Trip to the Caspian",
+            "The Urmia Lectures",
+            "Sovereignty, Divine and Human",
+            "Political Sovereignty",
+            "Low, Liberty, and Sovereignty",
+            "The Third-First Year (A.D 25)",
+            "The Sojourn on Mount Hermon",
+            "The Time of Waiting"
+        ],
+        135: [
+            "John the Baptist",
+            "John Becomes Nazarite",
+            "The Death of Zacharias",
+            "The Life of Shepherd",
+            "The Death of Elizabeth",
+            "The Kingdom of God",
+            "John Becomes a Preacher",
+            "John Journeys North",
+            "Meeting of Jesus and John",
+            "Forty Days of Preaching",
+            "John Journeys South",
+            "John in Prison",
+            "Death of John the Baptism"
+        ],
+        136: [
+            "Baptism and the Forty Days",
+            "Concepts of the Expected Messiah",
+            "The Baptism of Jesus",
+            "The Forty Days",
+            "Plans for Public Work",
+            "The First Great Decision",
+            "The Second Decision",
+            "The Third Decision",
+            "The Fourth Decision",
+            "The Fifth Decision",
+            "The Sixth Decision"
+        ],
+        137: [
+            "Tarrying Time in Galilee",
+            "Choosing the First Four Apostles",
+            "Choosing Philip and Nathaniel",
+            "The Visit to Capernaum",
+            "The Wedding at Cana",
+            "Back in Capernaum",
+            "The Events of Sabbath Day",
+            "Four Months of Training",
+            "Sermon on the Kingdom"
+        ],
+        138: [
+            "Training the Kingdom's Messengers",
+            "The Final Instructions",
+            "Choosing the Six",
+            "The Call of Mathew and Simon",
+            "The Call of the Twins",
+            "The Call of Thomas and  Judas",
+            "The Week of Intensive Training",
+            "Another Dissapointment",
+            "First Work of the Twelve",
+            "Five Months of Testing",
+            "Organization of the Twelve"
+        ],
+        139: [
+            "The Twelve Apostles",
+            "Andrew, the First Chosen",
+            "Simon Peter",
+            "James Zebedee",
+            "John Zebedee",
+            "Philip the Curious",
+            "Honest Nathaniel",
+            "Matthew Levi",
+            "Thomas Didymus",
+            "James and Judas Alpheus",
+            "Simon the Zealot",
+            "Judas Iscariot"
+        ],
+        140: [
+            "The Ordination of the Twelve",
+            "Preliminary Instructions",
+            "The Ordination",
+            "The Ordination Sermon",
+            "You are the Salt of the Earth",
+            "Fatherly and Brotherly Love",
+            "The Evening of the Ordination"
+            "The Week Following the Ordination",
+            "Thursday Afternoon on the Lake",
+            "The Day of Consecration",
+            "The Evening After the Consecration"
+        ],
+        141: [
+            "Beginning the Public Work",
+            "Leaving Galilee",
+            "God's Law and the Father's Will",
+            "The Sojourn at Amathus",
+            "Teachings About the Father",
+            "Spititual Unity",
+            "Last Week at Amathus",
+            "At Bethany Beyond Jordan",
+            "Working In Jericho",
+            "Departing For Jerusalem"
+        ],
+        142: [
+            "The Passover at Jerusalem",
+            "Teaching in the Temple",
+            "God's Wrath",
+            "The Concept of God",
+            "Flavius and Greek Culture",
+            "The Discourse of Assurance",
+            "The Visit With Nicodemus",
+            "The Lesson on the Family",
+            "In Southern Judea"
+        ],
+        143: [
+            "Going Through Samaria",
+            "Preaching at Archelais",
+            "Lesson on Self-Mastery",
+            "Diversion and Relaxation",
+            "The Jews and Samaritans",
+            "The Woman at Sychar",
+            "The Samaritan Revival",
+            "Teachings About Prayer and Worship"
+        ],
+        144: [
+            "At Gilboa and in the Decapolis",
+            "The Gilboa Encampment",
+            "The Discourse on Prayer",
+            "The Believers's Prayer"
+            "More About Prayer",
+            "Other Forms of Prayer",
+            "Conference With John's Apostles",
+            "The Decapolis Cities",
+            "In Camp Near Pella",
+            "Death of John the Baptist"
+        ],
+        145: [
+            "Four Eventful Days at Capernaum",
+            "The Draught of Fishes",
+            "Afternoon at the Synagogue"
+            "The Healing at Sundown",
+            "The Evening After",
+            "Early Sunday Morning"
+        ],
+        146: [
+            "First Preaching Tour of Galilee",
+            "Preaching at Rimmon",
+            "At Jotapata",
+            "The Stop at Ramah",
+            "The Gospel at Iron",
+            "Back In Cana",
+            "Nain and the Window's Son"
+            "At Endor"
+        ],
+        147: [
+            "The Interlude Visit to Jerusalem",
+            "The Centurion's Servant",
+            "The Journey to Jerusalem",
+            "At the Pool of Bethesda",
+            "The Rule of Living",
+            "Visiting Simpon the Pharisee",
+            "Returning to Capernaum",
+            "Back in Capernaum",
+            "The Feast of Spiritual Goodness"
+        ],
+        148: [
+            "Training Evangelists at Bethsaida",
+            "A Week of Rest",
+            "The Bethsaida Hospital",
+            "The Father’s Business",
+            "Evil, Sin, and Iniquity"
+        ],
+        149: [
+            "The Second Preaching Tour",
+            "The Healing at Sundown",
+            "The Jehovah Concept",
+            "Jesus’ Attitude Toward Women",
+            "The Kingdom of Heaven"
+        ],
+        150: [
+            "The Third Preaching Tour",
+            "The Women's Evangelistic Corps",
+            "At the Bethlehem Synagogue",
+            "The Gospel at Hebron",
+            "Teaching in Southern Judea"
+        ],
+        151: [
+            "Tarrying and Teaching by the Seaside",
+            "The Parable of the Sower",
+            "More About Parables",
+            "More Parables by the Sea",
+            "Teaching About Parables"
+        ],
+        152: [
+            "Events Leading Up to the Capernaum Crisis",
+            "At Jairus’s House",
+            "Feeding the Five Thousand",
+            "At Gennesaret",
+            "Back at Capernaum"
+        ],
+        153: [
+            "The Crisis at Capernaum",
+            "The Epochal Sermon",
+            "The After Meeting",
+            "Last Words in the Synagogue",
+            "The Saturday Evening"
+        ],
+        154: [
+            "Last Days at Capernaum",
+            "A Week of Counsel",
+            "The Events of a Sabbath Day",
+            "The Crises in Jesus’ Earth Life",
+            "Lessons on the Hill"
+        ],
+        155: [
+            "Fleeing Through Northern Galilee",
+            "At Leontopolis",
+            "Lessons on Faith",
+            "The Discourse on True Religion",
+            "What Must I Do To Be Saved?"
+        ],
+        156: [
+            "The Sojourn at Tyre and Sidon",
+            "The Syrian Woman",
+            "Teaching in Sidon",
+            "At Tyre",
+            "The Return to Magadan"
+        ],
+        157: [
+            "At Caesarea-Philippi",
+            "The New Concept",
+            "Peter’s Confession",
+            "The Talk About the Kingdom",
+            "The New Teaching"
+        ],
+        158: [
+            "The Mount of Transfiguration",
+            "Coming Down the Mountain",
+            "The Epileptic Boy",
+            "In Celsus’ Garden",
+            "Peter’s Temple-Tax Coin"
+        ],
+        159: [
+            "The Decapolis Tour",
+            "The Sermon on Forgiveness",
+            "In the Region of Gerasa",
+            "Instruction for Teachers and Believers",
+            "At Philadelphia"
+        ],
+        160: [
+            "Rodan of Alexandria",
+            "The Greek Philosopher's Views",
+            "The Divine Nature of Jesus",
+            "Human Life on Urantia",
+            "The Accomplishment of the Individual"
+        ],
+        161: [
+            "Further Discussions with Rodan",
+            "Jesus’ Human and Divine Minds",
+            "God the Father’s Presence",
+            "The Personality of God",
+            "The Rewards of Faith"
+        ],
+        162: [
+            "At the Feast of Tabernacles",
+            "The First Preaching in the Temple",
+            "The Discussion About the Light of the World",
+            "The Discourse on the Water of Life",
+            "The Officers' Report"
+        ]
+    }
+
+    # --- Load your raw paragraphs JSON ---
+    with open('structured_urantia.json') as f:
+        raw_data = json.load(f)
+
+    # Initialize output structure for part 1
+    structured = {
+        "parts": [
+            {
+                "id": 4,
+                "title": "The Life and Teachings of Jesus",
+                "range": [120, 197],
+                "papers": []
+            }
+        ]
+    }
+
+    # Access part 1 from structured input
+    teachings_part = structured["parts"][0]
+
+    # Loop through all paragraphs in part 1 only (papers 1-31)
+    # Paper 31 is last of part 1
+    for paper in raw_data["parts"][4]["papers"]:
+        for section in paper["sections"]:
+            for para in section["paragraphs"]:
+                para_id = para["paragraph_number"]
+                paper_no = int(para_id.split(":")[0])
+                section_no = int(para_id.split(":")[1].split(".")[0])
+
+                if not (120 <= paper_no <= 197):
+                    continue
+
+                # --- Find or create paper entry ---
+                paper = next(
+                    (p for p in teachings_part["papers"] if p["paper_id"] == paper_no), None)
+                if not paper:
+                    title_list = life_and_teachings_of_jesus_titles.get(paper_no, [
+                        ""])
+                    paper = {
+                        "paper_id": paper_no,
+                        "title": title_list[0] if title_list else "",
+                        "sections": []
+                    }
+                    teachings_part["papers"].append(paper)
+
+                # --- Find or create section entry ---
+                section_entry = next(
+                    (s for s in paper["sections"] if s["section_number"] == section_no), None)
+                if not section_entry:
+                    title_list = life_and_teachings_of_jesus_titles.get(
+                        paper_no, [])
+                    section_title = title_list[section_no] if section_no < len(
+                        title_list) else ""
+                    section_entry = {
+                        "section_number": section_no,
+                        "title": section_title,
+                        "paragraphs": []
+                    }
+                    paper["sections"].append(section_entry)
+
+                # --- Append paragraph ---
+                section_entry["paragraphs"].append({
+                    "paragraph_number": para_id,
+                    "text": para["text"]
+                })
+
+    # --- Output the structured file for part 1 only ---
+    with open('Life _and_Teachings_of_Jesus_structured.json', 'w') as f:
+        json.dump(structured, f, indent=2)
+
+    print("The Life and Teachings of Jesus done ✅")
+
+
+if __name__ == "__main__":
+    history_urantia()
