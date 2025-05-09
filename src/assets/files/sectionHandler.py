@@ -17,12 +17,12 @@ def central_superuniverses():
         2: [
             "The Nature of God",
             "The Infinity of God",
-            "God's Omnipresence",
-            "God's Universal Power",
-            "The Limitlessness of God",
-            "The Eternity of God",
-            "God's Constancy",
-            "Divine Truth and Beauty"
+            "The Father's Eternal Perfection",
+            "Justice and Righteousness",
+            "The Divine Mercy",
+            "The Love of God",
+            "The Goodness of God",
+            "Divin Truth and Beauty"
         ],
         3: [
             "The Attributes of God",
@@ -31,11 +31,7 @@ def central_superuniverses():
             "God's Universal Knowledge",
             "God's Limitlessness",
             "The Father's Supreme Rule",
-            "The Father's Primacy",
-            "The Father's Perfection",
-            "The Father's Love",
-            "The Father's Mercy",
-            "The Father's Justice"
+            "The Father's Primacy"
         ],
         4: [
             "God's Relation to the Universe",
@@ -43,8 +39,7 @@ def central_superuniverses():
             "God and Nature",
             "God's Unchanging Character",
             "The Realization of God",
-            "Erroneous Ideas of God",
-            "The God of Personality"
+            "Erroneous Ideas of God"
         ],
         5: [
             "God's Relation to the Individual",
@@ -63,7 +58,8 @@ def central_superuniverses():
             "Attributes of the Eternal Son",
             "Limitations of the Eternal Son",
             "The Spirit Mindedness of the Eternal Son",
-            "Personality of the Eternal Son"
+            "Personality of the Eternal Son",
+            "Realization of the Eternal Son"
         ],
         7: [
             "Relation of the Eternal Son to the Universe",
@@ -110,12 +106,13 @@ def central_superuniverses():
             "The Eternal Isle of Paradise",
             "The Divine Residence",
             "Nature of the Eternal Isle",
-            "The Paradise Gravity",
+            "Upper Paradise",
+            "Peripheral Paradise",
+            "Nether Paradise",
             "Space Respiration",
-            "Space and Time",
             "Space Functions of Paradise",
-            "Space Directions",
-            "Paradise Gravity"
+            "The Paradise Gravity",
+            "The Uniqueness of Paradise"
         ],
         12: [
             "The Universe of Universes",
@@ -125,25 +122,24 @@ def central_superuniverses():
             "Space and Motion",
             "Space and Time",
             "Universal Overcontrol",
-            "The Part and the Whole"
+            "The Part and the Whole",
+            "Matter, Mind, and Spirit",
+            "Personality Realities"
         ],
         13: [
             "The Sacred Spheres of Paradise",
             "The Seven Sacred Worlds of the Father",
             "Father-World Relationships",
             "The Sacred Worlds of the Eternal Son",
-            "The Worlds of the Infinite Spirit",
-            "The Seven Supreme Executives",
-            "The Local Universe Headquarters"
+            "The Worlds of the Infinite Spirit"
         ],
         14: [
             "The Central and Divine Universe",
-            "The Havona Worlds",
+            "The Paradise-Havona System",
             "Constitution of Havona",
             "The Havona Worlds",
             "Creatures of the Central Universe",
             "Life in Havona",
-            "Energy and Matter in Havona",
             "The Purpose of the Central Universe"
         ],
         15: [
@@ -170,17 +166,21 @@ def central_superuniverses():
             "Identity and Diversity of the Master Spirits",
             "Attributes and Functions of the Master Spirits",
             "Relation to Creatures",
-            "The Cosmic Mind"
+            "The Cosmic Mind",
+            "Morals, Virtue, and Personality",
+            "Urantia Personality",
+            "Reality of Human Consciousness"
         ],
         17: [
             "The Seven Supreme Spirit Groups",
             "The Seven Supreme Executives",
-            "The Seven Groups of Supreme Spirits",
-            "The Seven Supreme Power Directors",
-            "The Supreme Power Centers",
-            "The Master Physical Controllers",
-            "The Morontia Power Supervisors",
-            "The Universe Power Directors"
+            "Majeston - Chief Reflectivity",
+            "The Reflective Spirits",
+            "The Reflective Image Aids",
+            "The Seven Spirits of the Circuit",
+            "The Local Universe Creative Spirits",
+            "The Adjutant Mind Spirits",
+            "Functions of the Supreme Spirits"
         ],
         18: [
             "The Supreme Trinity Personalities",
@@ -210,19 +210,20 @@ def central_superuniverses():
         20: [
             "The Paradise Sons of God",
             "The Descending Sons of God",
-            "The Nature of the Paradise Sons of God",
-            "The Avonal Sons",
-            "The Bestowal Missions",
-            "The Magisterial Missions",
-            "The Trinity Teacher Sons",
-            "The Trinity Teacher Sons' Ministry",
-            "The Trinity Teacher Sons' Mission",
-            "The Trinity Teacher Sons' Ministry to the Superuniverses"
+            "The Magisterial Sons",
+            "Judicial Actions",
+            "Magisterial Missions",
+            "Bestowal of Paradise Sons of God",
+            "The Mortal-Bestowal Carrers",
+            "The Trinity Teacher Sons' Ministry to the Superuniverses",
+            "Local Universe Ministry of the Dynals",
+            "Planetery Service of the Daynals",
+            "The United Ministry of Paradise Sons"
         ],
         21: [
             "The Paradise Creator Sons",
             "Origin and Nature of Creator Sons",
-            "Creator Sons and Created Universes",
+            "The Creators of Local Universes",
             "Local Universe Sovereignty",
             "The Michael Bestowals",
             "Relation of Master Sons to the Universe",
@@ -230,36 +231,41 @@ def central_superuniverses():
         ],
         22: [
             "The Trinitized Sons of God",
-            "Trinitization of Ascendant Mortals",
-            "The Nature of Trinitized Sons",
-            "The Destiny of Trinitized Sons",
-            "The Ascendant Trinitized Sons",
-            "The Trinitized Sons of Destiny",
-            "The Trinitized Sons of Attainment",
-            "The Trinitized Sons of God"
+            "The Trinity-Embraced Sons",
+            "The Mighty Messagers",
+            "Those High in Authority",
+            "Those Without Name and Number",
+            "The Trinitized Custodians",
+            "The Trinitized Ambassadors",
+            "Technique of Trinitization",
+            "The Creature-Trinitized Sons",
+            "The Celestial Guardians",
+            "High Son Assistants"
         ],
         23: [
             "The Solitary Messengers",
-            "Nature and Origin",
-            "Assignments and Functions",
-            "Time and Space Service",
-            "Special Ministry",
-            "The Messenger Hosts"
+            "Nature and Origin of Solitary Messagers",
+            "Assignments and Functions of Solitary Messagers",
+            "Time and Space Service of Solitary Messagers",
+            "Special Ministry of Solitary Messagers"
         ],
         24: [
             "Higher Personalities of the Infinite Spirit",
             "The Universe Circuit Supervisors",
+            "The Census Directors",
+            "Personal Aids of Infinite Spirit",
             "The Associate Inspectors",
             "The Assigned Sentinels",
             "The Graduate Guides",
-            "The Havona Servitals"
+            "Origin of the Graduate Guides"
         ],
         25: [
             "The Messenger Hosts of Space",
             "The Havona Servitals",
             "The Universal Conciliators",
+            "The Far-Reaching Service of Conciliators",
             "The Technical Advisers",
-            "The Custodians of Records",
+            "The Custodians of Records on Paradise",
             "The Celestial Recorders",
             "The Morontia Companions",
             "The Paradise Companions"
@@ -267,52 +273,51 @@ def central_superuniverses():
         26: [
             "Ministering Spirits of the Central Universe",
             "The Ministering Spirits",
-            "The Havona Servitals",
-            "The Graduate Guides",
-            "The Ascendant Pilgrims",
-            "The Ascendant Citizens",
-            "The Havona Natives",
-            "The Paradise Citizens"
+            "The Mighty Supernaphim",
+            "The Tertiary Supernaphim",
+            "The Secondary Supernaphim",
+            "The Pilgrim Helpers",
+            "The Supremacy Guides",
+            "The Trinity Guides",
+            "The Son Finders",
+            "The Father Guides",
+            "The Counselors and Advisers",
+            "The Complement of Rest"
         ],
         27: [
             "Ministry of the Primary Supernaphim",
-            "The Primary Supernaphim",
-            "The Conductors of Worship",
-            "The Masters of Philosophy",
-            "The Custodians of Knowledge",
-            "The Directors of Conduct",
-            "The Interpreters of Ethics",
-            "The Directors of Assignment"
+            "Instigators of Rest",
+            "Chiefs of Assignment",
+            "Interpreters of Ethics",
+            "Directors of Conduct",
+            "Custodians of Knowledge",
+            "Masters of Philosophy",
+            "The Conductors of Worship"
         ],
         28: [
             "Ministering Spirits of the Superuniverses",
-            "The Supernaphim",
-            "The Seconaphim",
             "The Tertiaphim",
             "The Omniaphim",
-            "The Guardian Angels",
-            "The Ascending Mortals"
+            "The Seconaphim",
+            "The Primary Seconaphim",
+            "The Secondary Seconaphim",
+            "The Tertiary Seconaphim",
+            "Ministering of the Seconaphim"
         ],
         29: [
             "The Universe Power Directors",
-            "The Master Physical Controllers",
-            "The Power Centers",
-            "The Universe Power Centers",
-            "The Local Universe Power Centers",
-            "The System Power Centers",
-            "The Planetary Power Centers"
+            "The Seven Supreme Power Directors",
+            "The Supreme Power Centers",
+            "The Domain of Power Centers",
+            "The Master Physical Controller",
+            "The Master Force Organizers"
         ],
         30: [
             "Personalities of the Grand Universe",
-            "The Paradise Sons of God",
-            "The Trinity-Origin Beings",
-            "The Supreme Trinity Personalities",
-            "The Co-ordinate Trinity-Origin Beings",
-            "The Trinity Teacher Sons",
-            "The Solitary Messengers",
-            "The Universe Circuit Supervisors",
-            "The Associate Inspectors",
-            "The Assigned Sentinels"
+            "The Paradise Classification of Living Beings",
+            "The Universe Personality Register",
+            "The Courtesy Colonies",
+            "The Ascending Mortals"
         ],
         31: [
             "The Corps of Mortal Finaliters",
@@ -785,7 +790,8 @@ def history_urantia():
             "The Geologic History Book"
         ],
         59: [
-            "Early Marine Life in the Shallow Seas",
+            "Early Marine-Life Era on Urantia",
+            "Eraly Marine Life in the Shallow Seas",
             "The First Continental Flood Stage",
             "The Second Great Flood Stage",
             "The Great Land-Emergence Stage",
@@ -823,6 +829,7 @@ def history_urantia():
             "The First Human Family",
             "Andon and Fonta",
             "The Flight of the Twins",
+            "Andon's Family",
             "Andonic Clans",
             "The Andonic Dispersion",
             "Onagar - The First Truth Teacher",
@@ -936,9 +943,12 @@ def history_urantia():
         73: [
             "The Garden of Eden",
             "The Nodites and the Amandonites",
-            "Planning the Garden",
-            "The Site of Eden",
+            "Planning for the Garden",
+            "The Garden Site",
             "Establishing the Garden",
+            "The Garden Home",
+            "The Tree of Life",
+            "The Fate of Eden"
         ],
         74: [
             "Adam and Eve",
@@ -1044,7 +1054,9 @@ def history_urantia():
             "Purchase and Dowry",
             "The Wedding Ceremony",
             "Plural Marriages",
-            "True Monogamy - Pair Marriage"
+            "True Monogamy - Pair Marriage",
+            "The Dissolution of Wedlock",
+            "The Idealization of Marriage"
 
         ],
         84: [
@@ -1161,7 +1173,7 @@ def history_urantia():
             "Brahmanic Philosophy",
             "The Hindu Religion",
             "The Struggle for Truth in China",
-            "Lao-Tse and Confucius"
+            "Lao-Tse and Confucius",
             "Gautama Siddhartha",
             "The Buddhist Faith",
             "The Spread of Buddhism",
@@ -1515,7 +1527,7 @@ def jesus_life_teachings():
         121: [
             "The Times of Michael's Bestowal",
             "The Occident of the First Century After Christ",
-            "The Jewish People"
+            "The Jewish People",
             "Among the Gentiles",
             "Gentile Philosophy",
             "The Gentile Religion",
@@ -1527,11 +1539,11 @@ def jesus_life_teachings():
             "The Birth and Infancy of Jesus",
             "Joseph and Mary",
             "Gabriel Appearance to Elizabeth",
-            "Gabriel's Announcement to Mary"
+            "Gabriel's Announcement to Mary",
             "Joseph's Dream",
             "Jesus' Earth Parents",
             "The Home of Nazareth",
-            "The Trip to Bethlehem"
+            "The Trip to Bethlehem",
             "The Birth of Jesus",
             "The Presentation in the Temple",
             "The Herod Acts"
@@ -1542,14 +1554,14 @@ def jesus_life_teachings():
             "The Fifth Year (2 B.C)",
             "Events of the Sixth Year (1 B.C)",
             "Jesus' Seventh Year (A.D. 1)",
-            "School Days in Nazareth"
+            "School Days in Nazareth",
             "His Eight Year (2 A.D)"
         ],
         124: [
             "The Later Childhood of Jesus",
             "His Ninth Year (A.D. 3)",
             "His Tenth Year (A.D. 4)",
-            "His Eleventh Year (A.D. 5)"
+            "His Eleventh Year (A.D. 5)",
             "His Twelfth Year (A.D. 6)",
             "His Thirteenth Year (A.D. 7)",
             "The Journey to Jerusalem"
@@ -1574,7 +1586,7 @@ def jesus_life_teachings():
         127: [
             "The Adolescent Years",
             "His Sixteenth Year (A.D. 10)",
-            "His Seventeenth Year (A.D. 11)"
+            "His Seventeenth Year (A.D. 11)",
             "The Eighteenth Year (A.D. 12)",
             "The Nineteenth Year (A.D. 13)",
             "Rebecca, the Daughter of Ezra",
@@ -1583,12 +1595,12 @@ def jesus_life_teachings():
         ],
         128: [
             "Jesus' Early Manhood",
-            "The Twenty-First Year (A.D. 15)"
+            "The Twenty-First Year (A.D. 15)",
             "The Twenty-Second Year (A.D. 16)",
             "The Twenty-Third Year (A.D. 17)",
             "The Damascus Episode",
             "The Twenty-Fourth Year (A.D. 18)",
-            "The Twenty-Fifth Year (A.D. 19)"
+            "The Twenty-Fifth Year (A.D. 19)",
             "The Twenty-Sixth Year (A.D. 20)"
         ],
         129: [
@@ -1628,6 +1640,7 @@ def jesus_life_teachings():
             "Good and Evil",
             "Truth and Faith",
             "Personal Ministry",
+            "Counseling the Rich Man",
             "Social Ministry",
             "Trips About Rome"
             ],
@@ -1714,10 +1727,11 @@ def jesus_life_teachings():
             "James Zebedee",
             "John Zebedee",
             "Philip the Curious",
-            "Honest Nathaniel",
+            "Nathaniel, the Honest",
             "Matthew Levi",
             "Thomas Didymus",
-            "James and Judas Alpheus",
+            "James the Less",
+            "Judas the Son of James",
             "Simon the Zealot",
             "Judas Iscariot"
         ],
@@ -1728,7 +1742,7 @@ def jesus_life_teachings():
             "The Ordination Sermon",
             "You are the Salt of the Earth",
             "Fatherly and Brotherly Love",
-            "The Evening of the Ordination"
+            "The Evening of the Ordination",
             "The Week Following the Ordination",
             "Thursday Afternoon on the Lake",
             "The Day of Consecration",
@@ -1771,7 +1785,7 @@ def jesus_life_teachings():
             "At Gilboa and in the Decapolis",
             "The Gilboa Encampment",
             "The Discourse on Prayer",
-            "The Believers's Prayer"
+            "The Believers's Prayer",
             "More About Prayer",
             "Other Forms of Prayer",
             "Conference With John's Apostles",
@@ -1782,7 +1796,7 @@ def jesus_life_teachings():
         145: [
             "Four Eventful Days at Capernaum",
             "The Draught of Fishes",
-            "Afternoon at the Synagogue"
+            "Afternoon at the Synagogue",
             "The Healing at Sundown",
             "The Evening After",
             "Early Sunday Morning"
@@ -1794,7 +1808,7 @@ def jesus_life_teachings():
             "The Stop at Ramah",
             "The Gospel at Iron",
             "Back In Cana",
-            "Nain and the Window's Son"
+            "Nain and the Window's Son",
             "At Endor"
         ],
         147: [
@@ -1827,7 +1841,7 @@ def jesus_life_teachings():
             "Hostility of the Religious Leaders",
             "Progress of the Preaching Tour",
             "Lesson Regarding Contentment",
-            "The 'Fear of the Lord'"
+            "The 'Fear of the Lord'",
             "Returning to Bethsaida"
         ],
         150: [
@@ -1845,7 +1859,7 @@ def jesus_life_teachings():
         151: [
             "Tarrying and Teaching by the Seaside",
             "The Parable of the Sower",
-            "Interpretation of the Parable"
+            "Interpretation of the Parable",
             "More about Parables",
             "More Parables by the Sea",
             "The Visit to Kheresa",
@@ -2024,56 +2038,215 @@ def jesus_life_teachings():
             "Later Ideas of the Kingdom"
             ],
         171: [
+            "On the Way to Jerusalem",
+            "The Departure from Pella",
+            "On Counting the Cost",
+            "The Perean Tour",
+            "Teaching at Livias",
+            "The Blind Man at Jericho",
+            "The Visit to Zaccheus",
+            "“As Jesus Passed By”",
+            "Parable of the Pounds"
             ],
         172: [
+            "Going into Jerusalem",
+            "Sabbath at Bethany",
+            "Sunday Morning with the Apostles",
+            "The Start for Jerusalem",
+            "Visiting About the Temple",
+            "The Apostles' Attitude"
             ],
         173: [
+            "Monday in Jerusalem",
+            "Cleansing the Temple",
+            "Challenging the Master’s Authority",
+            "Parable of the Two Sons",
+            "Parable of the Absent Landlord",
+            "Parable of the Marriage Feast"
             ],
         174: [
+            "Tuesday Morning in the Temple",
+            "Divine Forgiveness",
+            "Questions by the Jewish Rulers",
+            "The Sadducees and the Resurrection",
+            "The Great Commandment",
+            "The Inquiring Greek Jews"
             ],
         175: [
+            "The Last Temple Discourse",
+            "The Discourse",
+            "Status of Individual Jews",
+            "The Fateful Sanhedrin Meeting",
+            "The Situation in Jerusalem"
             ],
         176: [
+            "Tuesday Evening on Mount Olivet",
+            "The Destruction of Jerusalem",
+            "The Master’s Second Coming",
+            "Later Discussion at the Camp",
+            "The Return of Michael",
+            "The Return of Michael"
             ],
         177: [
+            "Wednesday, the Rest Day",
+            "One Day Alone with God",
+            "Early Home Life",
+            "The Day at Camp",
+            "Judas and the Chief Priests",
+            "The Last Social Hour"
             ],
         178: [
+            "Last Day at the Camp",
+            "Discourse on Sonship and Citizenship",
+            "After the Noontime Meal",
+            "On the Way to the Supper"
             ],
         179: [
+            "The Last Supper",
+            "The Desire for Preference",
+            "Beginning the Supper",
+            "Washing the Apostles' Feet",
+            "Last Words to the Betrayer",
+            "Establishing the Remembrance Supper"
             ],
         180: [
+            "The Farewell Discourse",
+            "The New Commandment",
+            "The Vine and the Branches",
+            "Enmity of the World",
+            "The Promised Helper",
+            "The Spirit of Truth",
+            "The Necessity for Leaving"
             ],
         181: [
+            "Final Admonitions and Warnings",
+            "Last Words of Comfort",
+            "Farewell Personal Admonitions"
             ],
         182: [
+            "In Gethsemane",
+            "The Last Group Prayer",
+            "Last Hour Before Betrayal",
+            "Alone in Gethsemane"
             ],
         183: [
+            "The Betrayal and Arrest of Jesus",
+            "The Father's Will",
+            "Judas in the City",
+            "The Master's Arrest",
+            "Discussion at the Olive Press",
+            "On the Way to the High Priest's Palace"
             ],
         184: [
+            "Before the Sanhedrin Court",
+            "Examination by Annas and Caiaphas",
+            "Peter in the Courtyard",
+            "Before the Court of Sanhedrists",
+            "The Hour of Humiliation",
+            "The Second Meeting of the Court"
             ],
         185: [
+            "The Trial Before Pilate",
+            "Pontius Pilate",
+            "Jesus Appears Before Pilate",
+            "The Private Examination by Pilate",
+            "Jesus Before Herod",
+            "Jesus Returns to Pilate",
+            "Pilate's Last Appeal",
+            "The Pilate's Last Interview",
+            "Pilate's Tragic Surrender"
             ],
         186: [
+            "Just Before the Crucifixion",
+            "The End of Judas Iscariot",
+            "The Master’s Attitude",
+            "The Dependable David Zebedee",
+            "Preparation for the Crucifixion",
+            "Jesus' Death in Relation tot the Passover"
             ],
         187: [
+            "The Crucifixion",
+            "On the Way to Golgotha",
+            "The Crucifixion",
+            "Those who Saw the Crucifixion",
+            "The Chief on the Cross",
+            "Last Our on the Cross",
+            "After the Crucifixion"
             ],
         188: [
+            "The Time of the Tomb",
+            "The Burial of Jesus",
+            "Safeguarding the Tomb",
+            "During the Sabbath Day",
+            "Meaning of the Death on the Cross",
+            "Lessons from the Crucifixion"
             ],
         189: [
+            "The Resurrection",
+            "The Morontia Transit",
+            "The Material Body of Jesus",
+            "The Dispensational Resurrection",
+            "Discovery of the Empty Tomb",
+            "Peter and John at the Tomb"
             ],
         190: [
+            "Morontia Appearances of Jesus",
+            "Herald of the Resurrection",
+            "Jesus’ Appearances in Jerusalem",
+            "Appearances to the Apostles and Others",
+            "The Tenth Appearance (Philadelphia)",
+            "The Walk with Two Brothers"
             ],
         191: [
+            "Appearances to the Apostles and Other Leaders",
+            "Appearance to Peter",
+            "First Appearance to the Apostles",
+            "With the Morontia Creatures",
+            "The Tenth Appearance (At Philadelphia)",
+            "The Second Appearance to the Apostles",
+            "The Alexandria Appearance"
             ],
         192: [
+            "Appearances in Galilee",
+            "Appearance by the Lake",
+            "Visiting with the Apostles Two and Two",
+            "On the Mount of Ordination",
+            "The Lakeside Gathering"
             ],
         193: [
+            "Final Appearances and Ascension",
+            "The Appearance at Sychar",
+            "The Phoenician Appearance",
+            "Last Appearance in Jerusalem",
+            "Causes of Judas’s Downfall",
+            "The Master's Ascension",
+            "Peter Calls a Meeting"
             ],
         194: [
+            "Bestowal of the Spirit of Truth",
+            "The Pentecost Sermon",
+            "The Significance of Pentecost",
+            "What Happened at Pentecost",
+            "Beginnings of the Christian Church"
             ],
         195: [
+            "After Pentecost",
+            "Influence of the Greeks",
+            "The Roman Influence",
+            "Under the Roman Empire",
+            "The European Dark Ages",
+            "The Modern Problem",
+            "Materialism",
+            "Secular Totalitarianism",
+            "The Threat of Totalitarianism",
+            "Christianity’s Problem",
+            "The Future"
             ],
         196: [
+            "The Faith of Jesus",
+            "Jesus—The Man",
+            "The Religion of Jesus",
+            "The Supremacy of Religion"
             ]
     }
 
@@ -2143,11 +2316,41 @@ def jesus_life_teachings():
                 })
 
     # --- Output the structured file for part 1 only ---
-    with open('Life _and_Teachings_of_Jesus_structured.json', 'w') as f:
+    with open('Life_and_Teachings_of_Jesus_structured.json', 'w') as f:
         json.dump(structured, f, indent=2)
 
     print("The Life and Teachings of Jesus done ✅")
 
 
+def Combine():
+    full_structured = {
+        "parts": []
+    }
+    with open('foreword_structured.json', 'r') as f:
+        foreword = json.load(f)['parts']
+    with open('central_superuniverses_structured.json', 'r') as c:
+        central = json.load(c)['parts']
+    with open('Local_Universe_structured.json', 'r') as lc:
+        local = json.load(lc)['parts']
+    with open('History_of_Urantia_structured.json', 'r') as u:
+        urantia = json.load(u)['parts']
+    with open('Life_and_Teachings_of_Jesus_structured.json', 'r') as t:
+        teachings = json.load(t)['parts']
+
+    full_structured['parts'].append(foreword)
+    full_structured['parts'].append(central)
+    full_structured['parts'].append(local)
+    full_structured['parts'].append(urantia)
+    full_structured['parts'].append(teachings)
+
+    with open('Combined_Structured_UB.json', 'w') as fn:
+        json.dump(full_structured, fn, indent=2)
+    print("Combination \033[1;32mSuccess\033[0m✅")
+
+
 if __name__ == "__main__":
+    central_superuniverses()
+    local_universe()
     history_urantia()
+    jesus_life_teachings()
+    Combine()
