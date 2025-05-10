@@ -1,14 +1,30 @@
-const { contextBridge, ipcRenderer, shell } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
-//const { exec } = require('child_process');
-
+const { exec } = require('child_process');
+const tts = require('tts');
 
 contextBridge.exposeInMainWorld('global', window);
 
+const BaseDir = path.join(os.homedir(), '.UBookDesk');
+const notesDir = path.join(BaseDir, '.saveNotes');
+const favouriteDir = path.join(BaseDir, '.favourites');
+const bookmarkDir = path.join(BaseDir, '.bookmark');
+const cacheDir = path.join(BaseDir, '.cache');
+const picowave = path.join(__dirname, '../common/pico_bundle/bin/pico2wave')
 
-contextBridge.exposeInMainWorld('electron', {
+function getSoxPath() {
+    const baseDir = path.join(__dirname, '../common/sox_bundle/bin');
+
+    if (os.platform() === 'win32') {
+        return path.join(baseDir, 'sox.exe');
+    } else {
+        return path.join(baseDir, 'sox');
+    }
+}
+
+contextBridge.exposeInMainWorld('api', {
     getDownloadsPath: () => {
         const downloadsPath = path.join(os.homedir(), 'Downloads');
         return downloadsPath;
@@ -42,10 +58,10 @@ contextBridge.exposeInMainWorld('electron', {
             return false;
         }
     },
-    read: async (path) => {
+    read: async (fpath) => {
         try {
             if (fs.statSync) {
-                let data = JSON.parse(fs.readFileSync(path, 'utf-8'));
+                let data = JSON.parse(fs.readFileSync(fpath, 'utf-8'));
                 // Add compartibility feature to maintain conversations instegrity!
                 return data
             }
@@ -53,6 +69,81 @@ contextBridge.exposeInMainWorld('electron', {
             console.log(err);
             return false;
         }
+    },
+    saveNote: async (newNote, fpath = path.join(notesDir, 'notes.json')) => {
+        try {
+            // Check if file exists and is accessible
+            await fs.promises.access(fpath, fs.constants.F_OK | fs.constants.R_OK);
+
+            // Read the existing file content
+            const existingData = JSON.parse(await fs.promises.readFile(fpath, 'utf-8'));
+
+            // Add the new note to the existing data
+            existingData.notes.push(newNote);
+
+            // Write the updated data back to the file
+            await fs.promises.writeFile(fpath, JSON.stringify(existingData, null, 2));
+
+            return true;
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    },
+    addFavourite: async (ref) => {
+
+    },
+    readContent: async (filename) => {
+        try {
+            const basePath = path.resolve(__dirname, '../assets/files/');
+            const filePath = path.join(basePath, filename);
+
+            // Check if file exists and is accessible
+            await fs.promises.access(filePath, fs.constants.F_OK | fs.constants.R_OK);
+
+            const raw = await fs.promises.readFile(filePath, 'utf-8');
+            const data = JSON.parse(raw);
+
+            // Future-proof: Maintain conversation integrity here
+            // e.g., data = normalizeConversationData(data)
+
+            return data;
+        } catch (err) {
+            console.error('Error reading content:', err.message);
+            return false;
+        }
+    },
+    ReadAloud: async (_text) => {
+        const text = _text || window.getSelection().toString().trim();
+        if (!text) return;
+
+        const cacheFile = path.join(cacheDir, 'output.wav');
+
+        // Escape double quotes in the text to prevent shell issues
+        const safeText = text.replace(/"/g, '\\"');
+
+        if (os.platform() !== 'linux'){
+            console.log('Not Implemented!')
+            return false
+        }
+        const command = `echo "${safeText}" | ${picowave} -w "${cacheFile}" && aplay "${cacheFile}"`;
+
+        exec(command, (error, stdout, stderr) => {
+            if (error) {
+                console.error('pico2wave TTS error:', error.message);
+                console.error('stderr:', stderr);
+                return;
+            }
+            console.log('Speech playback finished');
+        });
+
+
+        return true
+    },
+    formatDate: async (isoString) => {
+        const date = new Date(isoString);
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        return date.toLocaleDateString(undefined, options);
     },
     readDir: async (dir) => {
         try {
@@ -74,27 +165,27 @@ contextBridge.exposeInMainWorld('electron', {
     joinPath: (node, child) => {
         return path.join(node, child);
     },
-    Rename: (original_path, target_path) =>{
-        try{
+    Rename: (original_path, target_path) => {
+        try {
             fs.renameSync(original_path, target_path)
-            return  true
-        }catch (err){
+            return true
+        } catch (err) {
             console.log(err)
             return false
         }
     },
     deleteFile: (file_path) => {
-        try{
-            if (fs.statSync(file_path)){
+        try {
+            if (fs.statSync(file_path)) {
                 fs.rmSync(file_path)
                 // Move the item to the trash
                 //trash([file])
                 return true
-            }else{
+            } else {
                 console.log('Item not found')
                 return false
             }
-        }catch (err){
+        } catch (err) {
             console.log(err);
         }
     },

@@ -456,7 +456,7 @@ def local_universe():
             "Origin and Nature of Life Carriers",
             "The Life Carrier Worlds",
             "Life Transplantation",
-            "The Melchizedek Life Carriers"
+            "The Melchizedek Life Carriers",
             "The Seven Adjutant Mind-Spirits",
             "Living Forces"
         ],
@@ -474,8 +474,10 @@ def local_universe():
             "Other Local Universe Groups"
         ],
         38: [
-            "Ministering Spirits of the Local Universe"
+            "Ministering Spirits of the Local Universe",
             "Origin of Seraphim",
+            "Angelic Natures",
+            "Unrevealed Angels",
             "The Seraphic Worlds",
             "Seraphic Training",
             "Seraphic Organization",
@@ -583,7 +585,7 @@ def local_universe():
         47: [
             "The Seven Mansion Worlds",
             "The Finaliters' Worlds",
-            "The Probationary Nursery"
+            "The Probationary Nursery",
             "The First Mansion World",
             "The Second Mansion World",
             "The Third Mansion World",
@@ -615,7 +617,7 @@ def local_universe():
         ],
         50: [
             "The Planetary Princes",
-            "Mission of the Princes"
+            "Mission of the Princes",
             "The Planetary Administration",
             "The Planetary Prince's Corporeal Staff",
             "The Planetary Headquarters and Schools",
@@ -638,7 +640,7 @@ def local_universe():
             "The Planetary Mortal Epochs",
             "Primitive Man",
             "Post-Planetary Prince Man",
-            "Post-Adamic Man"
+            "Post-Adamic Man",
             "The Post-Magisterial Son Age",
             "The Post-Bestowal Son Age",
             "Urantia's Post-Bestowal Age",
@@ -652,7 +654,7 @@ def local_universe():
             "The Outbreak of Rebellion",
             "Nature of the Conflict",
             "A Loyal Seraphic Commander",
-            "History of the Rebellion"
+            "History of the Rebellion",
             "The Son of Man On Urantia",
             "Present Status of the Rebellion"
         ],

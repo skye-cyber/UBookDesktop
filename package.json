@@ -21,17 +21,30 @@
   "license": "GNU",
   "devDependencies": {
     "@babel/core": "latest",
+    "assert": "^2.1.0",
     "babel-loader": "latest",
+    "browserify-fs": "^1.0.0",
+    "browserify-zlib": "^0.2.0",
+    "child_process": "^1.0.2",
     "child-process-promise": "latest",
+    "copy-webpack-plugin": "^13.0.0",
     "electron": "latest",
     "electron-builder": "latest",
     "fs": "latest",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.4",
     "webpack": "latest"
   },
   "dependencies": {
     "@tailwindcss/typography": "latest",
     "audit": "^0.0.6",
-    "fix": "^0.0.6"
+    "fix": "^0.0.6",
+    "tts": "^0.1.0"
   },
   "files": [
     "README.md",

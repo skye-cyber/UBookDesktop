@@ -1,9 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
-const CopyPlugin = require("copy-webpack-plugin");
+//const CopyPlugin = require("copy-webpack-plugin");
 
 const entries = {
-    //hfaichat: './src/renderer/js/hfaichat.js',
+    readAloud: './src/renderer/js/readAloud.js',
 };
 
 module.exports = Object.entries(entries).map(([name, entryPath]) => {

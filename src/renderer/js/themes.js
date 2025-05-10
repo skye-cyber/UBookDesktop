@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     // Set the initial theme
     setTheme(currentTheme);
     //Set code these styleSheet
-    //window.electron.addCodeThemeSheet(currentTheme);
+    //window.api.addCodeThemeSheet(currentTheme);
 
     // Function to set the theme
     function setTheme(theme) {
@@ -28,6 +28,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
     themeSwitch.addEventListener("click", () => {
         const newTheme = rootElement.classList.contains("dark") ? "light" : "dark";
         setTheme(newTheme);
-        //window.electron.addCodeThemeSheet(newTheme);
+        //window.api.addCodeThemeSheet(newTheme);
     });
 });

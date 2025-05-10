@@ -69,7 +69,7 @@ def central_superuniverses_sectionTitles_validator():
 
 def local_universe_sectionTitles_validator():
     # --- Load your raw paragraphs JSON ---
-    with open('History_of_Urantia_structured.json') as f:
+    with open('Local_Universe_structured.json') as f:
         raw_data = json.load(f)
 
         print("\033[1mValidating \033[1;95mLocal Universe\033[0m")
@@ -77,24 +77,26 @@ def local_universe_sectionTitles_validator():
     missing = []
     for paper in raw_data["parts"][0]["papers"]:
         for section in paper["sections"]:
-            para = section["paragraphs"][0]
-            para_id = para["paragraph_number"]
-            paper_no = int(para_id.split(":")[0])
-            section_no = int(para_id.split(":")[1].split(".")[0])
+            for para in section["paragraphs"]:
+                para_id = para["paragraph_number"]
+                paper_no = int(para_id.split(":")[0])
+                section_no = int(para_id.split(":")[1].split(".")[0])
 
-            if not (32 <= paper_no <= 57):
-                continue
+                if not (paper_no >= 32 and paper_no <= 57):
+                    continue
 
-            paper = next(
-                (p for p in raw_data['parts'][0]["papers"] if p["paper_id"] == paper_no), None)
+                # print(len(section["paragraphs"]))
 
-            # --- Find section entry ---
-            section_entry = next(
-                (s for s in paper["sections"] if s["section_number"] == section_no), None)
-            if section_entry and not section_entry['title']:
-                print(
-                    f"\033[1;31mMissing:\033[1;34m SN: {section_entry['section_number']}\033[1;93m {para_id}\033[0m")
-                missing.append(f"{section_no}:{paper_no}")
+                paper = next(
+                    (p for p in raw_data['parts'][0]["papers"] if p["paper_id"] == paper_no), None)
+
+                # --- Find section entry ---
+                section_entry = next(
+                    (s for s in paper["sections"] if s["section_number"] == section_no), None)
+                if section_entry and not section_entry['title']:
+                    print(
+                        f"\033[1;31mMissing:\033[1;34m SN: {section_entry['section_number']}\033[1;93m {para_id}\033[0m")
+                    missing.append(f"{section_no}:{paper_no}")
 
     if not missing:
         print("\033[32mStatus Ok\033[0m")

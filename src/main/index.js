@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Tray, Menu, ipcMain, Notification } = require('electron');
 const path = require('path');
+const fs = require('fs');
 
 
 let mainWindow;
@@ -7,8 +8,8 @@ let mainWindow;
 const isDev = !app.isPackaged;
 
 const iconPath = isDev
-? path.join(__dirname, '../assets/UBookDesktop.png') // for dev
-: path.join(process.resourcesPath, 'assets/UBookDesktop.png'); // for prod
+    ? path.join(__dirname, '../assets/UBookDesktop.png') // for dev
+    : path.join(process.resourcesPath, 'assets/UBookDesktop.png'); // for prod
 
 app.disableHardwareAcceleration()
 
@@ -37,60 +38,61 @@ const template = [
             { label: 'Exit', accelerator: 'CmdOrCtrl+Q', click: () => app.quit() }
         ]
     },
-{
-    label: 'Edit',
-    submenu: [
-        { label: 'Undo', accelerator: 'CmdOrCtrl+Z', role: 'undo' },
-        { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', role: 'redo' },
-        { type: 'separator' },
-        { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
-        { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
-        { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
-        { label: 'Select All', accelerator: 'CmdOrCtrl+A', role: 'selectall' }
-    ]
-},
-{
-    label: 'View',
-    submenu: [
-        { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: (item, focusedWindow) => focusedWindow.reload() },
-        { label: 'Toggle Developer Tools', accelerator: 'F12', click: (item, focusedWindow) => focusedWindow.webContents.toggleDevTools() },
-        { type: 'separator' },
-        { label: 'Zoom In', accelerator: 'CmdOrCtrl+=', click: (item, focusedWindow) => focusedWindow.webContents.send('zoom-in') },
-        { label: 'Zoom Out', accelerator: 'CmdOrCtrl+-', click: (item, focusedWindow) => focusedWindow.webContents.send('zoom-out') }
-    ]
-},
-{
-    label: 'Window',
-    submenu: [
-        { label: 'Minimize', accelerator: 'CmdOrCtrl+M', role: 'minimize' },
-        { label: 'Close', accelerator: 'CmdOrCtrl+W', role: 'close' },
-        {   label: 'Toggle Full Screen',
-            role: 'togglefullscreen',       // built-in behavior
-            accelerator: 'F11'              // explicit on all platforms
-        }
-    ]
-},
-{
-    label: 'Help',
-    submenu: [
-        { label: 'Learn More', click: () => require('electron').shell.openExternal('https://electronjs.org') },
-        {
-            label: 'Documentation',
-            click: () => {
-                const docWindow = new BrowserWindow({
-                    width: 800,
-                    height: 600,
-                    webPreferences: {
-                        preload: path.join(__dirname, 'preload.js'),
-                                                    nodeIntegration: false,
-                                                    contextIsolation: true
-                    }
-                });
-                docWindow.loadFile(path.join(__dirname, '../assets/documentation.html'));
+    {
+        label: 'Edit',
+        submenu: [
+            { label: 'Undo', accelerator: 'CmdOrCtrl+Z', role: 'undo' },
+            { label: 'Redo', accelerator: 'Shift+CmdOrCtrl+Z', role: 'redo' },
+            { type: 'separator' },
+            { label: 'Cut', accelerator: 'CmdOrCtrl+X', role: 'cut' },
+            { label: 'Copy', accelerator: 'CmdOrCtrl+C', role: 'copy' },
+            { label: 'Paste', accelerator: 'CmdOrCtrl+V', role: 'paste' },
+            { label: 'Select All', accelerator: 'CmdOrCtrl+A', role: 'selectall' }
+        ]
+    },
+    {
+        label: 'View',
+        submenu: [
+            { label: 'Reload', accelerator: 'CmdOrCtrl+R', click: (item, focusedWindow) => focusedWindow.reload() },
+            { label: 'Toggle Developer Tools', accelerator: 'F12', click: (item, focusedWindow) => focusedWindow.webContents.toggleDevTools() },
+            { type: 'separator' },
+            { label: 'Zoom In', accelerator: 'CmdOrCtrl+=', click: (item, focusedWindow) => focusedWindow.webContents.send('zoom-in') },
+            { label: 'Zoom Out', accelerator: 'CmdOrCtrl+-', click: (item, focusedWindow) => focusedWindow.webContents.send('zoom-out') }
+        ]
+    },
+    {
+        label: 'Window',
+        submenu: [
+            { label: 'Minimize', accelerator: 'CmdOrCtrl+M', role: 'minimize' },
+            { label: 'Close', accelerator: 'CmdOrCtrl+W', role: 'close' },
+            {
+                label: 'Toggle Full Screen',
+                role: 'togglefullscreen',       // built-in behavior
+                accelerator: 'F11'              // explicit on all platforms
             }
-        }
-    ]
-}
+        ]
+    },
+    {
+        label: 'Help',
+        submenu: [
+            { label: 'Learn More', click: () => require('electron').shell.openExternal('https://electronjs.org') },
+            {
+                label: 'Documentation',
+                click: () => {
+                    const docWindow = new BrowserWindow({
+                        width: 800,
+                        height: 600,
+                        webPreferences: {
+                            preload: path.join(__dirname, 'preload.js'),
+                            nodeIntegration: false,
+                            contextIsolation: true
+                        }
+                    });
+                    docWindow.loadFile(path.join(__dirname, '../assets/documentation.html'));
+                }
+            }
+        ]
+    }
 ];
 
 // Function to create the loading and main windows
@@ -119,9 +121,9 @@ function createWindow() {
         show: false,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'), // Use the preload script
-        nodeIntegration: false, // Enable Node.js integration in the renderer process
-        contextIsolation: true,
-        sandbox: false, // Disable sandboxing
+            nodeIntegration: false, // Enable Node.js integration in the renderer process
+            contextIsolation: true,
+            sandbox: false, // Disable sandboxing
         }
     });
 
@@ -141,7 +143,10 @@ function createWindow() {
 // Set the app user model ID
 app.setAppUserModelId('com.UBookDesktop.app');
 
-app.on('ready', () => {
+app.on('ready', async () => {
+
+    await prepDirectories(); // if it's an async function
+    await prepNoteFile();
     // Create and set the menu
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
@@ -187,3 +192,58 @@ app.on('activate', () => {
     }
 });
 
+
+
+async function prepDirectories() {
+    try {
+        const baseDir = path.join(app.getPath('home'), '.UBookDesk');
+
+        // Create the base .quickai directory if it doesn't exist
+        fs.mkdirSync(baseDir, { recursive: true });
+        console.log(`Ensured base directory: ${baseDir}`);
+
+        // Define subdirectories to be created inside .quickai
+        const subdirs = ['.saveNotes', '.favourites', '.bookmark', '.cache'];
+
+        subdirs.forEach(sub => {
+            const fullPath = path.join(baseDir, sub);
+            fs.mkdirSync(fullPath, { recursive: true });
+            console.log(`Ensured subdirectory: ${fullPath}`);
+        });
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function prepNoteFile() {
+    const file = path.join(app.getPath('home'), '.UBookDesk', '.saveNotes', 'notes.json');
+    console.log(`Prep notes file ${file}`);
+
+    const structure = {
+        "notes": []
+    };
+
+    await fs.promises.writeFile(file, JSON.stringify(structure, null, 2));
+}
+
+async function prepFavouriteFile() {
+    const file = path.join(app.getPath('home'), '.UBookDesk', '.favourites', 'fav.json');
+    console.log(`Prep favourites file ${file}`);
+
+    const structure = {
+        "fav": []
+    };
+
+    await fs.promises.writeFile(file, JSON.stringify(structure, null, 2));
+}
+
+async function prepBookmarkFile() {
+    const file = path.join(app.getPath('home'), '.UBookDesk', '.bookmark', 'bookmark.json');
+    console.log(`Prep bookmark file ${file}`);
+
+    const structure = {
+        "bookmark": []
+    };
+
+    await fs.promises.writeFile(file, JSON.stringify(structure, null, 2));
+}

@@ -4,15 +4,16 @@ const wrapper = document.getElementById('reader-content');
 let selectedText = "";
 let selectedContent = "";
 
-document.addEventListener('mouseup', () => {
+wrapper.addEventListener('mouseup', () => {
     toolTipPositionHandler();
 });
 
 function toolTipPositionHandler() {
     const selection = window.getSelection();
     selectedText = selection.toString().trim();
-    console.log(selection.toString())
+    //console.log(selection.toString())
     selectedContent = getSelectionHtml();
+    //console.log(selectedContent)
 
     if (selectedText.length > 0) {
         const range = selection.getRangeAt(0);
@@ -36,7 +37,7 @@ function toolTipPositionHandler() {
             tooltip.style.top = `${top}px`;
             tooltip.style.left = `${left}px`;
             tooltip.style.visibility = 'visible';
-            tooltip.classList.remove('hidden');
+            tooltip.classList.remove('hidden', '-translate-x-[200%]');
             tooltip.classList.add('opacity-100');
         });
     } else {
@@ -56,27 +57,32 @@ function getSelectionHtml(_selection) {
 }
 
 // Hide when clicking outside the tooltip or selecting nothing
-document.addEventListener('mousedown', (e) => {
+wrapper.addEventListener('mousedown', (e) => {
     if (!tooltip.contains(e.target)) {
         hideTooltip();
     }
 });
 
 // Hide when selection changes and is cleared
-document.addEventListener('selectionchange', () => {
+wrapper.addEventListener('selectionchange', () => {
     const text = window.getSelection().toString().trim();
     if (!text) hideTooltip();
 });
 
 // Optional: Hide on Esc
-document.addEventListener('keydown', (e) => {
+wrapper.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') hideTooltip();
 });
 
 
 function hideTooltip() {
-    tooltip.classList.add('hidden');
-    tooltip.classList.remove('opacity-100');
+    if (!Rpane) {
+        tooltip.classList.add('hidden', '-translate-x-[200%]');
+        tooltip.classList.remove('opacity-100');
+    } else {
+        document.getElementById('rightpanel-tooltip-menu').classList.add('hidden', '-translate-x-[200%]');
+        document.getElementById('rightpanel-tooltip-menu').classList.remove('opacity-100');
+    }
 }
 
 function handleCopy() {
@@ -94,33 +100,39 @@ function handleWebSearch() {
     hideTooltip();
 }
 
+function handleSaveNote() {
+    showNoteModal();
+}
 
 function saveNote() {
+    // show comment modal
+    //
     const note = {
-        text: document.getElementById('note-text').textContent,
-        content: selectedContent,
         comment: document.getElementById('note-comment').value,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        text: selectedText,
+        content: selectedContent
     };
+
+    window.api.saveNote(note);
+
     console.log("Note saved:", note); // You can persist to localStorage or send to a backend later
     showActionToast('save');
     closeNoteModal();
 }
 
-function closeNoteModal() {
-    document.getElementById('note-modal').classList.add('hidden');
-    document.getElementById('note-comment').value = '';
-}
 
-let selectedHighlightClass = 'bg-yellow-200 dark:bg-yellow-500 text-black dark:text-white';
+let selectedHighlightClass = 'bg-yellow-200 dark:bg-[#f4f400] text-black dark:text-black';
 
 function handleHighlight() {
     const selection = window.getSelection();
     const range = selection.getRangeAt(0);
 
+    const selectionHTML = getSelectionHtml(selection);
+    //console.log(selectionHTML)
     const span = document.createElement('span');
-    span.className = selectedHighlightClass + ' px-0.5 rounded-sm';
-    span.textContent = selection.toString();
+    span.className = selectedHighlightClass + ' px-0.5 rounded-sm transition-color duration-500';
+    span.innerHTML = selectionHTML;
 
     range.deleteContents();
     range.insertNode(span);
@@ -138,7 +150,7 @@ function setHighlightColor(color) {
 
     switch (color) {
         case 'yellow':
-            selectedHighlightClass = 'bg-yellow-200 dark:bg-yellow-500 text-black dark:text-white';
+            selectedHighlightClass = 'bg-yellow-200 dark:bg-yellow-100 text-black dark:text-black';
             circle.className = 'size-6 rounded-full bg-yellow-300 dark:bg-yellow-500 mr-2';
             break;
         case 'blue':
@@ -146,8 +158,12 @@ function setHighlightColor(color) {
             circle.className = 'size-6 rounded-full bg-blue-300 dark:bg-blue-500 mr-2';
             break;
         case 'pink':
-            selectedHighlightClass = 'bg-pink-200 dark:bg-pink-500 text-black dark:text-white';
+            selectedHighlightClass = 'bg-pink-200 dark:bg-pink-500 text-black dark:text-black';
             circle.className = 'size-6 rounded-full bg-pink-300 dark:bg-pink-500 mr-2';
+            break;
+        case 'green':
+            selectedHighlightClass = 'bg-green-300 dark:bg-green-500 text-black dark:text-black';
+            circle.className = 'size-6 rounded-full bg-green-500 dark:bg-green-500 mr-2';
             break;
     }
 
@@ -203,14 +219,13 @@ function showActionToast(action) {
     }, 3000);
 }
 
-function handleReadAloud() {
-    const text = window.getSelection().toString().trim();
-    if (!text) return;
-
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'en-US';
-    speechSynthesis.speak(utterance);
-    showActionToast('read');
+async function handleReadAloud() {
+    try {
+        const read_Ok = await window.api.ReadAloud(selectedText)
+        read_Ok ? showActionToast('read') : '';
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 function handleExport() {
