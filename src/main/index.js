@@ -147,6 +147,9 @@ app.on('ready', async () => {
 
     await prepDirectories(); // if it's an async function
     await prepNoteFile();
+    await prepBookmarkFile();
+    await prepFavouriteFile();
+
     // Create and set the menu
     const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);

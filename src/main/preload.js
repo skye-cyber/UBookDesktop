@@ -90,8 +90,113 @@ contextBridge.exposeInMainWorld('api', {
             return false;
         }
     },
-    addFavourite: async (ref) => {
 
+    addBookmark: async (data, fpath = path.join(bookmarkDir, 'bookmark.json')) => {
+        try {
+            // Ensure file exists, otherwise initialize with default structure
+            let existingData = { bookmark: [] };
+
+            let _return = ''
+
+            if (fs.existsSync(fpath)) {
+                const fileContent = await fs.promises.readFile(fpath, 'utf-8');
+                existingData = JSON.parse(fileContent || '{"bookmark": []}');
+            }
+
+            console.log(existingData)
+            // Check if the bookmark already exists
+            const index = existingData.bookmark.findIndex(bookmark =>
+                bookmark.part_id === data.part_id &&
+                bookmark.paper_id === data.paper_id &&
+                bookmark.section_number === data.section_number
+            );
+
+            if (index !== -1) {
+                // If it exists, remove it
+                existingData.bookmark.splice(index, 1);
+                _return = {'success':true, 'task':'remove'};
+            } else {
+                // Otherwise, add it
+                existingData.bookmark.push(data);
+                _return = {'success':true, 'task':'add'};
+            }
+
+            // Save updated bookmarks
+            await fs.promises.writeFile(fpath, JSON.stringify(existingData, null, 2));
+            return _return;
+
+        } catch (err) {
+            console.error('Error in addBookmark:', err);
+            return {'success':false, 'task':'any'};
+        }
+    },
+    addFavourite: async (data, fpath = path.join(favouriteDir, 'fav.json')) => {
+        try {
+            // Ensure file exists, otherwise initialize with default structure
+            let existingData = { fav: [] };
+
+            let _return = '';
+
+            if (fs.existsSync(fpath)) {
+                const fileContent = await fs.promises.readFile(fpath, 'utf-8');
+                existingData = JSON.parse(fileContent || '{"fav": []}');
+            }
+
+            console.log(existingData)
+            // Check if the bookmark already exists
+            const index = existingData.fav.findIndex(fav =>
+                fav.part_id === data.part_id &&
+                fav.paper_id === data.paper_id &&
+                fav.section_number === data.section_number
+            );
+
+            if (index !== -1) {
+                // If it exists, remove it
+                existingData.fav.splice(index, 1);
+                _return = { 'success': true, 'task': 'remove' };
+            } else {
+                // Otherwise, add it
+                existingData.fav.push(data);
+                _return = { 'success': true, 'task': 'add' };
+            }
+
+            // Save updated bookmarks
+            await fs.promises.writeFile(fpath, JSON.stringify(existingData, null, 2));
+            return _return
+
+        } catch (err) {
+            console.error('Error in addFavourite:', err);
+            return {'success':false, 'task':'any'};
+        }
+    },
+
+    readBookmarks: async (fpath = path.join(bookmarkDir, 'bookmark.json')) => {
+        try {
+            // Check if file exists and is accessible
+            await fs.promises.access(fpath, fs.constants.F_OK | fs.constants.R_OK);
+
+            // Read the existing file content
+            const data = JSON.parse(await fs.promises.readFile(fpath, 'utf-8'));
+
+            return data;
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    },
+    readFavourites: async (fpath = path.join(favouriteDir, 'fav.json')) => {
+        try {
+            // Check if file exists and is accessible
+            await fs.promises.access(fpath, fs.constants.F_OK | fs.constants.R_OK);
+
+            // Read the existing file content
+            const data = JSON.parse(await fs.promises.readFile(fpath, 'utf-8'));
+
+            return data;
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
     },
     readContent: async (filename) => {
         try {
@@ -122,7 +227,7 @@ contextBridge.exposeInMainWorld('api', {
         // Escape double quotes in the text to prevent shell issues
         const safeText = text.replace(/"/g, '\\"');
 
-        if (os.platform() !== 'linux'){
+        if (os.platform() !== 'linux') {
             console.log('Not Implemented!')
             return false
         }

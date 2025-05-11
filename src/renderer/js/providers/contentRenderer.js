@@ -25,7 +25,7 @@ function CreateItem(text) {
     item.className = "flex items-center justify-between gap-4 py-3"
     item.innerHTML = `
     <button id="bookmark" class="rounded-full p-2 hover:bg-blue-100 dark:hover:bg-blue-900 text-blue-500 hover:text-blue-700 transition">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-none stroke-blue-500" viewBox="0 0 24 24">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5v14l7-5 7 5V5H5z" />
     </svg>
     </button>
@@ -60,6 +60,20 @@ function checkComment(paragraph) {
     }
 }
 
+const partNameMap = {
+    0: 'Foreword',
+    1: 'Central and Superuniverse',
+    2: 'Local Universe',
+    3: 'History of Urantia',
+    4: 'Life and Teachings of Jesus'
+};
+
+function getPartName(id) {
+    console.log(id)
+    return partNameMap[id] || null;
+}
+
+
 function prepTitle(section, fore = false, sep = ':') {
     if (fore === false) {
         return `${section.section_number} ${sep} ${section.title}`
@@ -75,63 +89,176 @@ function prepTitle(section, fore = false, sep = ':') {
     return title
 }
 
-async function reader(part) {
+function toggleSvgClasses(svg, ...classes) {
+    if (!svg || !svg.classList) return;
+    classes.forEach(cls => svg.classList.toggle(cls));
+}
 
-    const data = await window.api.readContent(part)
+function highLightFav(svg) {
+    try {
+        toggleSvgClasses(svg, 'fill-white', 'dark:fill-pink-300', 'fill-pink-600');
+    } catch (err) {
+        console.error('Error in highLightFav:', err);
+    }
+}
 
-    const papers = data['parts'][0]['papers']
-    for (const paper of papers) {
-        for (const section of paper['sections']) {
-            const title = prepTitle(section)
-            const sectionEntry = CreateItem(title);
-            paperContainer.appendChild(sectionEntry);
+function highLightBookmark(svg) {
+    try {
+        toggleSvgClasses(svg, 'fill-none', 'fill-blue-600');
+    } catch (err) {
+        console.error('Error in highLightBookmark:', err);
+    }
+}
 
-            //console.log(sectionEntry.lastChild)
-            sectionEntry.addEventListener('click', (event) => {
-                let target = event.target;
+async function checkFav(item, struct) {
+    // Read Favourites file
+    const fav = await window.api.readFavourites();
 
-                //console.log(target)
+    if (!fav || !Array.isArray(fav.fav)) return;
 
-                // Traverse up the DOM tree to check if the event target or any of its ancestors is the last child
-                while (target !== sectionEntry) {
-                    if (target === sectionEntry.lastChild || sectionEntry.lastChild.contains(target)) {
-                        event.preventDefault();
-                        console.log('fav');
-                        return;
-                    } else if (target === sectionEntry.children[0] || sectionEntry.children[0].contains(target)) {
-                        event.preventDefault();
-                        console.log('bookmark');
-                        return;
-                    }
-                    target = target.parentNode;
-                }
+    const matchFound = fav.fav.some(value => {
+        return value.part_id === struct.part_id &&
+            value.paper_id === struct.paper_id &&
+            value.section_number === struct.section_number;
+    });
 
-                setReader();
-            });
-            function setReader() {
-                readerSection.innerHTML = ""
-                const head = document.createElement('h1');
-                head.className = "text-3xl font-bold mb-4 text-center underline decoration-lime-400";
-                head.textContent = section.title
-                readerSection.appendChild(head);
-                section.paragraphs.forEach(paragraph => {
+    if (matchFound) {
+        const svg = item.lastChild?.getElementsByTagName('svg')[0];
+        if (svg) highLightFav(svg);
+    }
+}
 
-                    const comment = checkComment(paragraph);
 
-                    const span = `<span class="text-md text-sky-500"><i>${comment}</i></span>`
+async function checkBookmark(item, struct) {
+    const bookmarks = await window.api.readBookmarks();
 
-                    const p = document.createElement('p');
+    if (!bookmarks || !Array.isArray(bookmarks.bookmark)) return;
 
-                    const text = cleanText(paragraph.text).replace(comment, span);;
-                    p.innerHTML = text;
-                    readerSection.appendChild(p);
-                    hideSelectorModal();
-                    setTimeout(() => {
-                        scrollToTop(readerWrapper)
-                    }, 100)
-                })
+    const matchFound = bookmarks.bookmark.some(value => {
+        return value.part_id === struct.part_id &&
+            value.paper_id === struct.paper_id &&
+            value.section_number === struct.section_number;
+    });
+
+    if (matchFound) {
+        const svg = item.children[0]?.getElementsByTagName('svg')[0];
+        if (svg) highLightBookmark(svg);
+    }
+}
+
+
+class Reader {
+    constructor(container, readerSection, api) {
+        this.paperContainer = container;
+        this.readerSection = readerSection;
+        this.api = api;
+    }
+
+    async load(part) {
+        const data = await this.api.readContent(part);
+        const partData = data.parts?.[0];
+
+        if (!partData || !partData.papers) return;
+
+        for (const paper of partData.papers) {
+            for (const section of paper.sections) {
+                const title = prepTitle(section);
+                const sectionEntry = CreateItem(title);
+                this.paperContainer.appendChild(sectionEntry);
+
+                const struct = {
+                    part_id: partData.id,
+                    paper_id: paper.paper_id,
+                    section_number: section.section_number,
+                };
+
+                await this.checkAndHighlight(sectionEntry, struct);
+                this.setupClickEvent(sectionEntry, section, paper, partData);
             }
         }
+    }
+
+    async checkAndHighlight(entry, struct) {
+        await checkBookmark(entry, struct);
+        await checkFav(entry, struct);
+    }
+
+    setupClickEvent(entry, section, paper, part) {
+        entry.addEventListener('click', async (event) => {
+            let target = event.target;
+
+            while (target !== entry) {
+                const lastChild = entry.lastChild;
+                const firstChild = entry.children[0];
+
+                if (target === lastChild || lastChild.contains(target)) {
+                    event.preventDefault();
+                    this.handleFavouriteClick(lastChild, section, paper, part);
+                    return;
+                } else if (target === firstChild || firstChild.contains(target)) {
+                    event.preventDefault();
+                    this.handleBookmarkClick(firstChild, section, paper, part);
+                    return;
+                }
+
+                target = target.parentNode;
+            }
+
+            this.displaySection(section);
+        });
+    }
+
+    async handleFavouriteClick(node, section, paper, part) {
+        highLightFav(node.getElementsByTagName('svg')[0]);
+        const structure = this.createStructure(section, paper, part);
+        const status = await this.api.addFavourite(structure);
+        if (status.success) {
+            status.task === 'add'
+                ? showActionToast('favourite')
+                : showActionToast(null, 'Favourite Removed!', '💔');
+        }
+    }
+
+    async handleBookmarkClick(node, section, paper, part) {
+        highLightBookmark(node.getElementsByTagName('svg')[0]);
+        const structure = this.createStructure(section, paper, part);
+        const status = await this.api.addBookmark(structure);
+        if (status.success) {
+            status.task === 'add'
+                ? showActionToast('bookmark')
+                : showActionToast(null, 'Bookmark Removed!', '🔖');
+        }
+    }
+
+    createStructure(section, paper, part) {
+        return {
+            part_id: part.id,
+            part_name: getPartName(part.id),
+            paper_id: paper.paper_id,
+            section_number: section.section_number,
+            section_title: section.title,
+        };
+    }
+
+    displaySection(section) {
+        this.readerSection.innerHTML = "";
+
+        const head = document.createElement('h1');
+        head.className = "text-3xl font-bold mb-4 text-center underline decoration-lime-400";
+        head.textContent = section.title;
+        this.readerSection.appendChild(head);
+
+        section.paragraphs.forEach(paragraph => {
+            const comment = checkComment(paragraph);
+            const span = `<span class="text-md text-sky-500"><i>${comment}</i></span>`;
+            const p = document.createElement('p');
+            const text = cleanText(paragraph.text).replace(comment, span);
+            p.innerHTML = text;
+            this.readerSection.appendChild(p);
+        });
+
+        hideSelectorModal();
+        setTimeout(() => scrollToTop(readerWrapper), 100);
     }
 }
 
@@ -257,36 +384,99 @@ function handleReload() {
 function SetForeword(display = true) {
     PartTitle.textContent = "Foreword"
     paperContainer.innerHTML = "";
-    reader(getSource('foreword_source'))
+    const reader = new Reader(paperContainer, readerSection, window.api);
+    reader.load(getSource('foreword_source'));
     display === true ? displaySelectorModal() : ''
 }
 
 function SetSuperUniverse() {
     PartTitle.textContent = "Central and Superuniverse";
     paperContainer.innerHTML = "";
-    reader(getSource('central_superuniverses_source'));
+    const reader = new Reader(paperContainer, readerSection, window.api);
+    reader.load(getSource('central_superuniverses_source'));
     displaySelectorModal()
 }
 
 function SetLocalUniverse() {
     PartTitle.textContent = "Local Universe";
     paperContainer.innerHTML = "";
-    reader(getSource('local_universe_source'))
+    const reader = new Reader(paperContainer, readerSection, window.api);
+    reader.load(getSource('local_universe_source'));
     displaySelectorModal()
 }
 
 function SetHistoryOfUrantia() {
     PartTitle.textContent = "History of Urantia";
     paperContainer.innerHTML = "";
-    reader(getSource('history_urantia_source'))
+    const reader = new Reader(paperContainer, readerSection, window.api);
+    reader.load(getSource('history_urantia_source'));
     displaySelectorModal()
 }
 
 function SetJesusTeachings() {
     PartTitle.textContent = "Life and Teachings of Jesus";
     paperContainer.innerHTML = "";
-    reader(getSource('jesus_life_teachings_source'))
+    const reader = new Reader(paperContainer, readerSection, window.api);
+    reader.load(getSource('jesus_life_teachings_source'));
     displaySelectorModal()
+}
+
+async function loadItems(type = 'favourites') {
+    const data = await window.api[`read${capitalize(type)}`]();
+    const items = data?.[type === 'favourites' ? 'fav' : 'bookmark'];
+
+    if (!Array.isArray(items) || items.length === 0) {
+        paperContainer.innerHTML = `<h2 class='text-center font-semibold text-gray-900 dark:text-white underline'>No ${capitalize(type)} ❌🤷‍🤷</h2>`;
+        displaySelectorModal();
+        return;
+    }
+
+    PartTitle.textContent = capitalize(type);
+    paperContainer.innerHTML = "";
+
+    const contentFile = 'Combined_Structured_UB.json';
+    const fullData = await window.api.readContent(contentFile);
+    const partsById = Object.fromEntries(fullData.parts.map(part => [part.id, part]));
+
+    const reader = new Reader(paperContainer, readerSection, window.api);
+
+    for (const item of items) {
+        const part = partsById[item.part_id];
+        if (!part) continue;
+
+        const paper = part.papers.find(p => p.paper_id === item.paper_id);
+        if (!paper) continue;
+
+        const section = paper.sections.find(s => s.section_number === item.section_number);
+        if (!section) continue;
+
+        const title = prepTitle(section);
+        const sectionEntry = CreateItem(title);
+        paperContainer.appendChild(sectionEntry);
+
+        const struct = {
+            part_id: part.id,
+            paper_id: paper.paper_id,
+            section_number: section.section_number,
+        };
+
+        reader.checkAndHighlight(sectionEntry, struct);
+        reader.setupClickEvent(sectionEntry, section, paper, part);
+    }
+
+    displaySelectorModal();
+}
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+async function loadFavourites() {
+    await loadItems('favourites');
+}
+
+async function loadBookmarks() {
+    await loadItems('bookmarks');
 }
 
 // Load Foreword Initially

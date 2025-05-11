@@ -2339,11 +2339,11 @@ def Combine():
     with open('Life_and_Teachings_of_Jesus_structured.json', 'r') as t:
         teachings = json.load(t)['parts']
 
-    full_structured['parts'].append(foreword)
-    full_structured['parts'].append(central)
-    full_structured['parts'].append(local)
-    full_structured['parts'].append(urantia)
-    full_structured['parts'].append(teachings)
+    full_structured['parts'].append(foreword[0])
+    full_structured['parts'].append(central[0])
+    full_structured['parts'].append(local[0])
+    full_structured['parts'].append(urantia[0])
+    full_structured['parts'].append(teachings[0])
 
     with open('Combined_Structured_UB.json', 'w') as fn:
         json.dump(full_structured, fn, indent=2)
@@ -2351,8 +2351,8 @@ def Combine():
 
 
 if __name__ == "__main__":
-    central_superuniverses()
-    local_universe()
-    history_urantia()
-    jesus_life_teachings()
+    #central_superuniverses()
+    #local_universe()
+    #history_urantia()
+    #jesus_life_teachings()
     Combine()

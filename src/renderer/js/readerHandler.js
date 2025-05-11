@@ -170,7 +170,7 @@ function setHighlightColor(color) {
     document.getElementById('color-picker').classList.add('hidden');
 }
 
-function showActionToast(action) {
+function showActionToast(action=null, _message=null, _icon=null) {
     const toast = document.getElementById('action-toast');
     const icon = document.getElementById('toast-icon');
     const message = document.getElementById('toast-message');
@@ -199,14 +199,22 @@ function showActionToast(action) {
         read: {
             icon: `🔊`,
             text: 'Read Aloud!'
+        },
+        favourite: {
+            icon: `🩷`,
+            text: 'Favourited!'
+        },
+        bookmark: {
+            icon: `🔖`,
+            text: 'Bookmarked!'
         }
     };
 
     if (!actionMap[action]) return;
 
     // Inject icon and message
-    icon.innerHTML = actionMap[action].icon;
-    message.textContent = actionMap[action].text;
+    icon.innerHTML = _icon || actionMap[action].icon;
+    message.textContent = _message || actionMap[action].text;
 
     // Animate: slide in
     toast.classList.remove('translate-x-full', 'opacity-0');
