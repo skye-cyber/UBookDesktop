@@ -220,33 +220,37 @@ async function prepDirectories() {
 
 async function prepNoteFile() {
     const file = path.join(app.getPath('home'), '.UBookDesk', '.saveNotes', 'notes.json');
-    console.log(`Prep notes file ${file}`);
 
     const structure = {
         "notes": []
     };
-
-    await fs.promises.writeFile(file, JSON.stringify(structure, null, 2));
+    if (!fs.statSync(file)) {
+        console.log(`Prep notes file ${file}`);
+        await fs.promises.writeFile(file, JSON.stringify(structure, null, 2));
+    }
 }
 
 async function prepFavouriteFile() {
     const file = path.join(app.getPath('home'), '.UBookDesk', '.favourites', 'fav.json');
-    console.log(`Prep favourites file ${file}`);
 
     const structure = {
         "fav": []
     };
-
-    await fs.promises.writeFile(file, JSON.stringify(structure, null, 2));
+    if (!fs.statSync(file)) {
+        console.log(`Prep favourites file ${file}`);
+        await fs.promises.writeFile(file, JSON.stringify(structure, null, 2));
+    }
 }
 
 async function prepBookmarkFile() {
     const file = path.join(app.getPath('home'), '.UBookDesk', '.bookmark', 'bookmark.json');
-    console.log(`Prep bookmark file ${file}`);
 
     const structure = {
         "bookmark": []
     };
 
-    await fs.promises.writeFile(file, JSON.stringify(structure, null, 2));
+    if (!fs.statSync(file)) {
+        console.log(`Prep bookmark file ${file}`);
+        await fs.promises.writeFile(file, JSON.stringify(structure, null, 2));
+    }
 }

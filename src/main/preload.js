@@ -3,7 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const { exec } = require('child_process');
-const tts = require('tts');
+//const tts = require('tts');
+//const player = require('play-sound')({}); // Uses native players: aplay, mpg123, afplay etc.
 
 contextBridge.exposeInMainWorld('global', window);
 
@@ -14,15 +15,13 @@ const bookmarkDir = path.join(BaseDir, '.bookmark');
 const cacheDir = path.join(BaseDir, '.cache');
 const picowave = path.join(__dirname, '../common/pico_bundle/bin/pico2wave')
 
-function getSoxPath() {
-    const baseDir = path.join(__dirname, '../common/sox_bundle/bin');
+let audioContext = null;
+let audioBuffer = null;
+let sourceNode = null;
+let startTime = 0;
+let pauseTime = 0;
 
-    if (os.platform() === 'win32') {
-        return path.join(baseDir, 'sox.exe');
-    } else {
-        return path.join(baseDir, 'sox');
-    }
-}
+let isManualStop = false;
 
 contextBridge.exposeInMainWorld('api', {
     getDownloadsPath: () => {
@@ -128,11 +127,11 @@ contextBridge.exposeInMainWorld('api', {
             if (index !== -1) {
                 // If it exists, remove it
                 existingData.bookmark.splice(index, 1);
-                _return = {'success':true, 'task':'remove'};
+                _return = { 'success': true, 'task': 'remove' };
             } else {
                 // Otherwise, add it
                 existingData.bookmark.push(data);
-                _return = {'success':true, 'task':'add'};
+                _return = { 'success': true, 'task': 'add' };
             }
 
             // Save updated bookmarks
@@ -141,7 +140,7 @@ contextBridge.exposeInMainWorld('api', {
 
         } catch (err) {
             console.error('Error in addBookmark:', err);
-            return {'success':false, 'task':'any'};
+            return { 'success': false, 'task': 'any' };
         }
     },
     addFavourite: async (data, fpath = path.join(favouriteDir, 'fav.json')) => {
@@ -180,7 +179,7 @@ contextBridge.exposeInMainWorld('api', {
 
         } catch (err) {
             console.error('Error in addFavourite:', err);
-            return {'success':false, 'task':'any'};
+            return { 'success': false, 'task': 'any' };
         }
     },
 
@@ -232,32 +231,114 @@ contextBridge.exposeInMainWorld('api', {
             return false;
         }
     },
-    ReadAloud: async (_text) => {
-        const text = _text || window.getSelection().toString().trim();
-        if (!text) return;
-
+    ReadAloud: async (_text, action = 'play') => {
+        const text = _text || '';
         const cacheFile = path.join(cacheDir, 'output.wav');
 
-        // Escape double quotes in the text to prevent shell issues
-        const safeText = text.replace(/"/g, '\\"');
-
+        // Ensure it's only for Linux
         if (os.platform() !== 'linux') {
-            console.log('Not Implemented!')
-            return false
+            console.log('Not implemented on this OS');
+            return false;
         }
-        const command = `echo "${safeText}" | ${picowave} -w "${cacheFile}" && aplay "${cacheFile}"`;
 
-        exec(command, (error, stdout, stderr) => {
-            if (error) {
-                console.error('pico2wave TTS error:', error.message);
-                console.error('stderr:', stderr);
-                return;
+        // Handle pause
+        if (action === 'pause') {
+            isManualStop = true;
+            if (sourceNode) {
+                sourceNode.stop();
+                pauseTime = audioContext.currentTime - startTime;
+                sourceNode = null;
             }
-            console.log('Speech playback finished');
-        });
+            // Reset after stop/pause
+            setTimeout(()=>{ isManualStop = false;},100)
+            return 'Paused';
+        }
 
+        // Handle resume
+        if (action === 'resume') {
+            if (audioBuffer && pauseTime) {
+                sourceNode = audioContext.createBufferSource();
+                sourceNode.buffer = audioBuffer;
+                sourceNode.connect(audioContext.destination);
+                startTime = audioContext.currentTime - pauseTime;
+                console.log('stt:', startTime, 'pst:', pauseTime, 'act:', audioContext.currentTime)
+                sourceNode.start(0, pauseTime);
+                pauseTime = 0;
 
-        return true
+                sourceNode.onended = () => {
+                    console.log(isManualStop)
+                    if (!isManualStop) {
+                        //setState(true);
+                        setTimeout(() => {
+                            document.dispatchEvent(new Event('play-finished'));
+                        }, 0);
+                    } else {
+                        isManualStop = false; // reset it for next time
+                    }
+                };
+                return 'Resumed';
+            }
+            return 'Nothing to resume';
+        }
+
+        // Handle stop
+        if (action === 'stop') {
+            isManualStop = true;
+            if (sourceNode) {
+                sourceNode.stop();
+                sourceNode = null;
+            }
+            audioBuffer = null;
+            pauseTime = 0;
+            return 'Stopped';
+        }
+
+        // Fresh playback
+        if (!text.trim()) return 'No text';
+
+        const safeText = text.replace(/"/g, '\\"');
+        const command = `echo "${safeText}" | ${picowave} -w "${cacheFile}"`;
+
+        try {
+            await new Promise((resolve, reject) => {
+                exec(command, (err) => {
+                    if (err) return reject(err);
+                    resolve();
+                });
+            });
+
+            if (!audioContext) audioContext = new AudioContext();
+
+            const fileData = fs.readFileSync(cacheFile);
+            const arrayBuffer = fileData.buffer.slice(fileData.byteOffset, fileData.byteOffset + fileData.byteLength);
+
+            audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+            sourceNode = audioContext.createBufferSource();
+            sourceNode.buffer = audioBuffer;
+            sourceNode.connect(audioContext.destination);
+            sourceNode.playbackRate.value = 1;
+            startTime = audioContext.currentTime;
+
+            // Dispatch play-finished event on end
+            sourceNode.onended = () => {
+                console.log(isManualStop)
+                if (!isManualStop) {
+                    //setState(true);
+                    setTimeout(() => {
+                        document.dispatchEvent(new Event('play-finished'));
+                    }, 0);
+                } else {
+                    isManualStop = false; // reset it for next time
+                }
+            };
+
+            sourceNode.start(0);
+            return true;
+        } catch (error) {
+            console.error('TTS error:', error);
+            return false;
+        }
     },
     formatDate: async (isoString) => {
         const date = new Date(isoString);

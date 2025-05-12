@@ -347,7 +347,7 @@ function init1() {
     //Choose First Conversation
     setTimeout(() => {
         paperContainer.children[0].click()
-    }, 100)
+    }, 400)
     // init2 Set the quick read section-> allow reload/refresh
     init6()
 }

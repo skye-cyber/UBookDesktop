@@ -270,6 +270,32 @@
             </div>
         </div>
 
+        <!-- Floating Read-Aloud Player Tooltip -->
+        <div id="player-tooltip" class="fixed bottom-4 right-4 z-50 p-3 bg-gradient-to-br from-white/80 via-white/60 to-white/40 dark:from-gray-800/80 dark:via-gray-800/60 dark:to-gray-800/40 backdrop-blur-sm rounded-xl shadow-lg flex items-center space-x-3 transition-transform transform hover:scale-105 translate-x-[110%] transform tansition-transform transition-all duration-700">
+            <!-- Play/Pause Button -->
+            <button id="btn-play-pause" class="bg-sky-600 flex items-center justify-center hover:bg-sky-300 focus:outline-none text-white font-bold p-2.5 rounded-full transition-colors duration-700" title="Play" aria-label="Play">
+                <!--start svg -->
+                <svg id="icon-play" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"></path>
+                </svg>
+                <div id="icon-paused" class="hidden px-1 py-0.5 grid grid-cols-2 gap-1 flex items-center justify-center hover:bg-blue-300 focus:outline-none text-white font-bold rounded-full transition-colors duration-700" title="Paused" aria-label="Paused">
+                    <p class="bg-white px-[2px] h-4"></p>
+                    <p class="bg-white px-[2px] h-4"></p>
+                </div>
+            </button>
+
+            <!-- Stop Button -->
+            <button id="btn-stop" class="p-2 bg-gradient-to-tr from-red-400 to-red-600 rounded-full text-white hover:shadow-md hover:saturate-200  focus:outline-none transition-all duration-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" stroke="none">
+                <rect x="6" y="6" width="12" height="12" rx="2" />
+                </svg>
+            </button>
+
+            <!-- Status / Progress -->
+            <div id="player-status" class="flex-1 text-sm text-gray-700 dark:text-gray-300 select-none">
+                Ready
+            </div>
+        </div>
     </main>
 </body>
 <script type="text/javascript" src="js/themes.js"></script>

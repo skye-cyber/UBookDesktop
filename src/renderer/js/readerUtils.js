@@ -101,12 +101,11 @@ function handleWebSearch() {
 }
 
 function handleSaveNote() {
+    // show comment modal
     showNoteModal();
 }
 
 function saveNote() {
-    // show comment modal
-    //
     const note = {
         comment: document.getElementById('note-comment').value,
         timestamp: new Date().toISOString(),
@@ -206,7 +205,7 @@ function showActionToast(action = null, _message = null, _icon = null) {
         },
         read: {
             icon: `🔊`,
-            text: 'Read Aloud!'
+            text: 'Reading initialized!'
         },
         favourite: {
             icon: `🩷`,
@@ -238,7 +237,13 @@ function showActionToast(action = null, _message = null, _icon = null) {
 async function handleReadAloud() {
     try {
         const read_Ok = await window.api.ReadAloud(selectedText)
-        read_Ok ? showActionToast('read') : '';
+        if (read_Ok){
+            showActionToast('read');
+            displayPlayerTool();
+            isPlaying = true;
+            updateIcon()
+            statusLabel.textContent = 'Playing...';
+        }
     } catch (err) {
         console.log(err)
     }
