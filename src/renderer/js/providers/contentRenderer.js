@@ -479,5 +479,48 @@ async function loadBookmarks() {
     await loadItems('bookmarks');
 }
 
+//showNotesModal("✨ You can inject dynamic note content here using HTML.");
+
+
+async function renderNotes() {
+    const notesData = await window.api.readNotes();
+    const items = notesData?.notes;
+
+
+    if (!Array.isArray(items) || items.length === 0) {
+        NotesmodalContent.innerHTML = `
+            <h2 class='text-center font-semibold text-gray-900 dark:text-white underline'>
+                No notes available yet
+            </h2>`;
+        showNotesModal();
+        return;
+    }
+
+    NotesmodalContent.innerHTML = "";
+    //PartTitle.textContent = "Notes";
+
+    for (const note of items) {
+        const noteCard = document.createElement("div");
+        noteCard.className = `group relative p-5 mb-4 rounded-2xl shadow-xl border border-transparent transition-all bg-gradient-to-br from-white via-gray-100 to-blue-100 dark:from-gray-800 dark:via-gray-900 dark:to-indigo-900 hover:border-blue-400 dark:hover:border-indigo-400 hover:scale-[1.01] hover:shadow-2xl transform transition-all duration-150 ease-in-out mx-1`;
+
+        noteCard.innerHTML = `
+            <div class="mb-2 text-xs text-gray-600 dark:text-gray-400 italic transition-colors duration-500">
+                ${new Date(note.timestamp).toLocaleString()}
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-indigo-300 transition-colors duration-500">
+                ${note.comment}
+            </h3>
+            <p class="mt-2 text-sm text-gray-800 dark:text-gray-200 leading-relaxed transition-colors duration-500">
+                ${note.content}
+            </p>
+        `;
+
+        NotesmodalContent.appendChild(noteCard);
+    }
+
+    showNotesModal();
+}
+
+
 // Load Foreword Initially
 init1();

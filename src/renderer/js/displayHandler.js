@@ -53,3 +53,40 @@ function closeNoteModal() {
     }, 700)
     document.getElementById('note-comment').value = '';
 }
+
+
+const notesModal = document.getElementById('notesModal');
+const modalContentBox = document.getElementById('modalContentBox');
+const NotesmodalContent = document.getElementById('modalContent');
+const modalBackdrop = document.getElementById('modalBackdrop');
+const closeModal = document.getElementById('closeModal');
+
+function showNotesModal(noteContent = '') {
+    noteContent ? NotesmodalContent.querySelector('p').innerHTML = noteContent : '';
+
+    notesModal.classList.remove('pointer-events-none');
+
+    requestAnimationFrame(() => {
+        modalBackdrop.classList.remove('opacity-0', 'scale-95');
+        modalBackdrop.classList.add('opacity-100', 'scale-100');
+
+        modalContentBox.classList.remove('opacity-0', 'scale-90', 'translate-y-8');
+        modalContentBox.classList.add('opacity-100', 'scale-100', 'translate-y-0');
+    });
+}
+
+function hideNotesModal() {
+    modalBackdrop.classList.add('opacity-0', 'scale-95');
+    modalBackdrop.classList.remove('opacity-100', 'scale-100');
+
+    modalContentBox.classList.add('opacity-0', 'scale-90', 'translate-y-8');
+    modalContentBox.classList.remove('opacity-100', 'scale-100', 'translate-y-0');
+
+    // Wait for animation to finish before disabling interaction
+    setTimeout(() => {
+        notesModal.classList.add('pointer-events-none');
+    }, 400);
+}
+
+closeModal.addEventListener('click', hideNotesModal);
+modalBackdrop.addEventListener('click', hideNotesModal);

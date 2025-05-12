@@ -141,36 +141,44 @@ function handleHighlight() {
 }
 
 function showColorPicker() {
-    const picker = document.getElementById('color-picker');
+    const picker = !Rpane ? document.getElementById('color-picker') : document.getElementById('color-picker-right');
     picker.classList.toggle('hidden');
 }
 
 function setHighlightColor(color) {
-    const circle = document.getElementById('current-color-circle');
+    const circles = document.querySelectorAll('#current-color-circle');
 
     switch (color) {
         case 'yellow':
             selectedHighlightClass = 'bg-yellow-200 dark:bg-yellow-100 text-black dark:text-black';
-            circle.className = 'size-6 rounded-full bg-yellow-300 dark:bg-yellow-500 mr-2';
+            circles.forEach(circle => {
+                circle.className = 'size-6 rounded-full bg-yellow-300 dark:bg-yellow-500 mr-2';
+            })
             break;
         case 'blue':
             selectedHighlightClass = 'bg-blue-200 dark:bg-blue-500 text-black dark:text-white';
-            circle.className = 'size-6 rounded-full bg-blue-300 dark:bg-blue-500 mr-2';
+            circles.forEach(circle => {
+                circle.className = 'size-6 rounded-full bg-blue-300 dark:bg-blue-500 mr-2';
+            })
             break;
         case 'pink':
             selectedHighlightClass = 'bg-pink-200 dark:bg-pink-500 text-black dark:text-black';
-            circle.className = 'size-6 rounded-full bg-pink-300 dark:bg-pink-500 mr-2';
+            circles.forEach(circle => {
+                circle.className = 'size-6 rounded-full bg-pink-300 dark:bg-pink-500 mr-2';
+            })
             break;
         case 'green':
             selectedHighlightClass = 'bg-green-300 dark:bg-green-500 text-black dark:text-black';
-            circle.className = 'size-6 rounded-full bg-green-500 dark:bg-green-500 mr-2';
+            circles.forEach(circle => {
+                circle.className = 'size-6 rounded-full bg-green-500 dark:bg-green-500 mr-2';
+            })
             break;
     }
 
     document.getElementById('color-picker').classList.add('hidden');
 }
 
-function showActionToast(action=null, _message=null, _icon=null) {
+function showActionToast(action = null, _message = null, _icon = null) {
     const toast = document.getElementById('action-toast');
     const icon = document.getElementById('toast-icon');
     const message = document.getElementById('toast-message');

@@ -90,6 +90,20 @@ contextBridge.exposeInMainWorld('api', {
             return false;
         }
     },
+    readNotes: async (fpath = path.join(notesDir, 'notes.json')) => {
+        try {
+            // Check if file exists and is accessible
+            await fs.promises.access(fpath, fs.constants.F_OK | fs.constants.R_OK);
+
+            // Read the existing file content
+            const data = JSON.parse(await fs.promises.readFile(fpath, 'utf-8'));
+
+            return data;
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    },
 
     addBookmark: async (data, fpath = path.join(bookmarkDir, 'bookmark.json')) => {
         try {
