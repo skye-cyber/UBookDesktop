@@ -216,6 +216,7 @@ contextBridge.exposeInMainWorld('api', {
             const basePath = path.resolve(__dirname, '../assets/files/');
             const filePath = path.join(basePath, filename);
 
+
             // Check if file exists and is accessible
             await fs.promises.access(filePath, fs.constants.F_OK | fs.constants.R_OK);
 

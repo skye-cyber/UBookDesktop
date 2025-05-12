@@ -11,7 +11,8 @@
     "build": "NODE_ENV=production npx tailwindcss -i ./src/renderer/css/config.css -o ./src/renderer/css/styles.css --minify",
     "watch": "npx tailwindcss -i ./src/renderer/css/config.css -o ./src/renderer/css/styles.css --watch",
     "package": "electron-packager .",
-    "forge": "electron-forge package"
+    "forge": "electron-forge package",
+    "generate:linux-icons": "node src/generate-linux-icons.js"
   },
   "keywords": [],
   "author": {
@@ -39,13 +40,13 @@
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "url": "^0.11.4",
-    "webpack": "latest"
+    "webpack": "latest",
+    "sharp": "^0.30.0"
   },
   "dependencies": {
     "@tailwindcss/typography": "latest",
     "audit": "^0.0.6",
-    "fix": "^0.0.6",
-    "tts": "^0.1.0"
+    "fix": "^0.0.6"
   },
   "files": [
     "README.md",
@@ -60,41 +61,108 @@
       "cache": true
     },
     "asar": true,
+    "files": [
+      "**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "src/assets/",
+        "to": "assets/"
+      }
+    ],
     "mac": {
       "target": [
-        "dmg"
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
       ],
-      "identity": null,
-      "icon": "src/assets/UBookDesktop.icns"
+      "icon": "src/assets/UBookDesktop.icns",
+      "category": "public.app-category.productivity",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "entitlements.mac.plist",
+      "entitlementsInherit": "entitlements.mac.plist",
+      "provisioningProfile": "embedded.provisionprofile"
+    },
+    "dmg": {
+      "artifactName": "${productName}-${version}-${arch}.dmg"
     },
     "win": {
+      "icon": "src/assets/UBookDesktop.ico",
       "target": [
-        "nsis"
-      ],
-      "icon": "src/assets/UBookDesktop.ico"
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32",
+            "arm64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ]
     },
     "nsis": {
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
       "oneClick": false,
       "perMachine": true,
       "allowElevation": true,
-      "allowToChangeInstallationDirectory": true
+      "allowToChangeInstallationDirectory": true,
+      "license": "LICENSE"
+    },
+    "portable": {
+      "artifactName": "${productName}-portable-${version}-${arch}.${ext}"
     },
     "linux": {
       "target": [
-        "AppImage",
-        "deb"
-      ],
-      "category": "Utility",
-      "icon": "src/assets/UBookDesktop.png",
-      "extraResources": [
         {
-          "from": "src/assets/",
-          "to": "assets/"
+          "target": "AppImage",
+          "arch": [
+            "x64",
+            "armv7l",
+            "arm64"
+          ]
         },
         {
-          "from": "src/assets/UBookDesktop.png",
-          "to": "/usr/share/icons/UBookDesktop.png"
-        }
+          "target": "deb",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        "snap"
+      ],
+      "category": "Utility",
+      "icon": "src/icons/linux/512x512",
+      "maintainer": "Mwikya -- swskye17@gmail.com",
+      "synopsis": "UBookDesktop",
+      "description": "Read Urantia Book on Your Desktop (favourite, bookmark, save notes)"
+    },
+    "appImage": {
+      "artifactName": "${productName}-${version}-${arch}.AppImage"
+    },
+    "deb": {
+      "priority": "optional",
+      "artifactName": "${productName}_${version}_${arch}.deb"
+    },
+    "snap": {
+      "summary": "UBookDesktop Snap Package",
+      "grade": "stable",
+      "confinement": "classic",
+      "plugs": [
+        "network",
+        "home",
+        "audio-playback"
       ]
     }
   }

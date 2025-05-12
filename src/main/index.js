@@ -217,16 +217,29 @@ async function prepDirectories() {
         console.log(error)
     }
 }
-
 async function prepNoteFile() {
     const file = path.join(app.getPath('home'), '.UBookDesk', '.saveNotes', 'notes.json');
 
     const structure = {
-        "notes": []
+        notes: []
     };
-    if (!fs.statSync(file)) {
-        console.log(`Prep notes file ${file}`);
-        await fs.promises.writeFile(file, JSON.stringify(structure, null, 2));
+
+    try {
+        // Check if file exists asynchronously
+        await fs.promises.access(file, fs.constants.F_OK);
+        // File exists
+        return true;
+    } catch (err) {
+        // File does not exist, create directory and file
+        console.log(`Prep notes file: ${file}`);
+
+        // Ensure directory exists
+        //await fs.promises.mkdir(path.dirname(file), { recursive: true });
+
+        // Write initial structure
+        await fs.promises.writeFile(file, JSON.stringify(structure, null, 2), 'utf8');
+
+        return true; // or true if you want to indicate success after creation
     }
 }
 
@@ -236,9 +249,22 @@ async function prepFavouriteFile() {
     const structure = {
         "fav": []
     };
-    if (!fs.statSync(file)) {
+    try {
+        // Check if file exists asynchronously
+        await fs.promises.access(file, fs.constants.F_OK);
+        // File exists
+        return true;
+    } catch (err) {
+        // File does not exist, create directory and file
         console.log(`Prep favourites file ${file}`);
-        await fs.promises.writeFile(file, JSON.stringify(structure, null, 2));
+
+        // Ensure directory exists
+        //await fs.promises.mkdir(path.dirname(file), { recursive: true });
+
+        // Write initial structure
+        await fs.promises.writeFile(file, JSON.stringify(structure, null, 2), 'utf8');
+
+        return true; // or true if you want to indicate success after creation
     }
 }
 
@@ -248,9 +274,21 @@ async function prepBookmarkFile() {
     const structure = {
         "bookmark": []
     };
-
-    if (!fs.statSync(file)) {
+    try {
+        // Check if file exists asynchronously
+        await fs.promises.access(file, fs.constants.F_OK);
+        // File exists
+        return true;
+    } catch (err) {
+        // File does not exist, create directory and file
         console.log(`Prep bookmark file ${file}`);
-        await fs.promises.writeFile(file, JSON.stringify(structure, null, 2));
+
+        // Ensure directory exists
+        //await fs.promises.mkdir(path.dirname(file), { recursive: true });
+
+        // Write initial structure
+        await fs.promises.writeFile(file, JSON.stringify(structure, null, 2), 'utf8');
+
+        return true; // or true if you want to indicate success after creation
     }
 }
