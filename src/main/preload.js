@@ -3,8 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const { exec } = require('child_process');
-//const tts = require('tts');
-//const player = require('play-sound')({}); // Uses native players: aplay, mpg123, afplay etc.
 
 contextBridge.exposeInMainWorld('global', window);
 
@@ -13,7 +11,6 @@ const notesDir = path.join(BaseDir, '.saveNotes');
 const favouriteDir = path.join(BaseDir, '.favourites');
 const bookmarkDir = path.join(BaseDir, '.bookmark');
 const cacheDir = path.join(BaseDir, '.cache');
-const picowave = path.join(__dirname, '../common/pico_bundle/bin/pico2wave')
 
 let audioContext = null;
 let audioBuffer = null;
@@ -251,7 +248,7 @@ contextBridge.exposeInMainWorld('api', {
                 sourceNode = null;
             }
             // Reset after stop/pause
-            setTimeout(()=>{ isManualStop = false;},100)
+            setTimeout(() => { isManualStop = false; }, 100)
             return 'Paused';
         }
 
@@ -298,6 +295,9 @@ contextBridge.exposeInMainWorld('api', {
         if (!text.trim()) return 'No text';
 
         const safeText = text.replace(/"/g, '\\"');
+
+        const picowave = await ipcRenderer.invoke('get-picowave-path');
+
         const command = `echo "${safeText}" | ${picowave} -w "${cacheFile}"`;
 
         try {
@@ -323,7 +323,6 @@ contextBridge.exposeInMainWorld('api', {
 
             // Dispatch play-finished event on end
             sourceNode.onended = () => {
-                console.log(isManualStop)
                 if (!isManualStop) {
                     //setState(true);
                     setTimeout(() => {

@@ -68,6 +68,10 @@
       {
         "from": "src/assets/",
         "to": "assets/"
+      },
+      {
+      "from": "src/common/",
+      "to": "common/"
       }
     ],
     "mac": {

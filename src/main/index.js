@@ -13,6 +13,11 @@ const iconPath = isDev
 
 app.disableHardwareAcceleration()
 
+ipcMain.handle('get-picowave-path', () => {
+    const picoPath = isDev ? path.join(__dirname, '../common/pico_bundle/bin/pico2wave')
+        : path.join(process.resourcesPath, 'common/pico_bundle/bin/pico2wave');
+    return picoPath;
+});
 
 //Handle Documentation shortcut
 ipcMain.handle('show-documentation', () => {
@@ -194,7 +199,6 @@ app.on('activate', () => {
         createWindow(); // Recreate a window if none are open on macOS
     }
 });
-
 
 
 async function prepDirectories() {
