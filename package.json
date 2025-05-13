@@ -13,7 +13,7 @@
     "package": "electron-packager .",
     "forge": "electron-forge package",
     "generate:linux-icons": "node src/scripts/generate-linux-icons.js",
-    "postinstall": "node fix-package-json.js"
+    "postinstall": "node src/scripts/post-install.js"
   },
   "keywords": [],
   "author": {
