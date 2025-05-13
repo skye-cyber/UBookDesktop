@@ -97,8 +97,8 @@ This program is free software: you can redistribute it and/or modify
   See the LICENSE file for more details. See the [LICENSE](LICENSE) file for details.
   
 ## Acknowledgments
-Special thanks to the Urantia Foundation for making **The Urantia Book** available.
-Special thanks to [https://huggingface.co/datasets/cyber-ar-15/urantia-book-json](cyber-ar-15) for availing json dataset for the urantia book.
+- Special thanks to the Urantia Foundation for making **The Urantia Book** available.
+- Special thanks to [https://huggingface.co/datasets/cyber-ar-15/urantia-book-json](cyber-ar-15) for availing json dataset for the urantia book.
 
 ## Future Plans
 - **Multi-Language Support**: Add support for multiple languages.
