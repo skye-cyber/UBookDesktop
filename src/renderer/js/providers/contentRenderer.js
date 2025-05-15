@@ -3,6 +3,8 @@ const paperContainer = document.getElementById('paper-container')
 const readerSection = document.getElementById('reader-content');
 const readerWrapper = document.getElementById('reader-wrapper-container');
 
+let activeSection = null
+
 function getSource(target) {
     const foreword_source = 'foreword_structured.json';
     const central_superuniverses_source = "central_superuniverses_structured.json";
@@ -213,6 +215,7 @@ class Reader {
             }
 
             this.displaySection(section);
+            activeSection = entry;
         });
     }
 
@@ -529,6 +532,40 @@ async function renderNotes() {
     showNotesModal();
 }
 
+function nextSection() {
+    const nextEntry = activeSection.nextElementSibling || null;
+    nextEntry ? activeSection.nextElementSibling.click() : displayWarning(text = "End of Chapter!");
+}
+
+function previousSection() {
+    const nextEntry = activeSection.previousElementSibling || null;
+    nextEntry ? activeSection.previousElementSibling.click() : displayWarning(text = "Reached Beginning of Chapter!");
+}
+
+const modal = document.getElementById('warningModal');
+const warningText = document.getElementById('warningText');
+let hideTimeout;
+
+function displayWarning(text) {
+    warningText.textContent = text;
+
+    if (hideTimeout) clearTimeout(hideTimeout);
+
+    // Remove all animation classes first
+    modal.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
+    modal.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
+
+    // Use setTimeout 0 to force a tick, then add classes to trigger animation
+    setTimeout(() => {
+        modal.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
+        modal.classList.add('translate-x-0', 'opacity-100', 'pointer-events-auto');
+    }, 30);
+
+    hideTimeout = setTimeout(() => {
+        modal.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
+        modal.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
+    }, 4000);
+}
 
 // Load Foreword Initially
 init1();

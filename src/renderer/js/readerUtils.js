@@ -236,8 +236,10 @@ function showActionToast(action = null, _message = null, _icon = null) {
 
 async function handleReadAloud() {
     try {
+        showLoading(text="Preparing Audio")
         const read_Ok = await window.api.ReadAloud(selectedText)
         if (read_Ok) {
+            hideLoading();
             showActionToast('read');
             displayPlayerTool();
             isPlaying = true;
@@ -283,4 +285,34 @@ function ReadAllAloud() {
         selectedText = text;
         handleReadAloud()
     }
+}
+
+const loadingModal = document.getElementById('loadingModal');
+const loadText = document.getElementById('load-text');
+let loadingTimeout;
+
+function showLoading(text=null) {
+    // Clear any hide timers
+    if (loadingTimeout) clearTimeout(loadingTimeout);
+
+    text !== null ? loadText.textContent = text : null;
+
+    // Reset to hidden state first
+    loadingModal.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+    loadingModal.classList.add('-translate-y-full', 'opacity-0', 'pointer-events-none');
+
+    // Use timeout to trigger slide down animation
+    setTimeout(() => {
+        loadingModal.classList.remove('-translate-y-full', 'opacity-0', 'pointer-events-none');
+        loadingModal.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+    }, 10);
+}
+
+function hideLoading() {
+    loadingModal.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+    loadingModal.classList.add('-translate-y-full');
+    setTimeout(()=>{
+        loadingModal.classList.add('opacity-0', 'pointer-events-none');
+        loadText.textContent = "Loading..."
+    }, 300)
 }
