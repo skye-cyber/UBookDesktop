@@ -20,7 +20,7 @@ function getSource(target) {
     return sources[target]
 }
 
-function CreateItem(text) {
+function CreateItem(title, paper) {
     const item = document.createElement('li')
     item.className = "flex items-center justify-between gap-4 py-3"
     item.innerHTML = `
@@ -29,7 +29,12 @@ function CreateItem(text) {
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5v14l7-5 7 5V5H5z" />
     </svg>
     </button>
-    <span class="flex-1 cursor-pointer text-left font-medium text-gray-800 dark:text-white">${text}</span>
+    <div class="flex-1 cursor-pointer text-left">
+        <div class="block">
+            <p class="flex-1 cursor-pointer text-left font-medium text-gray-800 dark:text-white">${title}</p>
+            <p class="text-sm text-gray-500 dark:gray-100">${(paper !== 0) ? `Paper ${paper}` : 'Foreword'}</p>
+        </div>
+    </div>
     <button id="favourite" class="rounded-full p-1.5 hover:bg-pink-300 dark:hover:bg-pink-900 text-pink-100 hover:text-pink-700 transition-colors duration-300 ease-in-out">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-7 h-7 fill-white dark:fill-pink-300 stroke-pink-600">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -42,7 +47,10 @@ function CreateItem(text) {
 function cleanText(text) {
     return text
         .replace(/\n+/g, '<br><br>')
-    //.replace(/\n/g, '<br>')
+        .replace(/\(\d+(\.\d+)?\)\s/g, "") // replace (6666.3) paper number
+        .replace(/[“”]/g, '"')  // smart double quotes → straight double quote
+        .replace(/[‘’]/g, "'")  // smart single quotes → straight single quote
+
 }
 
 function checkComment(paragraph) {
@@ -163,7 +171,7 @@ class Reader {
         for (const paper of partData.papers) {
             for (const section of paper.sections) {
                 const title = prepTitle(section);
-                const sectionEntry = CreateItem(title);
+                const sectionEntry = CreateItem(title, paper.paper_id);
                 this.paperContainer.appendChild(sectionEntry);
 
                 const struct = {
@@ -451,7 +459,7 @@ async function loadItems(type = 'favourites') {
         if (!section) continue;
 
         const title = prepTitle(section);
-        const sectionEntry = CreateItem(title);
+        const sectionEntry = CreateItem(title, paper.paper_id);
         paperContainer.appendChild(sectionEntry);
 
         const struct = {

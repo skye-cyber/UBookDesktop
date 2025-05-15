@@ -237,7 +237,7 @@ function showActionToast(action = null, _message = null, _icon = null) {
 async function handleReadAloud() {
     try {
         const read_Ok = await window.api.ReadAloud(selectedText)
-        if (read_Ok){
+        if (read_Ok) {
             showActionToast('read');
             displayPlayerTool();
             isPlaying = true;
@@ -274,12 +274,13 @@ readerContainer.addEventListener('scroll', () => {
     document.getElementById('read-percentage').textContent = `${progress.toFixed(1)}%`;
 });
 
-/*
-let scrollTimeout;
-wrapper.addEventListener('scroll', () => {
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        //toolTipPositionHandler();
-    }, 16); // ~60fps
-});
-*/
+function ReadAllAloud() {
+    if (!isPlaying) {
+        const headText = wrapper.querySelector('h1').innerText
+        const text = wrapper.innerText
+            .replace(headText, '')
+            .trim()
+        selectedText = text;
+        handleReadAloud()
+    }
+}

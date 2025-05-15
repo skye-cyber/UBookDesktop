@@ -294,7 +294,8 @@ contextBridge.exposeInMainWorld('api', {
         // Fresh playback
         if (!text.trim()) return 'No text';
 
-        const safeText = text.replace(/"/g, '\\"');
+        const safeText = text
+        .replace(/[\[\]]/g, "")
 
         const picowave = await ipcRenderer.invoke('get-picowave-path');
 
