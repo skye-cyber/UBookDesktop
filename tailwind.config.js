@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     darkMode: 'class', /*'[data-mode="dark"]'],*/
-    content: ['./src/renderer/index.html', '*.js', './src/renderer/js/**/*.js'],
+    content: ['./src/renderer/index.html', '*.js', './src/components/**/*.js', './src/renderer/js/**/*.js'],
     //content: ['loading.html'],
     theme: {
         screens: {
@@ -69,8 +69,10 @@ module.exports = {
             'bounce-500': 'bounce 0.5s 500ms infinite',
             'bounce-600': 'bounce 0.5s 600ms infinite',
             'heartpulse': 'heartpulse 1s infinite',
-            'spin': 'spin 2s linear infinite',
-            'spin-200': 'spin 0.5s linear infinite',
+            'spin-50': 'spin 0.5s linear infinite',
+            'spin-100': 'spin 1s linear infinite',
+            'spin-150': 'spin 1.5s linear infinite',
+            'spin-200': 'spin 2s linear infinite',
             'fadeIn': 'fadeIn 2s cubic-bezier(0.25, 1, 0.5, 1)',
             'modal-in': 'modalIn 0.4s ease-out forwards',
             'modal-out': 'modalOut 0.3s ease-in forwards',

@@ -3,7 +3,8 @@ const webpack = require('webpack');
 //const CopyPlugin = require("copy-webpack-plugin");
 
 const entries = {
-    readAloud: './src/renderer/js/readAloud.js',
+    //readAloud: './src/renderer/js/readAloud.js',
+    lunrSearch: "./src/renderer/js/searchBase/lunrSearch.js"
 };
 
 module.exports = Object.entries(entries).map(([name, entryPath]) => {

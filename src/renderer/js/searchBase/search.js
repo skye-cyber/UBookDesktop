@@ -33,16 +33,11 @@ class SearchEngine {
         // store screen coordinates
         this.screenXY(range);
 
-        if (!selectedText) return;
-
-        // Find the closest parent element of the selection
-        //const selectionPElement = range.commonAncestorContainer.nodeType === Node.ELEMENT_NODE
-          //  ? range.commonAncestorContainer
-            //: range.commonAncestorContainer.parentNode;
+        if (!selectedText || selectedText ===" ") return;
 
         // Create a regex to match the search text but not the selected text
         const regex = new RegExp(selectedText, 'g');
-        const replaceWith = `<span class="border border-dotted border-pink-500 dark:border-green-400 p-0">${selectedText}</span>`;
+        const replaceWith = `<span class="border-2 border-dotted border-pink-500 bg-cyan-200 rounded-sm dark:bg-black dark:border-green-500 p-0">${selectedText}</span>`;
 
         // Find all occurrences of the search text and their parent elements
         const matches = this.findMatchesInScope(regex)
@@ -69,7 +64,8 @@ class SearchEngine {
     }
 
     removeHighlightedSpans() {
-        const spans = this.scope.querySelectorAll('span.border.border-dotted.dark\\:border-green-400');
+        const spans = this.scope.querySelectorAll('span.border-2.border-dotted.border-pink-500.bg-cyan-200.rounded-sm.dark\\:bg-black.dark\\:border-green-500.p-0');
+
 
         spans.forEach(span => {
             const parent = span.parentNode;
@@ -121,5 +117,4 @@ class SearchEngine {
     }
 }
 
-// Usage
 const engine = new SearchEngine();

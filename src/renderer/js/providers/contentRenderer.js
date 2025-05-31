@@ -339,10 +339,9 @@ async function setQuickRead(randpart) {
         <p class="text-sm text-orange-300">
             <sub>${paper_no}</sub>
         </p>
-
         <button onclick="init6()" aria-label="reload" title="Reload"
             class="flex items-center gap-2 p-1 bg-blue-600 text-white rounded-2xl shadow hover:bg-blue-700 transition duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+            <svg id="reloadIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round"
             d="M21 4v5h-5m1.65-3.65a8 8 0 1 0 2.1 8.45"/>
@@ -385,7 +384,7 @@ function init1() {
     //Choose First Conversation
     setTimeout(() => {
         paperContainer.children[0].click()
-    }, 400)
+    }, 600)
     // init2 Set the quick read section-> allow reload/refresh
     init6()
 }
@@ -405,7 +404,7 @@ function init6() {
 
     setTimeout(() => {
         handleReload()
-    }, 300)
+    }, 400)
 }
 
 function handleReload() {
