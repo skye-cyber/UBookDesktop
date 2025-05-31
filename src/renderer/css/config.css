@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html{
+    scroll-behavior: smooth;
+}
 .scrollbar-hide {
     /* Hide scrollbar for Chrome, Safari, and Edge */
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
@@ -42,13 +46,13 @@
 }
 /* Reset default scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 5px;
+    height: 4px;
 }
 
 /* Light theme scrollbar */
 ::-webkit-scrollbar-track {
-    background:#2c2c2c;
+    background:#0c0a19;
     border-radius: 4px;
     opacity:0.5;
 }
@@ -77,11 +81,6 @@
     background: linear-gradient(135deg, #aa55ff, #aaaaff, #ff55ff);
 }
 
-/* Optional: Add transitions for more natural feel */
-ython.assistant-unused
-.note:-webkit-scrollbar {
-    scroll-behavior: smooth;
-}
 
 /* Simulate a placeholder on the contenteditable div */
 #userInput:empty:before {

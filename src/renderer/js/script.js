@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-    const scripts = ['displayHandler', 'readerUtils', 'RpaneTooltip', 'providers/contentRenderer', 'PlayerUtils']
+    const scripts = ['displayHandler', 'readerUtils', 'RpaneTooltip', 'providers/contentRenderer', 'PlayerUtils', "searchBase/search"]
     for (const item of scripts) {
         addScripts(item);
     }
@@ -30,5 +30,5 @@ function addScripts(target_script) {
     script.src = `js/${target_script}.js`;
     script.async = true; // Optional: load the script asynchronously
     document.body.appendChild(script);
-    console.log(`Added ${target_script} script`);
+    //console.log(`Added ${target_script} script`);
 }

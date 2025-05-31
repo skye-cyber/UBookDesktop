@@ -47,12 +47,41 @@ function CreateItem(title, paper) {
 }
 
 function cleanText(text) {
-    return text
-        .replace(/\n+/g, '<br><br>')
+    const CT = text
+        .replace(/\n+/g, '<br>')
         .replace(/\(\d+(\.\d+)?\)\s/g, "") // replace (6666.3) paper number
         .replace(/[“”]/g, '"')  // smart double quotes → straight double quote
         .replace(/[‘’]/g, "'")  // smart single quotes → straight single quote
+    return wrapTextInParagraphs(spanText(CT));
 
+}
+
+function wrapTextInParagraphs(text) {
+    // Split the text by <br> tags
+    const segments = text.split(/<br\s*\/?>\s*/g);
+
+    // Wrap each segment in <p> tags and reassemble the text
+    const wrappedText = segments.map(segment => {
+        if (segment.trim() !== '') {
+            return `<p class="p-0">${segment}</p>`;
+        }
+        return '';
+    }).join('<br>');
+
+    return wrappedText;
+}
+
+function spanText(text) {
+    const segments = text.split('.');
+
+    const spannedText = segments.map(segment => {
+        if (segment.trim() !== '') {
+            return `<span class="p-0">${segment}</span>`;
+        }
+        return '';
+    }).join(' ');
+
+    return spannedText;
 }
 
 function checkComment(paragraph) {
@@ -262,10 +291,10 @@ class Reader {
         section.paragraphs.forEach(paragraph => {
             const comment = checkComment(paragraph);
             const span = `<span class="text-md text-sky-500"><i>${comment}</i></span>`;
-            const p = document.createElement('p');
+            const div = document.createElement('div');
             const text = cleanText(paragraph.text).replace(comment, span);
-            p.innerHTML = text;
-            this.readerSection.appendChild(p);
+            div.innerHTML = text;
+            this.readerSection.appendChild(div);
         });
 
         hideSelectorModal();
@@ -312,14 +341,12 @@ async function setQuickRead(randpart) {
         </p>
 
         <button onclick="init6()" aria-label="reload" title="Reload"
-            class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-2xl shadow hover:bg-blue-700 transition duration-300">
-            <svg id="reloadIcon" class="w-6 h-6 animate transition-all duration-1000" xmlns="http://www.w3.org/2000/svg"
-            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="23 4 23 10 17 10" />
-            <path d="M20.49 15a9 9 0 1 1 2.13-9.36" />
+            class="flex items-center gap-2 p-1 bg-blue-600 text-white rounded-2xl shadow hover:bg-blue-700 transition duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round"
+            d="M21 4v5h-5m1.65-3.65a8 8 0 1 0 2.1 8.45"/>
             </svg>
-            <span class="text-sm">Reload</span>
         </button>
     </div>
     </section>`
@@ -378,7 +405,7 @@ function init6() {
 
     setTimeout(() => {
         handleReload()
-    }, 100)
+    }, 300)
 }
 
 function handleReload() {
@@ -388,7 +415,7 @@ function handleReload() {
     // Simulate async task (replace with your real logic)
     setTimeout(() => {
         icon.classList.remove("animate-spin-200");
-    }, 600); // stop spinning after 2s
+    }, 400); // stop spinning after 2s
 }
 
 

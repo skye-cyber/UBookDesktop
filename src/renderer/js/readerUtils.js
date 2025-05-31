@@ -1,14 +1,16 @@
 
 const tooltip = document.getElementById('tooltip-menu');
 const wrapper = document.getElementById('reader-content');
-let selectedText = "";
+let selectedText = null;
 let selectedContent = "";
 
 wrapper.addEventListener('mouseup', () => {
+    engine.removeHighlightedSpans()
+    engine.searchPage()
     toolTipPositionHandler();
 });
 
-function toolTipPositionHandler() {
+async function toolTipPositionHandler() {
     const selection = window.getSelection();
     selectedText = selection.toString().trim();
     //console.log(selection.toString())
@@ -236,7 +238,7 @@ function showActionToast(action = null, _message = null, _icon = null) {
 
 async function handleReadAloud() {
     try {
-        showLoading(text="Preparing Audio")
+        showLoading(text = "Preparing Audio")
         const read_Ok = await window.api.ReadAloud(selectedText)
         if (read_Ok) {
             hideLoading();
@@ -291,7 +293,7 @@ const loadingModal = document.getElementById('loadingModal');
 const loadText = document.getElementById('load-text');
 let loadingTimeout;
 
-function showLoading(text=null) {
+function showLoading(text = null) {
     // Clear any hide timers
     if (loadingTimeout) clearTimeout(loadingTimeout);
 
@@ -311,7 +313,7 @@ function showLoading(text=null) {
 function hideLoading() {
     loadingModal.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
     loadingModal.classList.add('-translate-y-full');
-    setTimeout(()=>{
+    setTimeout(() => {
         loadingModal.classList.add('opacity-0', 'pointer-events-none');
         loadText.textContent = "Loading..."
     }, 300)

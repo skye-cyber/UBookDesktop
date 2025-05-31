@@ -15,7 +15,14 @@
     "generate:linux-icons": "node src/scripts/generate-linux-icons.js",
     "postinstall": "node src/scripts/post-install.js"
   },
-  "keywords": [],
+  "keywords": [
+    "Urantia",
+    "Urantia Book",
+    "Revelation",
+    "Philosophy",
+    "Religion",
+    "Science"
+  ],
   "author": {
     "name": "Wambua Mwikya aka Skye",
     "email": "swskye17@gmail.com"
@@ -23,6 +30,7 @@
   "license": "GNU",
   "devDependencies": {
     "@babel/core": "latest",
+    "@fiahfy/icns": "^0.0.7",
     "assert": "^2.1.0",
     "babel-loader": "latest",
     "browserify-fs": "^1.0.0",
@@ -34,15 +42,16 @@
     "electron-builder": "latest",
     "fs": "latest",
     "https-browserify": "^1.0.0",
+    "lunr": "^2.3.9",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "play-sound": "^1.1.6",
     "process": "^0.11.10",
+    "sharp": "^0.30.7",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "url": "^0.11.4",
-    "webpack": "latest",
-    "sharp": "^0.30.0"
+    "webpack": "latest"
   },
   "dependencies": {
     "@tailwindcss/typography": "latest",
@@ -71,8 +80,8 @@
         "to": "assets/"
       },
       {
-      "from": "src/common/",
-      "to": "common/"
+        "from": "src/common/",
+        "to": "common/"
       }
     ],
     "mac": {
@@ -148,7 +157,7 @@
         "snap"
       ],
       "category": "Utility",
-      "icon": "src/icons/linux/512x512",
+      "icon": "src/icons",
       "maintainer": "Mwikya -- swskye17@gmail.com",
       "synopsis": "UBookDesktop",
       "description": "Read Urantia Book on Your Desktop (favourite, bookmark, save notes)"
