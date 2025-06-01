@@ -79,7 +79,7 @@ function spanText(text) {
             return `<span class="p-0">${segment}</span>`;
         }
         return '';
-    }).join(' ');
+    }).join('. ');
 
     return spannedText;
 }

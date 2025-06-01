@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
         searchContainer.classList.toggle('opacity-0');
         searchContainer.classList.toggle('opacity-100');
         searchContainer.classList.toggle('pointer-events-none');
+        //searchContainer.focus()
     });
 });
 

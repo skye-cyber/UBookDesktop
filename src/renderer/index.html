@@ -17,7 +17,7 @@
             </button>
         </section>
         <!-- Search Bar -->
-        <div id="search-container" class="opacity-0 pointer-events-none flex-1 mx-4 tranform transition-all duration-700 ease-in-out">
+        <div id="search-container" class="relative opacity-100 pointer-events-auto flex-1 mx-0 md:mx-[20vw] lg:mx-[30vw] tranform transition-all duration-700 ease-in-out">
             <input
               id="searchInput"
               type="text"
@@ -25,7 +25,11 @@
               placeholder="Search..."
               class="w-full px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-800 dark:text-gray-50 focus:outline-none"
             />
+            <p id="submit-search" class="absolute top-2 right-3 cursor-pointer">🔍</p>
+        </div>
 
+        <div class="flex m-8">
+             <button class="" onclick="showSearchModal()">🔍</button>
         </div>
 
         <!-- 3 Dots Icon (Vertical) -->
@@ -364,29 +368,30 @@
             <span id="load-text" class="font-normal text-lg">Loading...</span>
         </div>
 
-        <!-- Modal backdrop -->
-        <div id="SearchModalBackdrop" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
 
         <!-- Modal container -->
-        <div id="search-modal" class="fixed inset-0 flex items-center justify-center p-4 backdrop-brightness-50 translate-y-[100vw] z-50 transition-all duration-500">
-          <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg max-w-3xl w-full max-h-[90vh] flex flex-col overflow-hidden">
+        <div id="search-modal" class="fixed inset-0 flex items-center justify-center p-4 backdrop-brightness-50 translate-y-[100vh] z-50 transition-all duration-500">
+          <div class="bg-white dark:bg-gray-800 rounded-lg border border-x-pink-600 border-y-orange-400 border-t-purple-600 shadow-lg max-w-full lg:max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden transition-colors duration-500">
             <!-- Header -->
-            <div class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
-              <h2 class="text-xl font-semibold dark:text-white">Search Result Details</h2>
+            <div class="flex justify-between items-center p-3 bg-gray-200 dark:bg-zinc-950 border-b border-rose-200 dark:border-rose-700">
+              <h2 class="text-xl font-semibold dark:text-white">Search Result: <span id="search-query" class="rounded-md bg-gray-300 dark:bg-black text-blue-500"></span></h2>
+              <p class="font-bold text-black dark:text-white">Tatal: <span id="result-total" class="font-semibold text-[#0097d3]">200</span></p>
               <button id="closeModalBtn" aria-label="Close modal" class="text-gray-500 hover:text-gray-900 dark:hover:text-gray-200 transition text-2xl font-bold leading-none">&times;</button>
             </div>
             <!-- Content scrollable -->
-            <div id="SearchModalContent" class="p-6 overflow-y-auto space-y-4 flex-1 text-gray-700 dark:text-gray-300 text-sm sm:text-base">
+            <div id="SearchModalContent" class="p-6 overflow-y-auto bg-white dark:bg-slate-950 space-y-4 flex-1 text-gray-900 dark:text-gray-100 text-sm sm:text-base">
+            <p class="text-lg text-center text-red-500 font-semibold">No Results</p>
               <!-- Dynamic content inserted here -->
             </div>
             <!-- Footer -->
-            <div class="p-4 border-t border-gray-200 dark:border-gray-700 text-right">
+            <div class="p-2 border-t bg-blue-100 dark:bg-stone-950 border-gray-200 dark:border-gray-700 text-right">
               <button id="closeModalBtn2" class="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded transition">
                 Close
               </button>
             </div>
           </div>
         </div>
+
     </main>
 </body>
 <script type="text/javascript" src="js/themes.js"></script>
