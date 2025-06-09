@@ -70,7 +70,7 @@ module.exports = Object.entries(entries).map(([name, entryPath]) => {
             ],
         },
         devtool: 'source-map', // Consider using source maps for better debugging
-        mode: 'development',
+        mode: 'production',
     }
 
 });
