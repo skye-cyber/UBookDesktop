@@ -10,9 +10,27 @@ wrapper.addEventListener('mouseup', () => {
     toolTipPositionHandler();
 });
 
+function replaceParagraphMarkers(text) {
+    return text.replace(/\b\d+:\d+\.(\d+)\s*⇒/g, (_, z) => `Paragraph ${parseInt(z)}, `);
+}
+
+function Uppercase2CamelCase(text) {
+    return text.replace(/\b([A-Z\s]{2,})\b/g, (match) => {
+        const words = match.trim().split(/\s+/).map(w => w.toLowerCase());
+        return words.map((word, index) =>
+        index === 0 ? word : `${word.charAt(0).toUpperCase() + word.slice(1)} `
+        ).join('');
+    });
+}
+
+function normalizeSelection(text){
+    return replaceParagraphMarkers(Uppercase2CamelCase(text))
+}
+
 async function toolTipPositionHandler() {
     const selection = window.getSelection();
-    selectedText = selection.toString().trim();
+    selectedText = normalizeSelection(selection.toString().trim());
+    console.log(selectedText)
     //console.log(selection.toString())
     selectedContent = getSelectionHtml();
     //console.log(selectedContent)
@@ -284,7 +302,7 @@ function ReadAllAloud() {
         const text = wrapper.innerText
             .replace(headText, '')
             .trim()
-        selectedText = text;
+        selectedText = normalizeSelection(text);
         handleReadAloud()
     }
 }

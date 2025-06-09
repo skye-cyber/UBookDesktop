@@ -10,7 +10,7 @@ let Rpane = false
 
 function RpanetoolTipPositionHandler() {
     const selection = window.getSelection();
-    selectedText = selection.toString().trim();
+    selectedText = normalizeSelection(selection.toString().trim()).toLowerCase();
 
     selectedContent = getSelectionHtml();
 

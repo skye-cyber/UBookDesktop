@@ -1,11 +1,31 @@
 const lunr = require('lunr');
-const fs = require('fs').promises;
-const path = require('path');
 
-const contentFile = "search_optimized_ubook.json";
+/**
+ * Maps IDs to their respective structured JSON files
+ * @param {Array<number|string>} ids
+ * @returns {string[]} List of file paths
+ */
+function getFileMap(ids = []) {
+    const sources = {
+        1: 'FN-foreword_structured.json',
+        2: 'FN-central_superuniverses_structured.json',
+        3: 'FN-Local_Universe_structured.json',
+        4: 'FN-History_of_Urantia_structured.json',
+        5: 'FN-Life_and_Teachings_of_Jesus_structured.json',
+        '_all_': 'FN-Combined_Structured_UB.json'
+    };
 
+    return ids.map(id => sources[id]).filter(Boolean); // Avoid undefined entries
+}
+
+/**
+ * Flattens the nested JSON content into an array of searchable documents
+ * @param {Object} data
+ * @returns {Array<Object>}
+ */
 function flattenContent(data) {
     const documents = [];
+
     data.parts?.forEach(part => {
         part.papers?.forEach(paper => {
             paper.sections?.forEach(section => {
@@ -23,9 +43,15 @@ function flattenContent(data) {
             });
         });
     });
+
     return documents;
 }
 
+/**
+ * Builds a Lunr index from the list of documents
+ * @param {Array<Object>} documents
+ * @returns {Promise<Object>} Lunr index
+ */
 async function buildIndex(documents) {
     return lunr(function() {
         this.ref('id');
@@ -38,37 +64,48 @@ async function buildIndex(documents) {
     });
 }
 
-async function search(_query) {
-    const query = sanitizeQuery(_query)
-    const data = await window.api.readContent(contentFile);
-    ;
-    if (!data) return [];
-
-    const documents = flattenContent(data);
-    const idx = await buildIndex(documents);
-
-    const results = idx.search(query);
-    const docMap = Object.fromEntries(documents.map(doc => [doc.id, doc]));
-
-    console.log(results)
-
-    return results.map(result => ({
-        score: result.score,
-        ...docMap[result.ref],
-    }));
-}
-
+/**
+ * Sanitizes the query string by removing or replacing special characters
+ * @param {string} query
+ * @returns {string}
+ */
 function sanitizeQuery(query) {
-    return query.replace(/[:~^*+-]/g, ' ').trim(); // Replace special Lunr chars with space
+    return query.replace(/[:~^*+-]/g, ' ').trim(); // Remove Lunr special characters
 }
 
+/**
+ * Searches structured documents for a given query
+ * @param {string} _query - The search query
+ * @param {Array<number|string>} ids - Source file IDs
+ * @returns {Promise<Object[]>} Array of matched results
+ */
+async function search(ids, _query) {
+    const query = sanitizeQuery(_query);
+    const sourceFiles = getFileMap(ids);
+
+    const results = [];
+
+    await Promise.all(sourceFiles.map(async (file) => {
+        const data = await window.api.readContent(file);
+        if (!data) return;
+
+        const documents = flattenContent(data);
+        const idx = await buildIndex(documents);
+
+        const docMap = Object.fromEntries(documents.map(doc => [doc.id, doc]));
+        const res = idx.search(query);
+
+        results.push(...res.map(result => ({
+            score: result.score,
+            ...docMap[result.ref],
+        })));
+    }));
+    // Sort results by score in descending order (higher score = more relevant)
+    results.sort((a, b) => b.score - a.score);
+
+    return results;
+}
+
+
+// Expose search globally
 window.lunrsearch = search;
-
-// Usage
-
-//const query = `It is exceedingly difficult to present enlarged concepts and advanced truth`;
-
-/*search(query).then(results => {
-    console.log("Top Match:\n", results[0] ?? "No result");
-});
-*/

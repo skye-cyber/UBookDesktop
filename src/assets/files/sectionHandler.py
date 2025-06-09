@@ -2328,15 +2328,15 @@ def Combine():
     full_structured = {
         "parts": []
     }
-    with open('foreword_structured.json', 'r') as f:
+    with open('FN-foreword_structured.json', 'r') as f:
         foreword = json.load(f)['parts']
-    with open('central_superuniverses_structured.json', 'r') as c:
+    with open('FN-central_superuniverses_structured.json', 'r') as c:
         central = json.load(c)['parts']
-    with open('Local_Universe_structured.json', 'r') as lc:
+    with open('FN-Local_Universe_structured.json', 'r') as lc:
         local = json.load(lc)['parts']
-    with open('History_of_Urantia_structured.json', 'r') as u:
+    with open('FN-History_of_Urantia_structured.json', 'r') as u:
         urantia = json.load(u)['parts']
-    with open('Life_and_Teachings_of_Jesus_structured.json', 'r') as t:
+    with open('FN-Life_and_Teachings_of_Jesus_structured.json', 'r') as t:
         teachings = json.load(t)['parts']
 
     full_structured['parts'].append(foreword[0])
@@ -2345,7 +2345,7 @@ def Combine():
     full_structured['parts'].append(urantia[0])
     full_structured['parts'].append(teachings[0])
 
-    with open('Combined_Structured_UB.json', 'w') as fn:
+    with open('FN-Combined_Structured_UB.json', 'w') as fn:
         json.dump(full_structured, fn, indent=2)
     print("Combination \033[1;32mSuccess\033[0m✅")
 

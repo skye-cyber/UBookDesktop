@@ -1,6 +1,6 @@
 {
   "name": "UBookDesktop",
-  "version": "1.0.5",
+  "version": "1.2.0",
   "description": "An application providing urantia book content.",
   "main": "src/main/index.js",
   "homepage": "src/renderer/home.html",

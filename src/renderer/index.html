@@ -17,7 +17,7 @@
             </button>
         </section>
         <!-- Search Bar -->
-        <div id="search-container" class="relative opacity-100 pointer-events-auto flex-1 mx-0 md:mx-[20vw] lg:mx-[30vw] tranform transition-all duration-700 ease-in-out">
+        <div id="search-container" class="relative opacity-100 pointer-events-auto flex-1 mx-0 md:mx-[10vw] lg:ml-[28vw] lg:mr-[10vw] tranform transition-all duration-700 ease-in-out">
             <input
               id="searchInput"
               type="text"
@@ -25,12 +25,27 @@
               placeholder="Search..."
               class="w-full px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-800 dark:text-gray-50 focus:outline-none"
             />
-            <p id="submit-search" class="absolute top-2 right-3 cursor-pointer">🔍</p>
+            <p id="submit-search" title="submit-search" ari-label="submit-search" class="absolute top-2 right-8 cursor-pointer">🔍</p>
+
+            <span onclick="ShowPrevSearchModal()" title="show previous section search results" arial-label="show previous section search results" class="absolute top-2 right-0.5 cursor-pointer flex justify-center items-center"><svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="" class="icon-md fill-indigo-500 dark:fill-emerald-400"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.5 5C13.3954 5 12.5 5.89543 12.5 7C12.5 8.10457 13.3954 9 14.5 9C15.6046 9 16.5 8.10457 16.5 7C16.5 5.89543 15.6046 5 14.5 5ZM10.626 6C11.0701 4.27477 12.6362 3 14.5 3C16.3638 3 17.9299 4.27477 18.374 6H20C20.5523 6 21 6.44772 21 7C21 7.55228 20.5523 8 20 8H18.374C17.9299 9.72523 16.3638 11 14.5 11C12.6362 11 11.0701 9.72523 10.626 8H4C3.44772 8 3 7.55228 3 7C3 6.44772 3.44772 6 4 6H10.626ZM9.5 15C8.39543 15 7.5 15.8954 7.5 17C7.5 18.1046 8.39543 19 9.5 19C10.6046 19 11.5 18.1046 11.5 17C11.5 15.8954 10.6046 15 9.5 15ZM5.62602 16C6.07006 14.2748 7.63616 13 9.5 13C11.3638 13 12.9299 14.2748 13.374 16H20C20.5523 16 21 16.4477 21 17C21 17.5523 20.5523 18 20 18H13.374C12.9299 19.7252 11.3638 21 9.5 21C7.63616 21 6.07006 19.7252 5.62602 18H4C3.44772 18 3 17.5523 3 17C3 16.4477 3.44772 16 4 16H5.62602Z"></path></svg></span>
         </div>
 
-        <div class="flex m-8">
-             <button class="" onclick="showSearchModal()">🔍</button>
+        <div class="flex justify-end m-4">
+          <button
+            onclick="openSearchPref()"
+            title="Open Search Preferences"
+            class="flex items-center justify-center px-4 py-2 text-xl rounded-full
+                   bg-gradient-to-r from-purple-700 to-indigo-800
+                   dark:from-teal-800 dark:to-slate-800
+                   text-white shadow-lg shadow-purple-500/30
+                   hover:shadow-xl hover:shadow-indigo-400/50
+                   transition-all duration-300 ease-in-out
+                   hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-400 dark:focus:ring-cyan-400"
+          >
+             <span class="flex justify-center items-center"><svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="" class="icon-md fill-amber-400 dark:fill-indigo-400"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.5 5C13.3954 5 12.5 5.89543 12.5 7C12.5 8.10457 13.3954 9 14.5 9C15.6046 9 16.5 8.10457 16.5 7C16.5 5.89543 15.6046 5 14.5 5ZM10.626 6C11.0701 4.27477 12.6362 3 14.5 3C16.3638 3 17.9299 4.27477 18.374 6H20C20.5523 6 21 6.44772 21 7C21 7.55228 20.5523 8 20 8H18.374C17.9299 9.72523 16.3638 11 14.5 11C12.6362 11 11.0701 9.72523 10.626 8H4C3.44772 8 3 7.55228 3 7C3 6.44772 3.44772 6 4 6H10.626ZM9.5 15C8.39543 15 7.5 15.8954 7.5 17C7.5 18.1046 8.39543 19 9.5 19C10.6046 19 11.5 18.1046 11.5 17C11.5 15.8954 10.6046 15 9.5 15ZM5.62602 16C6.07006 14.2748 7.63616 13 9.5 13C11.3638 13 12.9299 14.2748 13.374 16H20C20.5523 16 21 16.4477 21 17C21 17.5523 20.5523 18 20 18H13.374C12.9299 19.7252 11.3638 21 9.5 21C7.63616 21 6.07006 19.7252 5.62602 18H4C3.44772 18 3 17.5523 3 17C3 16.4477 3.44772 16 4 16H5.62602Z"></path></svg> Search Prefs</span>
+          </button>
         </div>
+
 
         <!-- 3 Dots Icon (Vertical) -->
         <button id="search-toggle" class="text-gray-800 dark:text-gray-200">
@@ -41,7 +56,7 @@
     </header>
 
     <!-- Sidebar left -->
-    <section id="sidepaneMask" class="bg-slate-700/10 -translate-x-full mt-[8vh] w-fit fixed inset-0 transform transition-transform transition-colors duration-700 ease-in-out z-50">
+    <section id="sidepaneMask" class="bg-slate-700/10 -translate-x-full mt-[8vh] w-fit fixed inset-0 transform transition-transform transition-colors duration-700 ease-in-out z-[50]">
         <div id="sidepane" class="relative bg-sky-800 dark:bg-[#00445f] w-72 h-[calc(100vh-7vh)] shadow-lg transform transition-transform -translate-x-full transition-colors duration-700 ease-in-out shadow-inner">
             <div class="flex items-center p-4">
                 <img class="h-12 w-16 rounded-full" src="images/UBook.png">
@@ -281,15 +296,15 @@
         </div>
 
         <!-- Enhanced Modal Overlay -->
-        <div id="itemsSelectorModal" class="fixed flex inset-0 z-30 items-center justify-center bg-black/50 dark:bg-white/50 backdrop-blur-sm animate-exit hidden transform transition-all duration-500">
+        <div id="itemsSelectorModal" class="fixed flex inset-0 z-[30] items-center justify-center bg-black/50 dark:bg-white/50 backdrop-blur-sm animate-exit hidden transform transition-all duration-500">
             <!-- Modal Box -->
-            <div id="itemsSelectorModalBox" class="relative w-full max-w-xl mt-10 pb-4 max-h-[90vh] overflow-y-hidden rounded-2xl bg-white dark:bg-zinc-950 shadow-2xl transform transition-all duration-500 ease-in-out animate-exit hidden">
+            <div id="itemsSelectorModalBox" class="relative w-full max-w-xl mt-[7vh] max-h-[90vh] overflow-y-hidden rounded-2xl bg-white dark:bg-zinc-950 shadow-2xl transform transition-all duration-500 ease-in-out animate-exit hidden z-[60]">
                 <!-- Modal Header -->
                     <div class="relative sticky top-0 w-full p-2 flex items-center justify-center border-b border-gray-200 dark:border-zinc-700 bg-[#004b6b] dark:bg-zinc-900 shadow-inner shadow-lg transition-colors duration-700">
                         <h2 id="Part-title" class="text-2xl font-bold text-gray-200 dark:text-gray-100 overflow-x-hidden mr-12">Select Items</h2>
                         <button onclick="hideSelectorModal();" class="absolute top-2 right-2 text-gray-200 dark:text-gray-300 hover:text-red-400 dark:hover:text-red-500 transition-colors text-2xl leading-none colors duration-700" aria-label="Close modal" title="Close modal">&times;</button>
                 </div>
-                <ul id="paper-container" class="divide-y divide-gray-300 dark:divide-zinc-800 px-6 py-1 transition-all duration-700 overflow-y-auto max-h-[90vh]">
+                <ul id="paper-container" class="divide-y divide-gray-300 dark:divide-zinc-800 px-6 py-1 transition-all duration-700 overflow-y-auto max-h-[90vh] pb-[10vh]">
                 </ul>
             </div>
         </div>
@@ -375,7 +390,7 @@
             <!-- Header -->
             <div class="flex justify-between items-center p-3 bg-gray-200 dark:bg-zinc-950 border-b border-rose-200 dark:border-rose-700">
               <h2 class="text-xl font-semibold dark:text-white">Search Result: <span id="search-query" class="rounded-md bg-gray-300 dark:bg-black text-blue-500"></span></h2>
-              <p class="font-bold text-black dark:text-white">Tatal: <span id="result-total" class="font-semibold text-[#0097d3]">200</span></p>
+              <p class="font-bold text-black dark:text-white">Total: <span id="result-total" class="font-semibold text-[#0097d3]"></span></p>
               <button id="closeModalBtn" aria-label="Close modal" class="text-gray-500 hover:text-gray-900 dark:hover:text-gray-200 transition text-2xl font-bold leading-none">&times;</button>
             </div>
             <!-- Content scrollable -->
@@ -392,6 +407,89 @@
           </div>
         </div>
 
+        <!-- Modal Backdrop -->
+        <div id="modal-backdrop" class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm hidden"></div>
+
+        <!-- Enhanced Modal -->
+        <section id="search-pref"
+          class="fixed inset-1 left-0 top-0 translate-x-[22vw] -translate-y-[110vh] rounded-2xl z-[60] w-fit h-fit min-w-[40vh] max-w-[80vw] max-h-[98vh] lg:max-w-[90vw]
+                 bg-gradient-to-br from-indigo-950 via-purple-900 to-indigo-950
+                 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900
+                 border-4
+                 border-t-indigo-500
+                 border-b-rose-500
+                 border-r-emerald-500
+                 border-l-amber-400
+                 shadow-[0_0_60px_rgba(168,85,247,0.6),_0_0_40px_rgba(6,182,212,0.4)]
+                 dark:shadow-[0_0_50px_rgba(34,211,238,0.4),_0_0_30px_rgba(249,115,22,0.4)]
+                 transition-transform duration-500 text-white overflow-hidden">
+
+          <div id="search-pref-wrapper" class="relative w-full h-full p-6 overflow-y-auto rounded-xl">
+
+            <!-- Close Button -->
+            <button id="close-pref"
+              onclick="closeSearchPref()"
+              class="absolute top-3 right-4 text-3xl text-white/80 hover:text-yellow-300 transition-transform duration-300 ease-in-out hover:rotate-45">
+              &times;
+            </button>
+
+            <!-- Title -->
+            <h2 class="text-center text-2xl font-bold underline mb-6 drop-shadow-md text-white glow">
+              🌌 Search Preferences
+            </h2>
+
+            <!-- Search Type Option -->
+            <div class="mb-6 text-white">
+              <label class="block mb-2 font-semibold">Search Mode</label>
+              <select id="search-mode" class="w-full px-4 py-2 rounded-lg bg-slate-800 text-white border border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                <option value="text" selected>Search in Text</option>
+                <option value="titles">Search in Section Titles</option>
+              </select>
+            </div>
+
+            <div id="search-scope" class="text-2xl font-bold text-transparent bg-gradient-to-r from-cyan-400 via-emerald-500 to-amber-600 bg-clip-text drop-shadow-md underline underline-offset-8 decoration-amber-400 mb-2">
+            🔍 Search Scope
+            </div>
+
+            <!-- Toggle All Switch -->
+            <div class="flex items-center gap-4 mb-6">
+              <label for="toggle-all" class="font-semibold text-white/80">Toggle All Parts</label>
+              <input type="checkbox" id="toggle-all" class="accent-yellow-400 scale-150">
+            </div>
+
+            <!-- Switch-Style Checkboxes -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 text-lg font-mono text-white/90">
+              <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
+                <span>1: Foreword</span>
+                <input type="checkbox" name="part1" id="part1" class="part-toggle accent-purple-400 scale-125" />
+              </label>
+              <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
+                <span>2: Central & Superuniverse</span>
+                <input type="checkbox" name="part2" id="part2" class="part-toggle accent-cyan-400 scale-125" />
+              </label>
+              <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
+                <span>3: Local Universe</span>
+                <input type="checkbox" name="part3" id="part3" class="part-toggle accent-blue-400 scale-125" />
+              </label>
+              <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
+                <span>4: History of Urantia</span>
+                <input type="checkbox" name="part4" id="part4" class="part-toggle accent-emerald-400 scale-125" />
+              </label>
+              <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
+                <span>5: Life & Teachings of Jesus</span>
+                <input type="checkbox" name="part5" id="part5" class="part-toggle accent-pink-400 scale-125" />
+              </label>
+            </div>
+
+            <!-- Optional: Action Button -->
+            <div class="flex justify-center mt-8">
+              <button onclick="submitSearchWPrefs()" class="px-6 py-2 rounded-full bg-purple-600 hover:bg-purple-700 text-white font-bold shadow-md shadow-purple-800/60 transition-all duration-300">
+                ✅ Submit Search
+              </button>
+            </div>
+
+          </div>
+        </section>
     </main>
 </body>
 <script type="text/javascript" src="js/themes.js"></script>

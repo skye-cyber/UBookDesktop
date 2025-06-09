@@ -6,25 +6,19 @@ const readerWrapper = document.getElementById('reader-wrapper-container');
 let activeSection = null
 
 function getSource(target) {
-    const foreword_source = 'foreword_structured.json';
-    const central_superuniverses_source = "central_superuniverses_structured.json";
-    const local_universe_source = "Local_Universe_structured.json";
-    const history_urantia_source = "History_of_Urantia_structured.json";
-    const jesus_life_teachings_source = "Life_and_Teachings_of_Jesus_structured.json";
-
     const sources = {
-        "foreword_source": foreword_source,
-        "central_superuniverses_source": central_superuniverses_source,
-        "local_universe_source": local_universe_source,
-        "history_urantia_source": history_urantia_source,
-        "jesus_life_teachings_source": jesus_life_teachings_source
+        "foreword_source": 'FN-foreword_structured.json',
+        "central_superuniverses_source": "FN-central_superuniverses_structured.json",
+        "local_universe_source": "FN-Local_Universe_structured.json",
+        "history_urantia_source": "FN-History_of_Urantia_structured.json",
+        "jesus_life_teachings_source": "FN-Life_and_Teachings_of_Jesus_structured.json"
     }
     return sources[target]
 }
 
 function CreateItem(title, paper) {
     const item = document.createElement('li')
-    item.className = "flex items-center justify-between gap-4 py-3"
+    item.className = "flex items-center justify-between gap-4 py-3 hover:bg-orange-100 dark:hover:bg-slate-900 hover:rounded-md transition-colors duration-0"
     item.innerHTML = `
     <button id="bookmark" class="rounded-full p-2 hover:bg-blue-100 dark:hover:bg-blue-900 text-blue-500 hover:text-blue-700 transition">
     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-none stroke-blue-500" viewBox="0 0 24 24">
@@ -46,24 +40,24 @@ function CreateItem(title, paper) {
     return item
 }
 
-function cleanText(text) {
+function cleanText(text, parNo) {
     const CT = text
         .replace(/\n+/g, '<br>')
         .replace(/\(\d+(\.\d+)?\)\s/g, "") // replace (6666.3) paper number
         .replace(/[“”]/g, '"')  // smart double quotes → straight double quote
         .replace(/[‘’]/g, "'")  // smart single quotes → straight single quote
-    return wrapTextInParagraphs(spanText(CT));
+    return wrapTextInParagraphs(spanText(CT), parNo);
 
 }
 
-function wrapTextInParagraphs(text) {
+function wrapTextInParagraphs(text, paragraph_number) {
     // Split the text by <br> tags
     const segments = text.split(/<br\s*\/?>\s*/g);
 
     // Wrap each segment in <p> tags and reassemble the text
     const wrappedText = segments.map(segment => {
         if (segment.trim() !== '') {
-            return `<p class="p-0">${segment}</p>`;
+            return `<p class=""><span class="mr-3 underline decoration-indigo-400 text-amber-400">${paragraph_number}&nbsp<span class="text-emerald-400">&DoubleRightArrow;</span></span><span class="p-0">${segment}</span></p><br>`;
         }
         return '';
     }).join('<br>');
@@ -108,7 +102,6 @@ const partNameMap = {
 };
 
 function getPartName(id) {
-    console.log(id)
     return partNameMap[id] || null;
 }
 
@@ -186,16 +179,33 @@ async function checkBookmark(item, struct) {
 }
 
 
+/**
+ * Reader is responsible for rendering paper sections into a container,
+ * setting up user interactions (bookmark/favourite), and displaying content in the reader pane.
+ */
 class Reader {
+    /**
+     * @constructor
+     * @param {HTMLElement} container - The DOM element where section entries will be appended.
+     * @param {HTMLElement} readerSection - The DOM element where full section content will be displayed.
+     * @param {Object} api - API interface for performing data operations (e.g., fetching, bookmarking).
+     */
     constructor(container, readerSection, api) {
         this.paperContainer = container;
         this.readerSection = readerSection;
         this.api = api;
     }
 
-    async load(part) {
-        const data = await this.api.readContent(part);
-        const partData = data.parts?.[0];
+    /**
+     * Loads and displays paper sections from a part.
+     * @async
+     * @param {Object} part - The part metadata (may include ID or full object).
+     * @param {Object|null} [part_data=null] - Optional: if provided, skips API call and uses directly.
+     * @param {boolean} [incr=false] - (Unused) Optional flag to control numbering or UI logic.
+     */
+    async load(part, part_data = null) {
+        const data = part_data || await this.api.readContent(part);
+        const partData = part_data ? data : data.parts?.[0];
 
         if (!partData || !partData.papers) return;
 
@@ -217,11 +227,27 @@ class Reader {
         }
     }
 
+    /**
+     * Highlights bookmark and favourite indicators for a section entry.
+     * @async
+     * @param {HTMLElement} entry - The DOM node representing the section entry.
+     * @param {Object} struct - Structure containing section identifiers.
+     */
     async checkAndHighlight(entry, struct) {
         await checkBookmark(entry, struct);
         await checkFav(entry, struct);
     }
 
+    /**
+     * Attaches click event listeners to a section entry to handle:
+     * - Bookmark toggling
+     * - Favourite toggling
+     * - Displaying the section
+     * @param {HTMLElement} entry - Section entry element.
+     * @param {Object} section - Section object containing paragraphs and title.
+     * @param {Object} paper - Paper metadata.
+     * @param {Object} part - Part metadata.
+     */
     setupClickEvent(entry, section, paper, part) {
         entry.addEventListener('click', async (event) => {
             let target = event.target;
@@ -248,6 +274,14 @@ class Reader {
         });
     }
 
+    /**
+     * Handles toggling of favourite state and displays appropriate toast.
+     * @async
+     * @param {HTMLElement} node - Node containing the favourite SVG icon.
+     * @param {Object} section - Section data.
+     * @param {Object} paper - Paper data.
+     * @param {Object} part - Part data.
+     */
     async handleFavouriteClick(node, section, paper, part) {
         highLightFav(node.getElementsByTagName('svg')[0]);
         const structure = this.createStructure(section, paper, part);
@@ -259,6 +293,14 @@ class Reader {
         }
     }
 
+    /**
+     * Handles toggling of bookmark state and displays appropriate toast.
+     * @async
+     * @param {HTMLElement} node - Node containing the bookmark SVG icon.
+     * @param {Object} section - Section data.
+     * @param {Object} paper - Paper data.
+     * @param {Object} part - Part data.
+     */
     async handleBookmarkClick(node, section, paper, part) {
         highLightBookmark(node.getElementsByTagName('svg')[0]);
         const structure = this.createStructure(section, paper, part);
@@ -270,6 +312,13 @@ class Reader {
         }
     }
 
+    /**
+     * Generates a structure object used for bookmarks/favourites and tracking.
+     * @param {Object} section - Section data.
+     * @param {Object} paper - Paper data.
+     * @param {Object} part - Part data.
+     * @returns {Object} Structured metadata.
+     */
     createStructure(section, paper, part) {
         return {
             part_id: part.id,
@@ -280,6 +329,10 @@ class Reader {
         };
     }
 
+    /**
+     * Renders a section's title and paragraphs in the reading pane.
+     * @param {Object} section - Section object with title and paragraphs.
+     */
     displaySection(section) {
         this.readerSection.innerHTML = "";
 
@@ -292,8 +345,8 @@ class Reader {
             const comment = checkComment(paragraph);
             const span = `<span class="text-md text-sky-500"><i>${comment}</i></span>`;
             const div = document.createElement('div');
-            const text = cleanText(paragraph.text).replace(comment, span);
-            div.innerHTML = text;
+            const text = cleanText(paragraph.text, paragraph.paragraph_number).replace(comment, span);
+            div.innerHTML = `${text}`;
             this.readerSection.appendChild(div);
         });
 
@@ -367,7 +420,7 @@ async function setQuickRead(randpart) {
         pr.className = "p-2 text-sm"
         pr.innerHTML = ""
 
-        const text = cleanText(paragraph.text).replace(comment, span);;
+        const text = cleanText(paragraph.text, paragraph.paragraph_number).replace(comment, span);;
         pr.innerHTML = text;
 
         readContainer.appendChild(pr);
@@ -377,6 +430,7 @@ async function setQuickRead(randpart) {
         //const itemSec = document.getElementById('quick-acsess-items')
     })
 }
+
 function init1() {
     SetForeword(false);
     //Open sidepane

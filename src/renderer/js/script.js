@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', ()=>{
-    const scripts = ['displayHandler', 'readerUtils', 'RpaneTooltip', 'providers/contentRenderer', 'PlayerUtils', "searchBase/search", "searchBase/showSearch", "searchBase/packed_lunrSearch"]
+    const scripts = ['displayHandler', 'readerUtils', 'RpaneTooltip', 'providers/contentRenderer', 'PlayerUtils', "searchBase/search", "searchBase/searchBaseEntry", "searchBase/packed_lunrSearch", "searchBase/Sutils"]
     for (const item of scripts) {
         addScripts(item);
     }
