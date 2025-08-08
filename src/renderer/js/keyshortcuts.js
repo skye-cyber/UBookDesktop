@@ -9,7 +9,8 @@ document.addEventListener('keydown', (event) => {
         document.getElementById("search-toggle").click()
     } else if (event.key === 'Escape') {
         event.preventDefault();
-        //settingsmodal.classList.add('hidden');
+        closeSearchModal()
+        closeSearchPref()
     } else if (event.ctrlKey && event.key === 'P' || event.ctrlKey && event.key === 'p') {
         event.preventDefault(); // Prevent any default action
         document.getElementById("sidepane-toggle").click()

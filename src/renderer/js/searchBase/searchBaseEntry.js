@@ -103,7 +103,7 @@ async function handleSearch(ids, query) {
 function showResults(results, query) {
     contentDiv.innerHTML = ""; // Clear previous
     console.log('__call__')
-    searchQuery.textContent = `#${query}`;
+    searchQuery.textContent = `${query}`;
     resultTotal.textContent = results.length;
 
     const keywords = query.split(/\s+/).filter(Boolean);

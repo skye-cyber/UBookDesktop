@@ -13,7 +13,7 @@ module.exports = {
         },
 
         fontFamily: {
-            display: ['Source Serif Pro', 'Georgia', 'serif'],
+            reader: ['Source Serif Pro', 'Georgia', 'serif'],
             body: ['Synonym', 'system-ui', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'], // Adding JetBrains Mono for monospaced text
         },

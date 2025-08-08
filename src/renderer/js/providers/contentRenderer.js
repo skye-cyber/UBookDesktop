@@ -57,7 +57,7 @@ function wrapTextInParagraphs(text, paragraph_number) {
     // Wrap each segment in <p> tags and reassemble the text
     const wrappedText = segments.map(segment => {
         if (segment.trim() !== '') {
-            return `<p class=""><span class="mr-3 underline decoration-indigo-400 text-amber-400">${paragraph_number}&nbsp<span class="text-emerald-400">&DoubleRightArrow;</span></span><span class="p-0">${segment}</span></p><br>`;
+            return `<p class=""><span class="mr-3 underline decoration-indigo-400 text-amber-700 dark:text-amber-400">${paragraph_number}&nbsp<span class="text-emerald-700 dark:text-emerald-400">&DoubleRightArrow;</span></span><span class="p-0">${segment}</span></p><br>`;
         }
         return '';
     }).join('<br>');
@@ -525,7 +525,7 @@ async function loadItems(type = 'favourites') {
     PartTitle.textContent = capitalize(type);
     paperContainer.innerHTML = "";
 
-    const contentFile = 'Combined_Structured_UB.json';
+    const contentFile = 'FN-Combined_Structured_UB.json';
     const fullData = await window.api.readContent(contentFile);
     const partsById = Object.fromEntries(fullData.parts.map(part => [part.id, part]));
 
@@ -569,8 +569,6 @@ async function loadFavourites() {
 async function loadBookmarks() {
     await loadItems('bookmarks');
 }
-
-//showNotesModal("✨ You can inject dynamic note content here using HTML.");
 
 
 async function renderNotes() {

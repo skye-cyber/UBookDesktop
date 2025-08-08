@@ -17,7 +17,7 @@
             </button>
         </section>
         <!-- Search Bar -->
-        <div id="search-container" class="relative opacity-100 pointer-events-auto flex-1 mx-0 md:mx-[10vw] lg:ml-[28vw] lg:mr-[10vw] tranform transition-all duration-700 ease-in-out">
+        <div id="search-container" class="relative opacity-100 pointer-events-auto flex-1 mx-0 md:mx-[10vw] lg:ml-[24vw] lg:mr-[18vw] tranform transition-all duration-700 ease-in-out">
             <input
               id="searchInput"
               type="text"
@@ -25,27 +25,41 @@
               placeholder="Search..."
               class="w-full px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-gray-800 dark:text-gray-50 focus:outline-none"
             />
-            <p id="submit-search" title="submit-search" ari-label="submit-search" class="absolute top-2 right-8 cursor-pointer">🔍</p>
+            <p id="submit-search" title="submit-search" ari-label="submit-search" class="hidden absolute top-2 right-8 cursor-pointer select-none">🔍</p>
 
-            <span onclick="ShowPrevSearchModal()" title="show previous section search results" arial-label="show previous section search results" class="absolute top-2 right-0.5 cursor-pointer flex justify-center items-center"><svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="" class="icon-md fill-indigo-500 dark:fill-emerald-400"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.5 5C13.3954 5 12.5 5.89543 12.5 7C12.5 8.10457 13.3954 9 14.5 9C15.6046 9 16.5 8.10457 16.5 7C16.5 5.89543 15.6046 5 14.5 5ZM10.626 6C11.0701 4.27477 12.6362 3 14.5 3C16.3638 3 17.9299 4.27477 18.374 6H20C20.5523 6 21 6.44772 21 7C21 7.55228 20.5523 8 20 8H18.374C17.9299 9.72523 16.3638 11 14.5 11C12.6362 11 11.0701 9.72523 10.626 8H4C3.44772 8 3 7.55228 3 7C3 6.44772 3.44772 6 4 6H10.626ZM9.5 15C8.39543 15 7.5 15.8954 7.5 17C7.5 18.1046 8.39543 19 9.5 19C10.6046 19 11.5 18.1046 11.5 17C11.5 15.8954 10.6046 15 9.5 15ZM5.62602 16C6.07006 14.2748 7.63616 13 9.5 13C11.3638 13 12.9299 14.2748 13.374 16H20C20.5523 16 21 16.4477 21 17C21 17.5523 20.5523 18 20 18H13.374C12.9299 19.7252 11.3638 21 9.5 21C7.63616 21 6.07006 19.7252 5.62602 18H4C3.44772 18 3 17.5523 3 17C3 16.4477 3.44772 16 4 16H5.62602Z"></path></svg></span>
+            <!-- 5. Magnifier + plus (expand / show more) -->
+            <span class="absolute right-1 top-1 inline-flex items-center gap-2 py-0 px-0 rounded-lg border border-[#e6eef8]/0 bg-white/0 cursor-pointer" onclick="ShowPrevSearchModal()" title="show previous section search results" arial-label="show previous section search results group">
+                <button class="flex items-center gap-2" aria-label="Expand search results" title="Expand">
+                    <svg class="w-8 h-8 flex-none" viewBox="0 0 24 24" role="img" aria-hidden="false">
+                    <g fill="none" class="stroke-[#0f0f0f] dark:stroke-white group-hover:stroke-indigo-500" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="6"></circle>
+                        <path d="M21 21l-4.2-4.2"></path>
+                        <path d="M11 8v6M8 11h6"/>
+                    </g>
+                    </svg>
+                    <span class="hidden text-sm text-[#0b1220]">Expand</span>
+                </button>
+            </span>
         </div>
 
         <div class="flex justify-end m-4">
-          <button
-            onclick="openSearchPref()"
-            title="Open Search Preferences"
-            class="flex items-center justify-center px-4 py-2 text-xl rounded-full
-                   bg-gradient-to-r from-purple-700 to-indigo-800
-                   dark:from-teal-800 dark:to-slate-800
-                   text-white shadow-lg shadow-purple-500/30
-                   hover:shadow-xl hover:shadow-indigo-400/50
-                   transition-all duration-300 ease-in-out
-                   hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-400 dark:focus:ring-cyan-400"
-          >
-             <span class="flex justify-center items-center"><svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-label="" class="icon-md fill-amber-400 dark:fill-indigo-400"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.5 5C13.3954 5 12.5 5.89543 12.5 7C12.5 8.10457 13.3954 9 14.5 9C15.6046 9 16.5 8.10457 16.5 7C16.5 5.89543 15.6046 5 14.5 5ZM10.626 6C11.0701 4.27477 12.6362 3 14.5 3C16.3638 3 17.9299 4.27477 18.374 6H20C20.5523 6 21 6.44772 21 7C21 7.55228 20.5523 8 20 8H18.374C17.9299 9.72523 16.3638 11 14.5 11C12.6362 11 11.0701 9.72523 10.626 8H4C3.44772 8 3 7.55228 3 7C3 6.44772 3.44772 6 4 6H10.626ZM9.5 15C8.39543 15 7.5 15.8954 7.5 17C7.5 18.1046 8.39543 19 9.5 19C10.6046 19 11.5 18.1046 11.5 17C11.5 15.8954 10.6046 15 9.5 15ZM5.62602 16C6.07006 14.2748 7.63616 13 9.5 13C11.3638 13 12.9299 14.2748 13.374 16H20C20.5523 16 21 16.4477 21 17C21 17.5523 20.5523 18 20 18H13.374C12.9299 19.7252 11.3638 21 9.5 21C7.63616 21 6.07006 19.7252 5.62602 18H4C3.44772 18 3 17.5523 3 17C3 16.4477 3.44772 16 4 16H5.62602Z"></path></svg> Search Prefs</span>
-          </button>
+            <button
+                onclick="openSearchPref()"
+                title="Open Search Preferences"
+                aria-label="Open Search Preferences"
+                class="flex items-center justify-center w-12 h-12 rounded-full
+                    bg-gradient-to-r from-purple-700 to-indigo-800
+                    dark:from-teal-800 dark:to-slate-800
+                    text-white shadow-lg shadow-purple-500/30
+                    hover:shadow-xl hover:shadow-indigo-400/50
+                    transition-all duration-300 ease-in-out
+                    focus:outline-none focus:ring-4 focus:ring-purple-500 dark:focus:ring-cyan-400"
+            >
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="icon-md fill-amber-400 dark:fill-indigo-400">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.5 5C13.3954 5 12.5 5.89543 12.5 7C12.5 8.10457 13.3954 9 14.5 9C15.6046 9 16.5 8.10457 16.5 7C16.5 5.89543 15.6046 5 14.5 5ZM10.626 6C11.0701 4.27477 12.6362 3 14.5 3C16.3638 3 17.9299 4.27477 18.374 6H20C20.5523 6 21 6.44772 21 7C21 7.55228 20.5523 8 20 8H18.374C17.9299 9.72523 16.3638 11 14.5 11C12.6362 11 11.0701 9.72523 10.626 8H4C3.44772 8 3 7.55228 3 7C3 6.44772 3.44772 6 4 6H10.626ZM9.5 15C8.39543 15 7.5 15.8954 7.5 17C7.5 18.1046 8.39543 19 9.5 19C10.6046 19 11.5 18.1046 11.5 17C11.5 15.8954 10.6046 15 9.5 15ZM5.62602 16C6.07006 14.2748 7.63616 13 9.5 13C11.3638 13 12.9299 14.2748 13.374 16H20C20.5523 16 21 16.4477 21 17C21 17.5523 20.5523 18 20 18H13.374C12.9299 19.7252 11.3638 21 9.5 21C7.63616 21 6.07006 19.7252 5.62602 18H4C3.44772 18 3 17.5523 3 17C3 16.4477 3.44772 16 4 16H5.62602Z"></path>
+                </svg>
+            </button>
         </div>
-
 
         <!-- 3 Dots Icon (Vertical) -->
         <button id="search-toggle" class="text-gray-800 dark:text-gray-200">
@@ -56,79 +70,47 @@
     </header>
 
     <!-- Sidebar left -->
-    <section id="sidepaneMask" class="bg-slate-700/10 -translate-x-full mt-[8vh] w-fit fixed inset-0 transform transition-transform transition-colors duration-700 ease-in-out z-[50]">
-        <div id="sidepane" class="relative bg-sky-800 dark:bg-[#00445f] w-72 h-[calc(100vh-7vh)] shadow-lg transform transition-transform -translate-x-full transition-colors duration-700 ease-in-out shadow-inner">
-            <div class="flex items-center p-4">
+    <section id="sidepaneMask" class="bg-indigo-950/25 dark:bg-[#001f2b]/0 -translate-x-full mt-[8vh] w-fit fixed inset-0 transform transition-transform transition-colors duration-700 ease-in-out z-[50]">
+        <div id="sidepane" class="relative bg-gradient-to-br from-indigo-900 to-indigo-950 dark:from-[#001f2b] dark:to-[#001f2b] w-72 h-[calc(100vh-7vh)] shadow-2xl transform transition-transform -translate-x-full transition-colors duration-700 ease-in-out">
+            <div class="flex items-center p-4 border-b border-indigo-700 dark:border-[#00455e]">
                 <img class="h-12 w-16 rounded-full" src="images/UBook.png">
-                <h1 class="text-white dark:text-gray-200 text-2xl ml-2">Urantia Book Desktop</h1>
+                <h1 class="text-white dark:text-gray-300 text-2xl ml-2">Urantia Book Desktop</h1>
             </div>
-
-            <section class="h-fit max-h-[72%] overflow-y-auto select-none bg-blue-500 dark:bg-[#00557f] rounded-[4px]">
-                <ul class="mt-3" >
-                    <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-[#5656ff]/70 cursor-pointer" onclick="SetForeword();">
-                        📖 Foreword
-                    </li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-[#5656ff]/70 cursor-pointer" onclick="SetSuperUniverse();">
-                        <span class="bg-pink-600 rounded-full px-0.5">🌀</span>&nbsp; The Central and Superuniverses
-                    </li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-[#5656ff]/70 cursor-pointer" onclick="SetLocalUniverse();">
-                        🌍 The Local Universe
-                    </li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-[#5656ff]/70 cursor-pointer" onclick="SetHistoryOfUrantia();">
-                        📜 The History of Urantia
-                    </li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-[#5656ff]/70 cursor-pointer" onclick="SetJesusTeachings();">
-                        ✝️ The Life and Teachings of Jesus
-                    </li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-[#5656ff]/70 cursor-pointer" onclick="loadFavourites();">
-                        <svg class="w-6 h-6 mr-2 stroke-red-600 fill-red-500" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"/>
-                        </svg>
-                        Favourite
-                    </li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-[#5656ff]/70 cursor-pointer" onclick="loadBookmarks();">
-                        🔖 Bookmarks
-                    </li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-[#5656ff]/70 cursor-pointer" onclick="renderNotes();"> 📔 Notes
-                    </li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-[#5656ff]/70 cursor-pointer">🧰 More Applications
-                    </li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-200 hover:bg-blue-400 dark:hover:bg-[#5656ff]/70 cursor-pointer">
-                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                        </svg>
-                        Exit
-                    </li>
+            <section class="h-fit max-h-[72%] overflow-y-auto select-none bg-indigo-950/25 dark:bg-[#002b36] rounded-lg">
+                <ul class="mt-3">
+                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetForeword();">📖 Foreword</li>
+                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetSuperUniverse();"><span class="bg-pink-600 rounded-full px-0.5">🌀</span>&nbsp; The Central and Superuniverses</li>
+                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetLocalUniverse();">🌍 The Local Universe</li>
+                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetHistoryOfUrantia();">📜 The History of Urantia</li>
+                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetJesusTeachings();">✝️ The Life and Teachings of Jesus</li>
+                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="loadFavourites();">⭐ Favourite</li>
+                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="loadBookmarks();">🔖 Bookmarks</li>
+                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="renderNotes();">📔 Notes</li>
+                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer">🧰 More Applications</li>
+                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer">🚪 Exit</li>
                 </ul>
             </section>
-
-            <!-- Theme Toggle Switch -->
-            <div class="absolute left-0 bottom-3 flex items-center select-none">
-                <span class="hidden text-teal-950 font-bold dark:text-gray-200 mr-2">Light</span>
-
-                <label class="relative inline-block w-16 h-8 cursor-pointer select-none">
-                    <input type="checkbox" id="theme-toggle" class="peer hidden">
-                    <span
-                        class="absolute inset-0 bg-gray-300 peer-checked:bg-blue-500 transition rounded-full"
-                    ></span>
-                    <span
-                        class="absolute left-1 bottom-1 w-6 h-6 bg-white rounded-full transition peer-checked:translate-x-8"
-                    ></span>
-                </label>
-
-                <span class="text-teal-950 font-bold dark:text-gray-200 ml-2">Theme</span>
+            <div class="absolute left-0 bottom-4 flex items-center justify-center w-full px-6">
+                <div class="flex items-center select-none bg-indigo-600 dark:bg-[#002a39] rounded-full p-2 w-full">
+                    <span class="text-xs text-indigo-200 font-medium mr-2 hidden md:block">Theme</span>
+                    <label class="relative inline-block w-12 h-6 cursor-pointer select-none">
+                        <input type="checkbox" id="theme-toggle" class="peer hidden">
+                        <span class="absolute inset-0 bg-indigo-500 peer-checked:bg-teal-500 transition rounded-full"></span>
+                        <span class="absolute left-1 bottom-1 w-4 h-4 bg-white rounded-full transition peer-checked:translate-x-6"></span>
+                    </label>
+                    <span class="text-xs text-indigo-200 font-medium ml-2">Light/Dark</span>
+                </div>
             </div>
-
         </div>
     </section>
 
-        <!-- Sidebar Right -->
+    <!-- Sidebar Right -->
     <section id="RightpanelMask" class="bg-slate-700/10 translate-x-full xl:translate-x-0 mt-[8vh] w-fit fixed right-0 transform transition-transform transition-colors duration-700 ease-in-out z-50">
         <div id="Rightpanel" class="relative w-[21.9vw] h-[calc(100vh-7vh)] shadow-lg transform translate-x-0 transition-all duration-700 ease-in-out shadow-inner shadow-md">
             <div id="quick-acsess-head" class="flex w-full p-4 text-white dark:text-gray-200 bg-indigo-950 dark:bg-amber-950 select-none">
             </div>
 
-            <section id="quick-acsess-container" class="h-fit pb-[16vh] max-h-[84vh] overflow-y-auto select-text bg-blue-100 dark:invert rounded-[4px] transform transition-all duration-700">
+            <section id="quick-acsess-container" class="h-fit pb-[16vh] max-h-[84vh] overflow-y-auto select-text bg-blue-100 dark:invert rounded-[4px] transform transition-all duration-700 font-reader scrollbar-custom">
             </section>
 
             <!-- Tooltip Menu -->
@@ -179,7 +161,7 @@
 
     <!-- Main Content -->
     <main class="mt-[8.5vh] w-screen max-h-[calc(100vh-0vh)] overflow-y-hidden">
-        <div id="reader-wrapper-container" class="relative h-[calc(100vh-7vh)] bg-white dark:bg-gray-950 text-gray-800 dark:text-gray-200 p-6 md:p-10 rounded-xl max-w-3xl mx-auto my-[0vh] shadow-md leading-relaxed prose dark:prose-invert overflow-y-auto transition-colors duration-700">
+        <div id="reader-wrapper-container" class="relative h-[calc(100vh-7vh)] bg-white dark:bg-gray-950 text-gray-800 dark:text-gray-200 p-6 md:p-10 rounded-xl max-w-3xl mx-auto my-[0vh] shadow-md leading-relaxed prose dark:prose-invert overflow-y-auto transition-colors duration-700 scrollbar-custom-v1">
               <!-- Floating Reading Progress Section (fixed relative to reader container) -->
               <div class="sticky -top-10 -mt-6 md:-mt-10 z-30 select-none w-full">
                     <div class="flex items-center bg-stone-600 w-full dark:bg-zinc-800 backdrop-blur-md py-1 px-6 md:px-10 border-b-2 border-gray-500 dark:border-sky-500 rounded-b-md">
@@ -234,7 +216,7 @@
                   </div>
 
               <!-- Reader Content -->
-              <article id="reader-content" class="select-text focus:outline-none mb-4">
+              <article id="reader-content" class="select-text focus:outline-none mb-4 font-reader">
               </article>
 
               <!-- Main Tooltip Menu -->
@@ -376,7 +358,7 @@
         <!-- Loading Modal-->
         <div id="loadingModal"
             class="fixed top-0 left-1/2 -translate-x-1/2 -translate-y-full opacity-0 pointer-events-none bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 text-white px-6 py-3 rounded-b-xl shadow-lg flex items-center gap-4 transition-transform transition-opacity duration-300 ease-out z-50 select-none">
-            <svg class="w-6 h-6 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="w-6 h-6 animate-spin-100" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke-width="4" stroke="currentColor" />
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
             </svg>
@@ -384,12 +366,12 @@
         </div>
 
 
-        <!-- Modal container -->
-        <div id="search-modal" class="fixed inset-0 flex items-center justify-center p-4 backdrop-brightness-50 translate-y-[100vh] z-50 transition-all duration-500">
-          <div class="bg-white dark:bg-gray-800 rounded-lg border border-x-pink-600 border-y-orange-400 border-t-purple-600 shadow-lg max-w-full lg:max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden transition-colors duration-500">
+        <!-- Search Modal container -->
+        <div id="search-modal" class="fixed inset-0 flex items-center justify-center p-4 backdrop-brightness-50 translate-y-[100vh] z-50 transition-all duration-500 cursor-pointer">
+          <div class="bg-white dark:bg-gray-800 rounded-lg border border-x-pink-600 border-y-orange-400 border-t-purple-600 shadow-lg max-w-full lg:max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden transition-colors duration-500 font-reader">
             <!-- Header -->
             <div class="flex justify-between items-center p-3 bg-gray-200 dark:bg-zinc-950 border-b border-rose-200 dark:border-rose-700">
-              <h2 class="text-xl font-semibold dark:text-white">Search Result: <span id="search-query" class="rounded-md bg-gray-300 dark:bg-black text-blue-500"></span></h2>
+              <h2 class="text-xl font-mono font-semibold dark:text-white">Search Result:<span class="text-red-500">?</span><span id="search-query" class="rounded-md bg-gray-300 dark:bg-black text-blue-500"></span></h2>
               <p class="font-bold text-black dark:text-white">Total: <span id="result-total" class="font-semibold text-[#0097d3]"></span></p>
               <button id="closeModalBtn" aria-label="Close modal" class="text-gray-500 hover:text-gray-900 dark:hover:text-gray-200 transition text-2xl font-bold leading-none">&times;</button>
             </div>
@@ -412,84 +394,133 @@
 
         <!-- Enhanced Modal -->
         <section id="search-pref"
-          class="fixed inset-1 left-0 top-0 translate-x-[22vw] -translate-y-[110vh] rounded-2xl z-[60] w-fit h-fit min-w-[40vh] max-w-[80vw] max-h-[98vh] lg:max-w-[90vw]
-                 bg-gradient-to-br from-indigo-950 via-purple-900 to-indigo-950
-                 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900
-                 border-4
-                 border-t-indigo-500
-                 border-b-rose-500
-                 border-r-emerald-500
-                 border-l-amber-400
-                 shadow-[0_0_60px_rgba(168,85,247,0.6),_0_0_40px_rgba(6,182,212,0.4)]
-                 dark:shadow-[0_0_50px_rgba(34,211,238,0.4),_0_0_30px_rgba(249,115,22,0.4)]
-                 transition-transform duration-500 text-white overflow-hidden">
+            class="fixed inset-1 left-0 top-0 translate-x-[22vw] -translate-y-[110vh] rounded-2xl z-[60] w-fit h-fit min-w-[40vh] max-w-[80vw] max-h-[98vh] lg:max-w-[90vw]
+                bg-gradient-to-br from-indigo-800 via-indigo-600 to-indigo-800
+                dark:from-slate-900 dark:via-slate-800 dark:to-slate-900
+                border-4
+                border-t-green-500
+                border-b-lime-500
+                border-r-emerald-500
+                border-l-amber-400
+                shadow-[0_0_60px_rgba(76,175,80,0.6),_0_0_40px_rgba(139,195,74,0.4)]
+                dark:shadow-[0_0_50px rgba(34,211,238,0.4),_0_0_30px rgba(249,115,22,0.4)]
+                transition-transform duration-500 text-white overflow-hidden">
 
-          <div id="search-pref-wrapper" class="relative w-full h-full p-6 overflow-y-auto rounded-xl">
+            <div id="search-pref-wrapper" class="relative w-full h-full p-6 overflow-y-auto rounded-xl">
 
-            <!-- Close Button -->
-            <button id="close-pref"
-              onclick="closeSearchPref()"
-              class="absolute top-3 right-4 text-3xl text-white/80 hover:text-yellow-300 transition-transform duration-300 ease-in-out hover:rotate-45">
-              &times;
-            </button>
+                <!-- Close Button -->
+                <button id="close-pref"
+                    onclick="closeSearchPref()"
+                    class="absolute top-3 right-4 text-3xl text-white/80 hover:text-lime-300 transition-transform duration-300 ease-in-out hover:rotate-45">
+                    &times;
+                </button>
 
-            <!-- Title -->
-            <h2 class="text-center text-2xl font-bold underline mb-6 drop-shadow-md text-white glow">
-              🌌 Search Preferences
-            </h2>
+                <!-- Title -->
+                <h2 class="text-center text-2xl font-bold underline mb-6 drop-shadow-md text-white glow">
+                    🌲 Search Preferences
+                </h2>
 
-            <!-- Search Type Option -->
-            <div class="mb-6 text-white">
-              <label class="block mb-2 font-semibold">Search Mode</label>
-              <select id="search-mode" class="w-full px-4 py-2 rounded-lg bg-slate-800 text-white border border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-400">
-                <option value="text" selected>Search in Text</option>
-                <option value="titles">Search in Section Titles</option>
-              </select>
+                <!-- Search Type Option -->
+                <div class="mb-6 text-white">
+                    <label class="block mb-2 font-semibold">Search Mode</label>
+                    <select id="search-mode" class="w-full px-4 py-2 rounded-lg bg-[#452368] dark:bg-slate-800 text-white border border-green-500 focus:outline-none focus:ring-2 focus:ring-green-400">
+                        <option value="text" selected>Search in Text</option>
+                        <option value="titles">Search in Section Titles</option>
+                    </select>
+                </div>
+
+                <div id="search-scope" class="text-2xl font-bold text-transparent bg-gradient-to-r from-lime-400 via-green-500 to-emerald-600 bg-clip-text drop-shadow-md underline underline-offset-8 decoration-amber-400 mb-2">
+                    🔍 Search Scope
+                </div>
+
+                <!-- Toggle All Switch -->
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="flex items-center select-none rounded-full p-2 w-full">
+                        <span class="font-semibold text-white/80">Toggle All Parts</span>
+                        <label class="relative inline-block w-12 h-6 cursor-pointer ml-3">
+                            <input type="checkbox" id="toggle-all" class="sr-only peer">
+
+                            <!-- Switch track -->
+                            <span class="block w-12 h-6 bg-gray-400 rounded-full transition-colors peer-checked:bg-lime-500"></span>
+
+                            <!-- Knob -->
+                            <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transform transition-transform duration-300 peer-checked:translate-x-6"></span>
+                        </label>
+                    </div>
+                </div>
+
+
+                <!-- Switch-Style Checkboxes -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 text-lg font-mono text-white/90">
+                    <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
+                        <span>1: Foreword</span>
+                        <label class="relative inline-block w-12 h-6 cursor-pointer ml-3">
+                            <input type="checkbox" name="part1" id="part1" class="part-toggle accent-green-400 scale-125 sr-only peer" />
+                       <!-- Switch track -->
+                            <span class="block w-12 h-6 bg-gray-400 rounded-full transition-colors peer-checked:bg-lime-500"></span>
+
+                            <!-- Knob -->
+                            <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transform transition-transform duration-300 peer-checked:translate-x-6"></span>
+                        </label>
+                    </label>
+
+                    <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
+                        <span>2: Central & Superuniverse</span>
+                        <label class="relative inline-block w-12 h-6 cursor-pointer ml-3">
+                            <input type="checkbox" name="part2" id="part2" class="part-toggle accent-emerald-400 scale-125 sr-only peer" />
+                            <!-- Switch track -->
+                            <span class="block w-12 h-6 bg-gray-400 rounded-full transition-colors peer-checked:bg-lime-500"></span>
+
+                            <!-- Knob -->
+                            <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transform transition-transform duration-300 peer-checked:translate-x-6"></span>
+                        </label>
+                    </label>
+
+                    <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
+                        <span>3: Local Universe</span>
+                        <label class="relative inline-block w-12 h-6 cursor-pointer ml-3">
+                            <input type="checkbox" name="part3" id="part3" class="part-toggle accent-lime-400 scale-125 sr-only peer" />
+                            <!-- Switch track -->
+                            <span class="block w-12 h-6 bg-gray-400 rounded-full transition-colors peer-checked:bg-lime-500"></span>
+
+                            <!-- Knob -->
+                            <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transform transition-transform duration-300 peer-checked:translate-x-6"></span>
+                        </label>
+                    </label>
+                    <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
+                        <span>4: History of Urantia</span>
+                        <label class="relative inline-block w-12 h-6 cursor-pointer ml-3">
+                            <input type="checkbox" name="part4" id="part4" class="part-toggle accent-green-400 scale-125 sr-only peer" />
+                            <!-- Switch track -->
+                            <span class="block w-12 h-6 bg-gray-400 rounded-full transition-colors peer-checked:bg-lime-500"></span>
+
+                            <!-- Knob -->
+                            <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transform transition-transform duration-300 peer-checked:translate-x-6"></span>
+                        </label>
+                    </label>
+                    <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
+                        <span>5: Life & Teachings of Jesus</span>
+                        <label class="relative inline-block w-12 h-6 cursor-pointer ml-3">
+                            <input type="checkbox" name="part5" id="part5" class="part-toggle accent-emerald-400 scale-125 sr-only peer" />
+                            <!-- Switch track -->
+                            <span class="block w-12 h-6 bg-gray-400 rounded-full transition-colors peer-checked:bg-lime-500"></span>
+
+                            <!-- Knob -->
+                            <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transform transition-transform duration-300 peer-checked:translate-x-6"></span>
+                        </label>
+                    </label>
+                </div>
+
+                <!-- Optional: Action Button -->
+                <div class="flex justify-center mt-8">
+                    <button onclick="submitSearchWPrefs()" class="px-6 py-2 rounded-full bg-green-600 hover:bg-green-700 text-white font-bold shadow-md shadow-green-800/60 transition-all duration-300">
+                        ✅ Submit Search
+                    </button>
+                </div>
+
             </div>
-
-            <div id="search-scope" class="text-2xl font-bold text-transparent bg-gradient-to-r from-cyan-400 via-emerald-500 to-amber-600 bg-clip-text drop-shadow-md underline underline-offset-8 decoration-amber-400 mb-2">
-            🔍 Search Scope
-            </div>
-
-            <!-- Toggle All Switch -->
-            <div class="flex items-center gap-4 mb-6">
-              <label for="toggle-all" class="font-semibold text-white/80">Toggle All Parts</label>
-              <input type="checkbox" id="toggle-all" class="accent-yellow-400 scale-150">
-            </div>
-
-            <!-- Switch-Style Checkboxes -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 text-lg font-mono text-white/90">
-              <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
-                <span>1: Foreword</span>
-                <input type="checkbox" name="part1" id="part1" class="part-toggle accent-purple-400 scale-125" />
-              </label>
-              <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
-                <span>2: Central & Superuniverse</span>
-                <input type="checkbox" name="part2" id="part2" class="part-toggle accent-cyan-400 scale-125" />
-              </label>
-              <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
-                <span>3: Local Universe</span>
-                <input type="checkbox" name="part3" id="part3" class="part-toggle accent-blue-400 scale-125" />
-              </label>
-              <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
-                <span>4: History of Urantia</span>
-                <input type="checkbox" name="part4" id="part4" class="part-toggle accent-emerald-400 scale-125" />
-              </label>
-              <label class="flex items-center justify-between px-4 py-2 bg-slate-800/50 rounded-lg shadow hover:bg-slate-700 transition">
-                <span>5: Life & Teachings of Jesus</span>
-                <input type="checkbox" name="part5" id="part5" class="part-toggle accent-pink-400 scale-125" />
-              </label>
-            </div>
-
-            <!-- Optional: Action Button -->
-            <div class="flex justify-center mt-8">
-              <button onclick="submitSearchWPrefs()" class="px-6 py-2 rounded-full bg-purple-600 hover:bg-purple-700 text-white font-bold shadow-md shadow-purple-800/60 transition-all duration-300">
-                ✅ Submit Search
-              </button>
-            </div>
-
-          </div>
         </section>
+
     </main>
 </body>
 <script type="text/javascript" src="js/themes.js"></script>
