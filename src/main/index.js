@@ -5,6 +5,14 @@ const fs = require('fs');
 
 let mainWindow;
 
+/*
+try {
+    require("electron-reload")(__dirname, {
+        electron: require(`${__dirname}/node_modules/electron`)
+    });
+} catch (_) {}
+*/
+
 const isDev = !app.isPackaged;
 
 const iconPath = isDev
@@ -141,6 +149,15 @@ function createWindow() {
         loadingWindow.close();
     });
 
+    // Intercept the window close event
+    mainWindow.on('close', (event) => {
+        if (!app.isQuiting) {
+            event.preventDefault();   // ❌ prevent window from actually closing
+            mainWindow.hide();        // ✅ just hide it to tray
+        }
+        return false;
+    });
+
     // Return the main window for reference
     return mainWindow;
 }
@@ -179,6 +196,7 @@ app.on('ready', async () => {
         {
             label: 'Quit',
             click: () => {
+                app.isQuiting = true;
                 app.quit();
             }
         }
@@ -186,12 +204,18 @@ app.on('ready', async () => {
 
     tray.setToolTip('UBookDesktop');
     tray.setContextMenu(contextMenu);
+
+    // Restore window on tray double-click
+    tray.on('double-click', () => {
+        mainWindow.show();
+    });
 });
 
-app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
+app.on('window-all-closed', (event) => {
+    event.preventDefault(); // ✅ don’t quit app when all windows closed
+    /*if (process.platform !== 'darwin') {
         app.quit(); // Quit when all windows are closed, except on macOS
-    }
+    }*/
 });
 
 app.on('activate', () => {

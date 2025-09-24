@@ -210,3 +210,23 @@ height: 2.4em; /* Adjust this value to match the height of an empty row */
 .ripple-single-3 {
     animation-delay: 1.2s;
 }
+
+.glow {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+.glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.dark-glass {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.search-expand {
+    transition: all 0.3s ease;
+}
+.search-expand:hover {
+    transform: scale(1.05);
+}

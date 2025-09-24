@@ -231,7 +231,7 @@ contextBridge.exposeInMainWorld('api', {
     },
     ReadAloud: async (_text, action = 'play') => {
         const text = _text || '';
-        const cacheFile = path.join(cacheDir, 'output.wav');
+        const cacheFile = path.join(cacheDir, `cfile_${Math.random().toString(34).substring(3, 9)}.wav`);
 
         // Ensure it's only for Linux
         if (os.platform() !== 'linux') {
@@ -295,23 +295,47 @@ contextBridge.exposeInMainWorld('api', {
         if (!text.trim()) return 'No text';
 
         const safeText = text
-        .replace(/[\[\]]/g, "")
+            .replace(/[\[\]]/g, "")
+
+        // Advance Audio Converter (AAC)
+        //const AAC = 'ttskit2'
+        const AAC_command = `ttskit2 -t "${safeText}" -O ${cacheFile} --threads 8`
+
+        console.log(`Cache File-: ${cacheFile}`)
 
         const picowave = await ipcRenderer.invoke('get-picowave-path');
 
         const command = `echo "${safeText}" | ${picowave} -w "${cacheFile}"`;
 
-        try {
+        // Robotic Voice Mode as fallback
+        async function RBMV() {
             await new Promise((resolve, reject) => {
                 exec(command, (err) => {
                     if (err) return reject(err);
                     resolve();
                 });
             });
+        }
+
+        try {
+            // Advance mode first
+            await new Promise((resolve, reject) => {
+                exec(AAC_command, (err) => {
+                    console.log(err)
+                    if (err) return RBMV();
+                    resolve();
+                });
+            });
+
+            if (!fs.statfsSync(cacheFile)){
+                console.log(`Cache file not found: ${cacheFile}`)
+                RBMV();
+            }
 
             if (!audioContext) audioContext = new AudioContext();
 
             const fileData = fs.readFileSync(cacheFile);
+
             const arrayBuffer = fileData.buffer.slice(fileData.byteOffset, fileData.byteOffset + fileData.byteLength);
 
             audioBuffer = await audioContext.decodeAudioData(arrayBuffer);

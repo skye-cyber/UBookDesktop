@@ -30,11 +30,16 @@ function closeSearchModal() {
 
 
 function openSearchPref() {
-    searchPref.classList.remove("-translate-y-[110vh]");
-    document.getElementById("modal-backdrop").classList.remove("hidden");
+    searchPref.classList.remove("hidden")
+    setTimeout(() => {
+        searchPref.classList.remove("-translate-y-[110vh]");
+        searchPref.classList.add("translate-y-[10vh]");
+        document.getElementById("modal-backdrop").classList.remove("hidden");
+    }, 10);
 }
 
 function closeSearchPref() {
+    searchPref.classList.remove("translate-y-[10vh]");
     searchPref.classList.add("-translate-y-[110vh]");
     document.getElementById("modal-backdrop").classList.add("hidden");
 }
@@ -53,6 +58,6 @@ window.addEventListener('keydown', (e) => {
 });
 
 
-function ShowPrevSearchModal(){
+function ShowPrevSearchModal() {
     PartTitle.textContent.startsWith('Search Result:') ? displaySelectorModal() : showSearchModal()
 }

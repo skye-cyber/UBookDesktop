@@ -57,8 +57,8 @@ async function initSearch(query) {
 
     // Decide between full-text search or selective search
     return searchMode.value === "text"
-    ? await handleSearch(targets, query)
-    : await Do_S_Search(targets, query);
+        ? await handleSearch(targets, query)
+        : await Do_S_Search(targets, query);
 }
 
 /**
@@ -113,11 +113,26 @@ function showResults(results, query) {
         count++;
 
         // Highlight keywords
-        let highlightedContent = result.content;
-        keywords.forEach(word => {
-            const pattern = new RegExp(`(${escapeRegExp(word)})`, "gi");
-            highlightedContent = highlightedContent.replace(pattern, `<span class="font-mono text-yellow-400">$1</span>`);
-        });
+        let highlightedContent = result.content
+
+        const Qpattern = new RegExp(`(${escapeRegExp(query)})`, "gi");
+
+        if (highlightedContent.toLowerCase().includes(query.toLowerCase())) {
+            highlightedContent = highlightedContent.replace(Qpattern, `<span class="font-mono p-0.5 bg-yellow-500 rounded-sm dark:bg-slate-950 text-black dark:text-yellow-400">$1</span>`);
+        } else {
+            let proceedQueue = []
+            keywords.forEach(word => {
+                if (!proceedQueue.includes(proceedQueue)) {
+                    const pattern = new RegExp(`(${escapeRegExp(word)})`, "gi");
+                    //console.log(keywords)
+                    //const hlspan = document.createElement('span')
+                    //hlspan.className = "font-mono p-0.5 bg-yellow-500 rounded-sm dark:bg-slate-950 text-black dark:text-yellow-400"
+                    //let hlhtml =
+                    highlightedContent = highlightedContent.replace(pattern, `<i class="font-mono p-0.5 bg-yellow-500 rounded-sm dark:bg-slate-950 text-black dark:text-yellow-400">$1</i>`);
+                    proceedQueue.push(word)
+                }
+            });
+        }
 
         const resDiv = document.createElement("div");
         resDiv.innerHTML = `
@@ -142,6 +157,7 @@ function showResults(results, query) {
 
     showSearchModal();
     setTimeout(() => scrollToTop(contentDiv), 100);
+    results = null;
 }
 
 /**
