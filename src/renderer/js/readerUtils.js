@@ -30,10 +30,8 @@ function normalizeSelection(text){
 async function toolTipPositionHandler() {
     const selection = window.getSelection();
     selectedText = normalizeSelection(selection.toString().trim());
-    console.log(selectedText)
-    //console.log(selection.toString())
+
     selectedContent = getSelectionHtml();
-    //console.log(selectedContent)
 
     if (selectedText.length > 0) {
         const range = selection.getRangeAt(0);
@@ -41,7 +39,7 @@ async function toolTipPositionHandler() {
         const wrapperRect = wrapper.getBoundingClientRect();
 
         tooltip.style.display = 'block';
-        tooltip.style.visibility = 'hidden'; // so we can measure it
+        tooltip.style.visibility = 'hidden'; // so that we can measure it
 
         requestAnimationFrame(() => {
             const tooltipWidth = tooltip.offsetWidth;
@@ -87,11 +85,6 @@ wrapper.addEventListener('mousedown', (e) => {
 wrapper.addEventListener('selectionchange', () => {
     const text = window.getSelection().toString().trim();
     if (!text) hideTooltip();
-});
-
-// Optional: Hide on Esc
-wrapper.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') hideTooltip();
 });
 
 
