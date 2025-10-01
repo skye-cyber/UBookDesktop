@@ -17,11 +17,11 @@ class modalHandler {
             'success':
             `
             <!-- General Success Modal -->
-            <div id="success-modal-GN" class="fixed top-4 right-[40vw] max-w-xs px-6 py-4 rounded shadow-lg dark:bg-gray-800 dark:text-yellow-100 rounded-lg shadow-lg transform translate-x-[100vw] transition-transform duration-500 ease-out z-[30]">
-            <div id="successBoxBody-GN" class="bg-white dark:bg-gray-800 max-w-sm text-center duration-700">
+            <div id="success-modal-GN" class="fixed top-4 right-[40vw] max-w-xs px-0 py-0 rounded shadow-lg dark:bg-gray-800 dark:text-yellow-100 rounded-lg shadow-lg transform translate-x-[100vw] transition-transform duration-500 ease-out z-[50]">
+            <div id="successBoxBody-GN" class="flex items-center gap-2 bg-white dark:bg-gray-800 rounded-lg p-4 max-w-sm text-center duration-700 border border-green-400 shadow-md shadow-green-500">
             <!-- Animated Checkmark -->
             <div class="flex items-center justify-center">
-            <div class="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center animate-scale delay-700">
+            <div class="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-start animate-scale delay-700">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 animate-draw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 13l4 4L19 7"></path>
             </svg>
@@ -32,7 +32,7 @@ class modalHandler {
             <p id="SuccessMsg-GN" class="text-sm text-gray-600 dark:text-gray-300 mt-2">Your action was completed successfully.</p>
 
             <!-- Close Button -->
-            <button id="CloseSucsessModal-GN" onclick="_modalHandler.hide('success')" class="mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">
+            <button id="CloseSucsessModal-GN" onclick="_modalHandler.hide('success')" class="hidden mt-4 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">
             OK
             </button>
             </div>
@@ -58,7 +58,7 @@ class modalHandler {
             <!-- Warning Modal Container -->
             <div id="warningModal" class="fixed top-4 right-4 max-w-xs p-4 rounded shadow-lg
             bg-yellow-100 text-yellow-900 dark:bg-yellow-800 dark:text-yellow-100
-            transform translate-x-[100vw] opacity-0 transition-transform duration-1000 ease-out pointer-events-none z-50">
+            transform translate-x-[100vw] opacity-0 transition-transform duration-500 ease-out pointer-events-none z-50">
             <div class="flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">

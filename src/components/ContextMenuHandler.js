@@ -19,25 +19,27 @@ updateWordCount();
 
 // Show context menu on right click
 document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
+    if (bookContent.contains(e.target)) {
+        e.preventDefault();
 
-    // Check if text is selected
-    const selection = window.getSelection();
-    const hasSelection = selection.toString().trim().length > 0;
+        // Check if text is selected
+        const selection = window.getSelection();
+        const hasSelection = selection.toString().trim().length > 0;
 
-    // Store selection info
-    if (hasSelection && selection.rangeCount > 0) {
-        appState.currentSelection = selection.toString();
-        appState.selectionRange = selection.getRangeAt(0);
-        textOptions.classList.remove('hidden');
-    } else {
-        appState.currentSelection = '';
-        appState.selectionRange = null;
-        textOptions.classList.add('hidden');
+        // Store selection info
+        if (hasSelection && selection.rangeCount > 0) {
+            appState.currentSelection = selection.toString();
+            appState.selectionRange = selection.getRangeAt(0);
+            textOptions.classList.remove('hidden');
+        } else {
+            appState.currentSelection = '';
+            appState.selectionRange = null;
+            textOptions.classList.add('hidden');
+        }
+
+        // Position the context menu
+        positionContextMenu(e.pageX, e.pageY, contextMenu);
     }
-
-    // Position the context menu
-    positionContextMenu(e.pageX, e.pageY, contextMenu);
 });
 
 // Hide context menu on click
@@ -56,6 +58,25 @@ document.querySelectorAll('.context-item').forEach(item => {
     });
 });
 
+function showSubmenu(item) {
+    const submenu = item.querySelector(".sub-context-menu")
+    submenu.classList.remove("hidden")
+}
+
+document.querySelectorAll('.sub-context-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const submenu = item.parentElement
+        //console.log("Before", submenu.classList.contains("hidden"))
+
+        const action = item.getAttribute('data-action')
+
+        handleContextMenuAction(action, item)
+        submenu.classList.add("hidden")
+        //console.log("After", submenu.classList.contains("hidden"), submenu.classList)
+        contextMenu.classList.remove('active');
+    })
+})
 // Keyboard shortcuts
 document.addEventListener('keydown', function(e) {
     if (e.ctrlKey || e.metaKey) {
@@ -95,8 +116,8 @@ function positionContextMenu(x, y, menu) {
     // Adjust if menu goes out of viewport
     setTimeout(() => {
         const rect = menu.getBoundingClientRect();
-        const viewportWidth = window.innerWidth;
-        const viewportHeight = window.innerHeight;
+        const viewportWidth = window.innerWidth + 100;
+        const viewportHeight = window.innerHeight + 100;
 
         if (rect.right > viewportWidth) {
             menu.style.left = (x - rect.width) + 'px';
@@ -105,12 +126,14 @@ function positionContextMenu(x, y, menu) {
         if (rect.bottom > viewportHeight) {
             menu.style.top = (y - rect.height) + 'px';
         }
+        if (rect.top > viewportHeight) {
+            menu.style.bottom = (y + rect.height) + 'px';
+        }
     }, 10);
 }
 
 function handleContextMenuAction(action, item = null) {
     let message = '';
-
     switch (action) {
         case 'copy':
             handleCopy();
@@ -177,48 +200,40 @@ function handleContextMenuAction(action, item = null) {
             break;
 
         case 'print':
-            window.print();
-            message = 'Print dialog opened';
-            contextMenu.classList.remove('active');
+            try {
+                _modalHandler.show('load', 'Preparint printing service')
+                message = 'Print dialog opened';
+                contextMenu.classList.remove('active');
+                setTimeout(async () => {
+                    _modalHandler.hide('load')
+                    window.print()
+                }, 1000)
+            } catch (e) {
+                _modalHandler.show('erro', e.message)
+                setTimeout(() => {
+                    _modalHandler.hide('error')
+                }, 4000)
+                break
+            }
+            break;
+
+        case 'theme':
+            showSubmenu(item)
+            break;
+
+        case 'fontSize':
+            showSubmenu(item)
+            break;
+
+        case 'highlight':
+            showSubmenu(item)
             break;
 
         case 'viewBookmarks':
-            openBookmarksModal();
+            //openBookmarksModal();
             contextMenu.classList.remove('active');
             break;
 
-        default:
-            handleSubmenu(item)
-            message = `Action: ${action}`;
-    }
-
-    if (message) showToast(message);
-}
-
-function handleSubmenu(item) {
-    const submenu = item.querySelector(".context-menu-submenu")
-    submenu.classList.add('opacity-100');
-    submenu.classList.remove("pointer-events-none")
-
-    const subactions = submenu.querySelectorAll('.sub-context-item')
-
-    subactions.forEach((act) => {
-        act.addEventListener('click', () => {
-            submenu.classList.remove('opacity-100');
-
-            subMenuAction(act)
-            submenu.classList.add("pointer-events-none")
-            console.log(submenu.classList)
-            //contextMenu.classList.remove('active');
-        })
-    })
-
-}
-
-function subMenuAction(act_item) {
-    const action = act_item.getAttribute('data-action')
-
-    switch (action) {
         case 'fontSmall':
             changeFontSize(-2);
             message = 'Font size set to Small';
@@ -259,8 +274,15 @@ function subMenuAction(act_item) {
             message = 'Night mode applied';
             break;
 
+        default:
+            //handleSubmenu(item)
+            message = `Action: ${action}`;
     }
+
+    if (message) showToast(message);
 }
+
+
 // Implemented Functions
 function handleCopy() {
     if (appState.currentSelection) {
@@ -461,6 +483,7 @@ function changeTheme(theme) {
     // Add base classes
     bookContent.classList.add('book-content', 'p-6', 'rounded-lg', 'border');
 
+    console.log(theme)
     // Add theme-specific classes
     switch (theme) {
         case 'light':

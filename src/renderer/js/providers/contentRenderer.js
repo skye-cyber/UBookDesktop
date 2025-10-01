@@ -625,23 +625,27 @@ const warningText = document.getElementById('warningText');
 let hideTimeout;
 
 function displayWarning(text) {
-    warningText.textContent = text;
+    //warningText.textContent = text;
 
     if (hideTimeout) clearTimeout(hideTimeout);
 
     // Remove all animation classes first
+    _modalHandler.show("warn", text)
+
     modal.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
-    modal.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
+    //modal.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
 
     // Use setTimeout 0 to force a tick, then add classes to trigger animation
     setTimeout(() => {
-        modal.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
-        modal.classList.add('translate-x-0', 'opacity-100', 'pointer-events-auto');
+        //_modalHandler.hide("warn")
+        //modal.classList.remove('translate-x-full', 'opacity-0', 'pointer-events-none');
+        //modal.classList.add('translate-x-0', 'opacity-100', 'pointer-events-auto');
     }, 30);
 
     hideTimeout = setTimeout(() => {
-        modal.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
-        modal.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
+        _modalHandler.hide("warn")
+        //modal.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
+        //modal.classList.add('translate-x-full', 'opacity-0', 'pointer-events-none');
     }, 4000);
 }
 

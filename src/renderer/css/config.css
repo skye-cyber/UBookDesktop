@@ -249,12 +249,13 @@ height: 2.4em; /* Adjust this value to match the height of an empty row */
     pointer-events: all;
 }
 
+/*
 .context-menu-item:hover .context-menu-submenu {
     opacity: 1;
     transform: translateX(0);
     pointer-events: all;
 }
-
+*/
 .highlight-yellow {
     background-color: rgba(255, 235, 59, 0.4);
 }
