@@ -177,63 +177,92 @@
     </section>
 
     <!-- Main Content -->
-    <main class="mt-[10vh] lg:mt-[10.2vh] w-screen max-h-[calc(100vh-0vh)] overflow-y-hidden">
-        <div id="reader-wrapper-container" class="relative h-[calc(100vh-7vh)] bg-white dark:bg-gray-950 text-gray-800 dark:text-gray-200 p-6 md:p-10 rounded-xl max-w-3xl mx-auto my-[0vh] shadow-md leading-relaxed prose dark:prose-invert overflow-y-auto transition-colors duration-700 scrollbar-custom-v1">
-              <!-- Floating Reading Progress Section (fixed relative to reader container) -->
-              <div class="sticky -top-10 -mt-6 md:-mt-10 z-30 select-none w-full">
-                    <div class="flex items-center bg-stone-600 w-full dark:bg-zinc-800 backdrop-blur-md py-1 px-6 md:px-10 border-b-2 border-gray-500 dark:border-sky-500 rounded-b-md">
-                        <button onclick="previousSection()" aria-label="Previous Chapter" title="Previous Chapter" class="flex items-center justify-center p-1 rounded-lg hover:bg-fuchsia-200 mr-1 transition-colors duration-500">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="gradPrev" x1="100%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stop-color="#48fa83" />
-                                <stop offset="100%" stop-color="#2abda2" />
-                                </linearGradient>
-                            </defs>
-                            <path d="M16 4l-8 8 8 8"
-                                    fill="none"
-                                    stroke="url(#gradPrev)"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                        </button>
-                        <div class="w-full bg-gray-300 dark:bg-white rounded-full h-2 overflow-hidden">
-                            <div id="reading-progress-bar"
-                                class="bg-blue-500 dark:bg-green-400 h-full w-0 transition-all duration-200"></div>
-                        </div>
-                        <p id="read-percentage" class="bg-stone-950 text-gray-100 dark:text-slate-100 mx-1 rounded-sm">%</p>
-                        <button onclick="ReadAllAloud()" class="flex items-center gap-2 text-blue-600 hover:text-blue-800 hover:bg-hue-rotate-90 dark:hover:bg-sky-900 rounded-full p-1 transition-colors duration-500" aria-label="Read aloud" title="Read aloud">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-black dark:stroke-blue-100 hover:stroke-green-300 dark:hover:stroke-orange-400 transition-colors duration-500" fill="none" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                                <path d="M3 11v2a1 1 0 0 0 1 1h2l4 5V5L6 10H4a1 1 0 0 0-1 1z"/>
-                                <path d="M14 9a3 3 0 0 1 0 6"/>
-                                <path d="M18 7a7 7 0 0 1 0 10"/>
-                            </svg>
-                        </button>
-                        <button onclick="nextSection()" aria-label="Next Chapter" title="Next Chapter" class="flex items-center justify-center p-1 hover:bg-blue-200 rounded-lg transition-colors duration-500">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="gradNext" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stop-color="#4facfe" />
-                                <stop offset="100%" stop-color="#00f2fe" />
-                                </linearGradient>
-                            </defs>
-                            <path d="M8 4l8 8-8 8"
-                                    fill="none"
-                                    stroke="url(#gradNext)"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                        </button>
+    <main class="mt-[6.6vh] md:mt-[10vh] w-screen max-h-[calc(100vh-0vh)] overflow-y-hidden">
+        <div id="reader-wrapper-container" class="relative h-[calc(100vh-7vh)] bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 p-6 md:px-0 md:py-0.5 rounded-xl max-w-3xl mx-auto my-[0vh] shadow-md leading-relaxed prose dark:prose-invert overflow-y-auto transition-colors duration-700 scrollbar-custom-v1">
+
+            <!-- Floating Reading Progress Section (fixed relative to reader container) -->
+            <div class="sticky -top-2 -mt-6 md:-mt-10 z-30 select-none w-full">
+                <div class="flex items-center bg-stone-600 w-full dark:bg-zinc-800 backdrop-blur-md py-0 px-6 md:px-10 border-gray-500 dark:border-sky-500">
+                    <button onclick="previousSection()" aria-label="Previous Chapter" title="Previous Chapter" class="flex items-center justify-center px-1 rounded-lg hover:bg-fuchsia-200 mr-1 transition-colors duration-500">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="gradPrev" x1="100%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#48fa83" />
+                            <stop offset="100%" stop-color="#2abda2" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M16 4l-8 8 8 8"
+                                fill="none"
+                                stroke="url(#gradPrev)"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                    <div class="w-full bg-gray-300 dark:bg-white rounded-full h-2 overflow-hidden">
+                        <div id="reading-progress-bar"
+                            class="bg-blue-500 dark:bg-green-400 h-full w-0 transition-all duration-200"></div>
                     </div>
-                  </div>
+                    <p id="read-percentage" class="bg-stone-950 text-gray-100 dark:text-slate-100 mx-1 rounded-sm">%</p>
+                    <button onclick="ReadAllAloud()" class="flex items-center gap-2 text-blue-600 hover:text-blue-800 hover:bg-hue-rotate-90 dark:hover:bg-sky-900 rounded-full px-1 transition-colors duration-500" aria-label="Read aloud" title="Read aloud">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 stroke-black dark:stroke-blue-100 hover:stroke-green-300 dark:hover:stroke-orange-400 transition-colors duration-500" fill="none" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M3 11v2a1 1 0 0 0 1 1h2l4 5V5L6 10H4a1 1 0 0 0-1 1z"/>
+                            <path d="M14 9a3 3 0 0 1 0 6"/>
+                            <path d="M18 7a7 7 0 0 1 0 10"/>
+                        </svg>
+                    </button>
+                    <button onclick="nextSection()" aria-label="Next Chapter" title="Next Chapter" class="flex items-center justify-center p-1 hover:bg-blue-200 rounded-lg transition-colors duration-500">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="gradNext" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#4facfe" />
+                            <stop offset="100%" stop-color="#00f2fe" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M8 4l8 8-8 8"
+                                fill="none"
+                                stroke="url(#gradNext)"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+                <!-- Controls Bar -->
+                <div class="bg-white dark:bg-fuchsia-950 dark:text-white rounded-lg shadow-sm py-0.5 px-4 mb-1 flex flex-wrap items-center justify-between rounded-none">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-gray-600 dark:text-white">Font Size:</span>
+                            <div class="flex space-x-1">
+                                <button class="text-xs font-semibold px-2 py-1 bg-gray-200 dark:bg-slate-900 dark:text-white rounded" onclick="changeFontSize(-1)">A-</button>
+                                <button class="text-sm font-semibold px-2 py-1 bg-gray-200 dark:bg-slate-900 dark:text-white rounded" onclick="resetFontSize()">A</button>
+                                <button class="text-base font-bold px-2 py-1 bg-gray-200 dark:bg-slate-900 dark:text-white rounded" onclick="changeFontSize(1)">A+</button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm text-gray-600 dark:text-white">Theme:</span>
+                            <select id="themeSelector" class="text-sm border dark:border-zinc-900 dark:bg-slate-900 rounded px-2 py-1" onchange="changeTheme(this.value)">
+                                <option value="sepia">Sepia</option>
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                                <option value="night">Night</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="hidden flex items-center space-x-2">
+                        <span id="wordCount" class="text-sm text-gray-600 dark:text-white">Words: 0</span>
+                        <span id="bookmarkCount" class="hidden text-sm text-gray-600 dark:text-white">Bookmarks: 0</span>
+                    </div>
+                </div>
+            </div>
 
               <!-- Reader Content -->
-              <article id="reader-content" class="select-text focus:outline-none mb-4 font-reader">
+              <article id="reader-content" class="select-text bg-gradient-to-b from-[#f8f4e9] to-[#f2ebd8]  dark:from-gray-950 dark:to-gray-950 focus:outline-none mb-4 font-reader overflow-y-hidden mt-1 p-6 border border-gray-100 dark:border-gray-700 shadow-xl shadow-gray-300 rounded-lg">
               </article>
 
               <!-- Main Tooltip Menu -->
@@ -280,6 +309,7 @@
                   </div>
 
               </div>
+
           </div>
 
         <!--Note Edit Comment modal-->
@@ -335,31 +365,65 @@
         </div>
 
         <!-- Floating Read-Aloud Player Tooltip -->
-        <div id="player-tooltip" class="fixed bottom-4 right-4 z-50 p-3 bg-gradient-to-br from-white/40 via-white/60 to-white/40 dark:from-gray-800/40 dark:via-gray-800/60 dark:to-gray-800/40 backdrop-blur-sm rounded-xl shadow-lg shadow-gray-950 flex items-center space-x-3 transition-transform transform hover:scale-105 translate-x-[110%] transform tansition-transform transition-all duration-700">
+        <div id="player-tooltip"
+            class="fixed bottom-4 right-4 z-50 p-3 bg-gradient-to-br from-white/40 via-white/60 to-white/40 dark:from-gray-800/40 dark:via-gray-800/60 dark:to-gray-800/40 backdrop-blur-sm rounded-xl shadow-lg shadow-gray-950 flex items-center space-x-3 transition-transform transform hover:scale-105 translate-x-[110%] transition-all duration-700">
+
+            <!-- Seek Backward -->
+            <button id="btn-backward"
+                    class="p-2 bg-gradient-to-tr from-fuchsia-400 to-pink-500 rounded-full text-white hover:shadow-md hover:saturate-200 transition duration-500"
+                    title="Rewind 5s" aria-label="Rewind 5 seconds">
+                <svg class="h-4 w-4 fill-gray-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M236.3 107.1C247.9 96 265 92.9 279.7 99.2C294.4 105.5 304 120 304 136L304 272.3L476.3 107.2C487.9 96 505 92.9 519.7 99.2C534.4 105.5 544 120 544 136L544 504C544 520 534.4 534.5 519.7 540.8C505 547.1 487.9 544 476.3 532.9L304 367.7L304 504C304 520 294.4 534.5 279.7 540.8C265 547.1 247.9 544 236.3 532.9L44.3 348.9C36.5 341.3 32 330.9 32 320C32 309.1 36.5 298.7 44.3 291.1L236.3 107.1z"/></svg>
+            </button>
+
             <!-- Play/Pause Button -->
-            <button id="btn-play-pause" class="bg-sky-600 flex items-center justify-center hover:bg-sky-300 focus:outline-none text-white font-bold p-2.5 rounded-full transition-colors duration-700" title="Play" aria-label="Play">
-                <!--start svg -->
+            <button id="btn-play-pause"
+                    class="bg-sky-600 flex items-center justify-center hover:bg-sky-300 focus:outline-none text-white font-bold p-2.5 rounded-full transition-colors duration-700"
+                    title="Play" aria-label="Play">
+                <!-- Play Icon -->
                 <svg id="icon-play" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"></path>
                 </svg>
-                <div id="icon-paused" class="hidden px-1 py-0.5 grid grid-cols-2 gap-1 flex items-center justify-center hover:bg-blue-300 focus:outline-none text-white font-bold rounded-full transition-colors duration-700" title="Paused" aria-label="Paused">
+                <!-- Terminate Icon -->
+                <div id="icon-paused" class="hidden px-1 py-0.5 grid grid-cols-2 gap-1 items-center justify-center text-white font-bold rounded-full transition-colors duration-700">
                     <p class="bg-white px-[2px] h-4"></p>
                     <p class="bg-white px-[2px] h-4"></p>
                 </div>
             </button>
 
             <!-- Stop Button -->
-            <button id="btn-stop" class="p-2 bg-gradient-to-tr from-red-400 to-red-600 rounded-full text-white hover:shadow-md hover:saturate-200  focus:outline-none transition-all duration-700">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" stroke="none">
-                <rect x="6" y="6" width="12" height="12" rx="2" />
+            <button id="btn-stop"
+                    class="p-2 bg-gradient-to-tr from-red-400 to-red-600 rounded-full text-white hover:shadow-md hover:saturate-200 transition duration-700">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <rect x="6" y="6" width="12" height="12" rx="2" />
                 </svg>
             </button>
+
+            <!-- Seek Forward -->
+            <button id="btn-forward"
+                    class="p-2 bg-gradient-to-tr from-emerald-400 to-cyan-500 rounded-full text-white hover:shadow-md hover:saturate-200 transition duration-500"
+                    title="Forward 10s" aria-label="Forward 10 seconds">
+                <svg class="h-4 w-4 fill-gray-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M83.8 541.6C95.8 546.6 109.5 543.8 118.7 534.7L288 365.3L288 512C288 524.9 295.8 536.6 307.8 541.6C319.8 546.6 333.5 543.8 342.7 534.7L512 365.3L512 512C512 529.7 526.3 544 544 544C561.7 544 576 529.7 576 512L576 128C576 110.3 561.7 96 544 96C526.3 96 512 110.3 512 128L512 274.7L342.6 105.3C333.4 96.1 319.7 93.4 307.7 98.4C295.7 103.4 288 115.1 288 128L288 274.7L118.6 105.4C109.4 96.2 95.7 93.5 83.7 98.5C71.7 103.5 64 115.1 64 128L64 512C64 524.9 71.8 536.6 83.8 541.6z"/></svg>
+            </button>
+
+            <!-- Speed Control -->
+            <div class="flex items-center space-x-1 bg-gray-300 dark:bg-zinc-700 rounded-lg px-2 py-1"
+                title="Fast-Foward 5s" aria-label="Fast-Foward 5 seconds">
+                <button id="btn-speed-down"
+                        class="px-2 py-0.5 text-sm font-bold rounded-full bg-gray-400 dark:bg-gray-600 hover:bg-gray-500 text-white transition duration-300"
+                        title="Slower">-</button>
+                <span id="playback-speed"
+                    class="text-xs font-semibold text-gray-800 dark:text-gray-200 select-none">1.0x</span>
+                <button id="btn-speed-up"
+                        class="px-2 py-0.5 text-sm font-bold rounded-full bg-gray-400 dark:bg-gray-600 hover:bg-gray-500 text-white transition duration-300"
+                        title="Faster">+</button>
+            </div>
 
             <!-- Status / Progress -->
             <div id="player-status" class="flex-1 text-sm text-gray-700 dark:text-gray-300 select-none">
                 Ready
             </div>
         </div>
+
         <!-- Warning Modal Container -->
         <div id="warningModal" class="fixed top-4 right-4 max-w-xs p-4 rounded shadow-lg
         bg-yellow-100 text-yellow-900 dark:bg-yellow-800 dark:text-yellow-100
@@ -543,6 +607,192 @@
                 </div>
             </div>
         </section>
+
+
+        <!--Context menu options-SECTION-->
+
+        <!-- Context Menu -->
+        <div id="contextMenu" class="context-menu fixed bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg shadow-xl py-2 min-w-[220px] z-50 border border-[#f8f4e9] dark:border-gray-700 pointer-event-none bg-opacity-0 transition-transform -translate-y-[5px] scale-[0.95] active:bg-opacity-100 active:scale-100 active:translate-y-0 active:pointer-events-all">
+            <div class="context-menu-options">
+                <!-- Text Selection Options -->
+                <div id="textOptions" class="hidden">
+                    <div class="context-item hidden flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="copy">
+                        <span class="flex items-center">
+                            <svg class="h-6 w-6 fill-green-400 dark:fill-white mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M288 64C252.7 64 224 92.7 224 128L224 384C224 419.3 252.7 448 288 448L480 448C515.3 448 544 419.3 544 384L544 183.4C544 166 536.9 149.3 524.3 137.2L466.6 81.8C454.7 70.4 438.8 64 422.3 64L288 64zM160 192C124.7 192 96 220.7 96 256L96 512C96 547.3 124.7 576 160 576L352 576C387.3 576 416 547.3 416 512L416 496L352 496L352 512L160 512L160 256L176 256L176 192L160 192z"/></svg>
+                            Copy</span>
+                        <span class="ml-auto text-xs text-gray-500">Ctrl+C</span>
+                    </div>
+                    <div class="context-item hidden flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="cut">
+                        <i class="far fa-cut w-5 mr-3 text-gray-400"></i>
+                        <span>Cut</span>
+                        <span class="ml-auto text-xs text-gray-500">Ctrl+X</span>
+                    </div>
+                    <div class="context-item hidden flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="paste">
+                        <i class="far fa-paste w-5 mr-3 text-gray-400"></i>
+                        <span>Paste</span>
+                        <span class="ml-auto text-xs text-gray-500">Ctrl+V</span>
+                    </div>
+                    <div class="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="selectAll">
+                        <i class="far fa-object-group w-5 mr-3 text-gray-400"></i>
+                        <span>Select All</span>
+                        <span class="ml-auto text-xs text-gray-500">Ctrl+A</span>
+                    </div>
+                    <div class="border-t border-gray-700 my-1"></div>
+                    <div class="context-item hidden flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="search">
+                        <i class="fas fa-search w-5 mr-3 text-gray-400"></i>
+                        <span>Search</span>
+                        <span class="ml-auto text-xs text-gray-500">Ctrl+F</span>
+                    </div>
+
+                    <!-- Highlight Submenu -->
+                    <div class="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer relative" data-action="highlight">
+                        <i class="fas fa-highlighter w-5 mr-3 text-gray-400"></i>
+                        <span>Highlight</span>
+                        <svg class="h-5 w-5 fill-gray-50 -rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">><path d="M297.4 470.6C309.9 483.1 330.2 483.1 342.7 470.6L534.7 278.6C547.2 266.1 547.2 245.8 534.7 233.3C522.2 220.8 501.9 220.8 489.4 233.3L320 402.7L150.6 233.4C138.1 220.9 117.8 220.9 105.3 233.4C92.8 245.9 92.8 266.2 105.3 278.7L297.3 470.7z"/></svg>
+
+                        <div class="context-menu-submenu absolute left-full top-0 ml-1 bg-gray-800 rounded-lg shadow-xl py-2 min-w-[160px] opacity-0 transform -translate-x-2 transition-all duration-200 pointer-events-none border border-gray-700">
+                            <div class="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="highlightYellow">
+                                <div class="w-4 h-4 bg-yellow-300 rounded mr-3"></div>
+                                <span>Yellow</span>
+                            </div>
+                            <div class="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="highlightGreen">
+                                <div class="w-4 h-4 bg-green-300 rounded mr-3"></div>
+                                <span>Green</span>
+                            </div>
+                            <div class="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="highlightBlue">
+                                <div class="w-4 h-4 bg-blue-300 rounded mr-3"></div>
+                                <span>Blue</span>
+                            </div>
+                            <div class="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="highlightPink">
+                                <div class="w-4 h-4 bg-pink-300 rounded mr-3"></div>
+                                <span>Pink</span>
+                            </div>
+                            <div class="border-t border-gray-700 my-1"></div>
+                            <div class="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="removeHighlight">
+                                <i class="fas fa-eraser w-4 mr-3 text-gray-400"></i>
+                                <span>Remove Highlight</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="bookmark">
+                        <i class="far fa-bookmark w-5 mr-3 text-gray-400"></i>
+                        <span>Add Bookmark</span>
+                        <span class="ml-auto text-xs text-gray-500">Ctrl+B</span>
+                    </div>
+                    <div class="border-t border-gray-700 my-1"></div>
+                </div>
+
+                <!-- General Options -->
+                <div id="generalOptions">
+                    <div class="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer relative" data-action="fontSize">
+                        <i class="fas fa-text-height w-5 mr-3 text-gray-400"></i>
+                        <span class="flex justify-between items-center w-full">Font Size
+                        <svg class="h-5 w-5 fill-gray-50 -rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">><path d="M297.4 470.6C309.9 483.1 330.2 483.1 342.7 470.6L534.7 278.6C547.2 266.1 547.2 245.8 534.7 233.3C522.2 220.8 501.9 220.8 489.4 233.3L320 402.7L150.6 233.4C138.1 220.9 117.8 220.9 105.3 233.4C92.8 245.9 92.8 266.2 105.3 278.7L297.3 470.7z"/></svg>
+                        </span>
+
+                        <!-- Font Size Submenu -->
+                        <div class="context-menu-submenu absolute left-full top-0 ml-1 bg-gray-800 rounded-lg shadow-xl py-2 min-w-[160px] opacity-0 transform -translate-x-2 transition-all duration-200 pointer-events-none border border-gray-700">
+                            <div class="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="fontSmall">
+                                <span>Small</span>
+                            </div>
+                            <div class="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="fontMedium">
+                                <span>Medium</span>
+                            </div>
+                            <div class="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="fontLarge">
+                                <span>Large</span>
+                            </div>
+                            <div class="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="fontXLarge">
+                                <span>Extra Large</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer relative" data-action="theme">
+                        <i class="fas fa-palette w-5 mr-3 text-gray-400"></i>
+                        <span class="flex justify-between items-center w-full">Reading Theme
+                        <svg class="h-5 w-5 fill-gray-50 -rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">><path d="M297.4 470.6C309.9 483.1 330.2 483.1 342.7 470.6L534.7 278.6C547.2 266.1 547.2 245.8 534.7 233.3C522.2 220.8 501.9 220.8 489.4 233.3L320 402.7L150.6 233.4C138.1 220.9 117.8 220.9 105.3 233.4C92.8 245.9 92.8 266.2 105.3 278.7L297.3 470.7z"/></svg>
+                        </span>
+
+                        <!-- Theme Submenu -->
+                        <div class="context-menu-submenu absolute left-full top-0 ml-1 bg-gray-800 rounded-lg shadow-xl py-2 min-w-[160px] opacity-0 transform -translate-x-2 transition-all duration-200 pointer-events-none border border-gray-700">
+                            <div class="sub-sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="themeLight">
+                                <span>Light</span>
+                            </div>
+                            <div class="sub-sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="themeSepia">
+                                <span>Sepia</span>
+                            </div>
+                            <div class="sub-sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="themeDark">
+                                <span>Dark</span>
+                            </div>
+                            <div class="sub-sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="themeNight">
+                                <span>Night Mode</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-700 my-1"></div>
+
+                    <div onclick="renderNotes()" class="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="notes">
+                        <i class="far fa-sticky-note w-5 mr-3 text-gray-400"></i>
+                        <span>Show Notes</span>
+                    </div>
+
+                    <div class="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="dictionary">
+                        <i class="fas fa-book w-5 mr-3 text-gray-400"></i>
+                        <span>Lookup Dictionary</span>
+                    </div>
+
+                    <div class="border-t border-gray-700 my-1"></div>
+
+                    <div class="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="print">
+                        <i class="fas fa-print w-5 mr-3 text-gray-400"></i>
+                        <span>Print Page</span>
+                        <span class="ml-auto text-xs text-gray-500">Ctrl+P</span>
+                    </div>
+
+                    <div onclick="loadBookmarks()" class="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="viewBookmarks">
+                        <i class="fas fa-bookmark w-5 mr-3 text-gray-400"></i>
+                        <span>View Bookmarks</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals -->
+        <div id="noteModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+            <div class="modal-overlay absolute inset-0"></div>
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 z-10">
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Add Note</h3>
+                    <textarea id="noteText" class="w-full h-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your note here..."></textarea>
+                    <div class="flex justify-end space-x-3 mt-4">
+                        <button class="px-4 py-2 text-gray-600 hover:text-gray-800" onclick="closeNoteModal()">Cancel</button>
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" onclick="saveNote()">Save Note</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="bookmarksModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+            <div class="modal-overlay absolute inset-0"></div>
+            <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 z-10">
+                <div class="p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Your Bookmarks</h3>
+                    <div id="bookmarksList" class="max-h-96 overflow-y-auto">
+                        <!-- Bookmarks will be listed here -->
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <button class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600" onclick="closeBookmarksModal()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toast" class="fixed bottom-4 right-4 bg-gray-800 text-white px-4 py-3 rounded-lg shadow-lg transform translate-y-10 opacity-0 transition-all duration-300 z-50">
+            <span id="toastMessage">Action completed</span>
+        </div>
 
     </main>
 </body>

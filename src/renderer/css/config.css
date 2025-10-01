@@ -230,3 +230,89 @@ height: 2.4em; /* Adjust this value to match the height of an empty row */
 .search-expand:hover {
     transform: scale(1.05);
 }
+
+#reader-content{
+    font-family: 'Merriweather', serif;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.context-menu {
+    opacity: 0;
+    transform: scale(0.95) translateY(-5px);
+    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+    pointer-events: none;
+}
+
+.context-menu.active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: all;
+}
+
+.context-menu-item:hover .context-menu-submenu {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+}
+
+.highlight-yellow {
+    background-color: rgba(255, 235, 59, 0.4);
+}
+
+.highlight-green {
+    background-color: rgba(76, 175, 80, 0.3);
+}
+
+.highlight-blue {
+    background-color: rgba(33, 150, 243, 0.3);
+}
+
+.highlight-pink {
+    background-color: rgba(233, 30, 99, 0.3);
+}
+
+.bookmark-indicator {
+    position: absolute;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 12px solid #f59e0b;
+}
+
+.note-indicator {
+    position: absolute;
+    right: 10px;
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+}
+
+.selection-overlay {
+    position: fixed;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px dashed #3b82f6;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.modal-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Custom scrollbar */
+.book-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.book-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.book-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}

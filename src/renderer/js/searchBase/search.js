@@ -33,7 +33,8 @@ class SearchEngine {
         // store screen coordinates
         this.screenXY(range);
 
-        if (!selectedText || selectedText === " ") return;
+        // No search for more than one word
+        if (!selectedText || selectedText === " " || selectedText.split(" ").length>1) return;
 
         // Create a regex to match the search text but not the selected text
         const regex = new RegExp(selectedText, 'g');

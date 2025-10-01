@@ -12,14 +12,6 @@ const favouriteDir = path.join(BaseDir, '.favourites');
 const bookmarkDir = path.join(BaseDir, '.bookmark');
 const cacheDir = path.join(BaseDir, '.cache');
 
-let audioContext = null;
-let audioBuffer = null;
-let sourceNode = null;
-let startTime = 0;
-let pauseTime = 0;
-
-let isManualStop = false;
-
 contextBridge.exposeInMainWorld('api', {
     getDownloadsPath: () => {
         const downloadsPath = path.join(os.homedir(), 'Downloads');
@@ -229,8 +221,48 @@ contextBridge.exposeInMainWorld('api', {
             return false;
         }
     },
+    TTSConvert: async (text) => {
+        if (!text.trim()) return null;
+
+        const safeText = text
+            .replace(/[\[\]]/g, "")
+            .replace(/"/g, "")
+            .replace(/—/g, ",");
+
+        const cacheFile = path.join(cacheDir, `tts_${Math.random().toString(34).substring(3, 9)}.wav`);
+        const AAC_command = `ttskit3 -t "${safeText}" -o "${cacheFile}" --threads 8 --speed 0.84`;
+
+        const picowave = await ipcRenderer.invoke('get-picowave-path');
+        const fallbackCmd = `echo "${safeText}" | ${picowave} -w "${cacheFile}"`;
+
+        // Run primary command (ttskit3), fallback to Pico
+        try {
+            await new Promise((resolve, reject) => {
+                exec(AAC_command, (err) => (err ? reject(err) : resolve()));
+            });
+        } catch (err) {
+            console.log("Using FallBack Voice:", err)
+            if (os.platform() === 'linux') {
+                await new Promise((resolve, reject) => {
+                    exec(fallbackCmd, (err) => (err ? reject(err) : resolve()));
+                });
+            } else {
+                console.log('Fallback Not implemented on this OS');
+            }
+        }
+
+        try {
+            await fs.promises.access(cacheFile, fs.constants.F_OK);
+            return cacheFile;
+        } catch {
+            return null;
+        }
+    },
+
     ReadAloud: async (_text, action = 'play') => {
         const text = _text || '';
+        const TextCacheFile = path.join(cacheDir, `TText_${Math.random().toString(34).substring(3, 9)}.txt`);
+
         const cacheFile = path.join(cacheDir, `cfile_${Math.random().toString(34).substring(3, 9)}.wav`);
 
         // Ensure it's only for Linux
@@ -296,10 +328,18 @@ contextBridge.exposeInMainWorld('api', {
 
         const safeText = text
             .replace(/[\[\]]/g, "")
+            .replace(/"/g, "")
+            .replace(/—/g, ",")
 
+        /*await fs.writeFile(TextCacheFile, safeText, 'utf8', (err) => {
+            if (err) {
+                console.log(`Error writing txt cache file: ${err}`)
+            };
+            console.log('The txt cache file has been saved!');
+        })*/
         // Advance Audio Converter (AAC)
         //const AAC = 'ttskit2'
-        const AAC_command = `ttskit2 -t "${safeText}" -O ${cacheFile} --threads 8`
+        const AAC_command = `ttskit3 -t ${safeText} -O ${cacheFile} --threads 8`
 
         console.log(`Cache File-: ${cacheFile}`)
 
@@ -309,6 +349,7 @@ contextBridge.exposeInMainWorld('api', {
 
         // Robotic Voice Mode as fallback
         async function RBMV() {
+            console.log("Iniating Robotic voice mode")
             await new Promise((resolve, reject) => {
                 exec(command, (err) => {
                     if (err) return reject(err);
@@ -317,20 +358,37 @@ contextBridge.exposeInMainWorld('api', {
             });
         }
 
+
         try {
+            // Disable this option for now -> not very optimal
             // Advance mode first
             await new Promise((resolve, reject) => {
-                exec(AAC_command, (err) => {
-                    console.log(err)
-                    if (err) return RBMV();
-                    resolve();
-                });
+                try {
+                    exec(AAC_command, (err) => {
+                        //console.log(err)
+                        if (err) {
+                            return reject(err);
+                        }
+                        resolve();
+                    });
+                } catch (e) { }
             });
+        } catch (e) {
+            console.log("Error in ttskit2")
+            RBMV()
+        }
 
-            if (!fs.statfsSync(cacheFile)){
-                console.log(`Cache file not found: ${cacheFile}`)
-                RBMV();
-            }
+        try {
+            // Check if file exists asynchronously
+            await fs.promises.access(cacheFile, fs.constants.F_OK);
+            // File exists-> continue
+            // return true;
+        } catch (err) {
+            console.log(`Cache file not found: ${cacheFile}`)
+            await RBMV();
+        }
+
+        try {
 
             if (!audioContext) audioContext = new AudioContext();
 
@@ -338,7 +396,15 @@ contextBridge.exposeInMainWorld('api', {
 
             const arrayBuffer = fileData.buffer.slice(fileData.byteOffset, fileData.byteOffset + fileData.byteLength);
 
-            audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+            if (arrayBuffer.byteLength === 0) {
+                console.error("Empty buffer")
+            }
+            try {
+                audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+            } catch (e) {
+                console.error("DecodeError: Unable to decode audio data")
+                return false
+            }
 
             sourceNode = audioContext.createBufferSource();
             sourceNode.buffer = audioBuffer;
@@ -459,4 +525,134 @@ contextBridge.exposeInMainWorld('api', {
             return false;
         }
     },
+});
+
+// preload.js (playback API)
+let audioContext;
+let audioBuffer;
+let sourceNode;
+let pauseTime = 0;
+let startTime = 0;
+let isManualStop = false;
+let currentOffset = 0; // track where playback starts from
+
+function playFrom(offset = 0) {
+
+    if (!audioBuffer) return;
+
+    if (sourceNode) {
+        try { sourceNode.stop(); } catch { }
+        sourceNode.disconnect();
+    }
+
+    sourceNode = audioContext.createBufferSource();
+    sourceNode.buffer = audioBuffer;
+    sourceNode.connect(audioContext.destination);
+    startTime = audioContext.currentTime - offset;
+
+    // Make sure context time is in sync with actual playing time
+    audioContext.currentTime = startTime
+
+    currentOffset = offset;
+
+    sourceNode.onended = () => {
+        if (!isManualStop) {
+            setTimeout(() => {
+                document.dispatchEvent(new Event('play-finished'));
+            }, 0);
+        } else {
+            isManualStop = false;
+        }
+    };
+
+    sourceNode.start(0, offset);
+}
+
+contextBridge.exposeInMainWorld('ReadAloud', {
+    play: async (filePath = null) => {
+        try {
+            if (!audioContext) audioContext = new AudioContext();
+
+            const fileData = fs.readFileSync(filePath);
+            const arrayBuffer = fileData.buffer.slice(fileData.byteOffset, fileData.byteOffset + fileData.byteLength);
+
+            if (arrayBuffer.byteLength === 0) throw new Error("Empty audio buffer");
+
+            audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+            playFrom(0); // fresh play
+            return true;
+        } catch (err) {
+            console.error("Playback error:", err);
+            return false;
+        }
+    },
+
+    pause: () => {
+        console.log("Pausing.")
+        if (sourceNode) {
+            isManualStop = true;
+            sourceNode.stop();
+            pauseTime = audioContext.currentTime - startTime;
+            sourceNode = null;
+        }
+        return "Paused";
+    },
+
+    resume: (time = null) => {
+        pauseTime = time ? time : pauseTime
+        if (audioBuffer && pauseTime) {
+            playFrom(pauseTime);
+            pauseTime = 0;
+            return "Resumed";
+        }
+        return "Nothing to resume";
+    },
+
+    stop: () => {
+        console.log("stopping")
+        isManualStop = true;
+        if (sourceNode) {
+            sourceNode.stop();
+            sourceNode = null;
+        }
+        audioBuffer = null;
+        pauseTime = 0;
+        currentOffset = 0;
+        return "Stopped";
+    },
+
+    // ✅ Seek support
+    seek: (seconds) => {
+        if (!audioBuffer) return "No audio loaded";
+
+        const offset = Math.min(Math.max(0, seconds), audioBuffer.duration);
+        playFrom(offset);
+        console.log(`Seeked to ${offset.toFixed(2)}s`)
+
+        return `Seeked to ${offset.toFixed(2)}s`;
+    },
+
+    // ✅ Fast forward
+    fastForward: (seconds = 5) => {
+        if (!audioBuffer) return "No audio loaded";
+
+        let newOffset = currentOffset + seconds;
+        if (newOffset >= audioBuffer.duration) newOffset = audioBuffer.duration - 0.1; // prevent overflow
+
+        playFrom(newOffset);
+        console.log(`Fast forwarded to ${newOffset.toFixed(2)}s`)
+        return newOffset.toFixed(2)
+    },
+
+    // ✅ Rewind (fast backward)
+    rewind: (seconds = 5) => {
+        if (!audioBuffer) return "No audio loaded";
+
+        let newOffset = currentOffset - seconds;
+        if (newOffset < 0) newOffset = 0;
+
+        playFrom(newOffset);
+        console.log(`Rewinded to ${newOffset.toFixed(2)}s`)
+        return newOffset.toFixed(2)
+    }
 });

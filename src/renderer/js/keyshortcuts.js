@@ -16,7 +16,7 @@ document.addEventListener('keydown', (event) => {
         engine.removeHighlightedSpans();
         hideTooltip();
 
-    } else if (event.ctrlKey && event.key === 'P' || event.ctrlKey && event.key === 'p') {
+    } else if ((event.ctrlKey && event.key === 'P' || event.ctrlKey && event.key === 'p') && !event.shiftKey) {
         event.preventDefault(); // Prevent any default action
         document.getElementById("sidepane-toggle").click()
 
@@ -27,8 +27,8 @@ document.addEventListener('keydown', (event) => {
         event.preventDefault(); // Prevent any default action
         //attachFiles.click();
 
-    } else if (event.altKey && event.key === 'a' || event.altKey && event.key === 'A') {
+    } else if (event.key.toLocaleLowerCase() === 'p' && event.shiftKey) {
         event.preventDefault(); // Prevent any default action
-        //document.getElementById('AutoScroll').click();
+        handleContextMenuAction('print');
     }
 });

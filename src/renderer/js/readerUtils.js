@@ -247,23 +247,6 @@ function showActionToast(action = null, _message = null, _icon = null) {
     }, 3000);
 }
 
-async function handleReadAloud() {
-    try {
-        showLoading(text = "Preparing Audio")
-        const read_Ok = await window.api.ReadAloud(selectedText)
-        if (read_Ok) {
-            hideLoading();
-            showActionToast('read');
-            displayPlayerTool();
-            isPlaying = true;
-            updateIcon()
-            statusLabel.textContent = 'Playing...';
-        }
-    } catch (err) {
-        console.log(err)
-    }
-}
-
 function handleExport() {
     const text = window.getSelection().toString().trim();
     if (!text) return;
