@@ -463,11 +463,11 @@ function init6() {
 
 function handleReload() {
     const icon = document.getElementById("reloadIcon");
-    icon.classList.add("animate-spin-200");
+    icon?.classList.add("animate-spin-200");
 
     // Simulate async task (replace with your real logic)
     setTimeout(() => {
-        icon.classList.remove("animate-spin-200");
+        icon?.classList.remove("animate-spin-200");
     }, 400); // stop spinning after 2s
 }
 

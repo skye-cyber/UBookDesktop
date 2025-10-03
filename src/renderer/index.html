@@ -83,7 +83,7 @@
             <button id="search-toggle" class="flex items-center justify-center h-10 w-10 rounded-xl bg-primary-500 dark:bg-[#003c47] hover:bg-primary-600 dark:hover:bg-[#002d34] text-white dark:text-slate-300 transition-colors duration-300">
                 <svg class="h-6 w-6 fill-white dark:fill-current text-white dark:text-slate-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M368 144C368 170.5 346.5 192 320 192C293.5 192 272 170.5 272 144C272 117.5 293.5 96 320 96C346.5 96 368 117.5 368 144zM272 320C272 293.5 293.5 272 320 272C346.5 272 368 293.5 368 320C368 346.5 346.5 368 320 368C293.5 368 272 346.5 272 320zM368 496C368 522.5 346.5 544 320 544C293.5 544 272 522.5 272 496C272 469.5 293.5 448 320 448C346.5 448 368 469.5 368 496z"/></svg>
             </button>
-            <button onclick="clearInterface()" class="bg-primary-400 p-1 rounded-lg text-gray-50" title="clear interface" ari-label="clear interface">Clear</button>
+            <button onclick="clearInterface()" class="bg-primary-400 p-1 rounded-lg text-gray-50 focus:ring-none focus:outline-none" title="clear interface" ari-label="clear interface">Clear</button>
         </div>
     </header>
 
@@ -269,8 +269,8 @@
                     <div class="items-center space-x-2">
                         <span class="text-sm text-gray-600 dark:text-white">TTS Model:</span>
                         <select id="tts-model-selector" class="text-sm border dark:border-zinc-800 dark:bg-gray-700 rounded px-2 py-1 font-mono font-bold tracking-tightest focus:ring-none focus:outline-none">
-                            <option value="picowave">Default (fast-robotic)</option>
-                            <option value="ttskit3" selected>ttskit3 (slow-natural)</option>
+                            <option value="picowave" selected>Default (fast-robotic)</option>
+                            <option value="ttskit3">ttskit3 (slow-natural)</option>
                         </select>
                     </div>
                     <div class="hidden flex items-center space-x-2">
@@ -280,54 +280,54 @@
                 </div>
             </div>
 
-              <!-- Reader Content -->
-              <article id="reader-content" class="select-text bg-gradient-to-b from-[#f8f4e9] to-[#f2ebd8]  dark:from-gray-950 dark:to-gray-950 focus:outline-none mb-4 font-reader overflow-y-hidden mt-1 p-6 border border-gray-100 dark:border-gray-700 shadow-xl shadow-gray-300 rounded-lg">
-              </article>
+            <!-- Reader Content -->
+            <article id="reader-content" class="select-text bg-gradient-to-b from-[#f8f4e9] to-[#f2ebd8]  dark:from-gray-950 dark:to-gray-950 focus:outline-none mb-4 font-reader overflow-y-hidden mt-1 p-6 border border-gray-100 dark:border-gray-700 shadow-xl shadow-gray-300 rounded-lg">
+            </article>
 
-              <!-- Main Tooltip Menu -->
-              <div id="tooltip-menu"
-                  class="absolute hidden -translate-x-[200%] bg-gray-900 text-white dark:bg-white dark:text-gray-900 border border-gray-700 dark:border-gray-200 text-sm rounded-lg shadow-xl px-3 py-2 z-50 transition-opacity duration-200 opacity-0">
+            <!-- Main Tooltip Menu -->
+            <div id="tooltip-menu"
+                class="absolute hidden -translate-x-[200%] bg-gray-900 text-white dark:bg-white dark:text-gray-900 border border-gray-700 dark:border-gray-200 text-sm rounded-lg shadow-xl px-3 py-2 z-50 transition-opacity duration-200 opacity-0">
 
-                  <div id="tooltip-row" class="flex-row justify-start gap-2">
-                      <div class="flex flex-wrap gap-2 w-fit space-x-3 mb-1">
-                          <button onclick="handleCopy()" class="hover:text-blue-300 dark:hover:text-blue-600"><p class="flex space-x-1"><svg xmlns="http://www.w3.org/2000/svg" class="size-6 fill-none stroke-green-500 hover:stroke-green-400 mr-1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-                          </svg>Copy</p></button>
-                          <button onclick="handleWebSearch()" class="flex hover:text-green-300 dark:hover:text-green-600">
-                            <svg class="h-5 w-5 fill-indigo-400 dark:fill-blue-600 text-white dark:text-slate-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z"/></svg>
-                                              Search</button>
-                          <button onclick="handleSaveNote()" class="hover:text-yellow-300 dark:hover:text-yellow-600">Save</button>
-                          <button onclick="handleHighlight()" class="hover:text-yellow-400 dark:hover:text-yellow-600">🖊️Highlight</button></span>
-                      </div>
+                <div id="tooltip-row" class="flex-row justify-start gap-2">
+                    <div class="flex flex-wrap gap-2 w-fit space-x-3 mb-1">
+                        <button onclick="handleCopy()" class="hover:text-blue-300 dark:hover:text-blue-600"><p class="flex space-x-1"><svg xmlns="http://www.w3.org/2000/svg" class="size-6 fill-none stroke-green-500 hover:stroke-green-400 mr-1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+                        </svg>Copy</p></button>
+                        <button onclick="handleWebSearch()" class="flex hover:text-green-300 dark:hover:text-green-600">
+                          <svg class="h-5 w-5 fill-indigo-400 dark:fill-blue-600 text-white dark:text-slate-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z"/></svg>
+                                            Search</button>
+                        <button onclick="handleSaveNote()" class="hover:text-yellow-300 dark:hover:text-yellow-600">Save</button>
+                        <button onclick="handleHighlight()" class="hover:text-yellow-400 dark:hover:text-yellow-600">🖊️Highlight</button></span>
+                    </div>
 
-                      <div class="flex flex-wrap gap-2 w-fit space-x-3 pt-2 w-fit border-t border-gray-600 dark:border-gray-300">
-                          <button onclick="showColorPicker()" class="flex items-center hover:text-purple-400 dark:hover:text-purple-600">
-                              <span id="current-color-circle" class="size-6 rounded-full bg-yellow-300 dark:bg-yellow-500 mr-1"></span>
-                              <span>Color</span>
-                          </button>
-                          <button onclick="handleReadAloud()" class="hover:text-pink-400 dark:hover:text-pink-600">
-                          🔊 Read Aloud
-                          </button>
-                          <button onclick="handleExport()" class="hover:text-indigo-400 dark:hover:text-indigo-600">
-                          💾 Export
-                          </button>
-                      </div>
-                  </div>
+                    <div class="flex flex-wrap gap-2 w-fit space-x-3 pt-2 w-fit border-t border-gray-600 dark:border-gray-300">
+                        <button onclick="showColorPicker()" class="flex items-center hover:text-purple-400 dark:hover:text-purple-600">
+                            <span id="current-color-circle" class="size-6 rounded-full bg-yellow-300 dark:bg-yellow-500 mr-1"></span>
+                            <span>Color</span>
+                        </button>
+                        <button onclick="handleReadAloud()" class="hover:text-pink-400 dark:hover:text-pink-600">
+                        🔊 Read Aloud
+                        </button>
+                        <button onclick="handleExport()" class="hover:text-indigo-400 dark:hover:text-indigo-600">
+                        💾 Export
+                        </button>
+                    </div>
+                </div>
 
-                  <div id="color-picker"
-                      class="absolute hidden top-full mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 p-2 rounded-lg shadow-lg z-50 flex gap-2">
-                      <div onclick="setHighlightColor('yellow')"
-                          class="size-6 bg-yellow-400 dark:bg-yellow-700 rounded-full cursor-pointer hover:scale-110 transition-transform"></div>
-                      <div onclick="setHighlightColor('blue')"
-                          class="size-6 bg-blue-400 dark:bg-blue-700 rounded-full cursor-pointer hover:scale-110 transition-transform"></div>
-                      <div onclick="setHighlightColor('pink')"
-                          class="size-6 bg-pink-400 dark:bg-pink-700 rounded-full cursor-pointer hover:scale-110 transition-transform"></div>
-                    <div onclick="setHighlightColor('green')"
-                          class="size-6 bg-green-400 dark:bg-green-500 rounded-full cursor-pointer hover:scale-110 transition-transform"></div>
-                  </div>
+                <div id="color-picker"
+                    class="absolute hidden top-full mt-1 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 p-2 rounded-lg shadow-lg z-50 flex gap-2">
+                    <div onclick="setHighlightColor('yellow')"
+                        class="size-6 bg-yellow-400 dark:bg-yellow-700 rounded-full cursor-pointer hover:scale-110 transition-transform"></div>
+                    <div onclick="setHighlightColor('blue')"
+                        class="size-6 bg-blue-400 dark:bg-blue-700 rounded-full cursor-pointer hover:scale-110 transition-transform"></div>
+                    <div onclick="setHighlightColor('pink')"
+                        class="size-6 bg-pink-400 dark:bg-pink-700 rounded-full cursor-pointer hover:scale-110 transition-transform"></div>
+                  <div onclick="setHighlightColor('green')"
+                        class="size-6 bg-green-400 dark:bg-green-500 rounded-full cursor-pointer hover:scale-110 transition-transform"></div>
+                </div>
 
-              </div>
+            </div>
 
           </div>
 
@@ -385,10 +385,11 @@
 
         <!-- Floating Read-Aloud Player Tooltip -->
         <div id="player-tooltip"
-            class="fixed bottom-4 right-4 z-50 p-3 bg-gradient-to-br from-white/40 via-white/60 to-white/40 dark:from-gray-800/40 dark:via-gray-800/60 dark:to-gray-800/40 backdrop-blur-sm rounded-xl shadow-lg shadow-gray-950 flex items-center space-x-3 transition-transform transform hover:scale-105 translate-x-[110%] transition-all duration-700">
+            class="fixed bottom-2 right-4 z-50 p-3 bg-gradient-to-br from-white/40 via-white/60 to-white/40 dark:from-gray-800/40 dark:via-gray-800/60 dark:to-gray-800/40 backdrop-blur-sm rounded-xl shadow-lg shadow-gray-950 flex items-center space-x-3 transition-transform transform hover:scale-105 translate-x-[110%] transition-all duration-700">
 
             <!-- Seek Backward -->
             <button id="btn-backward"
+                    title="Seek Backward"
                     class="p-2 bg-gradient-to-tr from-fuchsia-400 to-pink-500 rounded-full text-white hover:shadow-md hover:saturate-200 transition duration-500"
                     title="Rewind 5s" aria-label="Rewind 5 seconds">
                 <svg class="h-4 w-4 fill-gray-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M236.3 107.1C247.9 96 265 92.9 279.7 99.2C294.4 105.5 304 120 304 136L304 272.3L476.3 107.2C487.9 96 505 92.9 519.7 99.2C534.4 105.5 544 120 544 136L544 504C544 520 534.4 534.5 519.7 540.8C505 547.1 487.9 544 476.3 532.9L304 367.7L304 504C304 520 294.4 534.5 279.7 540.8C265 547.1 247.9 544 236.3 532.9L44.3 348.9C36.5 341.3 32 330.9 32 320C32 309.1 36.5 298.7 44.3 291.1L236.3 107.1z"/></svg>
@@ -396,6 +397,7 @@
 
             <!-- Play/Pause Button -->
             <button id="btn-play-pause"
+                    title="Play/Pause"
                     class="bg-sky-600 flex items-center justify-center hover:bg-sky-300 focus:outline-none text-white font-bold p-2.5 rounded-full transition-colors duration-700"
                     title="Play" aria-label="Play">
                 <!-- Play Icon -->
@@ -409,19 +411,21 @@
                 </div>
             </button>
 
+            <!-- Seek Forward -->
+            <button id="btn-forward"
+                    title="Seek Forward"
+                    class="p-2 bg-gradient-to-tr from-emerald-400 to-cyan-500 rounded-full text-white hover:shadow-md hover:saturate-200 transition duration-500"
+                    title="Forward 10s" aria-label="Forward 10 seconds">
+                <svg class="h-4 w-4 fill-gray-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M83.8 541.6C95.8 546.6 109.5 543.8 118.7 534.7L288 365.3L288 512C288 524.9 295.8 536.6 307.8 541.6C319.8 546.6 333.5 543.8 342.7 534.7L512 365.3L512 512C512 529.7 526.3 544 544 544C561.7 544 576 529.7 576 512L576 128C576 110.3 561.7 96 544 96C526.3 96 512 110.3 512 128L512 274.7L342.6 105.3C333.4 96.1 319.7 93.4 307.7 98.4C295.7 103.4 288 115.1 288 128L288 274.7L118.6 105.4C109.4 96.2 95.7 93.5 83.7 98.5C71.7 103.5 64 115.1 64 128L64 512C64 524.9 71.8 536.6 83.8 541.6z"/></svg>
+            </button>
+
             <!-- Stop Button -->
             <button id="btn-stop"
+                    title="Terminate Audio"
                     class="p-2 bg-gradient-to-tr from-red-400 to-red-600 rounded-full text-white hover:shadow-md hover:saturate-200 transition duration-700">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                     <rect x="6" y="6" width="12" height="12" rx="2" />
                 </svg>
-            </button>
-
-            <!-- Seek Forward -->
-            <button id="btn-forward"
-                    class="p-2 bg-gradient-to-tr from-emerald-400 to-cyan-500 rounded-full text-white hover:shadow-md hover:saturate-200 transition duration-500"
-                    title="Forward 10s" aria-label="Forward 10 seconds">
-                <svg class="h-4 w-4 fill-gray-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M83.8 541.6C95.8 546.6 109.5 543.8 118.7 534.7L288 365.3L288 512C288 524.9 295.8 536.6 307.8 541.6C319.8 546.6 333.5 543.8 342.7 534.7L512 365.3L512 512C512 529.7 526.3 544 544 544C561.7 544 576 529.7 576 512L576 128C576 110.3 561.7 96 544 96C526.3 96 512 110.3 512 128L512 274.7L342.6 105.3C333.4 96.1 319.7 93.4 307.7 98.4C295.7 103.4 288 115.1 288 128L288 274.7L118.6 105.4C109.4 96.2 95.7 93.5 83.7 98.5C71.7 103.5 64 115.1 64 128L64 512C64 524.9 71.8 536.6 83.8 541.6z"/></svg>
             </button>
 
             <!-- Speed Control -->

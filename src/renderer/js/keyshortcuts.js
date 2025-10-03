@@ -30,9 +30,39 @@ document.addEventListener('keydown', (event) => {
     } else if (event.key.toLocaleLowerCase() === 'p' && event.shiftKey) {
         event.preventDefault(); // Prevent any default action
         handleContextMenuAction('print');
-    } else if (event.key.toLocaleLowerCase()==='space'){
+    } else if (event.key.toLocaleLowerCase()===' '){
+        event.preventDefault();
         btnPlayPause.click()
+    // fast forward
+    } else if (event.key.toLocaleLowerCase()==='arrowright'){
+        event.preventDefault();
+        document.getElementById('btn-forward').click()
+    //seek backward
+    } else if (event.key.toLocaleLowerCase()==='arrowleft'){
+        event.preventDefault();
+        document.getElementById('btn-backward').click()
+    // Next chapter
+    } else if (event.key.toLocaleLowerCase()==='pageup'){
+        event.preventDefault();
+        nextSection()
+    // Previous chapter
+    } else if (event.key.toLocaleLowerCase()==='pagedown'){
+        event.preventDefault();
+        previousSection()
+    //Increase font
+    } else if (event.ctrlKey && event.key.toLocaleLowerCase()==='='){
+        event.preventDefault();
+        changeFontSize(1)
+    // Decrease Font
+    } else if (event.ctrlKey && event.key.toLocaleLowerCase()==='-'){
+        event.preventDefault();
+        changeFontSize(-1)
+    // Reset font
+    } else if (event.ctrlKey && event.key.toLocaleLowerCase()==='0'){
+        event.preventDefault();
+        changeFontSize(-1)
     } else if (event.ctrlKey && event.key.toLocaleLowerCase() === 'tab'){
+        event.preventDefault();
         clearInterface()
     }
 });
