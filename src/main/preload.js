@@ -221,8 +221,9 @@ contextBridge.exposeInMainWorld('api', {
             return false;
         }
     },
-    TTSConvert: async (text) => {
+    TTSConvert: async (text, model='ttskit3') => {
         if (!text.trim()) return null;
+        const isLinux = (os.platform() === 'linux')
 
         const safeText = text
             .replace(/[\[\]]/g, "")
@@ -230,24 +231,35 @@ contextBridge.exposeInMainWorld('api', {
             .replace(/—/g, ",");
 
         const cacheFile = path.join(cacheDir, `tts_${Math.random().toString(34).substring(3, 9)}.wav`);
-        const AAC_command = `ttskit3 -t "${safeText}" -o "${cacheFile}" --threads 8 --speed 0.84`;
 
-        const picowave = await ipcRenderer.invoke('get-picowave-path');
-        const fallbackCmd = `echo "${safeText}" | ${picowave} -w "${cacheFile}"`;
+        async function linuxFallback() {
+            const picowave = await ipcRenderer.invoke('get-picowave-path');
 
-        // Run primary command (ttskit3), fallback to Pico
-        try {
-            await new Promise((resolve, reject) => {
-                exec(AAC_command, (err) => (err ? reject(err) : resolve()));
-            });
-        } catch (err) {
-            console.log("Using FallBack Voice:", err)
-            if (os.platform() === 'linux') {
+            const fallbackCmd = `echo "${safeText}" | ${picowave} -w "${cacheFile}"`;
+
+            if (isLinux) {
                 await new Promise((resolve, reject) => {
                     exec(fallbackCmd, (err) => (err ? reject(err) : resolve()));
                 });
             } else {
                 console.log('Fallback Not implemented on this OS');
+            }
+        }
+
+        // For linux use picowave for shorter text
+        if ((isLinux && safeText.split(' ').length <= 30 || model !== "ttskit3"))  {
+            await linuxFallback()
+        }
+        else {
+            // Run primary command (ttskit3), fallback to Pico
+            try {
+                const ttskit3_command = `ttskit3 --text "${safeText}" -o "${cacheFile}" --threads 8 --speed 0.86`;
+                await new Promise((resolve, reject) => {
+                    exec(ttskit3_command, (err) => (err ? reject(err) : resolve()));
+                });
+            } catch (err) {
+                console.log("Using FallBack Voice:", err)
+                await linuxFallback()
             }
         }
 
@@ -259,178 +271,6 @@ contextBridge.exposeInMainWorld('api', {
         }
     },
 
-    ReadAloud: async (_text, action = 'play') => {
-        const text = _text || '';
-        const TextCacheFile = path.join(cacheDir, `TText_${Math.random().toString(34).substring(3, 9)}.txt`);
-
-        const cacheFile = path.join(cacheDir, `cfile_${Math.random().toString(34).substring(3, 9)}.wav`);
-
-        // Ensure it's only for Linux
-        if (os.platform() !== 'linux') {
-            console.log('Not implemented on this OS');
-            return false;
-        }
-
-        // Handle pause
-        if (action === 'pause') {
-            isManualStop = true;
-            if (sourceNode) {
-                sourceNode.stop();
-                pauseTime = audioContext.currentTime - startTime;
-                sourceNode = null;
-            }
-            // Reset after stop/pause
-            setTimeout(() => { isManualStop = false; }, 100)
-            return 'Paused';
-        }
-
-        // Handle resume
-        if (action === 'resume') {
-            if (audioBuffer && pauseTime) {
-                sourceNode = audioContext.createBufferSource();
-                sourceNode.buffer = audioBuffer;
-                sourceNode.connect(audioContext.destination);
-                startTime = audioContext.currentTime - pauseTime;
-                console.log('stt:', startTime, 'pst:', pauseTime, 'act:', audioContext.currentTime)
-                sourceNode.start(0, pauseTime);
-                pauseTime = 0;
-
-                sourceNode.onended = () => {
-                    console.log(isManualStop)
-                    if (!isManualStop) {
-                        //setState(true);
-                        setTimeout(() => {
-                            document.dispatchEvent(new Event('play-finished'));
-                        }, 0);
-                    } else {
-                        isManualStop = false; // reset it for next time
-                    }
-                };
-                return 'Resumed';
-            }
-            return 'Nothing to resume';
-        }
-
-        // Handle stop
-        if (action === 'stop') {
-            isManualStop = true;
-            if (sourceNode) {
-                sourceNode.stop();
-                sourceNode = null;
-            }
-            audioBuffer = null;
-            pauseTime = 0;
-            return 'Stopped';
-        }
-
-        // Fresh playback
-        if (!text.trim()) return 'No text';
-
-        const safeText = text
-            .replace(/[\[\]]/g, "")
-            .replace(/"/g, "")
-            .replace(/—/g, ",")
-
-        /*await fs.writeFile(TextCacheFile, safeText, 'utf8', (err) => {
-            if (err) {
-                console.log(`Error writing txt cache file: ${err}`)
-            };
-            console.log('The txt cache file has been saved!');
-        })*/
-        // Advance Audio Converter (AAC)
-        //const AAC = 'ttskit2'
-        const AAC_command = `ttskit3 -t ${safeText} -O ${cacheFile} --threads 8`
-
-        console.log(`Cache File-: ${cacheFile}`)
-
-        const picowave = await ipcRenderer.invoke('get-picowave-path');
-
-        const command = `echo "${safeText}" | ${picowave} -w "${cacheFile}"`;
-
-        // Robotic Voice Mode as fallback
-        async function RBMV() {
-            console.log("Iniating Robotic voice mode")
-            await new Promise((resolve, reject) => {
-                exec(command, (err) => {
-                    if (err) return reject(err);
-                    resolve();
-                });
-            });
-        }
-
-
-        try {
-            // Disable this option for now -> not very optimal
-            // Advance mode first
-            await new Promise((resolve, reject) => {
-                try {
-                    exec(AAC_command, (err) => {
-                        //console.log(err)
-                        if (err) {
-                            return reject(err);
-                        }
-                        resolve();
-                    });
-                } catch (e) { }
-            });
-        } catch (e) {
-            console.log("Error in ttskit2")
-            RBMV()
-        }
-
-        try {
-            // Check if file exists asynchronously
-            await fs.promises.access(cacheFile, fs.constants.F_OK);
-            // File exists-> continue
-            // return true;
-        } catch (err) {
-            console.log(`Cache file not found: ${cacheFile}`)
-            await RBMV();
-        }
-
-        try {
-
-            if (!audioContext) audioContext = new AudioContext();
-
-            const fileData = fs.readFileSync(cacheFile);
-
-            const arrayBuffer = fileData.buffer.slice(fileData.byteOffset, fileData.byteOffset + fileData.byteLength);
-
-            if (arrayBuffer.byteLength === 0) {
-                console.error("Empty buffer")
-            }
-            try {
-                audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-            } catch (e) {
-                console.error("DecodeError: Unable to decode audio data")
-                return false
-            }
-
-            sourceNode = audioContext.createBufferSource();
-            sourceNode.buffer = audioBuffer;
-            sourceNode.connect(audioContext.destination);
-            sourceNode.playbackRate.value = 1;
-            startTime = audioContext.currentTime;
-
-            // Dispatch play-finished event on end
-            sourceNode.onended = () => {
-                if (!isManualStop) {
-                    //setState(true);
-                    setTimeout(() => {
-                        document.dispatchEvent(new Event('play-finished'));
-                    }, 0);
-                } else {
-                    isManualStop = false; // reset it for next time
-                }
-            };
-
-            sourceNode.start(0);
-            return true;
-        } catch (error) {
-            console.error('TTS error:', error);
-            return false;
-        }
-    },
     formatDate: async (isoString) => {
         const date = new Date(isoString);
         const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };

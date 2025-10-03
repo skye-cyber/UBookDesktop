@@ -12,8 +12,10 @@ window.playfinished = false;
 
 async function handleReadAloud() {
     try {
+        const tts_model = document.getElementById('tts-model-selector').value;
+
         showLoading(text = "Preparing Audio")
-        const audio_file = await window.api.TTSConvert(selectedText)
+        const audio_file = await window.api.TTSConvert(selectedText, tts_model)
         if (audio_file) {
             //window.currentAudioFile = audio_file;
             hideLoading();
@@ -29,7 +31,7 @@ async function handleReadAloud() {
         hideLoading();
     } catch (err) {
         hideLoading()
-        console.log(err.title || err.name || err.slice(0, 100))
+        console.log(err || err.title || err.name || err.slice(0, 100))
     }
 }
 

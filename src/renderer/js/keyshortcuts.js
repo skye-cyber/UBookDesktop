@@ -30,5 +30,9 @@ document.addEventListener('keydown', (event) => {
     } else if (event.key.toLocaleLowerCase() === 'p' && event.shiftKey) {
         event.preventDefault(); // Prevent any default action
         handleContextMenuAction('print');
+    } else if (event.key.toLocaleLowerCase()==='space'){
+        btnPlayPause.click()
+    } else if (event.ctrlKey && event.key.toLocaleLowerCase() === 'tab'){
+        clearInterface()
     }
 });

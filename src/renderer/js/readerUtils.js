@@ -1,4 +1,3 @@
-
 const tooltip = document.getElementById('tooltip-menu');
 const wrapper = document.getElementById('reader-content');
 let selectedText = null;
@@ -311,4 +310,25 @@ function hideLoading() {
         loadingModal.classList.add('opacity-0', 'pointer-events-none');
         loadText.textContent = "Loading..."
     }, 300)
+}
+
+let isInterfaceCleared = false;
+const sidePaneToggleLeft = document.getElementById('sidepane-toggle')
+const sidePaneToggleRight = document.getElementById('RightpanelMask')
+const controlBar = document.getElementById('controlbar-utils')
+const topUtilsPanel = document.getElementById('top-utils-panel')
+/**
+ * Clears the interface of all distracting ui for distraction free reading
+ */
+function clearInterface(){
+    sidePaneToggleLeft.click()
+    hideRightPane()
+    controlBar.classList.toggle('hidden')
+    topUtilsPanel.classList.toggle('hidden')
+    isInterfaceCleared = !isInterfaceCleared
+}
+
+function hideRightPane(){
+    sidePaneToggleRight.classList.toggle('xl:translate-x-0')
+    //sidePaneToggleRight.classList.add('translate-x-')
 }
