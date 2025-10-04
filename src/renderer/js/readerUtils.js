@@ -117,6 +117,21 @@ function handleSaveNote() {
     showNoteModal();
 }
 
+function saveCustomNote(){
+    const note = {
+        comment: document.getElementById('note-comment').value,
+        timestamp: new Date().toISOString(),
+        text: selectedText,
+        content: selectedContent
+    };
+
+    window.api.saveNote(note);
+
+    console.log("Note saved:", note);
+    showActionToast('save');
+    //closeNoteModal();
+}
+
 function saveNote() {
     const note = {
         comment: document.getElementById('note-comment').value,
@@ -127,7 +142,7 @@ function saveNote() {
 
     window.api.saveNote(note);
 
-    console.log("Note saved:", note); // You can persist to localStorage or send to a backend later
+    console.log("Note saved:", note);
     showActionToast('save');
     closeNoteModal();
 }

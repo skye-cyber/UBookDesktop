@@ -58,7 +58,25 @@ document.querySelectorAll('.context-item').forEach(item => {
     });
 });
 
+// Hide sub-menu on click outside
+const SubcontextMenus = document.querySelectorAll(".sub-context-menu");
+
+document.addEventListener('click', function(e) {
+
+    SubcontextMenus.forEach(menu =>{
+        if (menu.contains(e.target)) {
+            return
+        }
+        menu.classList.add('hidden');
+    })
+});
+
 function showSubmenu(item) {
+    // Hide all sub menu first
+    SubcontextMenus.forEach(menu =>{
+        menu.classList.add("hidden")
+    })
+
     const submenu = item.querySelector(".sub-context-menu")
     submenu.classList.remove("hidden")
 }

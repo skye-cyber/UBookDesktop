@@ -721,9 +721,9 @@
 
                     <div class="border-t border-gray-700 my-1"></div>
 
-                    <div onclick="renderNotes()" class="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="notes">
+                    <div class="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="notes">
                         <svg class="h-5 w-5 mr-3 fill-gray-400 dark:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M160 544C124.7 544 96 515.3 96 480L96 160C96 124.7 124.7 96 160 96L480 96C515.3 96 544 124.7 544 160L544 373.5C544 390.5 537.3 406.8 525.3 418.8L418.7 525.3C406.7 537.3 390.4 544 373.4 544L160 544zM485.5 368L392 368C378.7 368 368 378.7 368 392L368 485.5L485.5 368z"/></svg>
-                        <span>Show Notes</span>
+                        <span>Custom Notes</span>
                     </div>
 
                     <div class="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="dictionary">
@@ -747,7 +747,7 @@
             </div>
         </div>
 
-        <!-- Modals -->
+        <!-- Context Menu Modals -->
         <div id="noteModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
             <div class="modal-overlay absolute inset-0"></div>
             <div class="bg-white rounded-lg shadow-xl w-full max-w-md mx-4 z-10">
@@ -756,7 +756,7 @@
                     <textarea id="noteText" class="w-full h-32 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Enter your note here..."></textarea>
                     <div class="flex justify-end space-x-3 mt-4">
                         <button class="px-4 py-2 text-gray-600 hover:text-gray-800" onclick="closeNoteModal()">Cancel</button>
-                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" onclick="saveNote()">Save Note</button>
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600" onclick="saveCustomNote()">Save Note</button>
                     </div>
                 </div>
             </div>
