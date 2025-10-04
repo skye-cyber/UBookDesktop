@@ -2,7 +2,7 @@
 document.addEventListener('keydown', (event) => {
     // 1) if it’s F11, do nothing here and let the browser/Electron handle it
     if (event.key === "F11" || event.code === "F11") {
-        return;
+        clearInterface();
     }
 
     if (event.ctrlKey && event.key === 'S' || event.ctrlKey && event.key === 's') {

@@ -225,10 +225,11 @@ contextBridge.exposeInMainWorld('api', {
         if (!text.trim()) return null;
         const isLinux = (os.platform() === 'linux')
 
-        const safeText = text
+        let safeText = text
             .replace(/[\[\]]/g, "")
             .replace(/"/g, "")
-            .replace(/—/g, ",");
+
+        safeText = (model === 'ttskit3') ? safeText.replace(/—/g, "\,") : '';
 
         const cacheFile = path.join(cacheDir, `tts_${Math.random().toString(34).substring(3, 9)}.wav`);
 
