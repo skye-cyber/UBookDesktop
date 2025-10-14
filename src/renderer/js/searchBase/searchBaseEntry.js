@@ -197,15 +197,19 @@ function openSearchContent(data) {
     //STEP1: Prepare part content
     document.getElementById(part_id_map[data.part_id])?.click()
 
+
+    //STEP2: Close search modal
+    document.getElementById('closeModalBtn2').click()
+
+    _modalHandler.show("load", "Loading section...");
+
     // Give dom time to Update
     setTimeout(() => {
-        //STEP2: find and click right section
-        const sec = document.querySelector(`[data-tag="${data.part_id}-${data.paper_id}-${data.section_number}"]`)
-        console.log(sec)
-
+        //STEP3: find and click right section
+        sec = document.querySelector(`[data-tag="${data.part_id}-${data.paper_id}-${data.section_number}"]`)
         sec?.click()
-    }, 1000)
+        _modalHandler.hide("load");
 
-    //Close search modal
-    document.getElementById('closeModalBtn2').click()
+    }, 3500)
+
 }
