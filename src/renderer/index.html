@@ -48,10 +48,10 @@
 
 
                 <!-- Expand Search Button -->
-                <span id="expand-search" class="search-expand absolute right-2 top-1/2 transform -translate-y-1/2 inline-flex items-center justify-center h-8 w-8 rounded-lg bg-transparent hover:bg-slate-200 dark:hover:bg-[#00caf7] cursor-pointer transition-colors duration-300" onclick="ShowPrevSearchModal()" title="show previous section search results" aria-label="show previous section search results group">
-                    <svg class="w-5 h-5 text-slate-600 dark:text-slate-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" class="stroke-slate-500 dark:stroke-white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M11 8V14M8 11H14" class="stroke-slate-500 dark:stroke-white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <span id="expand-search" class="search-expand absolute right-2 top-1/2 transform -translate-y-1/2 inline-flex items-center justify-center h-8 w-8 rounded-lg bg-transparent hover:bg-slate-200 dark:hover:bg-[#00caf7] cursor-pointer transition-colors duration-300 hover:scale-[1.05]" onclick="ShowPrevSearchModal()" title="show previous section search results" aria-label="show previous section search results group">
+                    <svg class="w-5 h-5 stroke-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M11 8V14M8 11H14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </span>
             </div>
@@ -101,16 +101,16 @@
             </div>
             <section class="h-fit max-h-[72%] overflow-y-auto select-none bg-indigo-950/25 dark:bg-[#002b36] rounded-lg">
                 <ul class="mt-3">
-                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetForeword();">📖 Foreword</li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetSuperUniverse();"><span class="bg-pink-600 rounded-full px-0.5">🌀</span>&nbsp; The Central and Superuniverses</li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetLocalUniverse();">🌍 The Local Universe</li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetHistoryOfUrantia();">📜 The History of Urantia</li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetJesusTeachings();">✝️ The Life and Teachings of Jesus</li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="loadFavourites();">⭐ Favourite</li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="loadBookmarks();">🔖 Bookmarks</li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="renderNotes();">📔 Notes</li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer">🧰 More Applications</li>
-                    <li class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer">🚪 Exit</li>
+                    <li id="foreword" class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetForeword();">📖 Foreword</li>
+                    <li id="central-and-superuniverse" class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetSuperUniverse();"><span class="bg-pink-600 rounded-full px-0.5">🌀</span>&nbsp; The Central and Superuniverses</li>
+                    <li id="local-universe" class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetLocalUniverse();">🌍 The Local Universe</li>
+                    <li id="history-of-urantia" class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetHistoryOfUrantia();">📜 The History of Urantia</li>
+                    <li id="life-and-teachings-of-jesus" class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="SetJesusTeachings();">✝️ The Life and Teachings of Jesus</li>
+                    <li id="favourite" class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="loadFavourites();">⭐ Favourite</li>
+                    <li id="bookmark" class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="loadBookmarks();">🔖 Bookmarks</li>
+                    <li id="notes" class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onclick="renderNotes();">📔 Notes</li>
+                    <li id="more-apps" class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer">🧰 More Applications</li>
+                    <li id="exit-app" class="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer">🚪 Exit</li>
                 </ul>
             </section>
             <div class="absolute left-0 bottom-4 flex items-center justify-center w-full px-6">
@@ -454,21 +454,21 @@
 
         <!-- Search Modal container -->
         <div id="search-modal" class="fixed inset-0 flex items-center justify-center p-4 backdrop-brightness-50 translate-y-[100vh] z-50 transition-all duration-500">
-          <div class="bg-white dark:bg-gray-800 rounded-lg border border-x-pink-600 border-y-orange-400 border-t-purple-600 shadow-lg max-w-full lg:max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden transition-colors duration-500 font-reader">
+          <div class="bg-[#1d0066] dark:bg-[#0e0e2c] rounded-lg border border-[#4800ff] dark:border-purple-600 shadow-lg max-w-full lg:max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden transition-colors duration-500 font-reader shadow-lg shadow-primary-950">
             <!-- Header -->
-            <div class="flex justify-between items-center p-3 bg-gray-200 dark:bg-zinc-950 border-b border-rose-200 dark:border-rose-700">
-              <h2 class="text-xl font-mono font-semibold dark:text-white">Search Result:<span class="text-red-500">?</span><span id="search-query" class="rounded-md bg-gray-300 dark:bg-black text-blue-500"></span></h2>
-              <p class="font-bold text-black dark:text-white">Total: <span id="result-total" class="font-semibold text-[#0097d3]"></span></p>
-              <button id="closeModalBtn" aria-label="Close modal" class="text-gray-500 hover:text-gray-900 dark:hover:text-gray-200 transition text-2xl font-bold leading-none">&times;</button>
+            <div class="flex justify-between items-center p-3 bg-[#1d0066] dark:bg-[#0e0e2c] border-b border-[#4800ff]/80 dark:border-[#8a2be2]/70">
+              <h2 class="text-xl font-mono font-semibold text-white">Search Result:<span class="text-[#5555ff]">?</span><span id="search-query" class="max-w-[30%] rounded-md text-[#5555ff] underline overflow-x-hidden text-ellipsis"></span></h2>
+              <p class="font-bold text-white">Total: <span id="result-total" class="font-semibold text-[#0097d3]"></span></p>
+              <button id="closeModalBtn" aria-label="Close modal" class="text-gray-300 hover:text-gray-900 dark:hover:text-gray-200 transition text-2xl font-bold leading-none">&times;</button>
             </div>
             <!-- Content scrollable -->
-            <div id="SearchModalContent" class="p-6 overflow-y-auto bg-white dark:bg-slate-950 space-y-4 flex-1 text-gray-900 dark:text-gray-100 text-sm sm:text-base">
-            <p class="text-lg text-center text-red-500 font-semibold">No Results</p>
+            <div id="SearchModalContent" class="p-6 overflow-y-auto bg-[#160041] dark:bg-slate-950 space-y-4 flex-1 text-gray-100 text-sm sm:text-base">
+            <p class="text-lg text-center text-[#5555ff] font-semibold">No Results</p>
               <!-- Dynamic content inserted here -->
             </div>
             <!-- Footer -->
-            <div class="p-2 border-t bg-blue-100 dark:bg-stone-950 border-gray-200 dark:border-gray-700 text-right">
-              <button id="closeModalBtn2" class="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded transition">
+            <div class="p-2 border-t bg-[#1d0066] dark:bg-[#0e0e2c] border-[#4800fd] dark:border-[#4800fd] text-right">
+              <button id="closeModalBtn2" class="px-4 py-2 bg-[#5555ff] dark:bg-[#28287f] hover:bg-[#3333a2] text-white rounded transition-all duration-300 hover:scale-[1.02] hover:translate-y-[3px] in-expo out-expo">
                 Close
               </button>
             </div>

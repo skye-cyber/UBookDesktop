@@ -224,12 +224,7 @@ height: 2.4em; /* Adjust this value to match the height of an empty row */
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
-.search-expand {
-    transition: all 0.3s ease;
-}
-.search-expand:hover {
-    transform: scale(1.05);
-}
+
 
 #reader-content{
     font-family: 'Merriweather', serif;

@@ -229,13 +229,12 @@ contextBridge.exposeInMainWorld('api', {
             .replace(/[\[\]]/g, "")
             .replace(/"/g, "")
 
-        safeText = (model === 'ttskit3') ? safeText.replace(/—/g, "\,") : '';
+        safeText = (model === 'ttskit3') ? safeText.replace(/—/g, "\,") : safeText;
 
         const cacheFile = path.join(cacheDir, `tts_${Math.random().toString(34).substring(3, 9)}.wav`);
 
         async function linuxFallback() {
             const picowave = await ipcRenderer.invoke('get-picowave-path');
-
             const fallbackCmd = `echo "${safeText}" | ${picowave} -w "${cacheFile}"`;
 
             if (isLinux) {
@@ -429,7 +428,7 @@ contextBridge.exposeInMainWorld('ReadAloud', {
     },
 
     pause: () => {
-        console.log("Pausing.")
+        //console.log("Pausing.")
         if (sourceNode) {
             isManualStop = true;
             sourceNode.stop();
@@ -450,7 +449,7 @@ contextBridge.exposeInMainWorld('ReadAloud', {
     },
 
     stop: () => {
-        console.log("stopping")
+        //console.log("stopping")
         isManualStop = true;
         if (sourceNode) {
             sourceNode.stop();
@@ -468,7 +467,7 @@ contextBridge.exposeInMainWorld('ReadAloud', {
 
         const offset = Math.min(Math.max(0, seconds), audioBuffer.duration);
         playFrom(offset);
-        console.log(`Seeked to ${offset.toFixed(2)}s`)
+        //console.log(`Seeked to ${offset.toFixed(2)}s`)
 
         return `Seeked to ${offset.toFixed(2)}s`;
     },
@@ -481,7 +480,7 @@ contextBridge.exposeInMainWorld('ReadAloud', {
         if (newOffset >= audioBuffer.duration) newOffset = audioBuffer.duration - 0.1; // prevent overflow
 
         playFrom(newOffset);
-        console.log(`Fast forwarded to ${newOffset.toFixed(2)}s`)
+        //console.log(`Fast forwarded to ${newOffset.toFixed(2)}s`)
         return newOffset.toFixed(2)
     },
 
@@ -493,7 +492,7 @@ contextBridge.exposeInMainWorld('ReadAloud', {
         if (newOffset < 0) newOffset = 0;
 
         playFrom(newOffset);
-        console.log(`Rewinded to ${newOffset.toFixed(2)}s`)
+        //console.log(`Rewinded to ${newOffset.toFixed(2)}s`)
         return newOffset.toFixed(2)
     }
 });

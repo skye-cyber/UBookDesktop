@@ -1,5 +1,7 @@
 const lunr = require('lunr');
 
+window.results = null
+
 /**
  * Maps IDs to their respective structured JSON files
  * @param {Array<number|string>} ids
@@ -32,11 +34,13 @@ function flattenContent(data) {
                 section.paragraphs?.forEach(paragraph => {
                     documents.push({
                         id: `${part.id}-${paper.paper_id}-${section.section_number}-${paragraph.paragraph_number}`,
-                        partTitle: part.title,
-                        paperTitle: paper.title,
-                        sectionNumber: section.section_number,
-                        sectionTitle: section.title,
-                        paragraphNumber: paragraph.paragraph_number,
+                        part_id: part.id,
+                        part_title: part.title,
+                        paper_id: paper.paper_id,
+                        paper_title: paper.title,
+                        section_number: section.section_number,
+                        section_title: section.title,
+                        paragraph_number: paragraph.paragraph_number,
                         content: paragraph.text,
                     });
                 });
@@ -55,10 +59,14 @@ function flattenContent(data) {
 async function buildIndex(documents) {
     return lunr(function() {
         this.ref('id');
+        this.field('part_id')
+        this.field('part_title');
+        this.field('paper_id');
+        this.field('paper_title');
+        this.field('section_number');
+        this.field('section_title');
+        this.field('paragraph_number')
         this.field('content');
-        this.field('sectionTitle');
-        this.field('paperTitle');
-        this.field('partTitle');
 
         documents.forEach(doc => this.add(doc));
     });
@@ -83,7 +91,7 @@ async function search(ids, _query) {
     const query = sanitizeQuery(_query);
     const sourceFiles = getFileMap(ids);
 
-    const results = [];
+    let results = [];
 
     await Promise.all(sourceFiles.map(async (file) => {
         const data = await window.api.readContent(file);
@@ -103,7 +111,12 @@ async function search(ids, _query) {
     // Sort results by score in descending order (higher score = more relevant)
     results.sort((a, b) => b.score - a.score);
 
-    return results;
+    window.results = results
+
+    //Trigger garbageCollect
+    results = null
+
+    return window.results;
 }
 
 

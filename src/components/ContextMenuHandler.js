@@ -63,7 +63,7 @@ const SubcontextMenus = document.querySelectorAll(".sub-context-menu");
 
 document.addEventListener('click', function(e) {
 
-    SubcontextMenus.forEach(menu =>{
+    SubcontextMenus.forEach(menu => {
         if (menu.contains(e.target)) {
             return
         }
@@ -73,7 +73,7 @@ document.addEventListener('click', function(e) {
 
 function showSubmenu(item) {
     // Hide all sub menu first
-    SubcontextMenus.forEach(menu =>{
+    SubcontextMenus.forEach(menu => {
         menu.classList.add("hidden")
     })
 
@@ -100,29 +100,34 @@ document.addEventListener('keydown', function(e) {
     if (e.ctrlKey || e.metaKey) {
         switch (e.key) {
             case 'a':
-                e.preventDefault();
-                handleContextMenuAction('selectAll');
+                if (!inputFieldsActive(e)) {
+                    e.preventDefault();
+                    handleContextMenuAction('selectAll');
+                }
                 break;
-            case 'c':
-                e.preventDefault();
-                handleContextMenuAction('copy');
+            /*
+             * case 'c':
+                if (!inputFieldsActive(e)) {
+                    e.preventDefault();
+                    handleContextMenuAction('copy');
+                }
                 break;
+            */
             case 'f':
                 e.preventDefault();
-                handleContextMenuAction('search');
+                handleContextMenuAction('search', e);
                 break;
             case 'b':
                 e.preventDefault();
-                handleContextMenuAction('bookmark');
+                handleContextMenuAction('bookmark', e);
                 break;
 
         }
     }
 
-    if (e.key === 'Escape') {
-        contextMenu.classList.remove('active');
-        closeModals();
-    }
+    //if (e.key === 'Escape') {
+    //Handled in keyshortcuts.js
+    //}
 });
 
 
@@ -154,7 +159,7 @@ function handleContextMenuAction(action, item = null) {
     let message = '';
     switch (action) {
         case 'copy':
-            handleCopy();
+            handleContextCopy();
             message = 'Text copied to clipboard';
             contextMenu.classList.remove('active');
             break;
@@ -302,10 +307,11 @@ function handleContextMenuAction(action, item = null) {
 
 
 // Implemented Functions
-function handleCopy() {
-    if (appState.currentSelection) {
-        navigator.clipboard.writeText(appState.currentSelection);
-    }
+function handleContextCopy() {
+    //if (appState.currentSelection) {
+    //navigator.clipboard.writeText(appState.currentSelection);
+    handleCopy()
+    //}
 }
 
 function handleCut() {
@@ -328,6 +334,8 @@ function handlePaste() {
 }
 
 function handleSelectAll() {
+    // select all only if not input field is active
+    //if (!inputFieldsActive()) {
     const range = document.createRange();
     range.selectNodeContents(bookContent);
     const selection = window.getSelection();
@@ -335,6 +343,20 @@ function handleSelectAll() {
     selection.addRange(range);
     appState.currentSelection = selection.toString();
     appState.selectionRange = range;
+    //}
+}
+
+function handleDelectAll() {
+    //if (!inputFieldsActive()) {
+
+    var range = appState.selectionRange
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+    range?.detach(bookContent)
+
+    appState.currentSelection = '';
+    appState.selectionRange = null;
+    //}
 }
 
 function handleSearch() {

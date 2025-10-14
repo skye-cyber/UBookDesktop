@@ -27,7 +27,7 @@ function CreateItem(title, paper) {
     </button>
     <div class="flex-1 cursor-pointer text-left">
         <div class="block">
-            <p class="flex-1 cursor-pointer text-left font-medium text-gray-800 dark:text-white">${title}</p>
+            <p data-content="${paper}" class="flex-1 cursor-pointer text-left font-medium text-gray-800 dark:text-white">${title}</p>
             <p class="text-sm text-gray-500 dark:gray-100">${(paper !== 0) ? `Paper ${paper}` : 'Foreword'}</p>
         </div>
     </div>
@@ -213,6 +213,7 @@ class Reader {
             for (const section of paper.sections) {
                 const title = prepTitle(section);
                 const sectionEntry = CreateItem(title, paper.paper_id);
+                sectionEntry.setAttribute('data-tag', `${partData.id}-${paper.paper_id}-${partData.id===0 ? section.section_number.replace('0:', '') : section.section_number}`)
                 this.paperContainer.appendChild(sectionEntry);
 
                 const struct = {
