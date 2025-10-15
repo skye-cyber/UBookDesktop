@@ -92,7 +92,26 @@ contextBridge.exposeInMainWorld('api', {
             return false;
         }
     },
+    deleteNote: async (noteId, fpath = path.join(notesDir, 'notes.json')) => {
+        try {
+            // noteId = note Timetamb
+            //
+            // Check if file exists and is accessible
+            await fs.promises.access(fpath, fs.constants.F_OK | fs.constants.R_OK);
 
+            // Read the existing file content
+            const data = JSON.parse(await fs.promises.readFile(fpath, 'utf-8'));
+            const filtered_notes = data.notes.filter(note=>(new Date(note.timestamp).toLocaleString()!==noteId))
+
+            // Write the updated data back to the file
+            await fs.promises.writeFile(fpath, JSON.stringify({notes: filtered_notes}, null, 2));
+
+            return true;
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    },
     addBookmark: async (data, fpath = path.join(bookmarkDir, 'bookmark.json')) => {
         try {
             // Ensure file exists, otherwise initialize with default structure

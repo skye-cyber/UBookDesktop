@@ -177,31 +177,31 @@ function handleContextMenuAction(action, item = null) {
             break;
 
         case 'highlightYellow':
-            applyHighlight('yellow');
+            handleHighlight('yellow');
             message = 'Text highlighted in yellow';
             contextMenu.classList.remove('active');
             break;
 
         case 'highlightGreen':
-            applyHighlight('green');
+            handleHighlight('green');
             message = 'Text highlighted in green';
             contextMenu.classList.remove('active');
             break;
 
         case 'highlightBlue':
-            applyHighlight('blue');
+            handleHighlight('blue');
             message = 'Text highlighted in blue';
             contextMenu.classList.remove('active');
             break;
 
         case 'highlightPink':
-            applyHighlight('pink');
+            handleHighlight('pink');
             message = 'Text highlighted in pink';
             contextMenu.classList.remove('active');
             break;
 
         case 'removeHighlight':
-            removeHighlight();
+            handleHighlight(null, 'dehighlight');
             message = 'Highlight removed';
             contextMenu.classList.remove('active');
             break;
@@ -213,7 +213,8 @@ function handleContextMenuAction(action, item = null) {
             break;
 
         case 'notes':
-            openNoteModal();
+            //openNoteModal();
+            handleSaveNote()
             break;
 
         case 'dictionary':
@@ -366,34 +367,6 @@ function handleSearch() {
     }
 }
 
-function applyHighlight(color) {
-    if (appState.selectionRange) {
-        const span = document.createElement('span');
-        span.className = `highlight-${color}`;
-        span.textContent = appState.currentSelection;
-
-        appState.selectionRange.deleteContents();
-        appState.selectionRange.insertNode(span);
-
-        // Store highlight info
-        appState.highlights.push({
-            text: appState.currentSelection,
-            color: color,
-            timestamp: new Date()
-        });
-    }
-}
-
-function removeHighlight() {
-    if (appState.selectionRange) {
-        const selectedNode = appState.selectionRange.startContainer.parentNode;
-        if (selectedNode.classList && selectedNode.classList.value.includes('highlight-')) {
-            const text = selectedNode.textContent;
-            selectedNode.replaceWith(text);
-        }
-    }
-}
-
 function addBookmark() {
     const selection = window.getSelection();
     if (selection.rangeCount > 0) {
@@ -427,11 +400,11 @@ function openNoteModal() {
     document.getElementById('noteText').focus();
 }
 
-function closeNoteModal() {
+function ContextCloseNoteModal() {
     document.getElementById('noteModal').classList.add('hidden');
 }
 
-function saveNote() {
+function ContextSaveNote() {
     const noteText = document.getElementById('noteText').value;
     if (noteText.trim()) {
         appState.notes.push({
@@ -439,7 +412,7 @@ function saveNote() {
             selection: appState.currentSelection,
             timestamp: new Date()
         });
-        closeNoteModal();
+        ContextCloseNoteModal();
         showToast('Note saved successfully');
 
         // Add visual indicator for note

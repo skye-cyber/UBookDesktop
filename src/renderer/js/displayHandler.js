@@ -36,9 +36,9 @@ function showNoteModal() {
     noteBox.classList.remove('-translate-x-full');
     noteBox.classList.add('-translate-x-0');
 
-    setTimeout(()=>{
-        //noteModal.classList.add('hidden');
-    }, 200)
+    //setTimeout(()=>{
+    //noteModal.classList.add('hidden');
+    //}, 200)
     //document.getElementById('note-comment').value = selectedText;
 }
 
@@ -48,7 +48,7 @@ function closeNoteModal() {
     noteBox.classList.add('-translate-x-full');
     noteModal.classList.remove('-translate-x-0')
 
-    setTimeout(()=>{
+    setTimeout(() => {
         noteBox.classList.remove('-translate-x-0')
     }, 700)
     document.getElementById('note-comment').value = '';
@@ -90,3 +90,41 @@ function hideNotesModal() {
 
 closeModal.addEventListener('click', hideNotesModal);
 modalBackdrop.addEventListener('click', hideNotesModal);
+
+
+function openDeleteNoteModal() {
+    const modal = document.getElementById("deleteNoteModal");
+    const content = document.getElementById("deleteNoteModalContent");
+    modal.classList.remove("hidden");
+    setTimeout(() => {
+        content.classList.remove("scale-95", "opacity-0");
+        content.classList.add("scale-100", "opacity-100");
+    }, 10);
+}
+
+function closeDeleteNoteModal() {
+    const modal = document.getElementById("deleteNoteModal");
+    const content = document.getElementById("deleteNoteModalContent");
+    content.classList.remove("scale-100", "opacity-100");
+    content.classList.add("scale-95", "opacity-0");
+    setTimeout(() => modal.classList.add("hidden"), 300);
+}
+
+function NoteDeleteHandler(noteId) {
+    document.getElementById("deleteNoteId").textContent = noteId;
+    // open confirmation modal
+    openDeleteNoteModal();
+
+    document.getElementById("confirmDeleteNote").onclick = () =>
+        performDelete(noteId);
+}
+
+async function performDelete(noteId){
+    const isDeleted = await window.api.deleteNote(noteId);
+    console.log(isDeleted)
+    if (isDeleted){
+        showActionToast()
+        await renderNotes()
+        closeDeleteNoteModal()
+    }
+}

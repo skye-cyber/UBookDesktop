@@ -594,9 +594,17 @@ async function renderNotes() {
         noteCard.className = `group relative p-5 mb-4 rounded-2xl shadow-xl border border-transparent transition-all bg-gradient-to-br from-white via-gray-100 to-blue-100 dark:from-gray-800 dark:via-gray-900 dark:to-indigo-900 hover:border-blue-400 dark:hover:border-indigo-400 hover:scale-[1.01] hover:shadow-2xl transform transition-all duration-150 ease-in-out mx-1`;
 
         noteCard.innerHTML = `
-            <div class="mb-2 text-xs text-gray-600 dark:text-gray-400 italic transition-colors duration-500">
-                ${new Date(note.timestamp).toLocaleString()}
-            </div>
+            <section class="flex justify-between">
+                <div class="mb-2 text-xs text-gray-600 dark:text-gray-400 italic transition-colors duration-500">
+                    ${new Date(note.timestamp).toLocaleString()}
+                </div>
+                <button onclick="NoteDeleteHandler('${new Date(note.timestamp).toLocaleString()}')"
+                    class="w-10 h-10 bg-blue-50 dark:bg-indigo-900 hover:bg-white dark:hover:bg-indigo-800 text-red-500 rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110">
+                    <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                </button>
+            </section>
             <h3 class="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-indigo-300 transition-colors duration-500">
                 ${note.comment}
             </h3>

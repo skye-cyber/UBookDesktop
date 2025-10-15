@@ -113,23 +113,10 @@ function handleWebSearch() {
 }
 
 function handleSaveNote() {
+    // display note content
+    document.getElementById('noteText').innerHTML = selectedContent;
     // show comment modal
     showNoteModal();
-}
-
-function saveCustomNote(){
-    const note = {
-        comment: document.getElementById('note-comment').value,
-        timestamp: new Date().toISOString(),
-        text: selectedText,
-        content: selectedContent
-    };
-
-    window.api.saveNote(note);
-
-    console.log("Note saved:", note);
-    showActionToast('save');
-    //closeNoteModal();
 }
 
 function saveNote() {
@@ -148,61 +135,11 @@ function saveNote() {
 }
 
 
-let selectedHighlightClass = 'bg-yellow-200 dark:bg-[#f4f400] text-black dark:text-black';
-
-function handleHighlight() {
-    const selection = window.getSelection();
-    const range = selection.getRangeAt(0);
-
-    const selectionHTML = getSelectionHtml(selection);
-    //console.log(selectionHTML)
-    const span = document.createElement('span');
-    span.className = selectedHighlightClass + ' px-0.5 rounded-sm transition-color duration-500';
-    span.innerHTML = selectionHTML;
-
-    range.deleteContents();
-    range.insertNode(span);
-    showActionToast('highlight');
-    hideTooltip();
-}
-
 function showColorPicker() {
     const picker = !Rpane ? document.getElementById('color-picker') : document.getElementById('color-picker-right');
     picker.classList.toggle('hidden');
 }
 
-function setHighlightColor(color) {
-    const circles = document.querySelectorAll('#current-color-circle');
-
-    switch (color) {
-        case 'yellow':
-            selectedHighlightClass = 'bg-yellow-200 dark:bg-yellow-100 text-black dark:text-black';
-            circles.forEach(circle => {
-                circle.className = 'size-6 rounded-full bg-yellow-300 dark:bg-yellow-500 mr-2';
-            })
-            break;
-        case 'blue':
-            selectedHighlightClass = 'bg-blue-200 dark:bg-blue-500 text-black dark:text-white';
-            circles.forEach(circle => {
-                circle.className = 'size-6 rounded-full bg-blue-300 dark:bg-blue-500 mr-2';
-            })
-            break;
-        case 'pink':
-            selectedHighlightClass = 'bg-pink-200 dark:bg-pink-500 text-black dark:text-black';
-            circles.forEach(circle => {
-                circle.className = 'size-6 rounded-full bg-pink-300 dark:bg-pink-500 mr-2';
-            })
-            break;
-        case 'green':
-            selectedHighlightClass = 'bg-green-300 dark:bg-green-500 text-black dark:text-black';
-            circles.forEach(circle => {
-                circle.className = 'size-6 rounded-full bg-green-500 dark:bg-green-500 mr-2';
-            })
-            break;
-    }
-
-    document.getElementById('color-picker').classList.add('hidden');
-}
 
 function showActionToast(action = null, _message = null, _icon = null) {
     const toast = document.getElementById('action-toast');
@@ -212,7 +149,7 @@ function showActionToast(action = null, _message = null, _icon = null) {
     // Define icons and messages
     const actionMap = {
         copy: {
-            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" class="stroke-green-500" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" class="stroke-green-900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
             </svg>`,

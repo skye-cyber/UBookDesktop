@@ -19,11 +19,12 @@ document.addEventListener('keydown', (event) => {
         closeSearchPref();
         engine.removeHighlightedSpans();
         hideTooltip();
-
         // Context menu handler
         contextMenu.classList.remove('active');
         closeModals();
         handleDelectAll()
+        //
+        hideNotesModal()
     }
     if (event.ctrlKey && event.key === 'S' || event.ctrlKey && event.key === 's') {
         event.preventDefault(); // Prevent the default Save action in browsers
