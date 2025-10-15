@@ -204,12 +204,11 @@ function openSearchContent(data) {
     _modalHandler.show("load", "Loading section...");
 
     // Give dom time to Update
-    setTimeout(() => {
-        //STEP3: find and click right section
-        sec = document.querySelector(`[data-tag="${data.part_id}-${data.paper_id}-${data.section_number}"]`)
-        sec?.click()
+    //STEP3: find and click right section
+    waitForElement(`[data-tag="${data.part_id}-${data.paper_id}-${data.section_number}"]`, (e) => {
+        e.click()
         _modalHandler.hide("load");
+    })
 
-    }, 3500)
 
 }

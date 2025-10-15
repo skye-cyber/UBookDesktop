@@ -213,7 +213,7 @@ class Reader {
             for (const section of paper.sections) {
                 const title = prepTitle(section);
                 const sectionEntry = CreateItem(title, paper.paper_id);
-                sectionEntry.setAttribute('data-tag', `${partData.id}-${paper.paper_id}-${partData.id===0 ? section.section_number.replace('0:', '') : section.section_number}`)
+                sectionEntry.setAttribute('data-tag', `${partData.id}-${paper.paper_id}-${partData.id === 0 ? section.section_number.replace('0:', '') : section.section_number}`)
                 this.paperContainer.appendChild(sectionEntry);
 
                 const struct = {
@@ -432,16 +432,41 @@ async function setQuickRead(randpart) {
     })
 }
 
+// Run on resize
+window.addEventListener('resize', openClosePane);
+
+
+function openClosePane() {
+    if (window.innerWidth >= 1000) {
+        // Show sidepane
+        sidepaneMask.classList.remove('-translate-x-full');
+        sidepaneMask.classList.add('-translate-x-0');
+        sidepane.classList.remove('-translate-x-full');
+        sidepane.classList.add('-translate-x-0');
+        //console.log('Desktop mode - pane open');
+    } else {
+        // Hide sidepane
+        sidepaneMask.classList.add('-translate-x-full');
+        sidepaneMask.classList.remove('-translate-x-0');
+        sidepane.classList.add('-translate-x-full');
+        sidepane.classList.remove('-translate-x-0');
+        //console.log('Mobile mode - pane closed');
+    }
+}
+
+
 function init1() {
     SetForeword(false);
-    //Open sidepane
-    document.getElementById("sidepane-toggle").click()
+    //Conditionally Open sidepane
+    openClosePane()
     //Choose First Conversation
     setTimeout(() => {
-        paperContainer.children[0].click()
-    }, 600)
-    // init2 Set the quick read section-> allow reload/refresh
-    init6()
+        waitForElement('#paper-container > :first-child', (el) => {
+            el.click();
+            init6();
+        });
+    }, 100)
+
 }
 
 function init6() {
@@ -659,4 +684,11 @@ function displayWarning(text) {
 }
 
 // Load Foreword Initially
-init1();
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    // DOM is ready
+    init1();
+} else {
+    // DOM not ready yet
+    console.log("DOM not ready")
+    document.addEventListener('DOMContentLoaded', init1);
+}
