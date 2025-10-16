@@ -111,7 +111,7 @@ class modalHandler {
     }
     show(modalType, text = this.message, html=false) {
         if (modalType === 'load') {
-            console.log("Loading")
+            //console.log("Loading")
             // Clear any hide timers
             if (this.Timeout) clearTimeout(this.Timeout);
 

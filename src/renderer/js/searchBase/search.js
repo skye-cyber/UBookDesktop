@@ -264,7 +264,7 @@ class SelectiveSearch {
             }).filter(Boolean)
         };
 
-        console.log(filteredData)
+        //console.log(filteredData)
         return filteredData;
     }
 

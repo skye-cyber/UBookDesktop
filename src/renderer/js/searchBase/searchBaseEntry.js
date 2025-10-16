@@ -16,22 +16,22 @@ function submitSearchWPrefs() {
 
 // Search button click handler
 submitSearch?.addEventListener("click", () => {
-    searchInitializer(e)
+    searchInitializer()
 });
 
 // Search input Enter key handler
 searchInput?.addEventListener("keydown", (e) => {
-    searchInitializer(e)
+    if (e.key === "Enter" && !e.shiftKey) {
+        searchInitializer()
+    }
 });
 
-function searchInitializer(e) {
-    if (e.key === "Enter" && !e.shiftKey) {
-        const query = searchInput.value.trim();
-        if (!query) return;
-        console.log("Searching for:", query);
-        PerformSearch(query);
-        searchInput.value = ""; // Clear after search
-    }
+function searchInitializer() {
+    const query = searchInput.value.trim();
+    if (!query) return;
+    //console.log("Searching for:", query);
+    PerformSearch(query);
+    searchInput.value = ""; // Clear after search
 }
 /**
  * Initialize search with the selected parts and mode
