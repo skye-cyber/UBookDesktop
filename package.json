@@ -82,7 +82,8 @@
     "src/renderer/**/*",
     "src/main/**/*",
     "public/**/*",
-    "!node_modules/"
+    "!node_modules/",
+    "!.eproj"
   ],
   "build": {
     "appId": "com.ubookdesktop.app",
