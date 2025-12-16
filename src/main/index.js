@@ -1,23 +1,15 @@
-const { app, BrowserWindow, Tray, Menu, ipcMain, Notification } = require('electron');
+const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
 
 let mainWindow;
 
-/*
-try {
-    require("electron-reload")(__dirname, {
-        electron: require(`${__dirname}/node_modules/electron`)
-    });
-} catch (_) {}
-*/
-
 const isDev = !app.isPackaged;
 
 const iconPath = isDev
-    ? path.join(__dirname, '../assets/UBookDesktop.png') // for dev
-    : path.join(process.resourcesPath, 'assets/UBookDesktop.png'); // for prod
+    ? path.join(__dirname, '../assets/ubookdesktop.png') // for dev
+    : path.join(process.resourcesPath, './assets/ubookdesktop.png'); // for prod
 
 app.disableHardwareAcceleration()
 
@@ -38,7 +30,9 @@ ipcMain.handle('show-documentation', () => {
             contextIsolation: true
         }
     });
-    _docWindow.loadFile(path.join(__dirname, '../assets/documentation.html'));
+    isDev
+    ? _docWindow.loadFile(path.join(__dirname, '../assets/documentation.html'))
+    : _docWindow.loadFile(path.join(process.resourcesPath, './assets/documentation.html'));
 });
 
 const template = [
@@ -141,7 +135,16 @@ function createWindow() {
     });
 
     // Load the main application when it is ready
-    mainWindow.loadFile(path.join(__dirname, '../renderer/index.html')); // Load your HTML file
+    if (isDev) {
+        mainWindow.loadURL('http://localhost:30001/')
+        // Open DevTools in development
+        //mainWindow.webContents.openDevTools()
+    } else {
+        // Load the main application when it is ready
+        isDev
+        ? mainWindow.loadFile(path.join(__dirname, '../build/index.html'))
+        : mainWindow.loadFile(path.join(process.resourcesPath, './build/index.html'))
+    }
 
     // Show the main window and close the loading window when the main window is ready to show**
     mainWindow.once('ready-to-show', () => {
@@ -163,7 +166,7 @@ function createWindow() {
 }
 
 // Set the app user model ID
-app.setAppUserModelId('com.UBookDesktop.app');
+app.setAppUserModelId('com.ubookdesktop.app');
 
 app.on('ready', async () => {
 
@@ -173,12 +176,10 @@ app.on('ready', async () => {
     await prepFavouriteFile();
 
     // Create and set the menu
-    const menu = Menu.buildFromTemplate(template);
+    const menu = Menu.buildFromTemplate([])//(template);
     Menu.setApplicationMenu(menu);
     // Create the main window
     const mainWindow = createWindow();
-    //const storagePath = path.join(app.getPath('home'), '.quickai.store');
-    //mainWindow.webContents.send('storagePath', storagePath);
 
     // Create the tray icon
     const tray = new Tray(iconPath); // Path to your tray icon
@@ -320,3 +321,16 @@ async function prepBookmarkFile() {
         return true; // or true if you want to indicate success after creation
     }
 }
+
+// IPC handler for keys reset
+ipcMain.handle('get-app-version', async (event, accounts) => {
+    try {
+        return app.getVersion()
+    } catch (err) {
+        //console.log(err)
+    }
+});
+
+ipcMain.handle('get-dev-status', async (event) => {
+    return isDev
+})

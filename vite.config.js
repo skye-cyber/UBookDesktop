@@ -10,7 +10,7 @@ export default defineConfig({
     //root: resolve(__dirname, 'src/ui'),
     //publicDir: resolve(__dirname, 'src/assets'),
     server: {
-        port: 40099,
+        port: 30001,
     },
     build: {
         outDir: resolve(__dirname, 'build'),

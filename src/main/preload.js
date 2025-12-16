@@ -4,15 +4,17 @@ const path = require('path');
 const os = require('os');
 const { exec } = require('child_process');
 
+window.global = window;
+
 contextBridge.exposeInMainWorld('global', window);
 
 const BaseDir = path.join(os.homedir(), '.UBookDesk');
-const notesDir = path.join(BaseDir, '.saveNotes');
+const notesDir = path.join(BaseDir, '.notes');
 const favouriteDir = path.join(BaseDir, '.favourites');
 const bookmarkDir = path.join(BaseDir, '.bookmark');
 const cacheDir = path.join(BaseDir, '.cache');
 
-contextBridge.exposeInMainWorld('api', {
+const api = {
     getDownloadsPath: () => {
         const downloadsPath = path.join(os.homedir(), 'Downloads');
         return downloadsPath;
@@ -101,10 +103,10 @@ contextBridge.exposeInMainWorld('api', {
 
             // Read the existing file content
             const data = JSON.parse(await fs.promises.readFile(fpath, 'utf-8'));
-            const filtered_notes = data.notes.filter(note=>(new Date(note.timestamp).toLocaleString()!==noteId))
+            const filtered_notes = data.notes.filter(note => (new Date(note.timestamp).toLocaleString() !== noteId))
 
             // Write the updated data back to the file
-            await fs.promises.writeFile(fpath, JSON.stringify({notes: filtered_notes}, null, 2));
+            await fs.promises.writeFile(fpath, JSON.stringify({ notes: filtered_notes }, null, 2));
 
             return true;
         } catch (err) {
@@ -240,7 +242,7 @@ contextBridge.exposeInMainWorld('api', {
             return false;
         }
     },
-    TTSConvert: async (text, model='ttskit3') => {
+    TTSConvert: async (text, model = 'ttskit3') => {
         if (!text.trim()) return null;
         const isLinux = (os.platform() === 'linux')
 
@@ -266,7 +268,7 @@ contextBridge.exposeInMainWorld('api', {
         }
 
         // For linux use picowave for shorter text
-        if ((isLinux && safeText.split(' ').length <= 30 || model !== "ttskit3"))  {
+        if ((isLinux && safeText.split(' ').length <= 30 || model !== "ttskit3")) {
             await linuxFallback()
         }
         else {
@@ -384,50 +386,19 @@ contextBridge.exposeInMainWorld('api', {
             return false;
         }
     },
-});
+};
 
-// preload.js (playback API)
-let audioContext;
-let audioBuffer;
-let sourceNode;
-let pauseTime = 0;
-let startTime = 0;
-let isManualStop = false;
-let currentOffset = 0; // track where playback starts from
+const sm_api = {
+    appVersion: async () => ipcRenderer.invoke('get-app-version',),
+    appIsDev: async () => ipcRenderer.invoke('get-dev-status',),
 
-function playFrom(offset = 0) {
+    // Settings
+    getSettings: () => ipcRenderer.invoke('get-settings'),
+    saveSettings: (settings) => ipcRenderer.invoke('save-settings', settings),
 
-    if (!audioBuffer) return;
-
-    if (sourceNode) {
-        try { sourceNode.stop(); } catch { }
-        sourceNode.disconnect();
-    }
-
-    sourceNode = audioContext.createBufferSource();
-    sourceNode.buffer = audioBuffer;
-    sourceNode.connect(audioContext.destination);
-    startTime = audioContext.currentTime - offset;
-
-    // Make sure context time is in sync with actual playing time
-    audioContext.currentTime = startTime
-
-    currentOffset = offset;
-
-    sourceNode.onended = () => {
-        if (!isManualStop) {
-            setTimeout(() => {
-                document.dispatchEvent(new Event('play-finished'));
-            }, 0);
-        } else {
-            isManualStop = false;
-        }
-    };
-
-    sourceNode.start(0, offset);
 }
 
-contextBridge.exposeInMainWorld('ReadAloud', {
+const read = {
     play: async (filePath = null) => {
         try {
             if (!audioContext) audioContext = new AudioContext();
@@ -514,4 +485,52 @@ contextBridge.exposeInMainWorld('ReadAloud', {
         //console.log(`Rewinded to ${newOffset.toFixed(2)}s`)
         return newOffset.toFixed(2)
     }
+};
+
+// preload.js (playback API)
+let audioContext;
+let audioBuffer;
+let sourceNode;
+let pauseTime = 0;
+let startTime = 0;
+let isManualStop = false;
+let currentOffset = 0; // track where playback starts from
+
+function playFrom(offset = 0) {
+
+    if (!audioBuffer) return;
+
+    if (sourceNode) {
+        try { sourceNode.stop(); } catch { }
+        sourceNode.disconnect();
+    }
+
+    sourceNode = audioContext.createBufferSource();
+    sourceNode.buffer = audioBuffer;
+    sourceNode.connect(audioContext.destination);
+    startTime = audioContext.currentTime - offset;
+
+    // Make sure context time is in sync with actual playing time
+    audioContext.currentTime = startTime
+
+    currentOffset = offset;
+
+    sourceNode.onended = () => {
+        if (!isManualStop) {
+            setTimeout(() => {
+                document.dispatchEvent(new Event('play-finished'));
+            }, 0);
+        } else {
+            isManualStop = false;
+        }
+    };
+
+    sourceNode.start(0, offset);
+}
+
+contextBridge.exposeInMainWorld('ubook', {
+    api,
+    sm_api,
+    read,
+    playFrom
 });
