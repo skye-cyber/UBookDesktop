@@ -14,5 +14,5 @@ def image_to_base64(image_path):
 
 
 # Example usage
-image_path = "../assets/UBookDesktop.png"  # Replace with your image path
+image_path = "../assets/ubookdesktop.png"  # Replace with your image path
 image_to_base64(image_path)

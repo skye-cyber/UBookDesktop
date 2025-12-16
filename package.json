@@ -1,6 +1,6 @@
 {
   "name": "ubookdesktop",
-  "version": "1.2.3",
+  "version": "1.2.5",
   "description": "An application providing urantia book content.",
   "main": "src/main/index.js",
   "homepage": "src/renderer/home.html",
@@ -8,9 +8,15 @@
     "start": "electron .",
     "dist": "electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "NODE_ENV=production npx tailwindcss -i ./src/renderer/css/config.css -o ./src/renderer/css/styles.css --minify",
-    "watch": "npx tailwindcss -i ./src/renderer/css/config.css -o ./src/renderer/css/styles.css --watch",
-    "pack": "webpack -c webpack.config.js --watch",
+    "tailwind:build": "NODE_ENV=production npx tailwindcss -i ./src/renderer/css/config.css -o ./src/renderer/css/styles.css --minify",
+    "tailwind:watch": "npx tailwindcss -i ./src/renderer/css/config.css -o ./src/renderer/css/styles.css --watch",
+    "dev": "concurrently \"npm run dev:react\" \"npm run dev:electron\"",
+    "dev:react": "vite",
+    "dev:electron": "electron .",
+    "build": "npm run build:react && sudo npm run build:electron",
+    "build:react": "vite build",
+    "build:electron": "electron-builder",
+    "preview": "vite preview",
     "package": "electron-packager .",
     "forge": "electron-forge package",
     "generate:linux-icons": "node src/scripts/generate-linux-icons.js",
@@ -30,44 +36,56 @@
   },
   "license": "GNU",
   "devDependencies": {
-    "@babel/core": "latest",
-    "@fiahfy/icns": "^0.0.7",
-    "assert": "^2.1.0",
-    "babel-loader": "latest",
-    "browserify-fs": "^1.0.0",
-    "browserify-zlib": "^0.2.0",
-    "child_process": "^1.0.2",
-    "child-process-promise": "latest",
-    "copy-webpack-plugin": "^13.0.0",
+    "@tailwindcss/typography": "^0.5.15",
+    "concurrently": "^9.2.1",
     "electron": "latest",
     "electron-builder": "latest",
-    "electron-reload": "^2.0.0-alpha.1",
-    "fs": "latest",
-    "https-browserify": "^1.0.0",
-    "lunr": "^2.3.9",
-    "os-browserify": "^0.3.0",
-    "path-browserify": "^1.0.1",
-    "play-sound": "^1.1.6",
-    "process": "^0.11.10",
-    "sharp": "^0.30.7",
-    "stream-browserify": "^3.0.0",
-    "stream-http": "^3.2.0",
-    "url": "^0.11.4",
-    "webpack": "latest"
-  },
-  "dependencies": {
-    "@tailwindcss/typography": "latest",
     "audit": "^0.0.6",
     "fix": "^0.0.6"
   },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@tailwindcss/typography": "latest",
+    "@babel/core": "latest",
+    "@fiahfy/icns": "^0.0.7",
+    "assert": "^2.1.0",
+    "base": "^3.0.0",
+    "bl": "^6.0.16",
+    "braces": "^3.0.3",
+    "browser": "^0.2.6",
+    "browserify-fs": "^1.0.0",
+    "browserify-zlib": "^0.2.0",
+    "stream-browserify": "^3.0.0",
+    "os-browserify": "^0.3.0",
+    "path-browserify": "^1.0.1",
+    "https-browserify": "^1.0.0",
+    "vm-browserify": "^1.1.2",
+    "child_process": "^1.0.2",
+    "child-process-promise": "latest",
+    "fs": "latest",
+    "lunr": "^2.3.9",
+    "play-sound": "^1.1.6",
+    "process": "^0.11.10",
+    "sharp": "^0.30.7",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.4",
+    "vite": "^7.1.12",
+    "vite-plugin-node-polyfills": "^0.24.0",
+    "rollup-plugin-node-polyfills": "^0.2.1"
+  },
   "files": [
     "README.md",
+    "LICENSE",
     "package.json",
-    "assets/documentation.html",
-    "src/**/*"
+    "build/**/*",
+    "src/renderer/**/*",
+    "src/main/**/*",
+    "public/**/*",
+    "!node_modules/"
   ],
   "build": {
-    "appId": "com.UBookDesktop.app",
+    "appId": "com.ubookdesktop.app",
     "productName": "UBookDesktop",
     "electronDownload": {
       "cache": true
@@ -80,6 +98,13 @@
       {
         "from": "src/assets/",
         "to": "assets/"
+      },
+      {
+        "from": "build/",
+        "to": "build/",
+        "filter": [
+          "**/*"
+        ]
       },
       {
         "from": "src/common/",
@@ -96,7 +121,7 @@
           ]
         }
       ],
-      "icon": "src/assets/UBookDesktop.icns",
+      "icon": "src/assets/ubookdesktop.icns",
       "category": "public.app-category.productivity",
       "hardenedRuntime": true,
       "gatekeeperAssess": false,
@@ -108,7 +133,7 @@
       "artifactName": "${productName}-${version}-${arch}.dmg"
     },
     "win": {
-      "icon": "src/assets/UBookDesktop.ico",
+      "icon": "src/assets/ubookdesktop.ico",
       "target": [
         {
           "target": "nsis",

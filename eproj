@@ -7,7 +7,7 @@ class ElectronProject:
     def __init__(self, project_name):
         self.project_name = project_name
         self.main_dirs = ['src', 'public', 'node_modules']
-        self.src_dirs = ['main', 'renderer', 'assets', 'components', 'common']
+        self.src_dirs = ['main', 'renderer', 'ui', 'assets', 'components', 'common']
         self.main_files = ['package.json', 'README.md']
         self.main_sub_files = ['index.js', 'preload.js']
         self.renderer_dirs = ['js', 'css', 'images']
