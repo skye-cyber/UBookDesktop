@@ -15,9 +15,9 @@ const mountApp = async () => {
             });
         }
 
-        const container = document.getElementById('react-root');
+        const container = document.getElementById('ui-root');
         if (!container) {
-            throw new Error('React root element (#react-root) not found in DOM');
+            throw new Error('React root element (#ui-root) not found in DOM');
         }
 
         console.log('✅ DOM ready, container found');
@@ -32,7 +32,7 @@ const mountApp = async () => {
         console.error('💥 Failed to mount React app:', error);
 
         // Provide user feedback
-        const container = document.getElementById('react-root');
+        const container = document.getElementById('ui-root');
         if (container) {
             container.innerHTML = `
             <div style="padding: 20px; color: #721c24; background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 4px;">
