@@ -31,12 +31,6 @@ const App = () => {
                         <RightPanel isOpen={isSidebarOpen} onToggle={toggleSidebar} />
                     </ErrorBoundary>
                 </div>
-                <ErrorBoundary>
-                    <NotificationFlyer isOpen={true} onToggle={null} />
-                </ErrorBoundary>
-                <ErrorBoundary>
-                    <Notifcation isOpen={true} onToggle={null} />
-                </ErrorBoundary>
             </MainLayout>
             {/* Portal containers for vanilla JS components */}
             <ErrorBoundary>

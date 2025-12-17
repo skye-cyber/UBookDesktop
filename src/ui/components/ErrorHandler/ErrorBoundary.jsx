@@ -1,5 +1,5 @@
 import React from 'react';
-import { appIsDev } from '../../../renderer/js/managers/ConversationManager/Mistral/shared';
+import { appIsDev } from '../../hooks/api';
 
 class ErrorBoundary extends React.Component {
     constructor(props) {

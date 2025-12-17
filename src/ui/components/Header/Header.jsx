@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 
 
 export const Header = ({ }) => {
-    const searchContainer = useRef(null)
+    let searchContainer = useRef(null)
 
     const ToggleLeftPanel = useCallback(() => {
         document.dispatchEvent(new CustomEvent('toggle-left-panel'))

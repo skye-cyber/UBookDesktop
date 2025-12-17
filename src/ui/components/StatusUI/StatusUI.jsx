@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { hideStatus } from './util';
-import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import ErrorBoundary from '../ErrorHandler/ErrorBoundary';
 
 export const StatusUI = ({ isOpen, onToggle }) => {
     const hideErrorModal = useCallback(() => {

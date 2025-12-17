@@ -176,7 +176,7 @@ app.on('ready', async () => {
     await prepFavouriteFile();
 
     // Create and set the menu
-    const menu = Menu.buildFromTemplate([])//(template);
+    const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
     // Create the main window
     const mainWindow = createWindow();
