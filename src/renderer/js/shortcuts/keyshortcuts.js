@@ -11,14 +11,16 @@ document.addEventListener('keydown', (event) => {
 
     // 1) if it’s F11, do nothing here and let the browser/Electron handle it
     if (event.key === "F11" || event.code === "F11") {
-        clearInterface();
+        focus()
     }
     else if (event.key === 'Escape') {
         event.preventDefault();
-        closeSearchModal();
+        //document.dispatchEvent(new CustomEvent('toggle-left-panel'))
+
         closeSearchPref();
         engine.removeHighlightedSpans();
-        hideTooltip();
+        document.dispatchEvent(new CustomEvent('hide-onselect-tooltip-menu'))
+
         // Context menu handler
         contextMenu.classList.remove('active');
         closeModals();
@@ -83,6 +85,13 @@ document.addEventListener('keydown', (event) => {
         changeFontSize(-1)
     } else if (event.ctrlKey && event.key.toLocaleLowerCase() === 'tab') {
         event.preventDefault();
-        clearInterface()
+        focus()
     }
 });
+
+function focus(){
+    const focused = window.StateManager.get('focusMode')
+    document.dispatchEvent(new CustomEvent('focusMode'))
+    window.StateManager.get('readerTopPanelToggle')()
+    window.StateManager.set('focusMode', !focused)
+}

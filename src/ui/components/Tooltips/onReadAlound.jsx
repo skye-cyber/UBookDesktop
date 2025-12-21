@@ -16,8 +16,8 @@ export const PlayerTooltip = ({ }) => {
             <button id="btn-play-pause" title="Play/Pause"
                 className="bg-sky-600 flex items-center justify-center hover:bg-sky-300 focus:outline-none text-white font-bold p-2.5 rounded-full transition-colors duration-700" aria-label="Play">
                 {/* Play Icon */}
-                <svg id="icon-play" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"></path>
+                <svg id="icon-play" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"></path>
                 </svg>
                 {/* Terminate Icon */}
                 <div id="icon-paused" className="hidden px-1 py-0.5 grid grid-cols-2 gap-1 items-center justify-center text-white font-bold rounded-full transition-colors duration-700">

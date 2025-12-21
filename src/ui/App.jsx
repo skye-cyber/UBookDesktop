@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MainLayout } from '@components/Layout/MainLayout';
+import { MainLayout } from './components/Layout/MainLayout';
 import { Header } from '@components/Header/Header';
 import { LeftPanel } from '@components/Panels/LeftPanel';
 import { RightPanel } from './components/Panels/RightPanel';
@@ -14,6 +14,8 @@ import { StaticPortalContainer } from './StaticPortalContainer';
 import { StreamingPortalContainer } from './StreamingPortalContainer';
 import '../renderer/js/react-portal-bridge';
 import './PortalTargetRegister';
+import { StateManager } from '../renderer/js/syscore/StatesManager';
+import { SearchResultPage } from './Pages/Search';
 
 const App = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -24,7 +26,7 @@ const App = () => {
         <ErrorBoundary>
             <MainLayout>
                 <Header />
-                <div className='flex flex-shrink'>
+                <div className='w-full h-[100vh] flex'>
                     <ErrorBoundary>
                         <LeftPanel isOpen={isSidebarOpen} onToggle={toggleSidebar} />
                         <ReaderUI />
@@ -40,6 +42,7 @@ const App = () => {
                 <StreamingPortalContainer />
             </ErrorBoundary>
             <StatusUI />
+            <SearchResultPage />
         </ErrorBoundary >
     );
 };
