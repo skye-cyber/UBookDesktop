@@ -134,28 +134,57 @@ function createWindow() {
         }
     });
 
+    mainWindow.webContents.on('did-finish-load', () => {
+        console.log('did-finish-load fired');
+    });
+
+    mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL) => {
+        console.error('did-fail-load', errorCode, errorDescription, validatedURL);
+    });
+
+    mainWindow.webContents.on('render-process-gone', (event, details) => {
+        console.error('Renderer crashed or exited', details);
+    });
+
     // Load the main application when it is ready
     if (isDev) {
         mainWindow.loadURL('http://localhost:30001/')
         // Open DevTools in development
         //mainWindow.webContents.openDevTools()
     } else {
-        // Load the main application when it is ready
         isDev
         ? mainWindow.loadFile(path.join(__dirname, '../build/index.html'))
         : mainWindow.loadFile(path.join(process.resourcesPath, './build/index.html'))
     }
 
     // Show the main window and close the loading window when the main window is ready to show**
-    mainWindow.once('ready-to-show', () => {
+    /*mainWindow.once('ready-to-show', () => {
+        console.log('Main window ready')
+        console.log('ready-to-show fired');
+        // Load the main application when it is ready
         mainWindow.show();
-        loadingWindow.close();
+        //loadingWindow.close();
+        // Prefer destroy over close for the splash
+        if (!loadingWindow.isDestroyed()) {
+            loadingWindow.destroy();
+        }
+    });*/
+
+    // Use 'did-finish-load' or 'dom-ready' for reliability
+    mainWindow.webContents.once('did-finish-load', () => {
+        console.log('did-finish-load fired (show main window)');
+        mainWindow.show();
+
+        // Prefer destroy over close for the splash
+        if (!loadingWindow.isDestroyed()) {
+            loadingWindow.destroy();
+        }
     });
 
     // Intercept the window close event
     mainWindow.on('close', (event) => {
         if (!app.isQuiting) {
-            event.preventDefault();   // ❌ prevent window from actually closing
+            //event.preventDefault();   // ❌ prevent window from actually closing
             mainWindow.hide();        // ✅ just hide it to tray
         }
         return false;
