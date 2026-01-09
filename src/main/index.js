@@ -134,6 +134,7 @@ function createWindow() {
         }
     });
 
+    /*
     mainWindow.webContents.on('did-finish-load', () => {
         console.log('did-finish-load fired');
     });
@@ -145,6 +146,7 @@ function createWindow() {
     mainWindow.webContents.on('render-process-gone', (event, details) => {
         console.error('Renderer crashed or exited', details);
     });
+    */
 
     // Load the main application when it is ready
     if (isDev) {
@@ -172,7 +174,7 @@ function createWindow() {
 
     // Use 'did-finish-load' or 'dom-ready' for reliability
     mainWindow.webContents.once('did-finish-load', () => {
-        console.log('did-finish-load fired (show main window)');
+        //console.log('did-finish-load fired (show main window)');
         mainWindow.show();
 
         // Prefer destroy over close for the splash
