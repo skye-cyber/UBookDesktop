@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { MainLayout } from './components/Layout/MainLayout';
 import { Header } from '@components/Header/Header';
-import { LeftPanel } from '@components/Panels/LeftPanel';
-import { RightPanel } from './components/Panels/RightPanel';
+import { BookContentPanel } from '@components/Panels/BookContentPanel';
+import { QuickReadPanel } from './components/Panels/QuickReadPanel';
 import { ReaderUI } from './components/Reader/ui';
 import ErrorBoundary from '@components/ErrorHandler/ErrorBoundary';
 import '@css/styles.css';
@@ -14,8 +14,9 @@ import { StaticPortalContainer } from './StaticPortalContainer';
 import { StreamingPortalContainer } from './StreamingPortalContainer';
 import '../renderer/js/react-portal-bridge';
 import './PortalTargetRegister';
-import { StateManager } from '../renderer/js/syscore/StatesManager';
+import '../renderer/js/syscore/StatesManager';
 import { SearchResultPage } from './Pages/Search';
+import '../renderer/js/Status/Manager';
 
 const App = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -28,11 +29,18 @@ const App = () => {
                 <Header />
                 <div className='w-full h-[100vh] flex'>
                     <ErrorBoundary>
-                        <LeftPanel isOpen={isSidebarOpen} onToggle={toggleSidebar} />
+                        <QuickReadPanel isOpen={isSidebarOpen} onToggle={toggleSidebar} />
                         <ReaderUI />
-                        <RightPanel isOpen={isSidebarOpen} onToggle={toggleSidebar} />
+                        <BookContentPanel isOpen={isSidebarOpen} onToggle={toggleSidebar} />
                     </ErrorBoundary>
                 </div>
+                {/* status display modals */}
+                <div data-portal-container='messageContainer'
+                    id='message-container'
+                    className='fixed top-5 right-5 z-[50] min-w-sm w-fit max-w-lg transform transition-all duration-700 ease-in-out'>
+                </div>
+                {/* confirm dialog */}
+                <div data-portal-container='ConfirmdialogContainer' id='confirm-dialog-container'></div>
             </MainLayout>
             {/* Portal containers for vanilla JS components */}
             <ErrorBoundary>

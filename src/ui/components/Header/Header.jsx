@@ -6,7 +6,7 @@ export const Header = ({ }) => {
     let searchContainer = useRef(null)
     const { isDark, toggleTheme, setTheme } = useTheme();
 
-    const ToggleLeftPanel = useCallback(() => {
+    const ToggleBookContentPanel = useCallback(() => {
         document.dispatchEvent(new CustomEvent('toggle-left-panel'))
     })
 
@@ -41,7 +41,7 @@ export const Header = ({ }) => {
         <header className="flex items-center px-4 bg-indigo-800 dark:bg-[#00657c] dark:border-y dark:border-t-0 dark:border-b-[#006d91] backdrop-blur-lg shadow-sm dark:border-b dark:border-slate-200/60 dark:border-slate-700/60 z-50 transition-all duration-500">
             {/* Left Section: Hamburger Menu */}
             <section className="relative flex items-center select-none">
-                <button onClick={ToggleLeftPanel} id="left-panel-toggle" className="flex flex-col justify-center items-center h-10 w-10 rounded-lg bg-[#160041] dark:bg-sky-500 hover:bg-[#270075] dark:hover:bg-sky-700 transition-colors duration-300 focus:outline-none focus:ring-none focus:ring-primary-500">
+                <button onClick={ToggleBookContentPanel} id="book-content-panel" className="flex flex-col justify-center items-center h-10 w-10 rounded-lg bg-[#160041] dark:bg-sky-500 hover:bg-[#270075] dark:hover:bg-sky-700 transition-colors duration-300 focus:outline-none focus:ring-none focus:ring-primary-500">
                     <span className="w-5 h-0.5 bg-white dark:bg-slate-200 mb-1.5 rounded-full transition-all duration-300"></span>
                     <span className="w-5 h-0.5 bg-white dark:bg-slate-200 mb-1.5 rounded-full transition-all duration-300"></span>
                     <span className="w-5 h-0.5 bg-white dark:bg-slate-200 rounded-full transition-all duration-300"></span>

@@ -16,8 +16,9 @@ document.addEventListener('keydown', (event) => {
     else if (event.key === 'Escape') {
         event.preventDefault();
         //document.dispatchEvent(new CustomEvent('toggle-left-panel'))
-
-        closeSearchPref();
+        document.dispatchEvent(new CustomEvent('escape-key-down'))
+        /*
+         * closeSearchPref();
         engine.removeHighlightedSpans();
         document.dispatchEvent(new CustomEvent('hide-onselect-tooltip-menu'))
 
@@ -25,8 +26,9 @@ document.addEventListener('keydown', (event) => {
         contextMenu.classList.remove('active');
         closeModals();
         handleDelectAll()
-        //
+
         hideNotesModal()
+        */
     }
     if (event.ctrlKey && event.key === 'S' || event.ctrlKey && event.key === 's') {
         event.preventDefault(); // Prevent the default Save action in browsers
@@ -34,7 +36,7 @@ document.addEventListener('keydown', (event) => {
 
     } else if ((event.ctrlKey && event.key === 'P' || event.ctrlKey && event.key === 'p') && !event.shiftKey) {
         event.preventDefault(); // Prevent any default action
-        document.getElementById("sidepane-toggle").click()
+        document.getElementById("book-content-panel").click()
 
     } else if (event.ctrlKey && event.key === 'N' || event.ctrlKey && event.key === 'n') {
         //NewConversation(event);
@@ -89,7 +91,7 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-function focus(){
+function focus() {
     const focused = window.StateManager.get('focusMode')
     document.dispatchEvent(new CustomEvent('focusMode'))
     window.StateManager.get('readerTopPanelToggle')()

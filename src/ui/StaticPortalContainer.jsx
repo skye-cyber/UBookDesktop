@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { BookItem } from './components/Reader/Book/BookItem';
+import { Toast } from './components/StatusUI/ToastsUI';
+import { Readable, Textual } from './components/Reader/Book/ContentWrapper';
 
-const componentRegistry = {};
+const componentRegistry = {
+    BookItem,
+    Toast,
+    Readable,
+    Textual
+};
 
 export const StaticPortalContainer = () => {
     const [portals, setPortals] = useState([]);
@@ -135,10 +143,10 @@ export const StaticPortalContainer = () => {
                     return null;
                 }
 
-                const portalRoot = containerElement.querySelector('.react-portal-root');
+                let portalRoot = containerElement.querySelector('.react-portal-root');
                 if (!portalRoot) {
-                    console.warn(`Container .react-portal-root not found in ${containerId}`);
-                    return null;
+                    console.warn(`Container .react-portal-root not found in ${containerId}: Defaulting to self`);
+                    portalRoot = containerElement;
                 }
 
                 return ReactDOM.createPortal(

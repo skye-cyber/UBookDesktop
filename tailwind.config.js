@@ -5,8 +5,11 @@ module.exports = {
     //content: ['loading.html'],
     theme: {
         screens: {
-            sm: '640px',
+            sxs: '256px',
+            xs: '384px',
+            sm: '512px', //previously 640px
             md: '768px',
+            sd: '896px',
             lg: '1024px',
             xl: '1280px',
             '2xl': '1536px',
@@ -14,11 +17,45 @@ module.exports = {
 
         fontFamily: {
             reader: ['Source Serif Pro', 'Georgia', 'serif'],
-            body: ['Synonym', 'system-ui', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'], // Adding JetBrains Mono for monospaced text
+            display: ['Source Serif Pro', 'Georgia', 'Cambria', 'Times New Roman', 'serif'],
+            body: ['Synonym', 'Inter', 'SF Pro Display', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+            brand: ['Poppins', 'Montserrat', 'SF Pro Display', 'system-ui', 'sans-serif'],
+            handwriting: ['Dancing Script', 'Pacifico', 'Caveat', 'cursive'],
+            serif: ['Source Serif Pro', 'Merriweather', 'Lora', 'Georgia', 'Cambria', 'Times New Roman', 'serif'],
+            sans: ['Synonym', 'Inter', 'SF Pro Text', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+            modern: ['Poppins', 'Montserrat', 'SF Pro Display', 'Outfit'],
+            elegant: ['Playfair Display', 'Cormorant Garamond', 'Georgia'],
+            condensed: ['Roboto Condensed', 'Oswald', 'Arial Narrow', 'sans-serif-condensed'],
+            code: ['JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Source Code Pro', 'Monaco', 'Consolas', 'monospace'],
         },
 
         extend: {
+            boxShadow: {
+                'balanced-sm': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+                'balanced': '0 2px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.08)',
+                'balanced-md': '0 4px 12px 0 rgba(0, 0, 0, 0.1), 0 2px 6px 0 rgba(0, 0, 0, 0.08)',
+                'balanced-lg': '0 8px 24px 0 rgba(0, 0, 0, 0.1), 0 4px 12px 0 rgba(0, 0, 0, 0.08)',
+                'balanced-xl': '0 12px 36px 0 rgba(0, 0, 0, 0.1), 0 6px 18px 0 rgba(0, 0, 0, 0.08)',
+                'balanced-2xl': '0 24px 48px 0 rgba(0, 0, 0, 0.1), 0 12px 24px 0 rgba(0, 0, 0, 0.08)',
+
+                // Even more balanced (centered)
+                'centered-sm': '0 0 3px 0 rgba(0, 0, 0, 0.1)',
+                'centered': '0 0 6px 0 rgba(0, 0, 0, 0.1)',
+                'centered-md': '0 0 12px 0 rgba(0, 0, 0, 0.1)',
+                'centered-lg': '0 0 24px 0 rgba(0, 0, 0, 0.1)',
+                'centered-xl': '0 0 36px 0 rgba(0, 0, 0, 0.15)',
+
+                // Soft balanced shadows
+                'soft': '0 2px 8px rgba(0, 0, 0, 0.08)',
+                'soft-md': '0 4px 16px rgba(0, 0, 0, 0.08)',
+                'soft-lg': '0 8px 32px rgba(0, 0, 0, 0.1)',
+
+                // For your message component specifically
+                'message': '0 2px 8px rgba(0, 0, 0, 0.1)',
+                'message-hover': '0 4px 16px rgba(0, 0, 0, 0.12)',
+            },
+
             colors: {
                 primary: {
                     50: '#f0f9ff',

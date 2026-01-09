@@ -52,6 +52,12 @@ export const Toast = ({ type, message, messageId, duration = null, autoDismiss =
         if (!shown) {
             fadeIn()
         }
+
+        setInterval(() => {
+            if (!duration || duration < 1000) return clearInterval()
+            duration = duration - 1000
+        }, 1000)
+
         if (autoDismiss && duration) {
             setdismissTimer(setTimeout(() => {
                 if (!portal_id) return window.ModalManager.dismissMessage(messageId)
@@ -79,14 +85,15 @@ export const Toast = ({ type, message, messageId, duration = null, autoDismiss =
     })
 
     return (
-        <div id={messageId}
+        <div
+            id={messageId}
             ref={portalRef}
             data-pid={portal_id}
             dismisstimer={dismissTimer}
-            className="message-toast transform transition-all duration-500 ease-in-out opacity-0 translate-x-full backdrop-blur-lg"
+            className="message-toast transform transition-all duration-500 ease-in-out opacity-0 translate-x-full backdrop-blur-lg mb-2"
             data-message-id={messageId}
             data-auto-dismiss={autoDismiss}>
-            <div className="relative bg-white/95 dark:bg-primary-800/95 border border-secondary-400/50 dark:border-accent-200/50 rounded-2xl shadow-2xl p-5 overflow-hidden backdrop-blur-lg">
+            <div className="relative bg-white/95 dark:bg-primary-800/85 border border-secondary-400/50 dark:border-accent-200/50 rounded-2xl shadow-2xl p-5 overflow-hidden backdrop-blur-lg">
                 {/* Animated gradient background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${typeConfig[type].gradient} opacity-5`}></div>
 
@@ -105,14 +112,15 @@ export const Toast = ({ type, message, messageId, duration = null, autoDismiss =
                     </div>
 
                     {/* Message Text */}
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 font-handwriting">
                         <p className={`text-base font-semibold ${typeConfig[type].textColor} leading-relaxed tracking-tight`}>
                             {message}
                         </p>
                     </div>
 
                     {/* Close Button */}
-                    <button type="button"
+                    <button
+                        type="button"
                         className="ml-4 flex-shrink-0 w-8 h-8 bg-gray-100 dark:bg-primary-800 hover:bg-gray-200 dark:hover:bg-primary-700 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 hover:rotate-90 group"
                         onClick={closePortal}>
                         <svg className="w-4 h-4 text-gray-700 dark:text-gray-200 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors stroke-current dark:stroke-primary-200" fill="none" viewBox="0 0 24 24">

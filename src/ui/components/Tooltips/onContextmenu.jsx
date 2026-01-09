@@ -1,5 +1,5 @@
 import React from 'react';
-import { ContentLoader } from '../Panels/LeftPanel';
+import { ContentLoader } from '../Panels/BookContentPanel';
 
 export const ContextMenu = ({ }) => {
     return (
