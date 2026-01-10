@@ -17,6 +17,7 @@ import './PortalTargetRegister';
 import '../renderer/js/syscore/StatesManager';
 import { SearchResultPage } from './Pages/Search';
 import '../renderer/js/Status/Manager';
+import { NotesPage } from './Pages/Notes';
 
 const App = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -40,7 +41,7 @@ const App = () => {
                     className='fixed top-5 right-5 z-[50] min-w-sm w-fit max-w-lg transform transition-all duration-700 ease-in-out'>
                 </div>
                 {/* confirm dialog */}
-                <div data-portal-container='ConfirmdialogContainer' id='confirm-dialog-container'></div>
+                <div data-portal-container='confirm-dialog-container' id='confirm-dialog-container'></div>
             </MainLayout>
             {/* Portal containers for vanilla JS components */}
             <ErrorBoundary>
@@ -51,6 +52,7 @@ const App = () => {
             </ErrorBoundary>
             <StatusUI />
             <SearchResultPage />
+            <NotesPage />
         </ErrorBoundary >
     );
 };

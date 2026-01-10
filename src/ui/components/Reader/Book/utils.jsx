@@ -16,7 +16,7 @@ const part_keys = [
 
 
 export class ContentHelper {
-    static randomized_part(){
+    static randomized_part() {
         return this.getSource(part_keys[Math.floor(Math.random() * part_keys.length)])
     }
 
@@ -154,5 +154,7 @@ export class ContentHelper {
             element.scrollTo({ top: element.scrollHeight, behavior: 'smooth' });
         }, 100);
     }
-
+    static capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 }

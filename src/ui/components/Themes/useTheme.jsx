@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { appState } from '../Reader/appState';
 
 const ThemeToggle = () => {
     const [isDark, setIsDark] = useState(false);
@@ -27,9 +28,11 @@ const ThemeToggle = () => {
         if (newTheme) {
             document.documentElement.classList.add('dark');
             localStorage.setItem('theme', 'dark');
+            appState.currentTheme = 'dark'
         } else {
             document.documentElement.classList.remove('dark');
             localStorage.setItem('theme', 'light');
+            appState.currentTheme = 'light'
         }
     };
 

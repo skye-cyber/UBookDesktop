@@ -867,6 +867,18 @@ video {
   z-index: 99;
 }
 
+.z-0 {
+  z-index: 0;
+}
+
+.z-60 {
+  z-index: 60;
+}
+
+.z-\[\] {
+  z-index: ;
+}
+
 .m-2 {
   margin: 0.5rem;
 }
@@ -1670,6 +1682,10 @@ video {
 .divide-gray-300 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-divide-opacity, 1));
+}
+
+.overflow-auto {
+  overflow: auto;
 }
 
 .overflow-hidden {
@@ -4763,6 +4779,10 @@ html{
 }
 
 @media (min-width: 1280px) {
+  .xl\:max-h-\[90vh\] {
+    max-height: 90vh;
+  }
+
   .xl\:translate-x-0 {
     --tw-translate-x: 0px;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));

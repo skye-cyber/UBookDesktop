@@ -21,7 +21,6 @@ export const ReaderUI = ({ }) => {
                 <ContextMenuToast />
             </section>
             <BookItemSelectorUI />
-
         </>
     );
 };

@@ -43,7 +43,7 @@ export const ConfirmationDialog = ({ title, message, dialog_id, portal_id, resol
     return (
         <div id={dialog_id}
             ref={portalRef}
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[99]">
             <div ref={contentRef}
                 id='dialog-content'
                 className="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 transform transition-all ease-in-out duration-300 scale-95 opacity-0">
@@ -60,7 +60,7 @@ export const ConfirmationDialog = ({ title, message, dialog_id, portal_id, resol
                         </button>
                         <button type="button"
                             className="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-3 rounded-xl transition-all duration-200 hover:scale-105"
-                            onClick={()=> closePortal(true)}>
+                            onClick={() => closePortal(true)}>
                             Confirm
                         </button>
                     </div>

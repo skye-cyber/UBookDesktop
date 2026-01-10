@@ -1,22 +1,8 @@
 import React, { useCallback, useEffect, useRef } from 'react';
+import { FontManager_ins } from './font';
+import { BookNavigator } from './navigator';
+import { ThemeManager } from './theme';
 
-class BookNavigator{
-    static nextSection(){
-        //
-    }
-    static previousSection(){
-        //
-    }
-}
-
-class FontManager{
-    static changeFontSize(offset=1){
-        //
-    }
-    static resetFontSize(){
-        //
-    }
-}
 export const ReaderProgress = ({ }) => {
     const controlBar = useRef(null)
     const panel = useRef(null)
@@ -29,7 +15,7 @@ export const ReaderProgress = ({ }) => {
         const focused = window.StateManager.get('focusMode')
         panel.current.classList.toggle('hidden', !focused)
     })
-    const changeTheme = useCallback((theme)=>{
+    const changeTheme = useCallback((theme) => {
         //
     })
 
@@ -49,7 +35,7 @@ export const ReaderProgress = ({ }) => {
     return (
         < div ref={panel} id="top-utils-panel" className=" select-none w-full" >
             <div id="progressbar" className="flex items-center bg-stone-600 w-full dark:bg-zinc-800 backdrop-blur-md py-0 px-6 md:px-10 border-gray-500 dark:border-sky-500">
-                <button onClick={BookNavigator.previousSection()} aria-label="Previous Chapter" title="Previous Chapter" className="flex items-center justify-center px-1 rounded-lg hover:bg-fuchsia-200 mr-1 transition-colors duration-500">
+                <button onClick={() => BookNavigator.previousSection()} aria-label="Previous Chapter" title="Previous Chapter" className="flex items-center justify-center px-1 rounded-lg hover:bg-fuchsia-200 mr-1 transition-colors duration-500">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <defs>
@@ -74,7 +60,7 @@ export const ReaderProgress = ({ }) => {
                         <path d="M18 7a7 7 0 0 1 0 10" />
                     </svg>
                 </button>
-                <button onClick={BookNavigator.nextSection()} aria-label="Next Chapter" title="Next Chapter" className="flex items-center justify-center p-1 hover:bg-blue-200 rounded-lg transition-colors duration-500">
+                <button onClick={() => BookNavigator.nextSection()} aria-label="Next Chapter" title="Next Chapter" className="flex items-center justify-center p-1 hover:bg-blue-200 rounded-lg transition-colors duration-500">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <defs>
@@ -98,15 +84,15 @@ export const ReaderProgress = ({ }) => {
                     <div className="flex items-center space-x-2">
                         <span className="text-sm text-gray-600 dark:text-white">Font Size:</span>
                         <div className="flex space-x-1">
-                            <button className="text-xs font-semibold px-2 py-1 bg-gray-200 dark:bg-slate-900 dark:text-white rounded" onClick={FontManager.changeFontSize(-1)}>A-</button>
-                            <button className="text-sm font-semibold px-2 py-1 bg-gray-200 dark:bg-slate-900 dark:text-white rounded" onClick={FontManager.resetFontSize()}>A</button>
-                            <button className="text-base font-bold px-2 py-1 bg-gray-200 dark:bg-slate-900 dark:text-white rounded" onClick={FontManager.changeFontSize(1)}>A+</button>
+                            <button className="text-xs font-semibold px-2 py-1 bg-gray-200 dark:bg-slate-900 dark:text-white rounded" onClick={() => FontManager_ins.changeFontSize(-1)}>A-</button>
+                            <button className="text-sm font-semibold px-2 py-1 bg-gray-200 dark:bg-slate-900 dark:text-white rounded" onClick={() => FontManager_ins.resetFontSize()}>A</button>
+                            <button className="text-base font-bold px-2 py-1 bg-gray-200 dark:bg-slate-900 dark:text-white rounded" onClick={() => FontManager_ins.changeFontSize(1)}>A+</button>
                         </div>
                     </div>
 
                     <div className="flex items-center space-x-2">
                         <span className="text-sm text-gray-600 dark:text-white">Theme:</span>
-                        <select id="themeSelector" className="text-sm border dark:border-zinc-900 dark:bg-slate-900 rounded px-2 py-1 focus:ring-none focus:outline-none" onChange={(e)=>changeTheme(e.currentTarget.value)}>
+                        <select id="themeSelector" className="text-sm border dark:border-zinc-900 dark:bg-slate-900 rounded px-2 py-1 focus:ring-none focus:outline-none" onChange={(e) => ThemeManager.changeTheme(e.currentTarget.value)}>
                             <option value="sepia">Sepia</option>
                             <option value="light">Light</option>
                             <option value="dark">Dark</option>
@@ -118,9 +104,9 @@ export const ReaderProgress = ({ }) => {
                 <div className="items-center space-x-2">
                     <span className="text-sm text-gray-600 dark:text-white">TTS Model:</span>
                     <select
-                    defaultValue={'picowave'}
-                    id="tts-model-selector"
-                    className="text-sm border dark:border-zinc-800 dark:bg-gray-700 rounded px-2 py-1 font-mono font-bold tracking-tightest focus:ring-none focus:outline-none">
+                        defaultValue={'picowave'}
+                        id="tts-model-selector"
+                        className="text-sm border dark:border-zinc-800 dark:bg-gray-700 rounded px-2 py-1 font-mono font-bold tracking-tightest focus:ring-none focus:outline-none">
                         <option value="picowave">Default (fast-robotic)</option>
                         <option value="ttskit3">ttskit3 (slow-natural)</option>
                     </select>

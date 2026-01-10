@@ -188,7 +188,7 @@ export class ModalManager {
         return new Promise((resolve) => {
             const dialog_id = GenerateId('confirm-dialog');
 
-            this.messagePId = window.reactPortalBridge.showComponentInTarget('ConfirmationDialog', 'ConfirmdialogContainer', { title: title, message: message, dialog_id: dialog_id, resolve: resolve }, "confirm")
+            this.messagePId = window.reactPortalBridge.showComponentInTarget('ConfirmationDialog', 'confirm-dialog-container', { title: title, message: message, dialog_id: dialog_id, resolve: resolve }, "confirm")
 
         });
     }

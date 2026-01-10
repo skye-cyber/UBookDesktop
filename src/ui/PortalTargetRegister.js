@@ -18,9 +18,13 @@ waitForElement('#message-container', (el) => {
 
 
 waitForElement('#confirm-dialog-container', (el) => {
-    window.reactPortalBridge.registerContainer('ConfirmdialogContainer', el);
+    window.reactPortalBridge.registerContainer('confirm-dialog-container', el);
 })
 
 waitForElement('#quick-read-container', (el) => {
     window.reactPortalBridge.registerContainer('quick-read-container', el);
+})
+
+waitForElement('#notebody', (el) => {
+    window.reactPortalBridge.registerContainer('notebody', el);
 })

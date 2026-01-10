@@ -21,7 +21,7 @@ export const Textual = ({ paragraph }) => {
     console.log(comment)
     return (
         <>
-            <div>{ContentHelper.cleanText(paragraph.text, paragraph.paragraph_number).replace(comment, commentHTML)}</div>
+            <div dangerouslySetInnerHTML={{ __html: ContentHelper.cleanText(paragraph.text, paragraph.paragraph_number).replace(comment, commentHTML) }}></div>
         </>
     )
 }

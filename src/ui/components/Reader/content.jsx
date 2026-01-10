@@ -7,10 +7,11 @@ export const ReaderContent = ({ }) => {
         const clearSection = () => {
             readerSection.current.innerHTML = ""
         }
-        window.StateManager.set('readerSection', readerSection)
+        window.StateManager.set('readerSection', readerSection.current)
+
         document.addEventListener('clear-reader-section', clearSection)
         return () => {
-            window.StateManager.set('readerSection', null)
+            //window.StateManager.set('readerSection', null)
             document.removeEventListener('clear-reader-section', clearSection)
         }
     })

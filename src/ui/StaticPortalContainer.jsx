@@ -3,12 +3,18 @@ import ReactDOM from 'react-dom';
 import { BookItem } from './components/Reader/Book/BookItem';
 import { Toast } from './components/StatusUI/ToastsUI';
 import { Readable, Textual } from './components/Reader/Book/ContentWrapper';
+import { ContentEmpty } from './components/Panels/BookContentPanel';
+import { NoteCard } from './components/Panels/Note';
+import { ConfirmationDialog } from './components/StatusUI/confirm';
 
 const componentRegistry = {
     BookItem,
     Toast,
     Readable,
-    Textual
+    Textual,
+    ContentEmpty,
+    NoteCard,
+    ConfirmationDialog
 };
 
 export const StaticPortalContainer = () => {

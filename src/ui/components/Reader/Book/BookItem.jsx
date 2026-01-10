@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ContentHelper } from './utils';
-import { waitForElement } from '../../../../renderer/js/syscore/dom_utils';
+//import { waitForElement } from '../../../../renderer/js/syscore/dom_utils';
 
 /**
  * Create item and handle favouriting and bookmarking
@@ -13,6 +13,7 @@ import { waitForElement } from '../../../../renderer/js/syscore/dom_utils';
 export const BookItem = ({ part, paper, section, title, tag, struct }) => {
     const favsvg = useRef(null)
     const bookmarksvg = useRef(null)
+    const sectionRef = useRef(null)
     const [isfav, setfav] = useState(false)
     const [isbookmarked, setbookmarked] = useState(false)
 
@@ -74,7 +75,7 @@ export const BookItem = ({ part, paper, section, title, tag, struct }) => {
 
         document.dispatchEvent(new CustomEvent('hide-item-selector'))
         document.dispatchEvent(new CustomEvent('hide-book-content-panel'))
-
+        window.StateManager.set('active_section', sectionRef.current)
     })
 
     /**
@@ -117,6 +118,7 @@ export const BookItem = ({ part, paper, section, title, tag, struct }) => {
     return (
         <li
             data-tag={tag}
+            ref={sectionRef}
             onClick={(e) => {
                 if (![bookmarksvg.current.parentElement, favsvg.current.parentElement].some(el => el.contains(e.target) || el === e.target)) {
                     e.preventDefault()
