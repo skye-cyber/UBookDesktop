@@ -62,14 +62,15 @@ export class ContentHelper {
         try {
             let comment = null;
 
-            if (paragraph.text.split('[') && paragraph.text.split('[')[1].slice(-1) === "]") {
-                comment = paragraph.text.split('[')[1].slice(0, -1) || null
+            if (paragraph.text.split('[') && paragraph.text.split('[')[1]?.slice(-1) === "]") {
+                comment = paragraph.text.split('[')[1]?.slice(0, -1) || null
             } else {
                 paragraph.text.split('[')[1] || null;
             }
             return comment || null
         } catch (err) {
-            //console.log(err)
+            console.log(err)
+            return null
         }
     }
     static cleanText(text, parNo) {
@@ -78,7 +79,7 @@ export class ContentHelper {
             .replace(/\(\d+(\.\d+)?\)\s/g, "") // replace (6666.3) paper number
             .replace(/[“”]/g, '"')  // smart double quotes → straight double quote
             .replace(/[‘’]/g, "'")  // smart single quotes → straight single quote
-        return wrapTextInParagraphs(spanText(CT), parNo);
+        return this.wrapTextInParagraphs(this.spanText(CT), parNo);
 
     }
     static wrapTextInParagraphs(text, paragraph_number) {
@@ -91,7 +92,7 @@ export class ContentHelper {
                 return `<p class=""><span class="mr-3 underline decoration-indigo-400 text-amber-700 dark:text-amber-400">${paragraph_number}&nbsp<span class="text-emerald-700 dark:text-emerald-400">&DoubleRightArrow;</span></span><span class="p-0">${segment}</span></p><br>`;
             }
             return '';
-        }).join('<br>');
+        }).join('');
 
         return wrappedText;
     }

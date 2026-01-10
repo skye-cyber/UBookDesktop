@@ -35,7 +35,7 @@ export const QuickRead = ({ }) => {
         set_content()
     }, [])
 
-    const reload_content = useCallback(()=>{
+    const reload_content = useCallback(() => {
         reload_icon_ref.current?.classList.add("animate-spin-200");
         set_content()
         setTimeout(() => {
@@ -65,10 +65,9 @@ export const QuickRead = ({ }) => {
                     </button>
                 </div>
             </section>
-            {random_section?.paragraphs.forEach(paragraph => {
-                <Textual paragraph={paragraph} />
-            })
-            }
+            {random_section?.paragraphs.map((paragraph, index) => (
+                <Textual key={index} paragraph={paragraph} />
+            ))}
         </div>
     )
 }

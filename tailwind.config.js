@@ -92,6 +92,7 @@ module.exports = {
                 'h5': '300',  // Adjust as needed
                 'h6': '200',  // Adjust as needed
             },
+
             zIndex: {
                 '20': '20',
                 '25': '25',
