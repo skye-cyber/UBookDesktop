@@ -2182,6 +2182,10 @@ video {
   --tw-bg-opacity: 0.5;
 }
 
+.bg-opacity-0 {
+  --tw-bg-opacity: 0;
+}
+
 .bg-gradient-to-b {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
@@ -3504,6 +3508,142 @@ html{
   border-radius: 4px;
 }
 
+.selection\:bg-purple-500 *::-moz-selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(168 85 247 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-purple-500 *::selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(168 85 247 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[e6f7ff\] *::-moz-selection {
+  background-color: e6f7ff;
+}
+
+.selection\:bg-\[e6f7ff\] *::selection {
+  background-color: e6f7ff;
+}
+
+.selection\:bg-\[\#e6f7ff\] *::-moz-selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(230 247 255 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[\#e6f7ff\] *::selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(230 247 255 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[\#f0fff0\] *::-moz-selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 255 240 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[\#f0fff0\] *::selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 255 240 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[\#fff0f5\] *::-moz-selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 240 245 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[\#fff0f5\] *::selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 240 245 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[\#ffffe0\] *::-moz-selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 224 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[\#ffffe0\] *::selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 224 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:text-purple-500 *::-moz-selection {
+  --tw-text-opacity: 1;
+  color: rgb(168 85 247 / var(--tw-text-opacity, 1));
+}
+
+.selection\:text-purple-500 *::selection {
+  --tw-text-opacity: 1;
+  color: rgb(168 85 247 / var(--tw-text-opacity, 1));
+}
+
+.selection\:bg-purple-500::-moz-selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(168 85 247 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-purple-500::selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(168 85 247 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[e6f7ff\]::-moz-selection {
+  background-color: e6f7ff;
+}
+
+.selection\:bg-\[e6f7ff\]::selection {
+  background-color: e6f7ff;
+}
+
+.selection\:bg-\[\#e6f7ff\]::-moz-selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(230 247 255 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[\#e6f7ff\]::selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(230 247 255 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[\#f0fff0\]::-moz-selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 255 240 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[\#f0fff0\]::selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 255 240 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[\#fff0f5\]::-moz-selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 240 245 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[\#fff0f5\]::selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 240 245 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[\#ffffe0\]::-moz-selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 224 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:bg-\[\#ffffe0\]::selection {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 224 / var(--tw-bg-opacity, 1));
+}
+
+.selection\:text-purple-500::-moz-selection {
+  --tw-text-opacity: 1;
+  color: rgb(168 85 247 / var(--tw-text-opacity, 1));
+}
+
+.selection\:text-purple-500::selection {
+  --tw-text-opacity: 1;
+  color: rgb(168 85 247 / var(--tw-text-opacity, 1));
+}
+
 .after\:absolute::after {
   content: var(--tw-content);
   position: absolute;
@@ -3907,6 +4047,10 @@ html{
 
 .active\:bg-opacity-100:active {
   --tw-bg-opacity: 1;
+}
+
+.active\:opacity-100:active {
+  opacity: 1;
 }
 
 .group:hover .group-hover\:text-blue-700 {

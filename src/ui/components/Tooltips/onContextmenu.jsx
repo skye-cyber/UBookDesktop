@@ -42,7 +42,7 @@ export const ContextMenu = ({ }) => {
 
         tooltip.current.classList.add('active')
         tooltip.current.classList.remove('opacity-0', 'pointer-events-none');
-        //tooltip.current.classList.add('opacity-100', 'pointer-events-all');
+        tooltip.current.classList.add('opacity-100', 'pointer-events-all');
 
         // Position the context menu
         contextmenu.positionContextMenu(e.pageX || e.detail.pageX, e.pageY || e.detail.pageY, tooltip.current);
@@ -50,7 +50,9 @@ export const ContextMenu = ({ }) => {
 
     const hideTooltip = useCallback(() => {
         tooltip.current.classList.remove('active')
-        //tooltip.current.classList.add('opacity-0', 'pointer-events-none');
+        tooltip.current.classList.add('opacity-0', 'pointer-events-none');
+        tooltip.current.classList.remove('opacity-100', 'pointer-events-all');
+        autohidesubmenu()
     })
 
     /**
@@ -58,10 +60,12 @@ export const ContextMenu = ({ }) => {
      * @param e Event
      */
     const autohidesubmenu = useCallback(() => {
+        if(!sub_menu) return
         sub_menu.forEach(menu => {
             menu.classList.add('hidden');
         })
     })
+
 
     useEffect(() => {
         if (!readerSection) return
@@ -85,7 +89,7 @@ export const ContextMenu = ({ }) => {
             ref={tooltip}
             //onClick={autohidesubmenu}
             id="contextMenu"
-            className="context-menu fixed top-5 left-1/2 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg shadow-xl py-2 min-w-[220px] z-50 border border-[#f8f4e9] dark:border-gray-700 pointer-event-none transition-opacity transition-transform duration-300 -translate-y-[5px] scale-[0.95] opacity-0 active:bg-opacity-100 active:scale-100 active:translate-y-0 active:pointer-events-all">
+            className="contexkt-menu fixed top-5 left-1/2 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg shadow-xl py-2 min-w-[220px] z-50 border border-[#f8f4e9] dark:border-gray-700 transition-all duration-500 -translate-y-[5px] scale-[0.95] pointer-event-none opacity-0 active:scale-100 active:translate-y-0">
             <div className="context-menu-options">
                 {/* Text Selection Options */}
                 <TextSelectionMenu selectionoptionsRef={textOptionsRef} autohide={autohidesubmenu} />
@@ -111,7 +115,7 @@ export const ContextMenu = ({ }) => {
 
 const NoteOption = ({ autohide }) => {
     return (
-        <div onMouseEnter={autohide} className="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="notes">
+        <div onMouseEnter={()=>autohide()} className="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="notes">
             <svg className="h-5 w-5 mr-3 fill-gray-400 dark:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M160 544C124.7 544 96 515.3 96 480L96 160C96 124.7 124.7 96 160 96L480 96C515.3 96 544 124.7 544 160L544 373.5C544 390.5 537.3 406.8 525.3 418.8L418.7 525.3C406.7 537.3 390.4 544 373.4 544L160 544zM485.5 368L392 368C378.7 368 368 378.7 368 392L368 485.5L485.5 368z" /></svg>
             <span>Custom Notes</span>
         </div>
@@ -119,7 +123,7 @@ const NoteOption = ({ autohide }) => {
 }
 const DictionaryOption = ({ autohide }) => {
     return (
-        <div onMouseEnter={autohide} className="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="dictionary">
+        <div onMouseEnter={()=>autohide()} className="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="dictionary">
             <svg className="h-5 w-5 mr-3 fill-gray-400 dark:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M480 576L192 576C139 576 96 533 96 480L96 160C96 107 139 64 192 64L496 64C522.5 64 544 85.5 544 112L544 400C544 420.9 530.6 438.7 512 445.3L512 512C529.7 512 544 526.3 544 544C544 561.7 529.7 576 512 576L480 576zM192 448C174.3 448 160 462.3 160 480C160 497.7 174.3 512 192 512L448 512L448 448L192 448zM224 216C224 229.3 234.7 240 248 240L424 240C437.3 240 448 229.3 448 216C448 202.7 437.3 192 424 192L248 192C234.7 192 224 202.7 224 216zM248 288C234.7 288 224 298.7 224 312C224 325.3 234.7 336 248 336L424 336C437.3 336 448 325.3 448 312C448 298.7 437.3 288 424 288L248 288z" /></svg>
             <span>Lookup Dictionary</span>
         </div>
@@ -127,7 +131,7 @@ const DictionaryOption = ({ autohide }) => {
 }
 const PrintOption = ({ autohide }) => {
     return (
-        <div onMouseEnter={autohide} className="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="print">
+        <div onMouseEnter={()=>autohide()} className="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="print">
             <svg className="h-5 w-5 mr-3 fill-gray-400 dark:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M128 128C128 92.7 156.7 64 192 64L405.5 64C422.5 64 438.8 70.7 450.8 82.7L493.3 125.2C505.3 137.2 512 153.5 512 170.5L512 208L128 208L128 128zM64 320C64 284.7 92.7 256 128 256L512 256C547.3 256 576 284.7 576 320L576 416C576 433.7 561.7 448 544 448L512 448L512 512C512 547.3 483.3 576 448 576L192 576C156.7 576 128 547.3 128 512L128 448L96 448C78.3 448 64 433.7 64 416L64 320zM192 480L192 512L448 512L448 416L192 416L192 480zM520 336C520 322.7 509.3 312 496 312C482.7 312 472 322.7 472 336C472 349.3 482.7 360 496 360C509.3 360 520 349.3 520 336z" /></svg>
             <span>Print Page</span>
             <span className="ml-auto text-xs text-gray-400">Ctrl+P</span>
@@ -138,7 +142,7 @@ const PrintOption = ({ autohide }) => {
 const BoorkmarkDisplayOption = ({ autohide }) => {
     return (
         <div
-            onMouseLeave={autohide}
+            onMouseLeave={()=>autohide()}
             onClick={() => ContentLoader_ins.loadBookmarks()}
             className="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="viewBookmarks">
             <svg className="h-5 w-5 mr-3 fill-gray-400 dark:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M192 64C156.7 64 128 92.7 128 128L128 544C128 555.5 134.2 566.2 144.2 571.8C154.2 577.4 166.5 577.3 176.4 571.4L320 485.3L463.5 571.4C473.4 577.3 485.7 577.5 495.7 571.8C505.7 566.1 512 555.5 512 544L512 128C512 92.7 483.3 64 448 64L192 64z" /></svg>
@@ -231,7 +235,10 @@ const HignlightOption = ({ autohide }) => {
 }
 const SelectAllOption = ({ autohide }) => {
     return (
-        <div onMouseEnter={autohide} className="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="selectAll">
+        <div
+            onMouseEnter={()=>autohide()}
+            onClick={()=> contextmenu.selectAll()}
+            className="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="selectAll">
             <svg className="h-7 w-7 fill-gray-400 dark:fill-gray-50 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M64 183.4C44.9 172.4 32 151.7 32 128C32 92.7 60.7 64 96 64C119.7 64 140.4 76.9 151.4 96L488.5 96C499.6 76.9 520.2 64 543.9 64C579.2 64 607.9 92.7 607.9 128C607.9 151.7 595 172.4 575.9 183.4L575.9 456.5C595 467.6 607.9 488.2 607.9 511.9C607.9 547.2 579.2 575.9 543.9 575.9C520.2 575.9 499.5 563 488.5 543.9L151.4 543.9C140.3 563 119.7 575.9 96 575.9C60.7 575.9 32 547.2 32 511.9C32 488.2 44.9 467.5 64 456.5L64 183.4zM512 183.4C502.3 177.8 494.2 169.7 488.6 160L151.4 160C145.8 169.7 137.7 177.8 128 183.4L128 456.5C137.7 462.1 145.8 470.2 151.4 479.9L488.5 479.9C494.1 470.2 502.2 462.1 511.9 456.5L511.9 183.4zM176 240C176 222.3 190.3 208 208 208L320 208C337.7 208 352 222.3 352 240L352 304C352 321.7 337.7 336 320 336L208 336C190.3 336 176 321.7 176 304L176 240zM288 384L320 384C364.2 384 400 348.2 400 304L432 304C449.7 304 464 318.3 464 336L464 400C464 417.7 449.7 432 432 432L320 432C302.3 432 288 417.7 288 400L288 384z" /></svg>
             <span>Select All</span>
             <span className="ml-auto text-xs text-gray-400">Ctrl+A</span>
@@ -240,7 +247,7 @@ const SelectAllOption = ({ autohide }) => {
 }
 const SearchOption = ({ autohide }) => {
     return (
-        <div onMouseEnter={autohide} className="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="search">
+        <div onMouseEnter={()=>autohide()} className="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="search">
             <svg className="h-7 w-7 fill-gray-400 dark:fill-gray-50 mr-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M310.6 194.3L243.4 222.5L243.4 107.2L188.7 297.5L243.4 273.3L243.4 403.6L310.6 194.3zM227.4 97.6L226.1 102.3L210.9 155.2C170.6 170.7 142 209.8 142 255.5C142 307.8 176.3 351.4 225.4 361L225.4 414.6C147.5 404.1 90 336.4 90 255.6C90 175.1 149.8 108.4 227.4 97.6zM538.8 544.8C527.6 556 515.7 557.1 510.2 555.3C504.8 553.5 483.1 535.4 449.8 510.9C416.5 486.3 416.2 475.2 406.8 454.2C397.4 433.3 376.4 411.6 349.3 401.8L339.6 387.1C314.9 404 286.6 414 258.3 415.8L260.4 409.2L276.3 359.7C322.8 347.8 357.2 305.7 357.2 255.5C357.2 201 318.8 153.4 261.2 148.4L261.2 96.3C344.4 101.4 410 170.8 410 255.6C410 289.2 398.8 320.3 381 346L395.6 355.6C405.4 382.7 427.1 403.6 448 413C468.9 422.4 480.2 422.7 504.8 456C529.4 489.2 547.5 510.9 549.3 516.3C551.1 521.7 550 533.6 538.8 544.8zM528.9 526.9C528.9 522.5 525.3 518.9 520.9 518.9C516.5 518.9 512.9 522.5 512.9 526.9C512.9 531.3 516.5 534.9 520.9 534.9C525.3 534.9 528.9 531.3 528.9 526.9z" /></svg>
             <span>Search</span>
             <span className="ml-auto text-xs text-gray-400">Ctrl+F</span>
@@ -250,7 +257,7 @@ const SearchOption = ({ autohide }) => {
 
 const AddBookmark = ({ autohide }) => {
     return (
-        <div onMouseEnter={autohide} className="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="bookmark">
+        <div onMouseEnter={()=>autohide()} className="context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer" data-action="bookmark">
             <svg className="h-5 w-5 mr-3 fill-gray-400 dark:fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M192 64C156.7 64 128 92.7 128 128L128 544C128 555.5 134.2 566.2 144.2 571.8C154.2 577.4 166.5 577.3 176.4 571.4L320 485.3L463.5 571.4C473.4 577.3 485.7 577.5 495.7 571.8C505.7 566.1 512 555.5 512 544L512 128C512 92.7 483.3 64 448 64L192 64z" /></svg>
             <span>Add Bookmark</span>
             <span className="ml-auto text-xs text-gray-400">Ctrl+B</span>
