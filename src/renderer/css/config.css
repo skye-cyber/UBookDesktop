@@ -231,18 +231,6 @@ height: 2.4em; /* Adjust this value to match the height of an empty row */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.context-menu {
-    opacity: 0;
-    transform: scale(0.95) translateY(-5px);
-    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
-    pointer-events: none;
-}
-
-.context-menu.active {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    pointer-events: all;
-}
 
 /*
 .context-menu-item:hover .context-menu-submenu {

@@ -1,6 +1,8 @@
 export const appState = {
     currentSelection: '',
     selectionRange: null,
+    selectedText: null,
+    selectedHTML: null,
     bookmarks: [],
     notes: [],
     highlights: [],

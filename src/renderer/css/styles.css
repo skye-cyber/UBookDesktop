@@ -1272,6 +1272,10 @@ video {
   max-width: 42rem;
 }
 
+.max-w-32 {
+  max-width: 8rem;
+}
+
 .max-w-3xl {
   max-width: 48rem;
 }
@@ -1314,6 +1318,10 @@ video {
 
 .max-w-xl {
   max-width: 36rem;
+}
+
+.max-w-72 {
+  max-width: 18rem;
 }
 
 .flex-1 {
@@ -2658,6 +2666,10 @@ video {
   text-align: right;
 }
 
+.font-brand {
+  font-family: Poppins, Montserrat, SF Pro Display, system-ui, sans-serif;
+}
+
 .font-handwriting {
   font-family: Dancing Script, Pacifico, Caveat, cursive;
 }
@@ -2668,30 +2680,6 @@ video {
 
 .font-reader {
   font-family: Source Serif Pro, Georgia, serif;
-}
-
-.font-sans {
-  font-family: Synonym, Inter, SF Pro Text, Segoe UI, Roboto, Helvetica Neue, Arial, sans-serif;
-}
-
-.font-code {
-  font-family: JetBrains Mono, Fira Code, Cascadia Code, Source Code Pro, Monaco, Consolas, monospace;
-}
-
-.font-elegant {
-  font-family: Playfair Display, Cormorant Garamond, Georgia;
-}
-
-.font-condensed {
-  font-family: Roboto Condensed, Oswald, Arial Narrow, sans-serif-condensed;
-}
-
-.font-modern {
-  font-family: Poppins, Montserrat, SF Pro Display, Outfit;
-}
-
-.font-brand {
-  font-family: Poppins, Montserrat, SF Pro Display, system-ui, sans-serif;
 }
 
 .text-2xl {
@@ -2731,10 +2719,6 @@ video {
 
 .font-bold {
   font-weight: 700;
-}
-
-.font-light {
-  font-weight: 300;
 }
 
 .font-medium {
@@ -3447,19 +3431,6 @@ html{
 #reader-content{
   font-family: 'Merriweather', serif;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.context-menu {
-  opacity: 0;
-  transform: scale(0.95) translateY(-5px);
-  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
-  pointer-events: none;
-}
-
-.context-menu.active {
-  opacity: 1;
-  transform: scale(1) translateY(0);
-  pointer-events: all;
 }
 
 /*
@@ -4488,11 +4459,6 @@ html{
 .dark\:text-blue-400:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(96 165 250 / var(--tw-text-opacity, 1));
-}
-
-.dark\:text-cyan-400:is(.dark *) {
-  --tw-text-opacity: 1;
-  color: rgb(34 211 238 / var(--tw-text-opacity, 1));
 }
 
 .dark\:text-emerald-400:is(.dark *) {

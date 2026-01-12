@@ -8,6 +8,25 @@ export const ReaderContent = ({ }) => {
             readerSection.current.innerHTML = ""
         }
         window.StateManager.set('readerSection', readerSection.current)
+        // Show context menu on right click
+        readerSection.current.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            readerSection.current.dispatchEvent(new CustomEvent('show-contextmenu-tooltip-menu', {
+                detail: {
+                    width: e.width,
+                    height: e.height,
+                    target: e.target,
+                    screenX: e.screenX,
+                    screenY: e.screenY,
+                    pageX:e.pageX,
+                    pageY:e.pageY,
+                    x: e.x,
+                    y: e.y,
+                    offsetX: e.offsetX,
+                    offsetY: e.offsetY
+                }
+            }))
+        })
 
         document.addEventListener('clear-reader-section', clearSection)
         return () => {

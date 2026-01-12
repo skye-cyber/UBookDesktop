@@ -1,3 +1,5 @@
+import { contextmenu } from "../../../ui/components/Tooltips/Helpers/ContextMenu";
+
 const inputFields = [document.getElementById("searchInput"), document.getElementById("note-comment"), document.getElementById("noteText")]
 
 function inputFieldsActive(e) {
@@ -29,6 +31,10 @@ document.addEventListener('keydown', (event) => {
 
         hideNotesModal()
         */
+    }
+    if (event.ctrlKey && event.key === 'A' || event.ctrlKey && event.key === 'a') {
+        event.preventDefault(); // Prevent the default Save action in browsers
+        contextmenu.selectAll()
     }
     if (event.ctrlKey && event.key === 'S' || event.ctrlKey && event.key === 's') {
         event.preventDefault(); // Prevent the default Save action in browsers
