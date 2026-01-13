@@ -6,23 +6,23 @@ class SelectionHelper {
         const selection = window.getSelection();
         const selectionHTML = this.selectionTohtml(selection)
 
-        if (selection.type !== "Range") {
+        if (selection.type !== "Range" || selection.rangeCount === 0) {
             document.dispatchEvent(new CustomEvent('hide-onselect-tooltip-menu'))
             // appState.selectedText = null;
             // appState.currentSelection = null
             // appState.selectionRange = null;
             return false
         }
-
-        console.log(selection.getRangeAt(0).commonAncestorContainer)
-        // only track selection for reader section
-        if(selection.getRangeAt(0).commonAncestorContainer !== StateManager.get('readerSection')) return false
+        const range = selection.getRangeAt(0);
+        const selectedText = selection.toString();
 
         try {
             appState.currentSelection = selection
-            appState.selectedText = selection.toString();
-            appState.selectionRange = selection.getRangeAt(0);
+            appState.selectedText = selectedText;
+            appState.selectionRange = range;
             appState.selectedHTML = selectionHTML
+
+            document.dispatchEvent(new CustomEvent('update-note-content'))
         } catch (err) {
             return false
         }

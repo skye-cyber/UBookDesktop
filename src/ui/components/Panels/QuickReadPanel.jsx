@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { OnselectTooltip } from '../Tooltips/onSelect';
 import { QuickRead } from '../Reader/Book/QuickRead';
 import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
@@ -50,7 +49,6 @@ export const QuickReadPanel = ({ }) => {
                     <h3 className="text-lg font-semibold tracking-wide">Quick Access</h3>
                 </div>
                 <QuickRead />
-                <OnselectTooltip />
             </div>
         </section>
     );
