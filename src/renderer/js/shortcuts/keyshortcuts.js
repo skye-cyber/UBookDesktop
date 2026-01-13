@@ -20,21 +20,14 @@ document.addEventListener('keydown', (event) => {
         event.preventDefault();
         //document.dispatchEvent(new CustomEvent('toggle-left-panel'))
         document.dispatchEvent(new CustomEvent('escape-key-down'))
-        /*
-         * closeSearchPref();
-        engine.removeHighlightedSpans();
-        document.dispatchEvent(new CustomEvent('hide-onselect-tooltip-menu'))
-
-        // Context menu handler
-        contextMenu.classList.remove('active');
-        closeModals();
-        handleDelectAll()
-
-        hideNotesModal()
-        */
     }
     if (event.ctrlKey && event.key === 'A' || event.ctrlKey && event.key === 'a') {
+        const isFocused = document.activeElement === StateManager.get('searchInput');
+
+        if (StateManager.get('NoteComposer_open') || isFocused) return
+
         event.preventDefault(); // Prevent the default Save action in browsers
+
         menuaction.selectAll()
     }
     if (event.ctrlKey && event.key === 'S' || event.ctrlKey && event.key === 's') {

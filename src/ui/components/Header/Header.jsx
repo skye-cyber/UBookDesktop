@@ -1,10 +1,17 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useTheme } from '../Themes/useThemeHeadless';
 import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
 export const Header = ({ }) => {
     let searchContainer = useRef(null)
+    const searchInput = useRef(null)
+
     const { isDark, toggleTheme, setTheme } = useTheme();
+
+    useEffect(() => {
+        if (!searchInput) return
+        StateManager.set('searchInput', searchInput.current)
+    })
 
     const ToggleBookContentPanel = useCallback(() => {
         document.dispatchEvent(new CustomEvent('toggle-left-panel'))
@@ -38,7 +45,7 @@ export const Header = ({ }) => {
     })
 
     return (
-        <header className="flex items-center px-4 bg-indigo-800 dark:bg-[#00657c] dark:border-y dark:border-t-0 dark:border-b-[#006d91] backdrop-blur-lg shadow-sm dark:border-b dark:border-slate-200/60 dark:border-slate-700/60 z-50 transition-all duration-500">
+        <header className="flex items-center px-4 bg-indigo-800 dark:bg-[#00657c] dark:border-y dark:border-t-0 dark:border-b-[#006d91] backdrop-blur-lg shadow-sm dark:border-b dark:border-slate-200/60 dark:border-slate-700/60 z-[40] transition-all duration-500">
             {/* Left Section: Hamburger Menu */}
             <section className="relative flex items-center select-none">
                 <button onClick={ToggleBookContentPanel} id="book-content-panel" className="flex flex-col justify-center items-center h-10 w-10 rounded-lg bg-[#160041] dark:bg-sky-500 hover:bg-[#270075] dark:hover:bg-sky-700 transition-colors duration-300 focus:outline-none focus:ring-none focus:ring-primary-500">
@@ -51,7 +58,7 @@ export const Header = ({ }) => {
             {/* Center Section: Search Bar */}
             <div ref={searchContainer} id="search-bar-container" className="relative flex-1 p-1 mx-4 md:mx-[10vw] lg:mx-[20vw] transition-all duration-500 w-full">
                 <div className="relative">
-                    <input id="searchInput" type="text" autoFocus placeholder="Search..." className="w-full pl-10 pr-12 py-3 bg-indigo-950/40 dark:bg-[#004351] rounded-xl text-white placeholder-gray-100/90 dark:placeholder-primary-100 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-400 border border-indigo-950 dark:border-[#00d4ff] transition-all duration-300" />
+                    <input ref={searchInput} id="searchInput" type="text" autoFocus placeholder="Search..." className="w-full pl-10 pr-12 py-3 bg-indigo-950/40 dark:bg-[#004351] rounded-xl text-white placeholder-gray-100/90 dark:placeholder-primary-100 dark:text-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-400 border border-indigo-950 dark:border-[#00d4ff] transition-all duration-300 selection:bg-[#55ffff]/20" />
 
                     {/* Search Icon */}
                     <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 dark:text-white">

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { ContentLoader_ins } from '../Panels/BookContentPanel';
+import { ContentLoader_ins } from '../Panels/content_loader';
 import { menuaction } from './Helpers/action';
 import {
     ThemeSubmenu,

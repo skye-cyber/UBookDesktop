@@ -1,5 +1,6 @@
 import { appState } from "../../Reader/appState";
 import { StateManager } from "../../../../renderer/js/syscore/StatesManager";
+import { modalmanager } from "../../../../renderer/js/Status/Manager";
 
 class MenuAction{
     copy(text = null) {
@@ -35,7 +36,7 @@ class MenuAction{
         link.href = URL.createObjectURL(blob);
         link.click();
         URL.revokeObjectURL(link.href);
-        showActionToast('export');
+        modalmanager.showMessage('Export succeeded', 'info')
     }
 
 }

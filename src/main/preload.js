@@ -104,9 +104,7 @@ const api = {
 
             // Read the existing file content
             const data = JSON.parse(await fs.promises.readFile(fpath, 'utf-8'));
-            console.log(data.notes.length)
             const filtered_notes = data.notes.filter(note => (note.timestamp !== noteId))
-            console.log(filtered_notes.length)
 
             // Write the updated data back to the file
             await fs.promises.writeFile(fpath, JSON.stringify({ notes: filtered_notes }, null, 2));

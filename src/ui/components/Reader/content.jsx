@@ -1,47 +1,54 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { selectionhelper } from '../Tooltips/Helpers/selection';
 import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
 export const ReaderContent = ({ }) => {
     const readerSection = useRef(null)
 
-    useEffect(() => {
-        const clearSection = () => {
-            readerSection.current.innerHTML = ""
-        }
-        StateManager.set('readerSection', readerSection.current)
-        // Show context menu on right click
-        readerSection.current.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            readerSection.current.dispatchEvent(new CustomEvent('show-contextmenu-tooltip-menu', {
-                detail: {
-                    width: e.width,
-                    height: e.height,
-                    target: e.target,
-                    screenX: e.screenX,
-                    screenY: e.screenY,
-                    pageX: e.pageX,
-                    pageY: e.pageY,
-                    x: e.x,
-                    y: e.y,
-                    offsetX: e.offsetX,
-                    offsetY: e.offsetY
-                }
-            }))
-        })
+    const handle_selectionchange = () => {
+        const is_valid_selection = selectionhelper.updateAppstate()
 
-        document.addEventListener('selectionchange', () => {
-            const is_valid_selection = selectionhelper.updateAppstate()
-
-            if (!is_valid_selection) return
+        if (!is_valid_selection) return
 
             document.dispatchEvent(new CustomEvent('show-onselect-tooltip-menu'))
-        })
+    }
+
+    const clearSection = () => {
+        readerSection.current.innerHTML = ""
+    }
+
+    const contextmenu = useCallback((e)=>{
+        e.preventDefault();
+        readerSection.current.dispatchEvent(new CustomEvent('show-contextmenu-tooltip-menu', {
+            detail: {
+                width: e.width,
+                height: e.height,
+                target: e.target,
+                screenX: e.screenX,
+                screenY: e.screenY,
+                pageX: e.pageX,
+                pageY: e.pageY,
+                x: e.x,
+                y: e.y,
+                offsetX: e.offsetX,
+                offsetY: e.offsetY
+            }
+        }))
+    })
+    useEffect(() => {
+
+        StateManager.set('readerSection', readerSection.current)
+
+        // Show context menu on right click
+        readerSection.current.addEventListener('contextmenu', contextmenu)
+
+        document.addEventListener('selectionchange', handle_selectionchange)
 
         document.addEventListener('clear-reader-section', clearSection)
         return () => {
-            //StateManager.set('readerSection', null)
+            readerSection.current.removeEventListener('contextmenu', contextmenu)
             document.removeEventListener('clear-reader-section', clearSection)
+            document.removeEventListener('selectionchange', handle_selectionchange)
         }
     })
 

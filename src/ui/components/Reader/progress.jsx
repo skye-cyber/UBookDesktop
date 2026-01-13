@@ -4,9 +4,9 @@ import { BookNavigator } from './navigator';
 import { ThemeManager } from './theme';
 import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
-export const ReaderProgress = ({ }) => {
+export const ReaderProgress = ({ progressRef = useRef(null), percentageRef = useRef(null) }) => {
     const controlBar = useRef(null)
-    const panel = useRef(null)
+    const panelRef = useRef(null)
 
     const toggleControlBar = useCallback(() => {
         controlBar.current.classList.toggle('hidden')
@@ -14,10 +14,7 @@ export const ReaderProgress = ({ }) => {
 
     const readerTopPanelToggle = useCallback(() => {
         const focused = StateManager.get('focusMode')
-        panel.current.classList.toggle('hidden', !focused)
-    })
-    const changeTheme = useCallback((theme) => {
-        //
+        panelRef.current.classList.toggle('hidden', !focused)
     })
 
     useEffect(() => {
@@ -34,7 +31,7 @@ export const ReaderProgress = ({ }) => {
         }
     })//sticky -top-2 -mt-6 md:-mt-10 z-30
     return (
-        < div ref={panel} id="top-utils-panel" className=" select-none w-full" >
+        <div ref={panelRef} id="top-utils-panel" className=" select-none w-full" >
             <div id="progressbar" className="flex items-center bg-stone-600 w-full dark:bg-zinc-800 backdrop-blur-md py-0 px-6 md:px-10 border-gray-500 dark:border-sky-500">
                 <button onClick={() => BookNavigator.previousSection()} aria-label="Previous Chapter" title="Previous Chapter" className="flex items-center justify-center px-1 rounded-lg hover:bg-fuchsia-200 mr-1 transition-colors duration-500">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
@@ -49,10 +46,11 @@ export const ReaderProgress = ({ }) => {
                     </svg>
                 </button>
                 <div className="w-full bg-gray-300 dark:bg-white rounded-full h-2 overflow-hidden">
-                    <div id="reading-progress-bar"
+                    <div ref={progressRef} id="reading-progress-bar"
                         className="bg-blue-500 dark:bg-green-400 h-full w-0 transition-all duration-200"></div>
                 </div>
-                <p id="read-percentage" className="bg-stone-950 text-gray-100 dark:text-slate-100 mx-1 rounded-sm">%</p>
+                <p ref={percentageRef} id="read-percentage" className="bg-stone-950 text-gray-100 dark:text-slate-100 mx-1 rounded-sm">%</p>
+
                 <button id="ReadAllAloud" className="flex items-center gap-2 text-blue-600 hover:text-blue-800 hover:bg-hue-rotate-90 dark:hover:bg-sky-900 rounded-full px-1 transition-colors duration-500 focus:ring-none focus:outline-none" aria-label="Read aloud" title="Read aloud">
                     <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 stroke-black dark:stroke-blue-100 hover:stroke-green-300 dark:hover:stroke-orange-400 transition-colors duration-500" fill="none" strokeWidth="2"
                         strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">

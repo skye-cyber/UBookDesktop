@@ -1,3 +1,4 @@
+import { StateManager } from "../../../../renderer/js/syscore/StatesManager";
 import { appState } from "../../Reader/appState";
 
 class SelectionHelper {
@@ -12,6 +13,10 @@ class SelectionHelper {
             // appState.selectionRange = null;
             return false
         }
+
+        console.log(selection.getRangeAt(0).commonAncestorContainer)
+        // only track selection for reader section
+        if(selection.getRangeAt(0).commonAncestorContainer !== StateManager.get('readerSection')) return false
 
         try {
             appState.currentSelection = selection
