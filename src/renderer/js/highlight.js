@@ -104,7 +104,7 @@ function removeDirectHighlight(element) {
     // Ensure text color is maintained for dark mode compatibility
     element.classList.add('text-inherit');
 }
-// Helper function to get selection HTML (your existing function)
+// Helper function to get selection HTML
 function setHighlightColor(color) {
     const circles = document.querySelectorAll('#current-color-circle');
 

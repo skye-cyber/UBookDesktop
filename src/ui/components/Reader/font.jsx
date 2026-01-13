@@ -18,14 +18,13 @@ export class FontManager {
             appState.innitialFontSize = this.innitialFontSize
         })
     }
-    changeFontSize(delta = 1) {
+    changeFontSize(delta = 1, size = null) {
         this.currentFontSize = parseInt(getComputedStyle(this.readable).fontSize);
         appState.currentFontSize = this.currentFontSize
 
-        this.currentFontSize += delta;
+        size && typeof size === 'number' ? this.currentFontSize = size : this.currentFontSize += delta;
         this.readable.style.fontSize = this.currentFontSize + 'px';
         this.updateWordCount();
-        console.log(appState)
     }
     resetFontSize() {
         this.readable.style.fontSize = this.innitialFontSize + 'px';

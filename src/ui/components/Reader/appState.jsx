@@ -1,5 +1,5 @@
 export const appState = {
-    currentSelection: '',
+    currentSelection: null,
     selectionRange: null,
     selectedText: null,
     selectedHTML: null,
