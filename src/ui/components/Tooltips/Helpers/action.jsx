@@ -29,6 +29,18 @@ class MenuAction{
     dictionaryLookup(){
         //
     }
+    handleExport() {
+        const text = window.getSelection().toString().trim();
+        if (!text) return;
+
+        const blob = new Blob([text], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.download = 'highlighted-text.txt';
+        link.href = URL.createObjectURL(blob);
+        link.click();
+        URL.revokeObjectURL(link.href);
+        showActionToast('export');
+    }
 
 }
 

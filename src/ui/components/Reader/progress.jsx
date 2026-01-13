@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { FontManager_ins } from './font';
 import { BookNavigator } from './navigator';
 import { ThemeManager } from './theme';
+import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
 export const ReaderProgress = ({ }) => {
     const controlBar = useRef(null)
@@ -12,7 +13,7 @@ export const ReaderProgress = ({ }) => {
     })
 
     const readerTopPanelToggle = useCallback(() => {
-        const focused = window.StateManager.get('focusMode')
+        const focused = StateManager.get('focusMode')
         panel.current.classList.toggle('hidden', !focused)
     })
     const changeTheme = useCallback((theme) => {
@@ -20,16 +21,16 @@ export const ReaderProgress = ({ }) => {
     })
 
     useEffect(() => {
-        //window.StateManager.set('toggleControlBar', toggleControlBar)
-        window.StateManager.set('readerTopPanelToggle', readerTopPanelToggle)
+        //StateManager.set('toggleControlBar', toggleControlBar)
+        StateManager.set('readerTopPanelToggle', readerTopPanelToggle)
         document.addEventListener('toggle-reader-top-panel', readerTopPanelToggle)
 
         //document.addEventListener('controlBar-toggle', toggleControlBar)
         return () => {
             //document.removeEventListener('controlBar-toggle', toggleControlBar)
             document.removeEventListener('toggle-reader-top-panel', readerTopPanelToggle)
-            //window.StateManager.set('toggleControlBar', null)
-            window.StateManager.set('readerTopPanelToggle', null)
+            //StateManager.set('toggleControlBar', null)
+            StateManager.set('readerTopPanelToggle', null)
         }
     })//sticky -top-2 -mt-6 md:-mt-10 z-30
     return (

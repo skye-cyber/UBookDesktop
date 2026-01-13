@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { OnselectTooltip } from '../Tooltips/onSelect';
 import { QuickRead } from '../Reader/Book/QuickRead';
+import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
 export const QuickReadPanel = ({ }) => {
     const panelMask = useRef(null)
     const panel = useRef(null)
 
     const TogglePanel = useCallback(() => {
-        const focused = window.StateManager.get('focusMode')
+        const focused = StateManager.get('focusMode')
         focused ? showPanel() : hidePanel()
 
     })

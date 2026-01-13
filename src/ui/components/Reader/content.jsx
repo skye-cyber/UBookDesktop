@@ -1,4 +1,7 @@
 import React, { useEffect, useRef } from 'react';
+import { selectionhelper } from '../Tooltips/Helpers/selection';
+import { appState } from './appState';
+import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
 export const ReaderContent = ({ }) => {
     const readerSection = useRef(null)
@@ -7,7 +10,7 @@ export const ReaderContent = ({ }) => {
         const clearSection = () => {
             readerSection.current.innerHTML = ""
         }
-        window.StateManager.set('readerSection', readerSection.current)
+        StateManager.set('readerSection', readerSection.current)
         // Show context menu on right click
         readerSection.current.addEventListener('contextmenu', function(e) {
             e.preventDefault();
@@ -28,9 +31,14 @@ export const ReaderContent = ({ }) => {
             }))
         })
 
+        document.addEventListener('selectionchange', ()=>{
+            selectionhelper.updateAppstate()
+            document.dispatchEvent(new CustomEvent('show-onselect-tooltip-menu'))
+        })
+
         document.addEventListener('clear-reader-section', clearSection)
         return () => {
-            //window.StateManager.set('readerSection', null)
+            //StateManager.set('readerSection', null)
             document.removeEventListener('clear-reader-section', clearSection)
         }
     })

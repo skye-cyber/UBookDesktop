@@ -827,6 +827,14 @@ video {
   top: 100%;
 }
 
+.top-auto {
+  top: auto;
+}
+
+.right-auto {
+  right: auto;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -1351,6 +1359,11 @@ video {
 
 .max-w-xl {
   max-width: 36rem;
+}
+
+.max-w-fit {
+  max-width: -moz-fit-content;
+  max-width: fit-content;
 }
 
 .flex-1 {
@@ -3109,6 +3122,11 @@ video {
 .shadow-primary-950 {
   --tw-shadow-color: #041824;
   --tw-shadow: var(--tw-shadow-colored);
+}
+
+.invert {
+  --tw-invert: invert(100%);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .sepia {

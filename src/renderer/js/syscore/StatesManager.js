@@ -10,6 +10,9 @@ export const StateManager = (() => {
         get(key) {
             return state[key];
         },
+        all(){
+            return state
+        },
         subscribe(key, callback) {
             if (!listeners[key]) listeners[key] = [];
             listeners[key].push(callback);
@@ -19,4 +22,4 @@ export const StateManager = (() => {
 
 
 // expose globally
-window.StateManager = StateManager;
+//window.StateManager = StateManager;

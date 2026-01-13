@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import { useTheme } from '../Themes/useThemeHeadless';
-
+import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
 export const Header = ({ }) => {
     let searchContainer = useRef(null)
@@ -31,10 +31,10 @@ export const Header = ({ }) => {
      * Clears the interface of all distracting ui for distraction free reading
      */
     const focusModeToggle = useCallback(() => {
-        const focused = window.StateManager.get('focusMode')
+        const focused = StateManager.get('focusMode')
         document.dispatchEvent(new CustomEvent('focusMode'))
-        window.StateManager.get('readerTopPanelToggle')()
-        window.StateManager.set('focusMode', !focused)
+        StateManager.get('readerTopPanelToggle')()
+        StateManager.set('focusMode', !focused)
     })
 
     return (

@@ -1,48 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ColorPicker } from './colorpicker';
-
-export class ToolTipHandler {
-
-    static handleWebSearch() {
-        const query = window.getSelection().toString().trim();
-        if (query.length > 0) {
-            const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-            window.open(searchUrl, '_blank');
-        }
-    }
-
-    static handleHighlight() {
-        //
-    }
-
-    static handleExport() {
-        const text = window.getSelection().toString().trim();
-        if (!text) return;
-
-        const blob = new Blob([text], { type: 'text/plain' });
-        const link = document.createElement('a');
-        link.download = 'highlighted-text.txt';
-        link.href = URL.createObjectURL(blob);
-        link.click();
-        URL.revokeObjectURL(link.href);
-        showActionToast('export');
-    }
-}
+import { menuaction } from './Helpers/action';
+import { appState } from '../Reader/appState';
+import { Highlighter } from '../Reader/hightlight';
+import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
 export const OnselectTooltip = ({ }) => {
     const tooltip = useRef(null);
-    const [selectedText, SetselectedText] = useState(null);
-    const [selectedHtml, SetselectedHtml] = useState(null);
+    const toolTipPositioner = useCallback(() => {
 
-    async function toolTipPositioner() {
-        const selection = window.getSelection();
-        SetselectedText(normalizeSelection(selection.toString().trim()))
-
-        SetselectedHtml(getSelectionHtml())
-
-        if (selectedText.length > 0) {
-            const range = selection.getRangeAt(0);
+        if (appState.selectedText?.length > 0) {
+            const range = appState.currentSelection.getRangeAt(0);
             const rect = range.getBoundingClientRect();
+            const wrapper = StateManager.get('readerSection')
             const wrapperRect = wrapper.getBoundingClientRect();
 
             tooltip.current.style.display = 'block';
@@ -69,7 +39,7 @@ export const OnselectTooltip = ({ }) => {
             tooltip.current.classList.add('hidden');
             tooltip.current.classList.remove('opacity-100');
         }
-    }
+    })
 
     const handleCopy = useCallback((selectedText) => {
         navigator.clipboard.writeText(selectedText);
@@ -77,9 +47,9 @@ export const OnselectTooltip = ({ }) => {
         //showActionToast('copy');
     })
 
-    const newNoteEdit = useCallback(() => {
+    const ComposeNote = useCallback(() => {
         // display note content
-        document.getElementById('noteText').innerHTML = selectedHtml;
+        document.getElementById('noteText').innerHTML = appState.selectedHTML || '';
         // show comment modal
         document.dispatchEvent(new CustomEvent('openNoteModal'))
     })
@@ -87,6 +57,7 @@ export const OnselectTooltip = ({ }) => {
     const showTooltip = useCallback(() => {
         tooltip.current.classList.remove('hidden', '-translate-x-[200%]');
         tooltip.current.classList.add('opacity-100');
+        toolTipPositioner()
     })
 
     const hideTooltip = useCallback(() => {
@@ -99,15 +70,15 @@ export const OnselectTooltip = ({ }) => {
     })
 
     const textReader = useCallback(() => {
-        const readerSection = window.StateManager.get('readerSection');
+        const readerSection = StateManager.get('readerSection');
 
-        if (!window.StateManager.get('isPlaying')
+        if (!StateManager.get('isPlaying')
         ) {
             const headText = readerSection?.querySelector('h1').innerText
             const text = readerSection.innerText
                 .replace(headText, '')
                 .trim()
-            SetselectedText(normalizeSelection(text));
+            //SetselectedText(normalizeSelection(text));
             //handleReadAloud()
         }
     })
@@ -133,13 +104,13 @@ export const OnselectTooltip = ({ }) => {
                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
                     </svg>Copy</p></button>
 
-                    <button onClick={ToolTipHandler.handleWebSearch()} className="flex hover:text-green-300 dark:hover:text-green-600">
+                    <button onClick={() => menuaction.search()} className="flex hover:text-green-300 dark:hover:text-green-600">
                         <svg className="h-5 w-5 fill-indigo-400 dark:fill-blue-600 text-white dark:text-slate-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M480 272C480 317.9 465.1 360.3 440 394.7L566.6 521.4C579.1 533.9 579.1 554.2 566.6 566.7C554.1 579.2 533.8 579.2 521.3 566.7L394.7 440C360.3 465.1 317.9 480 272 480C157.1 480 64 386.9 64 272C64 157.1 157.1 64 272 64C386.9 64 480 157.1 480 272zM272 416C351.5 416 416 351.5 416 272C416 192.5 351.5 128 272 128C192.5 128 128 192.5 128 272C128 351.5 192.5 416 272 416z" /></svg>Search
                     </button>
 
-                    <button onClick={newNoteEdit} className="hover:text-yellow-300 dark:hover:text-yellow-600">Save</button>
+                    <button onClick={ComposeNote} className="hover:text-yellow-300 dark:hover:text-yellow-600">Save</button>
 
-                    <button onClick={ToolTipHandler.handleHighlight()} className="hover:text-yellow-400 dark:hover:text-yellow-600">🖊️Highlight</button>
+                    <button onClick={() => Highlighter.hightlight()} className="hover:text-yellow-400 dark:hover:text-yellow-600">🖊️Highlight</button>
                 </div>
 
                 <div className="flex flex-wrap gap-2 w-fit space-x-3 pt-2 w-fit border-t border-gray-600 dark:border-gray-300">
@@ -150,7 +121,7 @@ export const OnselectTooltip = ({ }) => {
                     <button onClick={textReader} className="hover:text-pink-400 dark:hover:text-pink-600">
                         🔊 Read Aloud
                     </button>
-                    <button onClick={ToolTipHandler.handleExport()} className="hover:text-indigo-400 dark:hover:text-indigo-600">
+                    <button onClick={() => menuaction.handleExport()} className="hover:text-indigo-400 dark:hover:text-indigo-600">
                         💾 Export
                     </button>
                 </div>

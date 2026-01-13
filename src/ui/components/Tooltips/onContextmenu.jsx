@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { appState } from '../Reader/appState';
 import { contextmenu } from './Helpers/ContextMenu';
+import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 import {
     SelectionOption,
     ThemeOption,
@@ -19,9 +20,9 @@ export const ContextMenu = ({ }) => {
     const [sub_menu, set_sub_menu] = useState(null)
 
     useEffect(() => {
-        if (!readerSection) setreaderSection(window.StateManager.get('readerSection'))
+        if (!readerSection) setreaderSection(StateManager.get('readerSection'))
         if (!sub_menu) set_sub_menu(tooltip.current.querySelectorAll(".sub-context-menu"))
-        window.StateManager.set('contextSubMenu', sub_menu)
+        StateManager.set('contextSubMenu', sub_menu)
     })
 
     const showTooltip = useCallback((e) => {
@@ -92,7 +93,7 @@ export const ContextMenu = ({ }) => {
             ref={tooltip}
             //onClick={autohidesubmenu}
             id="contextMenu"
-            className="contexkt-menu fixed top-5 left-1/2 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg shadow-xl py-2 min-w-[220px] z-50 border border-[#f8f4e9] dark:border-gray-700 transition-all duration-500 -translate-y-[5px] scale-[0.95] pointer-event-none opacity-0 active:scale-100 active:translate-y-0 scrollbar-custom">
+            className="contexkt-menu fixed top-auto right-auto left-1/2 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg shadow-xl py-2 min-w-[220px] h-fit max-w-fit z-50 border border-[#f8f4e9] dark:border-gray-700 transition-all duration-500 -translate-y-[5px] scale-[0.95] pointer-event-none opacity-0 active:scale-100 active:translate-y-0 scrollbar-custom">
             <div className="context-menu-options">
                 {/* Text Selection Options
                 <TextSelectionMenu selectionoptionsRef={textOptionsRef} autohide={autohidesubmenu} />*/}

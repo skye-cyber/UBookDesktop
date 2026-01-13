@@ -1,4 +1,5 @@
 import { contextmenu } from "../../../ui/components/Tooltips/Helpers/ContextMenu";
+import { StateManager } from "../syscore/StatesManager";
 
 const inputFields = [document.getElementById("searchInput"), document.getElementById("note-comment"), document.getElementById("noteText")]
 
@@ -98,8 +99,8 @@ document.addEventListener('keydown', (event) => {
 });
 
 function focus() {
-    const focused = window.StateManager.get('focusMode')
+    const focused = StateManager.get('focusMode')
     document.dispatchEvent(new CustomEvent('focusMode'))
-    window.StateManager.get('readerTopPanelToggle')()
-    window.StateManager.set('focusMode', !focused)
+    StateManager.get('readerTopPanelToggle')()
+    StateManager.set('focusMode', !focused)
 }

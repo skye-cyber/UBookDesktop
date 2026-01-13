@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ContentHelper } from './utils';
+import { StateManager } from '../../../../renderer/js/syscore/StatesManager';
+
 //import { waitForElement } from '../../../../renderer/js/syscore/dom_utils';
 
 /**
@@ -69,13 +71,12 @@ export const BookItem = ({ part, paper, section, title, tag, struct }) => {
 
     const OpenSectionContent = useCallback(() => {
         document.dispatchEvent(new CustomEvent('clear-reader-section'))
-        //window.StateManager.get('reader_section').innerHTML = ""
         window.reactPortalBridge.showComponentInTarget('Readable', 'reader-content', { section: section }, 'readable_content')
-        ContentHelper.scrollToTop(window.StateManager.get('reader_section'))
+        ContentHelper.scrollToTop(StateManager.get('readerSection'))
 
         document.dispatchEvent(new CustomEvent('hide-item-selector'))
         document.dispatchEvent(new CustomEvent('hide-book-content-panel'))
-        window.StateManager.set('active_section', sectionRef.current)
+        StateManager.set('active_section', sectionRef.current)
     })
 
     /**

@@ -4,6 +4,7 @@ import { useTheme } from '../Themes/useThemeHeadless';
 import { waitForElement } from '../../../renderer/js/syscore/dom_utils';
 import { BookReader } from '../Reader/Book/Reader';
 import { ContentHelper } from '../Reader/Book/utils';
+import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
 export class ContentLoader {
     constructor() {
@@ -25,7 +26,7 @@ export class ContentLoader {
 
         waitForElement('#reader-content', (el) => {
             this.reader_section = el
-            window.StateManager.set('reader_section', el)
+            StateManager.set('reader_section', el)
         })
 
         waitForElement('#notecontent', (el) => {
@@ -171,7 +172,7 @@ export const BookContentPanel = ({ }) => {
     const { isDark, toggleTheme, setTheme } = useTheme();
 
     const ToggleBookContentPanel = useCallback(() => {
-        const focused = window.StateManager.get('focusMode')
+        const focused = StateManager.get('focusMode')
         focused ? showPanel() : hidePanel()
 
     })

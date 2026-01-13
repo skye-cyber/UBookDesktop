@@ -1,4 +1,5 @@
 import { appState } from "./appState";
+import { StateManager } from "../../../renderer/js/syscore/StatesManager";
 
 const ThemeClassMap = {
     'light': ['bg-white', 'text-gray-800', 'border-gray-100'],
@@ -10,7 +11,7 @@ const ThemeClassMap = {
 
 export class ThemeManager {
     static changeTheme(theme) {
-        const readable = window.StateManager.get('readerSection')
+        const readable = StateManager.get('readerSection')
         // const themeSelector = readable?.getElementById('themeSelector');
 
         // Remove all theme classes
@@ -25,7 +26,7 @@ export class ThemeManager {
         appState.currentTheme = theme;
     }
     static resetTheme() {
-        const readable = window.StateManager.get('readerSection')
+        const readable = StateManager.get('readerSection')
         readable.className = "react-portal-root select-text bg-gradient-to-b from-[#f8f4e9] to-[#f2ebd8]  dark:from-gray-950 dark:to-gray-950 focus:outline-none mb-4 font-reader overflow-y-hidden mt-1 p-6 border border-gray-100 dark:border-gray-700 shadow-xl shadow-gray-300 rounded-lg selection:bg-[#ff007f]/20"
     }
 }
