@@ -96,6 +96,7 @@ const api = {
     },
     deleteNote: async (noteId, fpath = path.join(notesDir, 'notes.json')) => {
         try {
+            if(!noteId) return false
             // noteId = note Timetamb
             //
             // Check if file exists and is accessible
@@ -103,7 +104,9 @@ const api = {
 
             // Read the existing file content
             const data = JSON.parse(await fs.promises.readFile(fpath, 'utf-8'));
-            const filtered_notes = data.notes.filter(note => (new Date(note.timestamp).toLocaleString() !== noteId))
+            console.log(data.notes.length)
+            const filtered_notes = data.notes.filter(note => (note.timestamp !== noteId))
+            console.log(filtered_notes.length)
 
             // Write the updated data back to the file
             await fs.promises.writeFile(fpath, JSON.stringify({ notes: filtered_notes }, null, 2));
