@@ -1,125 +1,3 @@
-class SearchEngine {
-    constructor(wrapper) {
-        this.scope = wrapper || document.getElementById('reader-content');
-    }
-
-    screenXY(range) {
-        // Save the current selection coordinates
-        this.rect = range.getBoundingClientRect();
-        this.startX = this.rect.left;
-        this.startY = this.rect.top;
-        this.endX = this.rect.right;
-        this.endY = this.rect.bottom;
-    }
-
-    getCaretPositionFromPoint(x, y) {
-        let pos = null;
-        if (document.caretPositionFromPoint) {
-            const caret = document.caretPositionFromPoint(x, y);
-            pos = { node: caret.offsetNode, offset: caret.offset };
-        } else if (document.caretRangeFromPoint) {
-            const range = document.caretRangeFromPoint(x, y);
-            pos = { node: range.startContainer, offset: range.startOffset };
-        }
-        return pos;
-    }
-
-
-    searchPage() {
-        const selection = window.getSelection();
-        const range = selection.getRangeAt(0);
-        const selectedText = selection.toString();
-
-        // store screen coordinates
-        this.screenXY(range);
-
-        // No search for more than one word
-        if (!selectedText || selectedText === " " || selectedText.split(" ").length>1) return;
-
-        // Create a regex to match the search text but not the selected text
-        const regex = new RegExp(selectedText, 'g');
-        const replaceWith = `<span class="border-2 border-dotted border-pink-500 bg-cyan-200 rounded-sm dark:bg-black dark:border-green-500 p-0">${selectedText}</span>`;
-
-        // Find all occurrences of the search text and their parent elements
-        const matches = this.findMatchesInScope(regex)
-        matches.forEach(match => {
-            const parentElement = match.node.parentNode;
-            if (parentElement) {
-                const parentTextContent = parentElement.innerHTML;
-                const parentRegex = new RegExp(`(${match.match})`, 'g');
-                parentElement.innerHTML = parentTextContent.replace(parentRegex, replaceWith);
-            }
-        });
-
-        // Restore the selection using the saved coordinates
-        selection.removeAllRanges();
-
-        const startPos = this.getCaretPositionFromPoint(this.startX, this.startY);
-        const endPos = this.getCaretPositionFromPoint(this.endX, this.endY);
-
-        if (startPos && endPos) {
-            range.setStart(startPos.node, startPos.offset);
-            range.setEnd(endPos.node, endPos.offset);
-            selection.addRange(range);
-        }
-    }
-
-    removeHighlightedSpans() {
-        const spans = this.scope.querySelectorAll('span.border-2.border-dotted.border-pink-500.bg-cyan-200.rounded-sm.dark\\:bg-black.dark\\:border-green-500.p-0');
-
-
-        spans.forEach(span => {
-            const parent = span.parentNode;
-            while (span.firstChild) {
-                parent.insertBefore(span.firstChild, span);
-            }
-            parent.removeChild(span);
-        });
-    }
-
-
-    getOffset(originalText, newText, offset) {
-        let originalIndex = 0;
-        let newIndex = 0;
-
-        while (originalIndex < offset && newIndex < newText.length) {
-            if (originalText[originalIndex] === newText[newIndex]) {
-                originalIndex++;
-                newIndex++;
-            } else {
-                newIndex++;
-            }
-        }
-
-        return newIndex;
-    }
-
-
-    findMatchesInScope(regex) {
-        const matches = [];
-        const walker = document.createTreeWalker(this.scope, NodeFilter.SHOW_TEXT, null, false);
-
-        while (walker.nextNode()) {
-            const node = walker.currentNode;
-            const text = node.nodeValue;
-            let match;
-
-            while ((match = regex.exec(text)) !== null) {
-                matches.push({
-                    node: node,
-                    match: match[0],
-                    index: match.index,
-                    length: match[0].length,
-                });
-            }
-        }
-
-        return matches;
-    }
-}
-
-const engine = new SearchEngine();
-
 class SelectiveSearch {
     constructor(part = '_all_') {
         this.part = part;
@@ -236,12 +114,12 @@ class SelectiveSearch {
             parts: data.parts?.map(part => {
                 let filteredPapers = part.papers?.map(paper => {
                     const filteredSections = paper.sections
-                    ?.map(section => ({
-                        ...section,
-                        __score: this.search(section?.title, query)
-                    }))
-                    .filter(section => section.__score > 0)
-                    .sort((a, b) => b.__score - a.__score);
+                        ?.map(section => ({
+                            ...section,
+                            __score: this.search(section?.title, query)
+                        }))
+                        .filter(section => section.__score > 0)
+                        .sort((a, b) => b.__score - a.__score);
 
                     if (!filteredSections || filteredSections.length === 0) return null;
 

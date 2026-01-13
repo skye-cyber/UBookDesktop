@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { selectionhelper } from '../Tooltips/Helpers/selection';
 import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { hightlightsearch } from './Search/hightlightSearch';
 
 export const ReaderContent = ({ }) => {
     const readerSection = useRef(null)
@@ -10,14 +11,14 @@ export const ReaderContent = ({ }) => {
 
         if (!is_valid_selection) return
 
-            document.dispatchEvent(new CustomEvent('show-onselect-tooltip-menu'))
+        document.dispatchEvent(new CustomEvent('show-onselect-tooltip-menu'))
     }
 
     const clearSection = () => {
         readerSection.current.innerHTML = ""
     }
 
-    const contextmenu = useCallback((e)=>{
+    const contextmenu = useCallback((e) => {
         e.preventDefault();
         readerSection.current.dispatchEvent(new CustomEvent('show-contextmenu-tooltip-menu', {
             detail: {
@@ -41,14 +42,17 @@ export const ReaderContent = ({ }) => {
 
         // Show context menu on right click
         readerSection.current.addEventListener('contextmenu', contextmenu)
-
+        document.addEventListener('escape-key-down', () => hightlightsearch.removeHighlightedSpans())
         document.addEventListener('selectionchange', handle_selectionchange)
+
+        //readerSection.current.addEventListener('mouseup', () => hightlightsearch.searchPage())
 
         document.addEventListener('clear-reader-section', clearSection)
         return () => {
             readerSection.current.removeEventListener('contextmenu', contextmenu)
             document.removeEventListener('clear-reader-section', clearSection)
             document.removeEventListener('selectionchange', handle_selectionchange)
+            document.addEventListener('escape-key-down', () => hightlightsearch.removeHighlightedSpans())
         }
     })
 

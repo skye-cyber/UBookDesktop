@@ -1,5 +1,5 @@
-import { StateManager } from "../../../../renderer/js/syscore/StatesManager";
 import { appState } from "../../Reader/appState";
+import { hightlightsearch } from "../../Reader/Search/hightlightSearch";
 
 class SelectionHelper {
     updateAppstate() {
@@ -17,12 +17,17 @@ class SelectionHelper {
         const selectedText = selection.toString();
 
         try {
+            const previousText = appState.selectedText
+
             appState.currentSelection = selection
             appState.selectedText = selectedText;
             appState.selectionRange = range;
             appState.selectedHTML = selectionHTML
-
             document.dispatchEvent(new CustomEvent('update-note-content'))
+
+            // only if selected tect has really changed
+            if (selectedText !== previousText) hightlightsearch.searchPage()
+
         } catch (err) {
             return false
         }
