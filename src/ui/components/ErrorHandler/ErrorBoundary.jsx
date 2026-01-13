@@ -1,5 +1,6 @@
 import React from 'react';
 import { appIsDev } from '../../hooks/api';
+import { modalmanager } from '../../../renderer/js/Status/Manager';
 
 class ErrorBoundary extends React.Component {
     constructor(props) {
@@ -75,7 +76,7 @@ class ErrorBoundary extends React.Component {
                 </button>
                 </div>
             ) : (
-                window.ModalManager?.showMessage?.("An error occurred", "error") ||
+                modalmanager?.showMessage?.("An error occurred", "error") ||
                 ""
             );
         }

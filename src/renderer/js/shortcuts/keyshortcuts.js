@@ -1,5 +1,5 @@
-import { contextmenu } from "../../../ui/components/Tooltips/Helpers/ContextMenu";
 import { StateManager } from "../syscore/StatesManager";
+import { menuaction } from "../../../ui/components/Tooltips/Helpers/action";
 
 const inputFields = [document.getElementById("searchInput"), document.getElementById("note-comment"), document.getElementById("noteText")]
 
@@ -35,7 +35,7 @@ document.addEventListener('keydown', (event) => {
     }
     if (event.ctrlKey && event.key === 'A' || event.ctrlKey && event.key === 'a') {
         event.preventDefault(); // Prevent the default Save action in browsers
-        contextmenu.selectAll()
+        menuaction.selectAll()
     }
     if (event.ctrlKey && event.key === 'S' || event.ctrlKey && event.key === 's') {
         event.preventDefault(); // Prevent the default Save action in browsers

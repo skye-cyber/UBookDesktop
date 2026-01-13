@@ -4,6 +4,8 @@ import { ReaderContent } from './content';
 import { ToolTipUI } from '../Tooltips/tooltip';
 import { BookItemSelectorUI } from '../SelectorUI/ItemSelector';
 import { ContextMenuToast, DefaultToast } from '../Notifications/Toasts';
+import { CopyFeedback } from '../StatusUI/ToastsUI';
+import { NotesComposer } from '../ContextMenu/Modals/Notes';
 
 export const ReaderUI = ({ }) => {
     return (
@@ -21,6 +23,8 @@ export const ReaderUI = ({ }) => {
                 <ContextMenuToast />
             </section>
             <BookItemSelectorUI />
+            <CopyFeedback />
+            <NotesComposer />
         </>
     );
 };

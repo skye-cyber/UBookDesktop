@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { modalmanager } from '../../../renderer/js/Status/Manager';
 
 export const ConfirmationDialog = ({ title, message, dialog_id, portal_id, resolve }) => {
     const portalRef = useRef(null)
@@ -32,7 +33,7 @@ export const ConfirmationDialog = ({ title, message, dialog_id, portal_id, resol
                 }, 510);
             }
         } else {
-            //window.ModalManager.hideConfirmDialog(dialog_id, confirmed, resolve)
+            //modalmanager.hideConfirmDialog(dialog_id, confirmed, resolve)
         }
     })
 

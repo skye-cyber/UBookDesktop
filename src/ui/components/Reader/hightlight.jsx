@@ -105,7 +105,7 @@ class HighlightManager {
             const span = document.createElement('span');
             const selectionHTML = appState.selectedHTML || getSelectionHtml(selection);
 
-            span.className = selectedHighlightClass + ' px-0.5 rounded-sm transition-color duration-500';
+            span.className = this.HighlightClass + ' px-0.5 rounded-sm transition-color duration-500';
             span.innerHTML = selectionHTML;
 
             range.deleteContents();
@@ -118,6 +118,11 @@ class HighlightManager {
         });
     }
     delhighlight() {
+        const selection = appState.currentSelection || window.getSelection();
+
+        const selectedElements = this.getSelectedElements(selection);
+
+        if(!selectedElements) return
         // Remove highlight styling directly to elements
         selectedElements.forEach(element => {
             this.removeDirectHighlight(element);
@@ -125,12 +130,13 @@ class HighlightManager {
     }
     setHighlightColor(color) {
         this.HighlightClass = this.color_map[color].className
-
-        //circles.forEach(circle => {
-        //
-        //})
+        document.dispatchEvent(new CustomEvent('update-active-color', {
+            detail: {
+                color_className: this.color_map[color].circle
+            }
+        }))
     }
-    get_color(color){
+    get_color(color) {
         return this.color_map[color]
     }
 }

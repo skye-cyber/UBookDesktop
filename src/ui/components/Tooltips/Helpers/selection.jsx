@@ -5,10 +5,24 @@ class SelectionHelper {
         const selection = window.getSelection();
         const selectionHTML = this.selectionTohtml(selection)
 
-        appState.currentSelection = selection
-        appState.selectedText = selection.toString();
-        appState.selectionRange = selection.getRangeAt(0);
-        appState.selectedHTML = selectionHTML
+        if (selection.type !== "Range") {
+            document.dispatchEvent(new CustomEvent('hide-onselect-tooltip-menu'))
+            // appState.selectedText = null;
+            // appState.currentSelection = null
+            // appState.selectionRange = null;
+            return false
+        }
+
+        try {
+            appState.currentSelection = selection
+            appState.selectedText = selection.toString();
+            appState.selectionRange = selection.getRangeAt(0);
+            appState.selectedHTML = selectionHTML
+        } catch (err) {
+            return false
+        }
+
+        return true
     }
     selectionTohtml(selection) {
         if (!selection.rangeCount) return '';

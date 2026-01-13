@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ContentHelper } from './utils';
 import { StateManager } from '../../../../renderer/js/syscore/StatesManager';
+import { modalmanager } from '../../../../renderer/js/Status/Manager';
 
 //import { waitForElement } from '../../../../renderer/js/syscore/dom_utils';
 
@@ -92,8 +93,8 @@ export const BookItem = ({ part, paper, section, title, tag, struct }) => {
             setfav(status.task === 'add')
 
             status.task === 'add'
-                ? window.ModalManager.showMessage('Item Favourited 💝', 'info')
-                : window.ModalManager.showMessage('Item Unfavourited 💔', 'info')
+                ? modalmanager.showMessage('Item Favourited 💝', 'info')
+                : modalmanager.showMessage('Item Unfavourited 💔', 'info')
         }
     })
 
@@ -109,9 +110,9 @@ export const BookItem = ({ part, paper, section, title, tag, struct }) => {
             setbookmarked(status.task === 'add')
 
             if (status.task === 'add') {
-                window.ModalManager.showMessage('Item Bookmarked 📑', 'info')
+                modalmanager.showMessage('Item Bookmarked 📑', 'info')
             } else {
-                window.ModalManager.showMessage('Item Unbookmarked', 'info')
+                modalmanager.showMessage('Item Unbookmarked', 'info')
             }
         }
     })

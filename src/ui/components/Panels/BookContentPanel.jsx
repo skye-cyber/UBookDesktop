@@ -5,6 +5,7 @@ import { waitForElement } from '../../../renderer/js/syscore/dom_utils';
 import { BookReader } from '../Reader/Book/Reader';
 import { ContentHelper } from '../Reader/Book/utils';
 import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { modalmanager } from '../../../renderer/js/Status/Manager';
 
 export class ContentLoader {
     constructor() {
@@ -79,7 +80,7 @@ export class ContentLoader {
             if (!silent) document.dispatchEvent(new CustomEvent('show-item-selector'))
             */
 
-            return window.ModalManager.showMessage(`${ContentHelper.capitalize(type)} content is empty`, 'warning');
+            return modalmanager.showMessage(`${ContentHelper.capitalize(type)} content is empty`, 'warning');
         }
 
         this.selector_title.textContent = ContentHelper.capitalize(type);
@@ -142,7 +143,7 @@ export class ContentLoader {
              w indow.reactPortalBridge.showComponentInTarget('ContentEmpty', 'paper-container', {info: 'You have not saved any notes'}, 'notes')
              if (!silent) document.dispatchEvent(new CustomEvent('show-notes'))
              */
-            return window.ModalManager.showMessage('Empty! Nothing to show.', 'warning');
+            return modalmanager.showMessage('Empty! Nothing to show.', 'warning');
         }
 
         //this.notecontent ? this.notecontent.innerHTML = '' :

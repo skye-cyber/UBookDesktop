@@ -32,7 +32,6 @@ export class ContextMenuHelper {
             const viewportWidth = parseInt(getComputedStyle(this.readerContent).width)
             const viewportHeight = window.innerHeight
 
-            console.log(x, y)
             if (x > viewportWidth) {
                 // prevent from going offscreen to the left
                 menu.style.left = (x + rect.width) + 'px';

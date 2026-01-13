@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { selectionhelper } from '../Tooltips/Helpers/selection';
-import { appState } from './appState';
 import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
 export const ReaderContent = ({ }) => {
@@ -21,8 +20,8 @@ export const ReaderContent = ({ }) => {
                     target: e.target,
                     screenX: e.screenX,
                     screenY: e.screenY,
-                    pageX:e.pageX,
-                    pageY:e.pageY,
+                    pageX: e.pageX,
+                    pageY: e.pageY,
                     x: e.x,
                     y: e.y,
                     offsetX: e.offsetX,
@@ -31,8 +30,11 @@ export const ReaderContent = ({ }) => {
             }))
         })
 
-        document.addEventListener('selectionchange', ()=>{
-            selectionhelper.updateAppstate()
+        document.addEventListener('selectionchange', () => {
+            const is_valid_selection = selectionhelper.updateAppstate()
+
+            if (!is_valid_selection) return
+
             document.dispatchEvent(new CustomEvent('show-onselect-tooltip-menu'))
         })
 

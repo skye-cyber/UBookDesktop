@@ -27,20 +27,14 @@ export const ContextMenu = ({ }) => {
 
     const showTooltip = useCallback((e) => {
         // Check if text is selected
-        selection.current = window.getSelection()
+        selection.current = appState.currentSelection || window.getSelection()
 
         const hasSelection = selection.current && selection.current.toString().trim().length > 0;
 
         // Store selection info
         if (hasSelection && selection.current.rangeCount > 0) {
-            appState.currentSelection = selection
-            appState.selectedText = selection.current.toString();
-            appState.selectionRange = selection.current.getRangeAt(0);
             selectoption.current.classList.remove('hidden');
         } else {
-            appState.selectedText = '';
-            appState.currentSelection = null
-            appState.selectionRange = null;
             selectoption.current.classList.add('hidden');
         }
 
@@ -50,6 +44,9 @@ export const ContextMenu = ({ }) => {
 
         // Position the context menu
         contextmenu.positionContextMenu(e.pageX || e.detail.pageX, e.pageY || e.detail.pageY, tooltip.current);
+
+        // Hide selection tooltip
+        document.dispatchEvent(new CustomEvent('hide-onselect-tooltip-menu'))
     })
 
     const hideTooltip = useCallback(() => {

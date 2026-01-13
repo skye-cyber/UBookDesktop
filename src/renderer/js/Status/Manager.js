@@ -294,4 +294,6 @@ export class ModalManager {
 
 }
 
-window.ModalManager = new ModalManager()
+export const modalmanager = new ModalManager()
+
+window.ModalManager = ModalManager
