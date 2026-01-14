@@ -29,3 +29,7 @@ waitForElement('#quick-read-container', (el) => {
 waitForElement('#notebody', (el) => {
     reactPortalBridge.registerContainer('notebody', el);
 })
+
+waitForElement('#searchResult', (el) => {
+    reactPortalBridge.registerContainer('searchResult', el);
+})

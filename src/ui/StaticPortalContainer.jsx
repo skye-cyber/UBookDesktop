@@ -7,6 +7,7 @@ import { ContentEmpty } from './components/Panels/BookContentPanel';
 import { NoteCard } from './components/Panels/Note';
 import { ConfirmationDialog } from './components/StatusUI/confirm';
 import { LoadingSpinner } from './components/StatusUI/StatusUI';
+import { ResultCard } from './Pages/Search';
 
 const componentRegistry = {
     BookItem,
@@ -16,7 +17,8 @@ const componentRegistry = {
     ContentEmpty,
     NoteCard,
     ConfirmationDialog,
-    LoadingSpinner
+    LoadingSpinner,
+    ResultCard
 };
 
 export const StaticPortalContainer = () => {

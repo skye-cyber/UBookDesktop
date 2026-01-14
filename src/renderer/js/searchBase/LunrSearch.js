@@ -89,11 +89,11 @@ export class LunrSearch {
      * @returns {Promise<Object[]>} Array of matched results
      */
     async search(ids, _query) {
+        let results = [];
+
         try {
             const query = this.sanitizeQuery(_query);
             const sourceFiles = this.getFileMap(ids);
-
-            let results = [];
 
             await Promise.all(sourceFiles.map(async (file) => {
                 const data = await window.ubook.api.readContent(file);
@@ -115,6 +115,7 @@ export class LunrSearch {
             results.sort((a, b) => b.score - a.score);
 
             return results;
+
         } finally {
             //Trigger garbageCollect
             results = null

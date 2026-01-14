@@ -30,9 +30,8 @@ export const SearchSettings = ({ }) => {
         }, 700)
     })
 
-    const applysearch = useCallback(() => {
+    const applysearch = useCallback(async () => {
         closePage()
-
         loadingspinner.open('Searching, please wait ...')
         const searchInput = StateManager.get('searchInput')
         const query = searchInput.value
@@ -48,11 +47,18 @@ export const SearchSettings = ({ }) => {
         if (part4.current.checked) parts.push(4)
         if (part5.current.checked) parts.push(5)
 
-        search_mode.current.value === 'text'
-            ? BaseSearchEntry.fullTextSearch(parts, query)
-            : BaseSearchEntry.sectionSearch(parts, query)
+        let result
 
-        loadingspinner.close()
+        try {
+            result = await (search_mode.current.value === 'text'
+                ? BaseSearchEntry.fullTextSearch(parts, query)
+                : BaseSearchEntry.sectionSearch(parts, query))
+
+        } finally {
+            loadingspinner.close()
+        }
+
+        if(result) StateManager.get('showSearchResult')()
     })
 
     StateManager.set('applysearch', applysearch)

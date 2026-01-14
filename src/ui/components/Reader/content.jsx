@@ -5,7 +5,6 @@ import { hightlightsearch } from './Search/hightlightSearch';
 
 export const ReaderContent = ({ }) => {
     const readerSection = useRef(null)
-
     const handle_selectionchange = () => {
         const is_valid_selection = selectionhelper.updateAppstate()
 

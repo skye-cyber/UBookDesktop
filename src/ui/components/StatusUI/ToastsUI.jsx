@@ -116,7 +116,7 @@ export const Toast = ({ type, message, messageId, duration = null, autoDismiss =
                     {/* Message Text */}
                     <div className="flex-1 min-w-0 font-handwriting">
                         <p className={`text-base font-semibold ${typeConfig[type].textColor} leading-relaxed tracking-tight`}>
-                            {message}
+                            {String(message)}
                         </p>
                     </div>
 
