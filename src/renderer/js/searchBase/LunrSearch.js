@@ -86,39 +86,49 @@ export class LunrSearch {
      * Searches structured documents for a given query
      * @param {string} _query - The search query
      * @param {Array<number|string>} ids - Source file IDs
+     * @param {number} limit - Maximum number of results to return (default: 50)
      * @returns {Promise<Object[]>} Array of matched results
      */
-    async search(ids, _query) {
+    async search(ids, _query, limit = 50) {
         let results = [];
 
         try {
             const query = this.sanitizeQuery(_query);
             const sourceFiles = this.getFileMap(ids);
 
-            await Promise.all(sourceFiles.map(async (file) => {
+            // Process files sequentially to reduce memory pressure
+            for (const file of sourceFiles) {
                 const data = await window.ubook.api.readContent(file);
-                if (!data) return;
+                if (!data) continue;
 
                 const documents = this.flattenContent(data);
                 const idx = await this.buildIndex(documents);
 
                 const docMap = Object.fromEntries(documents.map(doc => [doc.id, doc]));
-                const res = idx.search(query);
+                
+                // Only get top results from this file
+                const res = idx.search(query).slice(0, limit);
 
                 results.push(...res.map(result => ({
                     score: result.score,
                     ...docMap[result.ref],
                 })));
-            }));
 
-            // Sort results by score in descending order (higher score = more relevant)
+                // Early exit if we have enough results
+                if (results.length >= limit) break;
+
+                // Clean up after each file to free memory
+                documents.length = 0;
+                Object.keys(docMap).forEach(key => delete docMap[key]);
+            }
+
+            // Sort and limit final results
             results.sort((a, b) => b.score - a.score);
-
-            return results;
+            return results.slice(0, limit);
 
         } finally {
-            //Trigger garbageCollect
-            results = null
+            // Clean up results array
+            if (results) results.length = 0;
         }
     }
 }

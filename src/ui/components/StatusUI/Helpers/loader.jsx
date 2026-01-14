@@ -8,7 +8,9 @@ export class LoadingSpinner {
         reactPortalBridge.showComponentInTarget('LoadingSpinner', 'reader-content', { text: text }, 'loadingspinner')
     }
     close() {
-        reactPortalBridge.closeComponent('loadingspinner', true)
+        try {
+            reactPortalBridge.closeComponent('loadingspinner', true)
+        } catch (err) { }
     }
 }
 
