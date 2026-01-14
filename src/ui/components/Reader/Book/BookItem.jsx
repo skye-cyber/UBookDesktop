@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ContentHelper } from './utils';
 import { StateManager } from '../../../../renderer/js/syscore/StatesManager';
 import { modalmanager } from '../../../../renderer/js/Status/Manager';
+import { reactPortalBridge } from '../../../../renderer/js/react-portal-bridge';
 
 //import { waitForElement } from '../../../../renderer/js/syscore/dom_utils';
 
@@ -72,11 +73,11 @@ export const BookItem = ({ part, paper, section, title, tag, struct }) => {
 
     const OpenSectionContent = useCallback(() => {
         document.dispatchEvent(new CustomEvent('clear-reader-section'))
-        window.reactPortalBridge.showComponentInTarget('Readable', 'reader-content', { section: section }, 'readable_content')
+        reactPortalBridge.showComponentInTarget('Readable', 'reader-content', { section: section }, 'readable_content')
         ContentHelper.scrollToTop(StateManager.get('readerSection'))
 
         document.dispatchEvent(new CustomEvent('hide-item-selector'))
-        document.dispatchEvent(new CustomEvent('hide-book-content-panel'))
+        //document.dispatchEvent(new CustomEvent('hide-book-content-panel'))
         StateManager.set('active_section', sectionRef.current)
     })
 

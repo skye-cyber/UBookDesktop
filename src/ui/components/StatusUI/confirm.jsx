@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { modalmanager } from '../../../renderer/js/Status/Manager';
+import { reactPortalBridge } from '../../../renderer/js/react-portal-bridge';
 
 export const ConfirmationDialog = ({ title, message, dialog_id, portal_id, resolve }) => {
     const portalRef = useRef(null)
@@ -28,7 +28,7 @@ export const ConfirmationDialog = ({ title, message, dialog_id, portal_id, resol
 
                 // Resolve promise and close dialog portal
                 setTimeout(() => {
-                    window.reactPortalBridge.closeComponent(portal_id)
+                    reactPortalBridge.closeComponent(portal_id)
                     resolve(confirmed)
                 }, 510);
             }

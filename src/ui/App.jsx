@@ -15,7 +15,6 @@ import { StreamingPortalContainer } from './StreamingPortalContainer';
 import '../renderer/js/react-portal-bridge';
 import './PortalTargetRegister';
 import '../renderer/js/syscore/StatesManager';
-import { SearchResultPage } from './Pages/Search';
 import '../renderer/js/Status/Manager';
 import { NotesPage } from './Pages/Notes';
 
@@ -51,7 +50,6 @@ const App = () => {
                 <StreamingPortalContainer />
             </ErrorBoundary>
             <StatusUI />
-            <SearchResultPage />
             <NotesPage />
         </ErrorBoundary >
     );

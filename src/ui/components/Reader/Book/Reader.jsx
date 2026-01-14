@@ -1,4 +1,6 @@
 import { ContentHelper } from "./utils";
+import { reactPortalBridge } from "../../../../renderer/js/react-portal-bridge";
+import { StateManager } from "../../../../renderer/js/syscore/StatesManager";
 
 /**
  * Reader is responsible for rendering paper sections into a container,
@@ -13,7 +15,8 @@ export class BookReader {
      */
     constructor(container, readerSection, api = window.ubook.api) {
         this.paperContainer = container;
-        this.readerSection = readerSection;
+        StateManager.subscribe('readerSection', (el) => this.readerSection = el)
+        if (this.readerSection && readerSection) this.readerSection = readerSection;
         this.api = api;
     }
 
@@ -42,7 +45,7 @@ export class BookReader {
                     section_number: section.section_number,
                 };
 
-                window.reactPortalBridge.showComponentInTarget(
+                reactPortalBridge.showComponentInTarget(
                     'BookItem',
                     'paper-container',
                     {
@@ -170,3 +173,11 @@ export class BookReader {
         setTimeout(() => scrollToTop(readerWrapper), 100);
     }
 }
+
+export let bookreader
+
+StateManager.subscribe('paperContainer', (paperContainer) => {
+    StateManager.subscribe('readerSection', (readerSection) => {
+        bookreader = new BookReader(paperContainer, readerSection)
+    })
+})

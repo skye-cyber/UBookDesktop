@@ -3,6 +3,7 @@ import { ContentHelper } from '../Reader/Book/utils';
 import { BookReader } from '../Reader/Book/Reader';
 import { waitForElement } from '../../../renderer/js/syscore/dom_utils';
 import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { reactPortalBridge } from '../../../renderer/js/react-portal-bridge';
 
 export class ContentLoader {
     constructor() {
@@ -73,7 +74,7 @@ export class ContentLoader {
 
         if (!Array.isArray(items) || items.length === 0) {
             /*
-            window.reactPortalBridge.showComponentInTarget('ContentEmpty', 'paper-container', {info: `No ${capitalize(type)} ❌🤷‍🤷`})
+            reactPortalBridge.showComponentInTarget('ContentEmpty', 'paper-container', {info: `No ${capitalize(type)} ❌🤷‍🤷`})
             if (!silent) document.dispatchEvent(new CustomEvent('show-item-selector'))
             */
 
@@ -111,7 +112,7 @@ export class ContentLoader {
                 section_number: section.section_number,
             };
 
-            window.reactPortalBridge.showComponentInTarget(
+            reactPortalBridge.showComponentInTarget(
                 'BookItem',
                 'paper-container',
                 {
@@ -144,10 +145,10 @@ export class ContentLoader {
         }
 
         //this.notecontent ? this.notecontent.innerHTML = '' :
-        window.reactPortalBridge.closeComponent('notes', true)
+        reactPortalBridge.closeComponent('notes', true)
 
         for (const note of items) {
-            window.reactPortalBridge.showComponentInTarget(
+            reactPortalBridge.showComponentInTarget(
                 'NoteCard',
                 'notebody',
                 {

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ubookesktop from '@assets/ubookdesktop.png';
 import { useTheme } from '../Themes/useThemeHeadless';
 import { waitForElement } from '../../../renderer/js/syscore/dom_utils';
@@ -9,6 +9,8 @@ export const BookContentPanel = ({ }) => {
     const panelMask = useRef(null)
     const panel = useRef(null)
     const forewordRef = useRef(null)
+    //const isPanelOpen = useState(true)
+
     const { isDark, toggleTheme, setTheme } = useTheme();
 
     const ToggleBookContentPanel = useCallback(() => {
@@ -18,21 +20,21 @@ export const BookContentPanel = ({ }) => {
     })
 
     const showPanel = useCallback(() => {
-        panelMask.current.classList.remove('-translate-x-full');
-        panelMask.current.classList.add('-translate-x-0');
-        panel.current.classList.remove('-translate-x-full');
-        panel.current.classList.add('-translate-x-0');
+        panelMask.current.classList.remove('-translate-x-full', 'xl:-translate-x-full');
+        panelMask.current.classList.add('-translate-x-0', 'xl:translate-x-0');
+        panel.current.classList.remove('-translate-x-full', 'xl:-translate-x-full');
+        panel.current.classList.add('-translate-x-0', 'xl:translate-x-0');
     })
     const hidePanel = useCallback(() => {
-        panelMask.current.classList.add('-translate-x-full');
-        panelMask.current.classList.remove('-translate-x-0');
-        panel.current.classList.add('-translate-x-full');
-        panel.current.classList.remove('-translate-x-0');
+        panelMask.current.classList.add('-translate-x-full', 'xl:-translate-x-full');
+        panelMask.current.classList.remove('-translate-x-0', 'xl:translate-x-0');
+        panel.current.classList.add('-translate-x-full', 'xl:-translate-x-full');
+        panel.current.classList.remove('-translate-x-0', 'xl:translate-x-0');
     })
 
     const panel_toggle_eaval = useCallback(() => {
-        const isOpen = panelMask.current.classList.contains('-translate-x-0')
-        isOpen ? hidePanel() : showPanel()
+        const isPanelOpen = window.innerWidth < 1280 ? panelMask.current.classList.contains('-translate-x-0') : panelMask.current.classList.contains('xl:translate-x-0')
+        isPanelOpen ? hidePanel() : showPanel()
     })
 
     useEffect(() => {
@@ -59,16 +61,16 @@ export const BookContentPanel = ({ }) => {
         <section
             ref={panelMask}
             id="sidepaneMask"
-            className="bg-indigo-950/25 dark:bg-[#001f2b]/0 -translate-x-full mt-[8vh] w-fit fixed inset-0 transform transition-transform transition-colors duration-700 ease-in-out z-[40]">
+            className="fixed inset-0 bg-indigo-950/25 dark:bg-[#001f2b]/0 -translate-x-full xl:translate-x-0 mt-[8vh] w-fit transform transition-transform transition-colors duration-700 ease-in-out z-[40] select-none">
             <div
                 ref={panel}
                 id="sidepane"
-                className="relative bg-gradient-to-br from-indigo-900 to-indigo-950 dark:from-[#001f2b] dark:to-[#001f2b] w-72 h-[calc(100vh-7vh)] shadow-2xl transform transition-transform -translate-x-full transition-colors duration-700 ease-in-out">
+                className="relative bg-gradient-to-br from-indigo-900 to-indigo-950 dark:from-[#001f2b] dark:to-[#001f2b] w-72 h-[calc(100vh-7vh)] shadow-2xl transform transition-transform -translate-x-full xl:translate-x-0 transition-colors duration-700 ease-in-out">
                 <div className="flex items-center p-4 border-b border-indigo-700 dark:border-[#00455e]">
                     <img className="h-12 w-16 rounded-full" src={ubookesktop}></img>
                     <h1 className="text-white dark:text-gray-300 text-2xl ml-2">Urantia Book Desktop</h1>
                 </div>
-                <section className="h-fit max-h-[72%] overflow-y-auto select-none bg-indigo-950/25 dark:bg-[#002b36] rounded-lg">
+                <section className="h-fit max-h-[72%] overflow-y-auto scrollbar-custom select-none bg-indigo-950/25 dark:bg-[#002b36] rounded-lg">
                     <ul className="mt-3">
                         <li ref={forewordRef} id="foreword" className="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onClick={() => ContentLoader_ins.setForeword()}>📖 Foreword</li>
                         <li id="central-and-superuniverse" className="flex items-center p-2 text-white dark:text-gray-300 hover:bg-gray-600 dark:hover:bg-[#00445f]/70 cursor-pointer" onClick={() => ContentLoader_ins.setSuperUniverse()}><span className="bg-pink-600 rounded-full px-0.5">🌀</span>&nbsp; The Central and Superuniverses</li>

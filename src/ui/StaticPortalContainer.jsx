@@ -6,6 +6,7 @@ import { Readable, Textual } from './components/Reader/Book/ContentWrapper';
 import { ContentEmpty } from './components/Panels/BookContentPanel';
 import { NoteCard } from './components/Panels/Note';
 import { ConfirmationDialog } from './components/StatusUI/confirm';
+import { LoadingSpinner } from './components/StatusUI/StatusUI';
 
 const componentRegistry = {
     BookItem,
@@ -14,7 +15,8 @@ const componentRegistry = {
     Textual,
     ContentEmpty,
     NoteCard,
-    ConfirmationDialog
+    ConfirmationDialog,
+    LoadingSpinner
 };
 
 export const StaticPortalContainer = () => {
@@ -148,7 +150,6 @@ export const StaticPortalContainer = () => {
                     console.warn(`Container ${containerId} not found in DOM`);
                     return null;
                 }
-
                 let portalRoot = containerElement.querySelector('.react-portal-root');
                 if (!portalRoot) {
                     console.warn(`Container .react-portal-root not found in ${containerId}: Defaulting to self`);

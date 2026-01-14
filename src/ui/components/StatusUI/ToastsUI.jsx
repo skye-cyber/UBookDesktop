@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { GenerateId } from '../utils/utils';
 import { modalmanager } from '../../../renderer/js/Status/Manager';
+import { reactPortalBridge } from '../../../renderer/js/react-portal-bridge';
 
 const typeConfig = {
     success: {
@@ -77,7 +78,7 @@ export const Toast = ({ type, message, messageId, duration = null, autoDismiss =
                 portalRef.current?.classList?.add("opacity-0", "translate-x-full", "scale-95");
 
                 setTimeout(() => {
-                    window.reactPortalBridge.closeComponent(portal_id)
+                    reactPortalBridge.closeComponent(portal_id)
                 }, 510);
             }
         } else {

@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { modalmanager } from '../../../renderer/js/Status/Manager';
+import { reactPortalBridge } from '../../../renderer/js/react-portal-bridge';
 
 export const NoteCard = ({ note, portal_id }) => {
     const ConfirmDeletion = useCallback(async () => {
@@ -14,7 +15,7 @@ export const NoteCard = ({ note, portal_id }) => {
         const isDeleted = await window.ubook.api.deleteNote(note.timestamp)
         if (isDeleted) {
             modalmanager.showMessage('Note Deleted.', 'success');
-            window.reactPortalBridge.closeComponent(portal_id)
+            reactPortalBridge.closeComponent(portal_id)
         }
     }
     return (

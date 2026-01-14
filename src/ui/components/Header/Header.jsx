@@ -26,12 +26,11 @@ export const Header = ({ }) => {
     })
 
     const ShowSearchResult = useCallback(() => {
-        console.log("dispatch")
         document.dispatchEvent(new CustomEvent('showSearchResult'))
     })
 
     const openSearchPref = useCallback(() => {
-        //
+        document.dispatchEvent(new CustomEvent('open-search-settings'))
     })
 
     /**
@@ -39,9 +38,22 @@ export const Header = ({ }) => {
      */
     const focusModeToggle = useCallback(() => {
         const focused = StateManager.get('focusMode')
+
         document.dispatchEvent(new CustomEvent('focusMode'))
+
         StateManager.get('readerTopPanelToggle')()
         StateManager.set('focusMode', !focused)
+    })
+
+    const handle_enterKey = useCallback((e) => {
+        if (e.key === 'Enter' && !e.ctrlKey && !e.shiftKey) StateManager.get('applysearch')()
+    })
+
+    useEffect(() => {
+        searchInput.current.addEventListener('keydown', handle_enterKey)
+        return () => {
+            searchInput.current.addEventListener('keydown', handle_enterKey)
+        }
     })
 
     return (
@@ -67,7 +79,7 @@ export const Header = ({ }) => {
                     </div>
 
                     {/* Submit Search Button */}
-                    <button id="submit-search" title="submit-search" aria-label="submit-search" className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 flex items-center justify-center rounded-lg bg-primary-500 hover:bg-primary-600 text-white transition-colors duration-300">
+                    <button onClick={() => StateManager.get('applysearch')()} id="submit-search" title="submit-search" aria-label="submit-search" className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 flex items-center justify-center rounded-lg bg-primary-500 hover:bg-primary-600 text-white transition-colors duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className="h-5 w-5 fill-current text-white dark:text-slate-200">
                             <path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z" />
                         </svg>

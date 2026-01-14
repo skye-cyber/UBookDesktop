@@ -1,4 +1,4 @@
-class ReactPortalBridge {
+export class ReactPortalBridge {
     constructor() {
         this.portals = new Map();
         this.subscribers = new Map();
@@ -82,7 +82,7 @@ class ReactPortalBridge {
     }
 }
 
-class StreamingPortalBridge {
+export class StreamingPortalBridge {
     constructor() {
         this.portals = new Map();
         this.streamingPortals = new Map(); // Special registry for streaming components
@@ -197,12 +197,12 @@ class StreamingPortalBridge {
 
 export function ClosePrefixed() {
     for (let pid of ['user_message', 'ai_message']) {
-        window.reactPortalBridge.closeComponent(pid, true)
-        window.streamingPortalBridge.closeStreamingPortal(pid, true)
+        reactPortalBridge.closeComponent(pid, true)
+        streamingPortalBridge.closeStreamingPortal(pid, true)
     }
 }
 
-window.reactPortalBridge = new ReactPortalBridge();
+export const reactPortalBridge = new ReactPortalBridge();
 
-window.streamingPortalBridge = new StreamingPortalBridge();
+export const streamingPortalBridge = new StreamingPortalBridge();
 

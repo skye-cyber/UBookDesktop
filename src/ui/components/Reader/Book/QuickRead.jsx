@@ -48,8 +48,8 @@ export const QuickRead = ({ }) => {
         <div
             data-portal-container='quick-read-container'
             id="quick-read-container"
-            className="h-fit pb-[16vh] max-h-[84vh] overflow-y-auto select-text bg-gradient-to-b from-blue-50/80 to-blue-100/80 dark:invert rounded-[8px] m-2 transform transition-all duration-700 font-reader scrollbar-custom border border-white/50 shadow-inner">
-            <section className="block w-full">
+            className="h-fit pb-[16vh] max-h-[84vh] overflow-y-auto select-text bg-gradient-to-b from-blue-50/80 to-blue-100/80 dark:invert rounded-[8px] m-2 transform transition-all duration-700 font-reader scrollbar-custom border border-white/50 shadow-inner select-none">
+            <section className="block w-full select-none">
                 <h1 className="flex flex-col w-full text-xl font-bold">{paper_title}<br /><p className="p-0.5 rounded-md bg-white dark:bg-green-600"></p><p className="text-lg font-normal">{title}</p></h1>
                 <div className="flex w-full justify-between items-center bg-cyan-400/20 mx-auto">
                     <p className="text-sm text-orange-500">
@@ -66,7 +66,7 @@ export const QuickRead = ({ }) => {
                 </div>
                 <p className='p-0.5 bg-pink-400 w-full rounded-full mt-1'></p>
             </section>
-            <section className='text-sm font-elegant text-gray-900 dark:text-purple-900'>
+            <section className='text-sm font-elegant text-gray-900 dark:text-purple-900 select-none'>
                 {random_section?.paragraphs.map((paragraph, index) => (
                     <Textual key={index} paragraph={paragraph} />
                 ))}

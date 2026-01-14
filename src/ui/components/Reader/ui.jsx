@@ -7,6 +7,8 @@ import { ContextMenuToast, DefaultToast } from '../Notifications/Toasts';
 import { CopyFeedback } from '../StatusUI/ToastsUI';
 import { NotesComposer } from '../ContextMenu/Modals/Notes';
 import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { SearchSettings } from '../../Pages/searchSettings';
+import { SearchResultPage } from '../../Pages/Search';
 
 export const ReaderUI = ({ }) => {
     const readerSection = useRef(null);
@@ -53,6 +55,8 @@ export const ReaderUI = ({ }) => {
             <BookItemSelectorUI />
             <CopyFeedback />
             <NotesComposer />
+            <SearchSettings />
+            <SearchResultPage />
         </>
     );
 };
