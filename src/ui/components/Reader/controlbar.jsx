@@ -4,7 +4,7 @@ import { BookNavigator } from './navigator';
 import { ThemeManager } from './theme';
 import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
-export const ReaderProgress = ({ progressRef = useRef(null), percentageRef = useRef(null) }) => {
+export const Controls = ({ progressRef = useRef(null), percentageRef = useRef(null) }) => {
     const controlBar = useRef(null)
     const panelRef = useRef(null)
 
@@ -33,7 +33,22 @@ export const ReaderProgress = ({ progressRef = useRef(null), percentageRef = use
     return (
         <div ref={panelRef} id="top-utils-panel" className="select-none w-full" >
             {/* Controls Bar */}
-            <div ref={controlBar} id="controlbar-utils" className="bg-white dark:bg-[#3b3b3b] dark:text-white rounded-lg shadow-sm py-0 px-4 mb-0 flex flex-wrap items-center justify-between rounded-none border-b-2 border-blue-500 dark:border-blue-500">
+            <div ref={controlBar} id="controlbar-utils" className="flex flex-wrap items-center justify-between bg-white dark:bg-[#3b3b3b] dark:text-white rounded-lg shadow-sm px-2 rounded-none border-b-2 border-t border-blue-500 border-t-[#534afd] dark:border-b-blue-500 dark:border-t-zinc-800">
+
+                {/*Naviagte to previous section*/}
+                <button onClick={() => BookNavigator.previousSection()} aria-label="Previous Chapter" title="Previous Chapter" className="flex items-center justify-center rounded-lg hover:bg-fuchsia-200 transition-colors duration-500">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="gradPrev" x1="100%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stopColor="#48fa83" />
+                                <stop offset="100%" stopColor="#2abda2" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M16 4l-8 8 8 8" fill="none" stroke="url(#gradPrev)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </button>
+
                 <div className="flex items-center space-x-4">
                     <div className="flex items-center space-x-2">
                         <span className="text-sm text-gray-600 dark:text-white">Font Size:</span>
@@ -65,12 +80,31 @@ export const ReaderProgress = ({ progressRef = useRef(null), percentageRef = use
                         <option value="ttskit3">Natural (slow)</option>
                     </select>
                 </div>
+
                 <div className="hidden flex items-center space-x-2">
                     <span id="wordCount" className="text-sm text-gray-600 dark:text-white">Words: 0</span>
                     <span id="bookmarkCount" className="hidden text-sm text-gray-600 dark:text-white">Bookmarks: 0</span>
                 </div>
-            </div>
 
+                {/*Naviagte to previous section*/}
+                <button onClick={() => BookNavigator.nextSection()} aria-label="Next Chapter" title="Next Chapter" className="flex items-center justify-center hover:bg-blue-200 rounded-lg transition-colors duration-500">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="gradNext" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#4facfe" />
+                                <stop offset="100%" stopColor="#00f2fe" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M8 4l8 8-8 8"
+                            fill="none"
+                            stroke="url(#gradNext)"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round" />
+                    </svg>
+                </button>
+            </div>
         </div >
     )
 
