@@ -29,8 +29,9 @@ export const OnselectTooltip = ({ }) => {
 
                 //prevent from going beyond container bounds y-wise
                 if (top < 0) {
-                    top = 0
+                    top = tooltipHeight
                 }
+
                 let left = rect.left - wrapperRect.left + rect.width / 2 - tooltipWidth / 2;
 
                 // Constrain within wrapper bounds
