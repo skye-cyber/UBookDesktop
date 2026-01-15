@@ -7,10 +7,6 @@ export const PlayerTooltip = ({ }) => {
     const iconPause = useRef(null)
     const iconStop = useRef(null)
     const statusLabel = useRef(null)
-    const speedDown = useRef(null)
-    const speedUp = useRef(null)
-    const speedDisplay = useRef(null)
-    const [currentSpeed, SetCurrentSpeed] = useState(1.0)
 
     const [isPlaying, SetIsPlaying] = useState(false)
 
@@ -24,46 +20,29 @@ export const PlayerTooltip = ({ }) => {
         playertooltip.current.classList.add('translate-x-[110%]')
     })
 
-    const updatePlayerIcon = useCallback(() => {
-        if (isPlaying) {
-            iconPlay.current.classList.add('hidden');
-            iconPause.current.classList.remove('hidden');
-        } else {
-            iconPlay.current.classList.remove('hidden');
-            iconPause.current.classList.add('hidden');
-        }
-    })
-
     const onPlayPause = useCallback(async () => {
         if (!isPlaying) {
-            const status = 'resumed' //await window.ubook.player.resume();
+            const status = await window.ubook.player.resume();
 
             if (status === 'resumed') {
-                //statusLabel.current.textContent = 'Playing...';
                 SetIsPlaying(true);
-                //updatePlayerIcon();
             }
         } else {
-            const status = 'paused' //await window.ubook.player.pause();
+            const status = await window.ubook.player.pause();
 
             if (status === "paused") {
-                //statusLabel.current.textContent = 'Paused';
                 SetIsPlaying(false);
-                //updatePlayerIcon();
             }
         }
     })
 
     const onStop = useCallback(async () => {
-        //statusLabel.current.textContent = 'Stopped';
-
         setTimeout(async () => {
             SetIsPlaying(false);
-            //updatePlayerIcon();
 
-            const status = "stopped" //await window.ubook.player.stop();
+            const status = await window.ubook.player.stop();
             status === "stopped" ? hidePlayerTool() : '';
-        }, 500)
+        }, 100)
     })
 
     const onPlayFinished = useCallback(() => {
@@ -71,11 +50,6 @@ export const PlayerTooltip = ({ }) => {
         console.log("Finished playing")
         SetIsPlaying(false);
 
-        // update button/icon to reflect stopped state
-        //updatePlayerIcon();
-
-        // update status
-        //statusLabel.current.textContent = 'Finished';
         hidePlayerTool();
     })
 
@@ -87,10 +61,8 @@ export const PlayerTooltip = ({ }) => {
             const status = await window.ubook.player.pause();
 
             if (status === "paused") {
-                //statusLabel.current.textContent = 'Paused';
                 SetIsPlaying(false);
                 play_status = false
-                //updatePlayerIcon();
             }
         }
 
@@ -98,8 +70,6 @@ export const PlayerTooltip = ({ }) => {
 
         if (!play_status && newOffset) {
             SetIsPlaying(true)
-            //statusLabel.current.textContent = 'Playing...';
-            //updatePlayerIcon()
         }
     })
 
