@@ -21,7 +21,7 @@ export const PlayerTooltip = ({ }) => {
             const ttsmodel = StateManager.get('ttsModel')
 
             const heading = StateManager.get('readerSection').querySelector('h1').textContent
-            console.log(heading)
+
             // Default to selected text
             let text =
                 (
@@ -32,6 +32,21 @@ export const PlayerTooltip = ({ }) => {
                 || appState.selectedText?.trim()
 
             if (!text) return modalmanager.showMessage("Couldn't obtain text", 'warn')
+
+            // Replace paragraph labels with text to aid tts model
+            const labels = text.match(/[0-9]:[0-9].[0-9]*\s*?⇒/g)
+
+            labels.forEach((label) => {
+                const paragraphNumber = label
+                    .replace('⇒', '')
+                    .split('.')
+                    .slice(-1)
+                    .toLocaleString()
+                    .trim()
+                    .trim()
+
+                text = text.replace(label, `Paragraph ${paragraphNumber}: `).toLowerCase()
+            })
 
             text = text.replace('⇒', '')
 

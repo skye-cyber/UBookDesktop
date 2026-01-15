@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { ColorPicker } from './colorpicker';
 import { menuaction } from './Helpers/action';
 import { appState } from '../Reader/appState';
 import { Highlighter } from '../Reader/hightlight';
