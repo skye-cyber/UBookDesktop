@@ -1,5 +1,5 @@
 import { FontManager_ins } from "../../Reader/font"
-import { ThemeManager } from "../../Reader/theme"
+import { ThemeManager } from "../../Reader/theme_manager"
 import { Highlighter } from "../../Reader/hightlight"
 import {
     SelectAllOption,

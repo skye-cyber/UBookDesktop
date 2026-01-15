@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ReaderProgress } from './progress';
 import { ReaderContent } from './content';
 import { ToolTipUI } from '../Tooltips/tooltip';
 import { BookItemSelectorUI } from '../SelectorUI/ItemSelector';
@@ -9,6 +8,7 @@ import { NotesComposer } from '../ContextMenu/Modals/Notes';
 import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 import { SearchSettings } from '../../Pages/searchSettings';
 import { SearchResultPage } from '../../Pages/Search';
+import { Controls } from './controlbar';
 
 export const ReaderUI = ({ }) => {
     const readerSection = useRef(null);
@@ -39,7 +39,7 @@ export const ReaderUI = ({ }) => {
         <>
             <section className="w-screen max-h-[calc(100vh-0vh)] overflow-y-hidden">
                 <section className='flex justify-center items-center rounded-xl max-w-full md:max-w-3xl mx-auto shadow-xl shadow-y-none shadow-gray-400 dark:shadow-slate-900 '>
-                    <ReaderProgress progressRef={progressBar} percentageRef={percentageRef}/>
+                    <Controls progressRef={progressBar} percentageRef={percentageRef}/>
                 </section>
 
                 <div

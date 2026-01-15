@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { appState } from '../Reader/appState';
+import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
 export const useTheme = () => {
     const [isDark, setIsDark] = useState(false);
@@ -48,6 +49,11 @@ export const useTheme = () => {
             localStorage.setItem('theme', 'light');
             appState.currentTheme = 'light'
         }
+
+        // Update toolbar theme value
+        try {
+            StateManager.get('UpdateToolbarTheme')(theme)
+        } catch (err) { }
     };
 
     return {

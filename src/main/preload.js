@@ -397,7 +397,7 @@ const sm_api = {
 
 }
 
-const play = {
+const player = {
     play: async (filePath = null) => {
         try {
             if (!audioContext) audioContext = new AudioContext();
@@ -530,6 +530,6 @@ function playFrom(offset = 0) {
 contextBridge.exposeInMainWorld('ubook', {
     api,
     sm_api,
-    play,
+    player,
     playFrom
 });

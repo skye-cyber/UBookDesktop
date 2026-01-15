@@ -19,7 +19,3 @@ export const StateManager = (() => {
         }
     };
 })();
-
-
-// expose globally
-//window.StateManager = StateManager;
