@@ -34,7 +34,7 @@ export const PlayerTooltip = ({ }) => {
             if (!text) return modalmanager.showMessage("Couldn't obtain text", 'warn')
 
             // Replace paragraph labels with text to aid tts model
-            const labels = text.match(/[0-9]:[0-9].[0-9]*\s*?⇒/g)
+            const labels = text.match(/[0-9]:[0-9].[0-9]*\s*?⇒/g) || []
 
             labels.forEach((label) => {
                 const paragraphNumber = label

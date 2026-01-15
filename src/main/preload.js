@@ -266,7 +266,6 @@ const api = {
             }
         }
 
-        console.log(safeText)
         // For linux use picowave for shorter text
         if ((isLinux && safeText.split(' ').length <= 30 || model !== "ttskit3")) {
             await linuxFallback()
