@@ -69,19 +69,6 @@ export const OnselectTooltip = ({ }) => {
         document.dispatchEvent(new CustomEvent('showColorPicker'))
     })
 
-    const textReader = useCallback(() => {
-        const readerSection = StateManager.get('readerSection');
-
-        if (!StateManager.get('isPlaying')
-        ) {
-            const headText = readerSection?.querySelector('h1').innerText
-            const text = readerSection.innerText
-                .replace(headText, '')
-                .trim()
-            //SetselectedText(normalizeSelection(text));
-            //handleReadAloud()
-        }
-    })
 
     const color_update = ((e) => {
         const color = e.detail?.color_className
@@ -104,7 +91,7 @@ export const OnselectTooltip = ({ }) => {
 
     return (
         <section ref={tooltip} id="onselect-tooltip-menu"
-            className="absolute hidden -translate-x-[200%] bg-gray-900 text-white dark:bg-white dark:text-gray-900 border border-gray-700 dark:border-gray-200 text-sm rounded-lg shadow-xl px-3 py-2 z-50 transition-opacity duration-200 opacity-0">
+            className="absolute hidden -translate-x-[200%] bg-gray-900 text-white dark:bg-white dark:text-gray-900 border border-gray-700 dark:border-gray-200 text-sm rounded-lg shadow-xl px-3 py-2 z-50 transition-opacity duration-200 opacity-0 select-none">
 
             <div id="tooltip-row" className="flex-row justify-start gap-2">
                 <div className="flex flex-wrap gap-2 w-fit space-x-3 mb-1">
@@ -127,7 +114,7 @@ export const OnselectTooltip = ({ }) => {
                         <span>Color</span>
                     </button>
                     <button onClick={() => Highlighter.hightlight()} className="hover:text-yellow-400 dark:hover:text-yellow-600">🖊️Highlight</button>
-                    <button onClick={textReader} className="hover:text-pink-400 dark:hover:text-pink-600">
+                    <button onClick={() => StateManager.get('ReadInnitializer')()} className="hover:text-pink-400 dark:hover:text-pink-600">
                         🔊 Read
                     </button>
                     <button onClick={() => menuaction.handleExport()} className="hover:text-indigo-400 dark:hover:text-indigo-600">

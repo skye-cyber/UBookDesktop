@@ -8,5 +8,6 @@ export const appState = {
     highlights: [],
     currentFontSize: 16,
     currentTheme: 'dark',
-    innitialFontSize: 16
+    innitialFontSize: 16,
+    currentFontName: 'normal'
 };

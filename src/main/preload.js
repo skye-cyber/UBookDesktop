@@ -266,6 +266,7 @@ const api = {
             }
         }
 
+        console.log(safeText)
         // For linux use picowave for shorter text
         if ((isLinux && safeText.split(' ').length <= 30 || model !== "ttskit3")) {
             await linuxFallback()
@@ -424,7 +425,7 @@ const player = {
             pauseTime = audioContext.currentTime - startTime;
             sourceNode = null;
         }
-        return "Paused";
+        return "paused";
     },
 
     resume: (time = null) => {
@@ -432,7 +433,7 @@ const player = {
         if (audioBuffer && pauseTime) {
             playFrom(pauseTime);
             pauseTime = 0;
-            return "Resumed";
+            return "resumed";
         }
         return "Nothing to resume";
     },
@@ -447,7 +448,7 @@ const player = {
         audioBuffer = null;
         pauseTime = 0;
         currentOffset = 0;
-        return "Stopped";
+        return "stopped";
     },
 
     // ✅ Seek support

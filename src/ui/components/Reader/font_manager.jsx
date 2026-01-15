@@ -1,7 +1,8 @@
 import { waitForElement } from "../../../renderer/js/syscore/dom_utils"
+import { StateManager } from "../../../renderer/js/syscore/StatesManager"
 import { appState } from "./appState"
 
-export class FontManager {
+export class FontSizeManager {
     constructor() {
         this.readable
         this.currentFontSize
@@ -41,4 +42,24 @@ export class FontManager {
     }
 }
 
-export const FontManager_ins = new FontManager()
+export function ChangeFontName(fontname) {
+    if (!fontname) return
+
+    const readable = StateManager.get('readerSection')
+
+    const textuals = readable.querySelectorAll('#textual')
+
+    if (!textuals) return false
+
+    textuals.forEach((textual) => {
+        textual.classList.remove(`font-${appState.currentFontName}`)
+        textual.classList.add(`font-${fontname}`)
+    })
+
+    appState.currentFontName = fontname
+
+    return true
+}
+
+
+export const FontSizeManager_ins = new FontSizeManager()

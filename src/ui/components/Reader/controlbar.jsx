@@ -1,18 +1,15 @@
 import React, { useCallback, useEffect, useRef } from 'react';
-import { FontManager_ins } from './font';
+import { ChangeFontName, FontSizeManager_ins } from './font_manager';
 import { BookNavigator } from './navigator';
 import { ThemeManager } from './theme_manager';
 import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
-export const Controls = ({ progressRef = useRef(null), percentageRef = useRef(null) }) => {
+export const Controls = ({ }) => {
     const controlBar = useRef(null)
     const themeRef = useRef(null);
     const panelRef = useRef(null)
     const fontRef = useRef(null)
-
-    const toggleControlBar = useCallback(() => {
-        controlBar.current.classList.toggle('hidden')
-    })
+    const ttsModel = useRef(null)
 
     const readerTopPanelToggle = useCallback(() => {
         const focused = StateManager.get('focusMode')
@@ -26,7 +23,8 @@ export const Controls = ({ progressRef = useRef(null), percentageRef = useRef(nu
     StateManager.set('UpdateToolbarTheme', UpdateToobarTheme)
 
     useEffect(() => {
-        //StateManager.set('toggleControlBar', toggleControlBar)
+        StateManager.set('ttsModel', ttsModel)
+
         StateManager.set('readerTopPanelToggle', readerTopPanelToggle)
         document.addEventListener('toggle-reader-top-panel', readerTopPanelToggle)
 
@@ -41,7 +39,7 @@ export const Controls = ({ progressRef = useRef(null), percentageRef = useRef(nu
     return (
         <div ref={panelRef} id="top-utils-panel" className="select-none w-full" >
             {/* Controls Bar */}
-            <div ref={controlBar} id="controlbar-utils" className="flex flex-wrap items-center justify-between bg-white dark:bg-[#3b3b3b] dark:text-white rounded-lg shadow-sm px-2 rounded-none border-b-2 border-t border-blue-500 border-t-[#534afd] dark:border-b-blue-500 dark:border-t-zinc-800">
+            <div ref={controlBar} id="controlbar-utils" className="flex flex-wrap items-center justify-between bg-white dark:bg-[#3b3b3b] dark:text-white rounded-lg shadow-sm px-0 rounded-none border-b-2 border-t border-blue-500 border-t-[#534afd] dark:border-b-blue-500 dark:border-t-zinc-800">
 
                 {/*Naviagte to previous section*/}
                 <button onClick={() => BookNavigator.previousSection()} aria-label="Previous Chapter" title="Previous Chapter" className="flex items-center justify-center rounded-lg hover:bg-fuchsia-200 transition-colors duration-500">
@@ -58,40 +56,37 @@ export const Controls = ({ progressRef = useRef(null), percentageRef = useRef(nu
                 </button>
 
                 <div className="flex items-center space-x-4">
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-1">
                         <span className="text-sm text-gray-600 dark:text-white">Font Size:</span>
-                        <div className="flex space-x-4 bg-gray-200 dark:bg-zinc-600 dark:text-white font-semibold px-2 py-1 rounded">
-                            <button className="text-xs" onClick={() => FontManager_ins.changeFontSize(-1)}>A-</button>
-                            <button className="text-sm font-semibold" onClick={() => FontManager_ins.resetFontSize()}>A</button>
-                            <button className="text-base font-bold" onClick={() => FontManager_ins.changeFontSize(1)}>A+</button>
+                        <div className="flex space-x-3 bg-gray-200 dark:bg-zinc-600 dark:text-white font-semibold px-1 py-1 rounded">
+                            <button className="text-xs" onClick={() => FontSizeManager_ins.changeFontSize(-1)}>A-</button>
+                            <button className="text-sm font-semibold" onClick={() => FontSizeManager_ins.resetFontSize()}>A</button>
+                            <button className="text-base font-bold" onClick={() => FontSizeManager_ins.changeFontSize(1)}>A+</button>
                         </div>
                     </div>
 
-                    <div className="hidden sm:flex items-center space-x-2">
+                    <div className="hidden sm:flex items-center space-x-1">
                         <span className="text-sm text-gray-600 dark:text-white">Font:</span>
                         <select
                             ref={fontRef}
                             defaultValue={'normal'}
                             id="themeSelector"
-                            className="bg-gray-200 dark:bg-zinc-600 text-sm border border-gray-800/0 dark:border-gray-800 rounded px-2 py-1 focus:ring-none focus:outline-none" onChange={(e) => { }}>
-                            <option value="normal">Normal</option>
-                            <option value="handwritting">Handwritting</option>
+                            className="bg-gray-200 dark:bg-zinc-600 text-sm border border-gray-800/0 dark:border-gray-800 rounded py-1 focus:ring-none focus:outline-none" onChange={(e) => {ChangeFontName(e.currentTarget.value)}}>
+                            <option value="normal">Default</option>
+                            <option value="handwriting">Handwriting</option>
                             <option value="mono">Mono</option>
                             <option value="brand">Brand</option>
-                            <option value="sans">Sans</option>
-                            <option value="modern">Modern</option>
                             <option value="elegant">Elegant</option>
-                            <option value="condensed">Condensed</option>
                         </select>
                     </div>
 
-                    <div className="hidden sm:flex items-center space-x-2">
+                    <div className="hidden sm:flex items-center space-x-1">
                         <span className="text-sm text-gray-600 dark:text-white">Theme:</span>
                         <select
                             ref={themeRef}
                             defaultValue={'light'}
                             id="themeSelector"
-                            className="bg-gray-200 dark:bg-zinc-600 text-sm border border-gray-800/0 dark:border-gray-800 rounded px-2 py-1 focus:ring-none focus:outline-none" onChange={(e) => ThemeManager.changeTheme(e.currentTarget.value)}>
+                            className="bg-gray-200 dark:bg-zinc-600 text-sm border border-gray-800/0 dark:border-gray-800 rounded py-1 focus:ring-none focus:outline-none" onChange={(e) => ThemeManager.changeTheme(e.currentTarget.value)}>
                             <option value="sepia">Sepia</option>
                             <option value="light">Light</option>
                             <option value="dark">Dark</option>
@@ -100,28 +95,16 @@ export const Controls = ({ progressRef = useRef(null), percentageRef = useRef(nu
                     </div>
                 </div>
 
-                <div className="hidden md:flex items-center space-x-2">
+                <div className="hidden md:flex items-center space-x-1">
                     <span className="text-sm text-gray-600 dark:text-white">TTS Model:</span>
                     <select
+                        ref={ttsModel}
                         defaultValue={'picowave'}
-                        id="tts-model-selector"
-                        className="bg-gray-200 dark:bg-zinc-600 text-sm border dark:border-zinc-800/0 rounded px-2 py-1 font-mono font-bold tracking-tightest focus:ring-none focus:outline-none">
+                        className="bg-gray-200 dark:bg-zinc-600 text-sm border dark:border-zinc-800/0 rounded py-1 font-mono font-bold tracking-tightest focus:ring-none focus:outline-none">
                         <option value="picowave">Robotic (fast)</option>
                         <option value="ttskit3">Natural (slow)</option>
                     </select>
                 </div>
-
-                <button
-                    onClick={() => StateManager.get('displayPlayerTool')()}
-                    id="ReadAllAloud"
-                    className="flex items-center gap-2 text-blue-600 hover:text-blue-800 hover:bg-hue-rotate-90 dark:hover:bg-sky-900 rounded-full px-1 transition-colors duration-500 focus:ring-none focus:outline-none" aria-label="Read aloud" title="Read aloud">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 stroke-black dark:stroke-blue-100 hover:stroke-blue-600 dark:hover:stroke-orange-400 transition-colors duration-500" fill="none" strokeWidth="2"
-                        strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                        <path d="M3 11v2a1 1 0 0 0 1 1h2l4 5V5L6 10H4a1 1 0 0 0-1 1z" />
-                        <path d="M14 9a3 3 0 0 1 0 6" />
-                        <path d="M18 7a7 7 0 0 1 0 10" />
-                    </svg>
-                </button>
 
                 {/*Naviagte to previous section*/}
                 <button onClick={() => BookNavigator.nextSection()} aria-label="Next Chapter" title="Next Chapter" className="flex items-center justify-center hover:bg-blue-200 rounded-lg transition-colors duration-500">

@@ -19,6 +19,10 @@ export const Textual = ({ paragraph }) => {
     const commentHTML = `<span class='text-sm text-sky-500 font-brand'>${comment}</span>`
     let content = ContentHelper.cleanText(paragraph.text.replace(comment, commentHTML), paragraph.paragraph_number)
     return (
-        <div dangerouslySetInnerHTML={{ __html: content }}></div>
+        <div
+            id='textual'
+            className='font-normal'
+            dangerouslySetInnerHTML={{ __html: content }}>
+        </div>
     )
 }

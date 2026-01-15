@@ -7,7 +7,8 @@ import {
     ThemeOption,
     FontOption,
     PrintOption,
-    BoorkmarkDisplayOption
+    BoorkmarkDisplayOption,
+    ReadAllOption
 } from './options';
 
 export const ContextMenu = ({ }) => {
@@ -90,18 +91,19 @@ export const ContextMenu = ({ }) => {
             ref={tooltip}
             //onClick={autohidesubmenu}
             id="contextMenu"
-            className="contexkt-menu fixed top-auto right-auto left-1/2 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg shadow-xl py-2 min-w-[220px] h-fit max-w-fit z-50 border border-[#f8f4e9] dark:border-gray-700 transition-all duration-500 -translate-y-[5px] scale-[0.95] pointer-event-none opacity-0 active:scale-100 active:translate-y-0 scrollbar-custom">
+            className="context-menu fixed top-auto right-auto left-1/2 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg shadow-centered-md shadow-zinc-400 py-2 min-w-[220px] h-fit max-w-fit z-50 border border-[#f8f4e9] dark:border-gray-700 transition-all duration-500 -translate-y-[5px] scale-[0.95] pointer-event-none opacity-0 active:scale-100 active:translate-y-0 scrollbar-custom select-none">
             <div className="context-menu-options">
-                {/* Text Selection Options
-                <TextSelectionMenu selectionoptionsRef={textOptionsRef} autohide={autohidesubmenu} />*/}
+                {/* Text Selection Options*/}
                 <SelectionOption autohide={autohidesubmenu} selectoption={selectoption} />
 
+                <ReadAllOption autohide={autohidesubmenu} />
+
                 {/* General Options */}
-                <div id="generalOptions" className="relative font-mono tracking-tighter">
+                <div id="generalOptions" className="relative font-mono tracking-tighter shadow-balance-xl shadow-pink-400">
                     <FontOption autohide={autohidesubmenu} />
                     <ThemeOption autohide={autohidesubmenu} />
 
-                    <div className="border-t border-gray-700 my-1"></div>
+                    <div className="border-t border-gray-300 dark:border-gray-700 my-1"></div>
                     <PrintOption autohide={autohidesubmenu} />
                     <BoorkmarkDisplayOption autohide={autohidesubmenu} />
                 </div>

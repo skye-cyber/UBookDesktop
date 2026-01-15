@@ -1,4 +1,4 @@
-import { FontManager_ins } from "../../Reader/font"
+import { FontSizeManager_ins } from "../../Reader/font_manager"
 import { ThemeManager } from "../../Reader/theme_manager"
 import { Highlighter } from "../../Reader/hightlight"
 import {
@@ -63,16 +63,16 @@ export const FontSubmenu = ({ submenuref }) => {
             ref={submenuref}
             onMouseLeave={(e) => e.currentTarget.classList.add('hidden')}
             className="sub-context-menu absolute z-50 hidden bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 text-sm absolute left-full top-0 ml-1 rounded-lg shadow-xl py-2 min-w-[120px] transform -translate-x-1 transition-all duration-200 border dark:border-gray-700 select-none">
-            <div onClick={() => FontManager_ins.changeFontSize(null, 14)} className="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer select-none" data-action="fontSmall">
+            <div onClick={() => FontSizeManager_ins.changeFontSize(null, 14)} className="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer select-none" data-action="fontSmall">
                 <span>Small</span>
             </div>
-            <div onClick={() => FontManager_ins.changeFontSize(null, 20)} className="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer select-none" data-action="fontMedium">
+            <div onClick={() => FontSizeManager_ins.changeFontSize(null, 20)} className="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer select-none" data-action="fontMedium">
                 <span>Medium</span>
             </div>
-            <div onClick={() => FontManager_ins.changeFontSize(null, 24)} className="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer select-none" data-action="fontLarge">
+            <div onClick={() => FontSizeManager_ins.changeFontSize(null, 24)} className="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer select-none" data-action="fontLarge">
                 <span>Large</span>
             </div>
-            <div onClick={() => FontManager_ins.changeFontSize(null, 28)} className="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer select-none" data-action="fontXLarge">
+            <div onClick={() => FontSizeManager_ins.changeFontSize(null, 28)} className="sub-context-item flex items-center px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer select-none" data-action="fontXLarge">
                 <span>Extra Large</span>
             </div>
         </div>

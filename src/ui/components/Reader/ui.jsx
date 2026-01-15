@@ -13,33 +13,16 @@ import { Controls } from './controlbar';
 export const ReaderUI = ({ }) => {
     const readerSection = useRef(null);
     const wrapper = useRef(null)
-    const progressBar = useRef(null)
-    const percentageRef = useRef(null)
 
     useEffect(() => {
         readerSection.current = StateManager.get('readerSection')
     })
 
-    const handle_scrollprogress = () => {
-        const scrollTop = wrapper.current.scrollTop;
-        const scrollHeight = wrapper.current.scrollHeight - wrapper.current.clientHeight;
-        const progress = (scrollTop / scrollHeight) * 100;
-
-        progressBar.current.style.width = `${progress}%`;
-        percentageRef.current.textContent = `${progress.toFixed(1)}%`;
-    }
-
-    useEffect(() => {
-        wrapper.current.addEventListener('scroll', handle_scrollprogress);
-        return () => {
-            wrapper.current.removeEventListener('scroll', handle_scrollprogress);
-        }
-    })
     return (
         <>
             <section className="w-screen max-h-[calc(100vh-0vh)] overflow-y-hidden">
                 <section className='flex justify-center items-center rounded-xl max-w-full md:max-w-3xl mx-auto shadow-xl shadow-y-none shadow-gray-400 dark:shadow-slate-900 '>
-                    <Controls progressRef={progressBar} percentageRef={percentageRef}/>
+                    <Controls />
                 </section>
 
                 <div
