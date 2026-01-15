@@ -32,51 +32,6 @@ export const ReaderProgress = ({ progressRef = useRef(null), percentageRef = use
     })//sticky -top-2 -mt-6 md:-mt-10 z-30
     return (
         <div ref={panelRef} id="top-utils-panel" className="select-none w-full" >
-            <div id="progressbar" className="flex items-center bg-white w-full dark:bg-zinc-800 backdrop-blur-md py-0 px-6 md:px-10 border-b border-blue-500 dark:border-sky-500">
-                <button onClick={() => BookNavigator.previousSection()} aria-label="Previous Chapter" title="Previous Chapter" className="flex items-center justify-center px-0 rounded-lg hover:bg-fuchsia-200 mr-1 transition-colors duration-500">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="gradPrev" x1="100%" y1="0%" x2="0%" y2="100%">
-                                <stop offset="0%" stopColor="#48fa83" />
-                                <stop offset="100%" stopColor="#2abda2" />
-                            </linearGradient>
-                        </defs>
-                        <path d="M16 4l-8 8 8 8" fill="none" stroke="url(#gradPrev)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                </button>
-                <div className="w-full bg-gray-300 dark:bg-white rounded-full h-2 overflow-hidden opacity-100">
-                    <div ref={progressRef} id="reading-progress-bar"
-                        className="bg-blue-500 dark:bg-green-400 h-full w-0 transition-all duration-200"></div>
-                </div>
-                <p ref={percentageRef} id="read-percentage" className="bg-stone-900 text-gray-100 dark:text-slate-100 mx-1 rounded-sm p-0.5">%</p>
-
-                <button id="ReadAllAloud" className="flex items-center gap-2 text-blue-600 hover:text-blue-800 hover:bg-hue-rotate-90 dark:hover:bg-sky-900 rounded-full px-1 transition-colors duration-500 focus:ring-none focus:outline-none" aria-label="Read aloud" title="Read aloud">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 stroke-black dark:stroke-blue-100 hover:stroke-green-300 dark:hover:stroke-orange-400 transition-colors duration-500" fill="none" strokeWidth="2"
-                        strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                        <path d="M3 11v2a1 1 0 0 0 1 1h2l4 5V5L6 10H4a1 1 0 0 0-1 1z" />
-                        <path d="M14 9a3 3 0 0 1 0 6" />
-                        <path d="M18 7a7 7 0 0 1 0 10" />
-                    </svg>
-                </button>
-                <button onClick={() => BookNavigator.nextSection()} aria-label="Next Chapter" title="Next Chapter" className="flex items-center justify-center p-0 hover:bg-blue-200 rounded-lg transition-colors duration-500">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="gradNext" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" stopColor="#4facfe" />
-                                <stop offset="100%" stopColor="#00f2fe" />
-                            </linearGradient>
-                        </defs>
-                        <path d="M8 4l8 8-8 8"
-                            fill="none"
-                            stroke="url(#gradNext)"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round" />
-                    </svg>
-                </button>
-            </div>
             {/* Controls Bar */}
             <div ref={controlBar} id="controlbar-utils" className="bg-white dark:bg-[#3b3b3b] dark:text-white rounded-lg shadow-sm py-0 px-4 mb-0 flex flex-wrap items-center justify-between rounded-none border-b-2 border-blue-500 dark:border-blue-500">
                 <div className="flex items-center space-x-4">
@@ -115,6 +70,7 @@ export const ReaderProgress = ({ progressRef = useRef(null), percentageRef = use
                     <span id="bookmarkCount" className="hidden text-sm text-gray-600 dark:text-white">Bookmarks: 0</span>
                 </div>
             </div>
+
         </div >
     )
 
