@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { StateManager } from '../../renderer/js/syscore/StatesManager';
 import { loadingspinner } from '../components/StatusUI/Helpers/loader';
 import { waitForElement } from '../../renderer/js/syscore/dom_utils';
+import { ContentLoader_ins } from '../components/Panels/content_loader';
 
 export const SearchResultPage = ({ }) => {
     const resultRef = useRef(null);
@@ -29,10 +30,16 @@ export const SearchResultPage = ({ }) => {
         resultContainer.current.classList.remove('translate-y-0')
     })
 
+    const clearSearchResult = useCallback((content = "") => {
+        resultRef.current.innerHTML = content
+    })
+
     const prepSearchPage = useCallback((query, total, results = [], hasMore = false) => {
-        resultRef.current.innerHTML = ""
+        // clear first
+        clearSearchResult()
+
         searchQuery.current.textContent = query;
-        resultTotal.current.textContent = total;
+        // resultTotal.current.textContent = total;
 
         // Update pagination state
         setSearchState({
@@ -40,7 +47,8 @@ export const SearchResultPage = ({ }) => {
             allResults: results,
             displayedResults: Math.min(total, 10), // Initial display limit
             hasMore: hasMore,
-            isLoadingMore: false
+            isLoadingMore: false,
+            totalResult: total
         });
 
         // Show/hide load more button
@@ -49,8 +57,10 @@ export const SearchResultPage = ({ }) => {
         }
     })
 
+    StateManager.set('clearSearchResult', clearSearchResult)
     StateManager.set('prepSearchPage', prepSearchPage)
     StateManager.set('showSearchResult', showSearchResult)
+    StateManager.set('hideSearchResult', hideSearchResult)
 
     const loadMoreResults = useCallback(() => {
         if (searchState.isLoadingMore || !searchState.hasMore) return;
@@ -95,12 +105,12 @@ export const SearchResultPage = ({ }) => {
     })
 
     return (
-        <div ref={resultContainer} id="search-result-container" className="fixed inset-0 flex items-center justify-center p-4 bg-black/20 backdrop-brightness-100 translate-y-[100vh] z-50 transition-all duration-500">
-            <div className="bg-[#1d0066] dark:bg-[#0e0e2c] rounded-lg border border-[#4800ff] dark:border-purple-600 shadow-lg max-w-full lg:max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden transition-colors duration-500 font-reader shadow-lg shadow-primary-950">
+        <div ref={resultContainer} id="search-result-container" className="fixed inset-0 flex items-center justify-center p-4 bg-black/20 backdrop-brightness-100 translate-y-[100vh] z-50 transition-all duration-300">
+            <div className="bg-[#1d0066] dark:bg-[#0e0e2c] rounded-lg border border-[#4800ff] dark:border-purple-600 shadow-lg max-w-full lg:max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden transition-colors duration-300 font-reader shadow-lg shadow-primary-950">
                 {/* Header */}
                 <div className="flex justify-between items-center p-3 bg-[#1d0066] dark:bg-[#0e0e2c] border-b border-[#4800ff]/80 dark:border-[#8a2be2]/70">
                     <h2 className="text-xl font-mono font-semibold text-white">Search Result:<span className="text-[#5555ff]">?</span><span ref={searchQuery} id="search-query" className="max-w-[30%] rounded-md text-[#5555ff] underline overflow-x-hidden text-sm truncate"></span></h2>
-                    <p ref={resultTotal} className="font-bold text-white">Total: <span id="result-total" className="font-semibold text-[#0097d3]"></span></p>
+                    <p ref={resultTotal} className="font-bold text-white">{searchState.displayedResults}<span id="result-total" className="font-semibold text-[#0097d3]">/</span>{searchState.totalResult}</p>
                     <button
                         id="closeModalBtn"
                         onClick={hideSearchResult}
@@ -119,13 +129,15 @@ export const SearchResultPage = ({ }) => {
                 {/* Footer */}
                 <div className="p-2 border-t bg-[#1d0066] dark:bg-[#0e0e2c] border-[#4800fd] dark:border-[#4800fd] text-right">
                     <div className="flex justify-between items-center">
-                        <button
-                            ref={loadMoreBtn}
-                            onClick={loadMoreResults}
-                            className="px-4 py-2 bg-[#2a5c8a] dark:bg-[#1a3c5a] hover:bg-[#3a6c9a] text-white rounded transition-all duration-300 hover:scale-[1.02] hover:translate-y-[3px] in-expo out-expo"
-                            style={{ display: 'none' }}>
-                            {searchState.isLoadingMore ? 'Loading...' : 'Load More'}
-                        </button>
+                        <div>
+                            <button
+                                ref={loadMoreBtn}
+                                onClick={loadMoreResults}
+                                className="px-4 py-2 bg-[#2a5c8a] dark:bg-[#1a3c5a] hover:bg-[#3a6c9a] text-white rounded transition-all duration-300 hover:scale-[1.02] hover:translate-y-[3px] in-expo out-expo"
+                                style={{ display: 'none' }}>
+                                {searchState.isLoadingMore ? 'Loading...' : 'Load More'}
+                            </button>
+                        </div>
                         <button
                             id="closeModalBtn2"
                             onClick={hideSearchResult}
@@ -141,28 +153,37 @@ export const SearchResultPage = ({ }) => {
 
 export const ResultCard = ({ result, highlightedContent, count, link_data }) => {
     const part_id_map = {
-        0: 'foreword',
-        1: 'central-and-superuniverse',
-        2: 'local-universe',
-        3: 'history-of-urantia',
-        4: 'life-and-teachings-of-jesus'
+        0: 'Foreword',
+        1: 'SuperUniverse',
+        2: 'LocalUniverse',
+        3: 'HistoryOfUrantia',
+        4: 'JesusTeachings'
     }
 
     const openSearchContent = useCallback(() => {
-        console.log(`Find: ${link_data.part_id}-${link_data.paper_id}-${link_data.section_number}`)
+        //console.log(`Find: ${link_data.part_id}-${link_data.paper_id}-${link_data.section_number}`)
 
-        //STEP1: Prepare part content
-        document.getElementById(part_id_map[link_data.part_id])?.click()
+        /*
+         * STEP1: Prepare part content
+         * true no items interface display
+         */
+        ContentLoader_ins[`set${part_id_map[link_data.part_id]}`](true)
 
-        loadingspinner.open('Loading section, please wait...')
+        // closeResult page
+        StateManager.get('hideSearchResult')()
 
-        //STEP3: find and click right section
-        let ready = false
-        waitForElement(`[data-tag="${link_data.part_id}-${link_data.paper_id}-${link_data.section_number}"]`, (e) => {
-            e.click()
-            ready = true
-        })
-        if (ready) loadingspinner.close();
+        // Given the page time to animate out
+        setTimeout(() => {
+            loadingspinner.open('Loading section, please wait...')
+
+            //STEP3: find and click right section
+            let ready = false
+            waitForElement(`[data-tag="${link_data.part_id}-${link_data.paper_id}-${link_data.section_number}"]`, (e) => {
+                e.click()
+                ready = true
+            })
+            if (ready) loadingspinner.close();
+        }, 300)
 
     })
 

@@ -1,3 +1,0 @@
-const { bookContent } = require("./ContextMenuHandler");
-
-

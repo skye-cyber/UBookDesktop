@@ -3,6 +3,8 @@ import { loadingspinner } from '../components/StatusUI/Helpers/loader';
 import { StateManager } from '../../renderer/js/syscore/StatesManager';
 import { BaseSearchEntry } from './Search/search_entry';
 
+let call_count = 0
+
 export const SearchSettings = ({ }) => {
     const prefContainer = useRef(null);
     const backdrop = useRef(null);
@@ -32,6 +34,10 @@ export const SearchSettings = ({ }) => {
 
     const applysearch = useCallback(async () => {
         closePage()
+
+        // clear previous search result
+        StateManager.get('clearSearchResult')()
+
         loadingspinner.open('Searching, please wait ...')
         const searchInput = StateManager.get('searchInput')
         const query = searchInput.value
@@ -56,9 +62,8 @@ export const SearchSettings = ({ }) => {
 
         } finally {
             loadingspinner.close()
+            if(result) StateManager.get('showSearchResult')()
         }
-
-        if(result) StateManager.get('showSearchResult')()
     })
 
     StateManager.set('applysearch', applysearch)

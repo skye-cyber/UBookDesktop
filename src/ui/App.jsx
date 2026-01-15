@@ -7,8 +7,6 @@ import { ReaderUI } from './components/Reader/ui';
 import ErrorBoundary from '@components/ErrorHandler/ErrorBoundary';
 import '@css/styles.css';
 import { StatusUI } from '@components/StatusUI/StatusUI.jsx';
-//import '@js/StatusUIManager/SuccessModal.js'
-//import { NotificationFlyer, Notifcation } from '@components/Notifications/Notification.jsx'
 import '@js/shortcuts/keyshortcuts';
 import { StaticPortalContainer } from './StaticPortalContainer';
 import { StreamingPortalContainer } from './StreamingPortalContainer';
@@ -29,9 +27,9 @@ const App = () => {
                 <Header />
                 <div className='w-full h-[100vh] flex'>
                     <ErrorBoundary>
-                        <QuickReadPanel isOpen={isSidebarOpen} onToggle={toggleSidebar} />
-                        <ReaderUI />
                         <BookContentPanel isOpen={isSidebarOpen} onToggle={toggleSidebar} />
+                        <ReaderUI />
+                        <QuickReadPanel isOpen={isSidebarOpen} onToggle={toggleSidebar} />
                     </ErrorBoundary>
                 </div>
                 {/* status display modals */}

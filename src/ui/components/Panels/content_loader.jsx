@@ -33,6 +33,9 @@ export class ContentLoader {
         })
     }
 
+    /**
+     * @param {Bool} silent Items  selector interface display stays hidden
+     */
     setForeword(silent = false) {
         this.selector_title.textContent = 'Foreword'
         this.paper_container.innerHTML = ""
@@ -40,6 +43,10 @@ export class ContentLoader {
         const reader = new BookReader(this.paper_container, this.reader_section)
         reader.load(ContentHelper.getSource('foreword_source'));
     }
+
+    /**
+     * @param {Bool} silent Items  selector interface display stays hidden
+     */
     setLocalUniverse(silent = false) {
         this.selector_title.textContent = 'Local Universe'
         this.paper_container.innerHTML = ""
@@ -47,6 +54,10 @@ export class ContentLoader {
         const reader = new BookReader(this.paper_container, this.reader_section)
         reader.load(ContentHelper.getSource('local_universe_source'));
     }
+
+    /**
+     * @param {Bool} silent Items  selector interface display stays hidden
+     */
     setSuperUniverse(silent = false) {
         this.selector_title.textContent = 'Central and Superuniverse'
         this.paper_container.innerHTML = ""
@@ -54,6 +65,10 @@ export class ContentLoader {
         const reader = new BookReader(this.paper_container, this.reader_section)
         reader.load(ContentHelper.getSource('central_superuniverses_source'));
     }
+
+    /**
+     * @param {Bool} silent Items  selector interface display stays hidden
+     */
     setHistoryOfUrantia(silent = false) {
         this.selector_title.textContent = 'History of Urantia'
         this.paper_container.innerHTML = ""
@@ -61,6 +76,10 @@ export class ContentLoader {
         const reader = new BookReader(this.paper_container, this.reader_section)
         reader.load(ContentHelper.getSource('history_urantia_source'));
     }
+
+    /**
+     * @param {Bool} silent Items  selector interface display stays hidden
+     */
     setJesusTeachings(silent = false) {
         this.selector_title.textContent = 'Life and Teachings of Jesus'
         this.paper_container.innerHTML = ""
@@ -68,6 +87,11 @@ export class ContentLoader {
         const reader = new BookReader(this.paper_container, this.reader_section)
         reader.load(ContentHelper.getSource('jesus_life_teachings_source'));
     }
+
+    /**
+     * @param {String} type specifies content to load ie favourites or bookmark
+     * @param {Bool} silent Items  selector interface display stays hidden
+     */
     async loader(type = 'favourites', silent = false) {
         const data = await window.ubook.api[`read${ContentHelper.capitalize(type)}`]();
         const items = data?.[type === 'favourites' ? 'fav' : 'bookmark'];
@@ -132,6 +156,11 @@ export class ContentLoader {
     async loadBookmarks() {
         await this.loader('bookmarks')
     }
+
+    /**
+     * @param {Bool} silent Items  selector interface display stays hidden
+     *
+     */
     async renderNotes(silent = false) {
         const notesData = await window.ubook.api.readNotes();
         const items = notesData?.notes;

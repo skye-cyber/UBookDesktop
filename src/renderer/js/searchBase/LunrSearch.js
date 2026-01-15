@@ -105,7 +105,7 @@ export class LunrSearch {
                 const idx = await this.buildIndex(documents);
 
                 const docMap = Object.fromEntries(documents.map(doc => [doc.id, doc]));
-                
+
                 // Only get top results from this file
                 const res = idx.search(query).slice(0, limit);
 
@@ -128,7 +128,8 @@ export class LunrSearch {
 
         } finally {
             // Clean up results array
-            if (results) results.length = 0;
+            //if (results) results.length = 0;
+            results = 0
         }
     }
 }

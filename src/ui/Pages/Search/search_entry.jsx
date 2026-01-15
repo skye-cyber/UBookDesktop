@@ -19,9 +19,9 @@ export class BaseSearchEntry {
 
             if (!results || results.length === 0) {
                 modalmanager.showMessage('No results found', 'info');
+                StateManager.get('clearSearchResult')("No results found for the search")
                 return false
             }
-
             const renderResult = this.renderTextSearchResult(results, query, 10);
 
             // Pass results and pagination info to UI
@@ -42,7 +42,7 @@ export class BaseSearchEntry {
             modalmanager.showMessage(error, 'error')
             return false;
         } finally {
-            if (results) results.length = 0;
+            results = null;
         }
     }
 
@@ -52,6 +52,7 @@ export class BaseSearchEntry {
     }
 
     static renderTextSearchResult(results, query, limit = 10) {
+
         // Clear result page and set title
         StateManager.get('prepSearchPage')(query, Math.min(results.length, limit) || 0)
 

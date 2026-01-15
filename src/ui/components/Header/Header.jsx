@@ -50,9 +50,9 @@ export const Header = ({ }) => {
     })
 
     useEffect(() => {
-        searchInput.current.addEventListener('keydown', handle_enterKey)
+        searchInput.current.addEventListener('keyup', handle_enterKey)
         return () => {
-            searchInput.current.addEventListener('keydown', handle_enterKey)
+            searchInput.current.removeEventListener('keyup', handle_enterKey)
         }
     })
 

@@ -96,7 +96,7 @@ const api = {
     },
     deleteNote: async (noteId, fpath = path.join(notesDir, 'notes.json')) => {
         try {
-            if(!noteId) return false
+            if (!noteId) return false
             // noteId = note Timetamb
             //
             // Check if file exists and is accessible
