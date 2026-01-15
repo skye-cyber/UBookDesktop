@@ -34,28 +34,6 @@ export const PlayerTooltip = ({ }) => {
         }
     })
 
-    /**
-     * DEPRECATED Pending Removal
-     */
-    const HandleSpeed = useCallback((direction) => {
-        // calculate Speed
-        let speed = currentSpeed
-
-        if (direction === 'up') {
-            speed = (speed + 0.1 <= 2) ? speed + 0.1 : 2;
-        } else if (direction === 'down') {
-            speed = (speed - 0.1 >= 0.5) ? speed - 0.1 : 1;
-        }
-
-        speed = speed.toFixed(1)
-
-        //window.ubook.player.setSpeed(parseFloat(speed));
-
-        SetCurrentSpeed(speed)
-
-        return speed
-    })
-
     const onPlayPause = useCallback(async () => {
         if (!isPlaying) {
             const status = 'resumed' //await window.ubook.player.resume();
@@ -208,25 +186,6 @@ export const PlayerTooltip = ({ }) => {
                     <rect x="6" y="6" width="12" height="12" rx="2" />
                 </svg>
             </button>
-
-            <div className="hidden  items-center space-x-1 bg-gray-300 dark:bg-zinc-700 rounded-lg px-2 py-1" title="Fast-Foward 5s" aria-label="Fast-Foward 5 seconds">
-                <button
-                    ref={speedDown}
-                    onClick={() => HandleSpeed("down")}
-                    id="btn-speed-down"
-                    className="px-2 py-0.5 text-sm font-bold rounded-full bg-gray-400 dark:bg-gray-600 hover:bg-gray-500 text-white transition duration-300"
-                    title="Slower">-</button>
-                <span
-                    ref={speedDisplay}
-                    id="playback-speed"
-                    className="text-xs font-semibold text-gray-800 dark:text-gray-200 select-none">{currentSpeed}x</span>
-                <button
-                    ref={speedUp}
-                    onClick={() => HandleSpeed("up")}
-                    id="btn-speed-up"
-                    className="px-2 py-0.5 text-sm font-bold rounded-full bg-gray-400 dark:bg-gray-600 hover:bg-gray-500 text-white transition duration-300"
-                    title="Faster">+</button>
-            </div>
 
             <div
                 ref={statusLabel}
