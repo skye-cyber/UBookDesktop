@@ -71,7 +71,7 @@ export const Controls = ({ }) => {
                             ref={fontRef}
                             defaultValue={'normal'}
                             id="themeSelector"
-                            className="bg-gray-200 dark:bg-zinc-600 text-sm border border-gray-800/0 dark:border-gray-800 rounded py-1 focus:ring-none focus:outline-none" onChange={(e) => {ChangeFontName(e.currentTarget.value)}}>
+                            className="bg-gray-200 dark:bg-zinc-600 text-sm border border-gray-800/0 dark:border-gray-800 rounded py-1 focus:ring-none focus:outline-none" onChange={(e) => { ChangeFontName(e.currentTarget.value) }}>
                             <option value="normal">Default</option>
                             <option value="handwriting">Handwriting</option>
                             <option value="mono">Mono</option>

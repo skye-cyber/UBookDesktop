@@ -26,6 +26,9 @@ class MenuAction{
     dictionaryLookup(){
         //
     }
+    print(){
+        print()
+    }
     handleExport() {
         const text = window.getSelection().toString().trim();
         if (!text) return;

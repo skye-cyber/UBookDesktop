@@ -26,10 +26,12 @@ export const BookContentPanel = ({ }) => {
         panel.current.classList.remove('-translate-x-0', 'xl:translate-x-0');
     })
 
-    const panel_toggle_eaval = useCallback(() => {
+    const panelToggleHandler = useCallback(() => {
         const isPanelOpen = window.innerWidth < 1280 ? panel.current.classList.contains('-translate-x-0') : panel.current.classList.contains('xl:translate-x-0')
         isPanelOpen ? hidePanel() : showPanel()
     })
+
+    StateManager.set('BookPanelToggle', panelToggleHandler)
 
     useEffect(() => {
         setTimeout(() => {
@@ -41,12 +43,12 @@ export const BookContentPanel = ({ }) => {
         }, 100)
 
         document.addEventListener('focusMode', ToggleBookContentPanel)
-        document.addEventListener('toggle-left-panel', panel_toggle_eaval)
+        document.addEventListener('toggle-left-panel', panelToggleHandler)
         document.addEventListener('hide-book-content-panel', hidePanel)
 
         return () => {
             document.removeEventListener('focusMode', ToggleBookContentPanel)
-            document.removeEventListener('toggle-left-panel', panel_toggle_eaval)
+            document.removeEventListener('toggle-left-panel', panelToggleHandler)
             document.removeEventListener('hide-book-content-panel', hidePanel)
         }
     })

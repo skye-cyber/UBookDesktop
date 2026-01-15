@@ -25,20 +25,11 @@ export class FontSizeManager {
 
         size && typeof size === 'number' ? this.currentFontSize = size : this.currentFontSize += delta;
         this.readable.style.fontSize = this.currentFontSize + 'px';
-        this.updateWordCount();
     }
     resetFontSize() {
         this.readable.style.fontSize = this.innitialFontSize + 'px';
         this.currentFontSize = this.innitialFontSize;
         appState.currentFontSize = this.currentFontSize
-
-        this.updateWordCount();
-    }
-
-    updateWordCount() {
-        const text = this.readable.innerText || this.readable.textContent;
-        const wordCount = text.trim().split(/\s+/).length;
-        document.getElementById('wordCount').textContent = `Words: ${wordCount}`;
     }
 }
 

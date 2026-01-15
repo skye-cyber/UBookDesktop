@@ -20,12 +20,23 @@ export const PlayerTooltip = ({ }) => {
 
             const ttsmodel = StateManager.get('ttsModel')
 
+            const heading = StateManager.get('readerSection').querySelector('h1').textContent
+            console.log(heading)
             // Default to selected text
-            const text = (readall ? StateManager.get('readerSection')?.textContent : appState.selectedText?.trim()) || appState.selectedText?.trim()
+            let text =
+                (
+                    readall
+                        ? StateManager.get('readerSection')?.textContent.replace(heading, '')
+                        : appState.selectedText?.trim()
+                )
+                || appState.selectedText?.trim()
 
             if (!text) return modalmanager.showMessage("Couldn't obtain text", 'warn')
 
+            text = text.replace('⇒', '')
+
             StateManager.get('showTTSLoader')()
+
             const audio_file = await window.ubook.api.TTSConvert(text, ttsmodel)
             if (audio_file) {
                 StateManager.get('hideTTSLoader')();
@@ -81,7 +92,6 @@ export const PlayerTooltip = ({ }) => {
 
     const onPlayFinished = useCallback(() => {
         // when finished, automatically reset
-        console.log("Finished playing")
         SetIsPlaying(false);
         hidePlayerTool();
     })
@@ -129,6 +139,7 @@ export const PlayerTooltip = ({ }) => {
     })
 
     StateManager.set('ReadInnitializer', ReadInnitializer)
+    StateManager.set('onPlayPause', onPlayPause)
 
     //StateManager.set('displayPlayerTool', displayPlayerTool)
     //StateManager.set('hidePlayerTool', hidePlayerTool)
