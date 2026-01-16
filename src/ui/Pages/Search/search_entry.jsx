@@ -22,14 +22,13 @@ export class BaseSearchEntry {
                 StateManager.get('clearSearchResult')("No results found for the search")
                 return false
             }
-            const renderResult = this.renderTextSearchResult(results, query, 10);
+            const renderResult = this.renderTextSearchResult(results, query, { start: 0, end: 10 });
 
             // Pass results and pagination info to UI
             StateManager.get('prepSearchPage')(
                 query,
-                renderResult.displayedResults,
-                results,
-                renderResult.hasMore
+                results.length,
+                results
             );
 
             return {
@@ -51,16 +50,13 @@ export class BaseSearchEntry {
         return result;
     }
 
-    static renderTextSearchResult(results, query, limit = 10) {
-
-        // Clear result page and set title
-        StateManager.get('prepSearchPage')(query, Math.min(results.length, limit) || 0)
+    static renderTextSearchResult(results, query, bounds = { start: 0, end: 10 }) {
 
         const keywords = query.split(/\s+/).filter(Boolean);
-        let count = 0;
+        let count = bounds.start;
 
         // Only render limited results to prevent UI overload
-        const limitedResults = results.slice(0, limit);
+        const limitedResults = results.slice(bounds.start, bounds.end);
 
         limitedResults.forEach(result => {
             count++;
@@ -94,6 +90,7 @@ export class BaseSearchEntry {
                 'ResultCard',
                 'searchResult',
                 {
+                    query: query,
                     result: result,
                     link_data: link_data,
                     highlightedContent: highlightedContent,
@@ -106,7 +103,6 @@ export class BaseSearchEntry {
         return {
             totalResults: results.length,
             displayedResults: count,
-            hasMore: results.length > limit
         }
     }
     /**

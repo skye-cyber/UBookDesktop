@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import ubookesktop from '@assets/ubookdesktop.png';
 import { useTheme } from '../Themes/useThemeHeadless';
 import { waitForElement } from '../../../renderer/js/syscore/dom_utils';

@@ -1,7 +1,7 @@
 # Ignore the entire src directory (if not needed)
 src/**
-dist
-true
+dist/
+true/
 # Ignore this .gitignore file itself (not necessary, but can be included for clarity)
 #.gitignore
 

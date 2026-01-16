@@ -3,6 +3,7 @@ import { StateManager } from '../../renderer/js/syscore/StatesManager';
 import { loadingspinner } from '../components/StatusUI/Helpers/loader';
 import { waitForElement } from '../../renderer/js/syscore/dom_utils';
 import { ContentLoader_ins } from '../components/Panels/content_loader';
+import { BaseSearchEntry } from './Search/search_entry';
 
 export const SearchResultPage = ({ }) => {
     const resultRef = useRef(null);
@@ -16,6 +17,7 @@ export const SearchResultPage = ({ }) => {
         currentQuery: '',
         allResults: [],
         displayedResults: 0,
+        totalResult: 0,
         hasMore: false,
         isLoadingMore: false
     });
@@ -34,22 +36,29 @@ export const SearchResultPage = ({ }) => {
         resultRef.current.innerHTML = content
     })
 
-    const prepSearchPage = useCallback((query, total, results = [], hasMore = false) => {
+    const prepSearchPage = useCallback((query, total, results = []) => {
         // clear first
         clearSearchResult()
 
+        const hasMore = total > 10
+        const initialDisplay = Math.min(total, 10) // Initial display limit
+
+
         searchQuery.current.textContent = query;
-        // resultTotal.current.textContent = total;
 
         // Update pagination state
         setSearchState({
             currentQuery: query,
             allResults: results,
-            displayedResults: Math.min(total, 10), // Initial display limit
+            displayedResults: initialDisplay,
             hasMore: hasMore,
             isLoadingMore: false,
             totalResult: total
         });
+
+        if (resultTotal.current) {
+            resultTotal.current.textContent = `${initialDisplay} of ${total}`;
+        }
 
         // Show/hide load more button
         if (loadMoreBtn.current) {
@@ -72,25 +81,24 @@ export const SearchResultPage = ({ }) => {
         const totalResults = searchState.allResults.length;
         const newDisplayed = Math.min(currentDisplayed + 10, totalResults);
 
-        // Simulate loading more results (in a real implementation, this would fetch more results)
-        setTimeout(() => {
-            setSearchState(prev => ({
-                ...prev,
-                displayedResults: newDisplayed,
-                hasMore: newDisplayed < totalResults,
-                isLoadingMore: false
-            }));
+        setSearchState(prev => ({
+            ...prev,
+            displayedResults: newDisplayed,
+            hasMore: totalResults > newDisplayed,
+            isLoadingMore: false
+        }));
 
-            // Update the "showing X of Y" text
-            if (resultTotal.current) {
-                resultTotal.current.textContent = `${newDisplayed} of ${totalResults}`;
-            }
+        BaseSearchEntry.renderTextSearchResult(searchState.allResults, searchState.currentQuery, { start: currentDisplayed, end: newDisplayed })
 
-            // Show/hide load more button
-            if (loadMoreBtn.current) {
-                loadMoreBtn.current.style.display = newDisplayed < totalResults ? 'block' : 'none';
-            }
-        }, 500);
+        // Update the "showing X of Y" text
+        if (resultTotal.current) {
+            resultTotal.current.textContent = `${newDisplayed} of ${totalResults}`;
+        }
+
+        // Show/hide load more button
+        if (loadMoreBtn.current) {
+            loadMoreBtn.current.style.display = newDisplayed < totalResults ? 'block' : 'none';
+        }
     }, [searchState])
 
     useEffect(() => {
@@ -133,7 +141,7 @@ export const SearchResultPage = ({ }) => {
                             <button
                                 ref={loadMoreBtn}
                                 onClick={loadMoreResults}
-                                className="px-4 py-2 bg-[#2a5c8a] dark:bg-[#1a3c5a] hover:bg-[#3a6c9a] text-white rounded transition-all duration-300 hover:scale-[1.02] hover:translate-y-[3px] in-expo out-expo"
+                                className="px-4 py-2 bg-[#2a5c8a] dark:bg-[#1a3c5a] hover:bg-[#3a6c9a] text-white rounded transition-all duration-300 hover:scale-[1.02] hover:translate-y-[3px] in-expo out-expo focus:outline-none"
                                 style={{ display: 'none' }}>
                                 {searchState.isLoadingMore ? 'Loading...' : 'Load More'}
                             </button>
