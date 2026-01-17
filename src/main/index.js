@@ -31,8 +31,8 @@ ipcMain.handle('show-documentation', () => {
         }
     });
     isDev
-    ? _docWindow.loadFile(path.join(__dirname, '../assets/documentation.html'))
-    : _docWindow.loadFile(path.join(process.resourcesPath, './assets/documentation.html'));
+        ? _docWindow.loadFile(path.join(__dirname, '../assets/documentation.html'))
+        : _docWindow.loadFile(path.join(process.resourcesPath, './assets/documentation.html'));
 });
 
 const template = [
@@ -95,12 +95,27 @@ const template = [
                             contextIsolation: true
                         }
                     });
-                    docWindow.loadFile(path.join(__dirname, '../assets/documentation.html'));
+                    show_documentation()
                 }
             }
         ]
     }
 ];
+
+function show_documentation() {
+    const _docWindow = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js'),
+            nodeIntegration: false,
+            contextIsolation: true
+        }
+    });
+    isDev
+        ? _docWindow.loadFile(path.join(__dirname, '../assets/documentation.html'))
+        : _docWindow.loadFile(path.join(process.resourcesPath, './assets/documentation.html'));
+}
 
 // Function to create the loading and main windows
 function createWindow() {
@@ -155,8 +170,8 @@ function createWindow() {
         //mainWindow.webContents.openDevTools()
     } else {
         isDev
-        ? mainWindow.loadFile(path.join(__dirname, '../build/index.html'))
-        : mainWindow.loadFile(path.join(process.resourcesPath, './build/index.html'))
+            ? mainWindow.loadFile(path.join(__dirname, '../build/index.html'))
+            : mainWindow.loadFile(path.join(process.resourcesPath, './build/index.html'))
     }
 
     // Show the main window and close the loading window when the main window is ready to show**
@@ -218,11 +233,24 @@ app.on('ready', async () => {
         {
             label: 'Show',
             click: () => {
-                if (mainWindow) {
-                    mainWindow.show();
-                } else {
+                const windows = BrowserWindow.getAllWindows();
+                if (windows.length === 0) {
                     createWindow();
+                } else {
+                    windows[0].show();
                 }
+            }
+        },
+        {
+            label: 'New window',
+            click: () => {
+                createWindow()
+            }
+        },
+        {
+            label: 'Help',
+            click: () => {
+                show_documentation()
             }
         },
         {
@@ -249,6 +277,23 @@ app.on('window-all-closed', (event) => {
         app.quit(); // Quit when all windows are closed, except on macOS
     }*/
 });
+
+// Handle window close properly - ONLY if mainWindow exists
+if (mainWindow) {
+    mainWindow.on('close', (event) => {
+        try {
+            if (process.platform !== 'darwin') {
+                // On Windows/Linux, hide instead of close
+                event.preventDefault();
+                mainWindow.hide();
+            }
+            // On macOS, let the close happen normally
+
+            // Remove references to prevent memory leaks
+            mainWindow.removeAllListeners();
+        } catch (err) { }
+    });
+}
 
 app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
