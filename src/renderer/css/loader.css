@@ -590,16 +590,6 @@ video {
   z-index: 10;
 }
 
-.mx-4 {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-
-.mx-12 {
-  margin-left: 3rem;
-  margin-right: 3rem;
-}
-
 .mt-2 {
   margin-top: 0.5rem;
 }
@@ -692,17 +682,8 @@ video {
   border-width: 4px;
 }
 
-.border {
-  border-width: 1px;
-}
-
 .border-transparent {
   border-color: transparent;
-}
-
-.border-red-400 {
-  --tw-border-opacity: 1;
-  border-color: rgb(248 113 113 / var(--tw-border-opacity, 1));
 }
 
 .border-t-blue-500 {
@@ -710,9 +691,9 @@ video {
   border-top-color: rgb(59 130 246 / var(--tw-border-opacity, 1));
 }
 
-.bg-\[\#003741\] {
+.bg-\[\#009db9\] {
   --tw-bg-opacity: 1;
-  background-color: rgb(0 55 65 / var(--tw-bg-opacity, 1));
+  background-color: rgb(0 157 185 / var(--tw-bg-opacity, 1));
 }
 
 .bg-\[\#aaffff\] {
@@ -722,16 +703,6 @@ video {
 
 .bg-white\/0 {
   background-color: rgb(255 255 255 / 0);
-}
-
-.bg-\[\#005362\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 83 98 / var(--tw-bg-opacity, 1));
-}
-
-.bg-\[\#006b7e\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 107 126 / var(--tw-bg-opacity, 1));
 }
 
 .p-4 {
@@ -767,9 +738,9 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
-.shadow-centered-lg {
-  --tw-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.1);
-  --tw-shadow-colored: 0 0 24px 0 var(--tw-shadow-color);
+.shadow-centered-xl {
+  --tw-shadow: 0 0 36px 0 rgba(0, 0, 0, 0.15);
+  --tw-shadow-colored: 0 0 36px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
@@ -779,30 +750,10 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
-.shadow-centered-xl {
-  --tw-shadow: 0 0 36px 0 rgba(0, 0, 0, 0.15);
-  --tw-shadow-colored: 0 0 36px 0 var(--tw-shadow-color);
+.shadow-centered-lg {
+  --tw-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.1);
+  --tw-shadow-colored: 0 0 24px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
-}
-
-.shadow-\[\#00d4ff\] {
-  --tw-shadow-color: #00d4ff;
-  --tw-shadow: var(--tw-shadow-colored);
-}
-
-.shadow-\[\#aaffff\] {
-  --tw-shadow-color: #aaffff;
-  --tw-shadow: var(--tw-shadow-colored);
-}
-
-.shadow-\[\#00aaff\] {
-  --tw-shadow-color: #00aaff;
-  --tw-shadow: var(--tw-shadow-colored);
-}
-
-.shadow-\[\#5500ff\] {
-  --tw-shadow-color: #5500ff;
-  --tw-shadow: var(--tw-shadow-colored);
 }
 
 .shadow-\[\#5500ff\]\/40 {
