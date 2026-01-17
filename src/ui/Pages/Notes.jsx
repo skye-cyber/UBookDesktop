@@ -69,7 +69,7 @@ export const NotesPage = ({ }) => {
                     ✖
                 </button>
                 <h2 className="text-2xl font-bold mb-4 border-b border-gray-300 dark:border-cyan-400 select-none">📝 Notes</h2>
-                <section id="notecontent" className="react-portal-root w-full max-h-[80vh] xl:max-h-[90vh] overflow-y-auto">
+                <section id="notecontent" className="react-portal-root w-full max-h-[80vh] xl:max-h-[90vh] overflow-y-auto scrollbar-custom">
                 </section>
             </div>
         </div>

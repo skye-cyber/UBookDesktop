@@ -12,8 +12,7 @@ export class BookNavigator {
     static previousSection() {
         const current_section = StateManager.get('active_section')
         if (!current_section) return modalmanager.showMessage('Activate/Open a section first.', 'info')
-
-            const previousEntry = current_section.nextElementSibling || null;
+            const previousEntry = current_section.previousElementSibling || null;
 
         previousEntry ? previousEntry.click() : modalmanager.showMessage('Reached Beginning of Chapter!', 'warning')
     }
