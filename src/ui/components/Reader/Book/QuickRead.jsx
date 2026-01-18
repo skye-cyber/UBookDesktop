@@ -48,25 +48,27 @@ export const QuickRead = ({ }) => {
         <div
             data-portal-container='quick-read-container'
             id="quick-read-container"
-            className="h-fit pb-[16vh] max-h-[84vh] overflow-y-auto select-text bg-gradient-to-b from-blue-50/80 to-blue-100/80 dark:invert rounded-[8px] m-2 transform transition-all duration-700 font-reader scrollbar-custom border border-white/50 shadow-inner select-none">
-            <section className="block w-full select-none">
-                <h1 className="flex flex-col w-full text-xl font-bold">{paper_title}<br /><p className="p-0.5 rounded-md bg-white dark:bg-green-600"></p><p className="text-lg font-normal">{title}</p></h1>
-                <div className="flex w-full justify-between items-center bg-cyan-400/20 mx-auto">
-                    <p className="text-sm text-orange-500">
-                        Paper <sub>{paper_id}</sub>
-                    </p>
-                    <button onClick={reload_content} aria-label="reload" title="Reload"
-                        className="flex items-center gap-2 p-1 bg-blue-600 text-white rounded-2xl shadow hover:bg-blue-700 transition duration-300">
-                        <svg ref={reload_icon_ref} id="reloadIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                            <path strokeLinecap="round" strokeLinejoin="round"
-                                d="M21 4v5h-5m1.65-3.65a8 8 0 1 0 2.1 8.45" />
-                        </svg>
-                    </button>
-                </div>
-                <p className='p-0.5 bg-pink-400 w-full rounded-full mt-1'></p>
-            </section>
-            <section className='text-sm font-elegant text-gray-900 dark:text-purple-900 select-none'>
+            className="overflow-y-hidden select-none transform transition-all duration-100">
+
+            {/* Header */}
+            <div className='bg-[#423eac]/25 dark:bg-[#005574]/25 dark:text-white shadow-centered-sm  shadow-[#55557f] border-b border-[#5954e8] dark:border-[#006282] block w-full'>
+                <button onClick={reload_content} aria-label="reload" title="Reload"
+                    className="fixed z-50 right-0 top-1 flex items-center gap-2 p-1 bg-blue-600/70 dark:bg-blue-500/50 dark:hover:bg-blue-600/70 text-white rounded-2xl shadow hover:bg-blue-700/80 transition duration-300">
+                    <svg ref={reload_icon_ref} id="reloadIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <path strokeLinecap="round" strokeLinejoin="round"
+                            d="M21 4v5h-5m1.65-3.65a8 8 0 1 0 2.1 8.45" />
+                    </svg>
+                </button>
+
+                <section>
+                    <h1 className="flex flex-col w-full text-lg truncate font-bold">{paper_title}</h1>
+                    <p className="text-sm truncate font-normal">{title}</p>
+                </section>
+            </div>
+
+            {/* Content */}
+            <section className='bg-[#423eac]/20 dark:bg-[#00242d]/0 pt-2 dark:text-white max-h-[84vh] pb-16 px-2 text-sm font-sans tracking-wide leading-relaxed text-gray-900 dark:text-purple-900 select-none  overflow-y-auto scrollbar-custom'>
                 {random_section?.paragraphs.map((paragraph, index) => (
                     <Textual key={index} paragraph={paragraph} />
                 ))}

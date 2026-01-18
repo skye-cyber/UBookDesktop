@@ -10,7 +10,7 @@ export const LoadingSpinner = ({ text = "Processing, please wait..." }) => {
 
     return (
         <>
-            <div ref={backdrop} className="fixed inset-0 z-[41] bg-black/50 backdrop-brightness-100 animate-fade-in transition-all duration-500"></div>
+            <div ref={backdrop} className="fixed inset-0 z-[41] bg-black/50 backdrop-brightness-100 animate-fade-in transition-all duration-100"></div>
             <section ref={Spinner} className='fixed inset-1 flex items-center justify-center z-41'>
                 <div ref={SpinnerBody} className="bg-white p-6 rounded-lg shadow-lg flex flex-col items-center animate-enter transition-all duration-700 opacity-100 w-fit min-w-72 max-w-[400px]">
                     {/* Spinner Animation */}

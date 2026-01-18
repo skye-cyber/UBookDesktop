@@ -58,18 +58,18 @@ export const NotesPage = ({ }) => {
                 ref={notebackdrop}
                 id="notes-backdrop"
                 onClick={(e) => { if (e.target === e.currentTarget) closeNotes() }}
-                className="absolute inset-0 bg-black/30 backdrop-brightness-50 transition-all duration-500 ease-in-out opacity-0 scale-95"></div>
+                className="absolute inset-0 bg-black/30 backdrop-brightness-50 transition-all duration-100 ease-in-out opacity-0 scale-95"></div>
 
             <div
                 data-portal-container='notebody'
                 ref={notebody}
                 id="notebody"
-                className="relative z-10 min-w-[40vw] w-fit max-w-[60vw] h-fit min-h-[40vh] max-h-[90vh] p-6 bg-white dark:bg-gray-900 text-gray-800 dark:text-white rounded-2xl shadow-xl transform scale-90 translate-y-8 opacity-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden">
+                className="relative z-10 min-w-[40vw] w-fit max-w-[95vw] sd:max-w-[85vw] lg:max-w-[75vw] xl:max-w-[60vw] h-fit min-h-[40vh] max-h-[99vh] p-6 bg-white dark:bg-gray-900 text-gray-800 dark:text-white rounded-2xl shadow-xl transform scale-90 translate-y-8 opacity-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] overflow-hidden">
                 <button onClick={closeNotes} id="closeModal" className="absolute top-3 right-3 text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition">
                     ✖
                 </button>
                 <h2 className="text-2xl font-bold mb-4 border-b border-gray-300 dark:border-cyan-400 select-none">📝 Notes</h2>
-                <section id="notecontent" className="react-portal-root w-full max-h-[80vh] xl:max-h-[90vh] overflow-y-auto scrollbar-custom">
+                <section id="notecontent" className="react-portal-root w-full max-h-[80vh] xl:max-h-[95vh] overflow-y-auto scrollbar-custom pb-16">
                 </section>
             </div>
         </div>

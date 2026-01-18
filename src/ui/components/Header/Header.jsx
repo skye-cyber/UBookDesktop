@@ -60,7 +60,7 @@ export const Header = ({ }) => {
         <header className="flex items-center px-4 bg-indigo-800 dark:bg-[#00657c] dark:border-y dark:border-t-0 dark:border-b-[#006d91] backdrop-blur-lg shadow-sm dark:border-b dark:border-slate-200/60 dark:border-slate-700/60 z-[40] transition-all duration-500">
             {/* Left Section: Hamburger Menu */}
             <section className="relative flex items-center select-none">
-                <button onClick={ToggleBookContentPanel} id="book-content-panel" className="flex flex-col justify-center items-center h-10 w-10 rounded-lg bg-[#160041] dark:bg-sky-500 hover:bg-[#270075] dark:hover:bg-sky-700 transition-colors duration-300 focus:outline-none focus:ring-none focus:ring-primary-500">
+                <button onClick={ToggleBookContentPanel} id="book-content-panel" className="flex flex-col justify-center items-center h-10 w-10 rounded-lg bg-[#160041] dark:bg-sky-500 hover:bg-[#270075] dark:hover:bg-sky-700 transition-colors duration-300 focus:outline-none focus:ring-none">
                     <span className="w-5 h-0.5 bg-white dark:bg-slate-200 mb-1.5 rounded-full transition-all duration-300"></span>
                     <span className="w-5 h-0.5 bg-white dark:bg-slate-200 mb-1.5 rounded-full transition-all duration-300"></span>
                     <span className="w-5 h-0.5 bg-white dark:bg-slate-200 rounded-full transition-all duration-300"></span>
@@ -79,20 +79,11 @@ export const Header = ({ }) => {
                     </div>
 
                     {/* Submit Search Button */}
-                    <button onClick={() => StateManager.get('applysearch')()} id="submit-search" title="submit-search" aria-label="submit-search" className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 flex items-center justify-center rounded-lg bg-primary-500 hover:bg-primary-600 text-white transition-colors duration-300">
+                    <button onClick={() => StateManager.get('applysearch')()} id="submit-search" title="submit-search" aria-label="submit-search" className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 flex items-center justify-center rounded-lg bg-primary-500 hover:bg-primary-600 text-white transition-colors duration-300 focus:ring-none">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" className="h-5 w-5 fill-current text-white dark:text-slate-200">
                             <path d="M566.6 342.6C579.1 330.1 579.1 309.8 566.6 297.3L406.6 137.3C394.1 124.8 373.8 124.8 361.3 137.3C348.8 149.8 348.8 170.1 361.3 182.6L466.7 288L96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L466.7 352L361.3 457.4C348.8 469.9 348.8 490.2 361.3 502.7C373.8 515.2 394.1 515.2 406.6 502.7L566.6 342.7z" />
                         </svg>
                     </button>
-
-
-                    {/* Expand Search Button DEPRECATED */}
-                    <span id="expand-search" className="hidden search-expand absolute right-2 top-1/2 transform -translate-y-1/2 inline-flex items-center justify-center h-8 w-8 rounded-lg bg-transparent hover:bg-slate-200 dark:hover:bg-[#00caf7] cursor-pointer transition-colors duration-300 hover:scale-[1.05]" onClick={ShowSearchResult} title="show previous section search results" aria-label="show previous section search results group">
-                        <svg className="w-5 h-5 stroke-white" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M11 8V14M8 11H14" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </span>
                 </div>
             </div>
 
