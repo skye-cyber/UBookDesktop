@@ -61,23 +61,32 @@ export class BaseSearchEntry {
         limitedResults.forEach(result => {
             count++;
             // Highlight keywords
-            let highlightedContent = result.content.replace(/[\'\"]/g, "")
+            let highlightedContent = result.content.replace(/[\'\"]/g, "");
 
             const Qpattern = new RegExp(`(${this.escapeRegExp(query)})`, "gi");
 
-            if (highlightedContent.toLowerCase().includes(query.toLowerCase())) {
-                highlightedContent = highlightedContent.replace(Qpattern, `<span class='font-mono p-0.5 bg-yellow-500 rounded-sm dark:bg-slate-950 text-black dark:text-yellow-400'>$1</span>`);
-            } else {
-                let proceedQueue = []
-                keywords.forEach(word => {
-                    if (!proceedQueue.includes(proceedQueue)) {
-                        const pattern = new RegExp(`(${this.escapeRegExp(word)})`, "gi");
+            // Create a temporary placeholder for HTML tags
+            const tempPlaceholder = "TEMP_HTML_TAG_";
+            let contentWithPlaceholders = highlightedContent.replace(/<[^>]*>/g, (match) => {
+                return tempPlaceholder + Math.random().toString(36).substring(2, 15);
+            });
 
-                        highlightedContent = highlightedContent.replace(pattern, `<span class='font-mono p-0.5 bg-yellow-500 rounded-sm dark:bg-slate-950 text-black dark:text-yellow-400 space-x-1'>$1</span>`);
-                        proceedQueue.push(word)
+            if (contentWithPlaceholders.toLowerCase().includes(query.toLowerCase())) {
+                // Replace query matches outside HTML tags
+                highlightedContent = contentWithPlaceholders.replace(Qpattern, `<span class="font-mono p-0.5 bg-yellow-500 rounded-sm dark:bg-slate-950 text-black dark:text-yellow-400">$1</span>`);
+            } else {
+                let proceedQueue = [];
+                keywords.forEach(word => {
+                    if (!proceedQueue.includes(word) && word.length > 2) {
+                        const pattern = new RegExp(`(${this.escapeRegExp(word)})`, "gi");
+                        highlightedContent = contentWithPlaceholders.replace(pattern, `<span class="font-mono p-0.5 bg-yellow-500 rounded-sm dark:bg-slate-950 text-black dark:text-yellow-400 space-x-1">$1</span>`);
+                        proceedQueue.push(word);
                     }
                 });
             }
+
+            // Restore the original HTML tags
+            highlightedContent = highlightedContent.replace(new RegExp(tempPlaceholder + "[a-zA-Z0-9]+", "g"), "<");
 
             const link_data = {
                 part_id: result.part_id,
@@ -111,7 +120,7 @@ export class BaseSearchEntry {
      * @returns {string}
      */
     static escapeRegExp(str) {
-        return str.replace(/[.\*+?^${}()|[\]\\]/g, "\\$&");
+        return str.replace(/[<!.\*+?^${}()|[\]\\]/g, "\\$&")
     }
 
 }

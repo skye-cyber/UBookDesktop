@@ -40,7 +40,6 @@ export const SearchSettings = ({ }) => {
 
         const portalId = await loadingspinner.open('Searching, please wait ...')
         setTimeout(async() => {
-            console.log(portalId)
 
             const searchInput = StateManager.get('searchInput')
             const query = searchInput.value
