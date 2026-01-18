@@ -38,35 +38,41 @@ export const SearchSettings = ({ }) => {
         // clear previous search result
         StateManager.get('clearSearchResult')()
 
-        loadingspinner.open('Searching, please wait ...')
-        const searchInput = StateManager.get('searchInput')
-        const query = searchInput.value
+        const portalId = await loadingspinner.open('Searching, please wait ...')
+        setTimeout(async() => {
+            console.log(portalId)
 
-        // Clear Input
-        searchInput.value = ''
+            const searchInput = StateManager.get('searchInput')
+            const query = searchInput.value
 
-        //const partmap = {part1: 1, }
-        let parts = []
+            // Clear Input
+            searchInput.value = ''
 
-        if (part1.current.checked) parts.push(1)
-        if (part2.current.checked) parts.push(2)
-        if (part3.current.checked) parts.push(3)
-        if (part4.current.checked) parts.push(4)
-        if (part5.current.checked) parts.push(5)
+            //const partmap = {part1: 1, }
+            let parts = []
 
-        if (parts.length === 5) parts = ["_all_"]
+            if (part1.current.checked) parts.push(1)
+            if (part2.current.checked) parts.push(2)
+            if (part3.current.checked) parts.push(3)
+            if (part4.current.checked) parts.push(4)
+            if (part5.current.checked) parts.push(5)
 
-        let result
+            if (parts.length === 5) parts = ["_all_"]
 
-        try {
-            result = await (search_mode.current.value === 'text'
-                ? BaseSearchEntry.fullTextSearch(parts, query)
-                : BaseSearchEntry.sectionSearch(parts, query))
+            let result
 
-        } finally {
-            loadingspinner.close()
-            if (result && search_mode.current.value === 'text') StateManager.get('showSearchResult')()
-        }
+            try {
+                result = await(search_mode.current.value === 'text'
+                    ? BaseSearchEntry.fullTextSearch(parts, query)
+                    : BaseSearchEntry.sectionSearch(parts, query))
+
+            } finally {
+                try {
+                    loadingspinner.close()
+                    if (result && search_mode.current.value === 'text') StateManager.get('showSearchResult')()
+                } catch (err) { }
+            }
+        }, 200)
     })
 
     StateManager.set('applysearch', applysearch)

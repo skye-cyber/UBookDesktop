@@ -4,8 +4,9 @@ export class LoadingSpinner {
     constructor() {
         //
     }
-    open(text) {
-        reactPortalBridge.showComponentInTarget('LoadingSpinner', 'reader-content', { text: text }, 'loadingspinner')
+    async open(text) {
+        const portalId = reactPortalBridge.showComponentInTarget('LoadingSpinner', 'reader-content', { text: text }, 'loadingspinner')
+        return portalId
     }
     close() {
         try {
