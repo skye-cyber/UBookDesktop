@@ -54,11 +54,11 @@ export function ImplementShortcutKeys() {
                     StateManager.get('onPlayPause')()
                 }
                 // Next chapter
-            } else if (['arrowright', 'pageup'].includes(event.key.toLocaleLowerCase())) {
+            } else if (event.key.toLocaleLowerCase() === 'pageup' || (event.ctrlKey && event.key.toLocaleLowerCase() === 'arrowright')) {
                 event.preventDefault();
                 BookNavigator.nextSection()
                 // Previous chapter
-            } else if (['arrowleft', 'pagedown'].includes(event.key.toLocaleLowerCase())) {
+            } else if (event.key.toLocaleLowerCase() === 'pagedown' || (event.ctrlKey && event.key.toLocaleLowerCase() === 'arrowleft')) {
                 event.preventDefault();
                 BookNavigator.previousSection()
                 //Increase font

@@ -27,31 +27,32 @@ export class ContentSearch {
 
     async run(ids = [], query) {
         if (!query) return //console.log('Search Parameter ie <str> is required');
-        if (!ids || ids.length === 0) ids = [1, 2, 3, 4, 5];
+        if (!ids || ids.length === 0) ids = ["_all_"];
 
         this.query = query
 
         const sources = this.getMappedSources(ids);
         if (!sources) return;
 
-        this.paperContainer.innerHTML = "";
+        if (this.paperContainer) this.paperContainer.innerHTML = "";
         this.count = 0;
 
         const tasks = sources.map(async (src) => {
             const data = await this.readSrcFile(src);
+
             const filteredData = this.filterSearch_Strict(data);
             if (filteredData.parts.length > 0) {
-                this.renderResult(filteredData);
+                await this.renderResult(filteredData);
             }
         });
+
+        await Promise.all(tasks);
 
         if (this.count > 0) {
             document.dispatchEvent(new CustomEvent('show-item-selector'))
         } else {
             modalmanager.showMessage('Zero mtaches for query', 'warn')
         }
-
-        await Promise.all(tasks);
 
         return this.count > 0;
     }
@@ -199,7 +200,7 @@ export class ContentSearch {
         return (Array.isArray(ids) ? ids : []).map(id => this.sources[id]).filter(Boolean);
     }
 
-    renderResult(data) {
+    async renderResult(data) {
         for (const part of data.parts) {
             for (const paper of part.papers) {
                 for (const section of paper.sections) {
@@ -227,7 +228,7 @@ export class ContentSearch {
             }
         }
         const Title = `Search Result: ${this.count}`;
-        this.selectorTitle.textContent = Title
+        if (this.selectorTitle) this.selectorTitle.textContent = Title
     }
 }
 

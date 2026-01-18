@@ -129,7 +129,7 @@ export const BookItem = ({ part, paper, section, title, tag, struct }) => {
                 }
             }
             }
-            className='flex items-center justify-between gap-4 py-3 hover:bg-orange-100 dark:hover:bg-slate-900 hover:rounded-md transition-colors duration-0'>
+            className='flex items-center justify-between gap-4 py-3 hover:bg-gray-200 dark:hover:bg-slate-900 hover:rounded-md transition-colors duration-0'>
             <button onClick={BookmarkItem} id="bookmark" className="rounded-full p-2 hover:bg-blue-100 dark:hover:bg-blue-900 text-blue-500 hover:text-blue-700 transition focus:outline-none">
                 <svg ref={bookmarksvg} xmlns="http://www.w3.org/2000/svg" className={`w-5 h-5 ${isbookmarked ? 'fill-blue-600' : 'fill-none'} stroke-blue-500`} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 5v14l7-5 7 5V5H5z" />

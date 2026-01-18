@@ -47,11 +47,14 @@ export const SearchSettings = ({ }) => {
 
         //const partmap = {part1: 1, }
         let parts = []
+
         if (part1.current.checked) parts.push(1)
         if (part2.current.checked) parts.push(2)
         if (part3.current.checked) parts.push(3)
         if (part4.current.checked) parts.push(4)
         if (part5.current.checked) parts.push(5)
+
+        if (parts.length === 5) parts = ["_all_"]
 
         let result
 
@@ -62,7 +65,7 @@ export const SearchSettings = ({ }) => {
 
         } finally {
             loadingspinner.close()
-            if(result) StateManager.get('showSearchResult')()
+            if (result && search_mode.current.value === 'text') StateManager.get('showSearchResult')()
         }
     })
 

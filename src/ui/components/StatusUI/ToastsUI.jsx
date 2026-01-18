@@ -10,6 +10,7 @@ const typeConfig = {
         iconBg: 'bg-gradient-to-br from-green-500 to-emerald-600',
         textColor: 'text-gray-900 dark:text-white',
         progress: 'bg-gradient-to-r from-green-500 to-emerald-500',
+        closeBtn: 'bg-[#00aa7f]/20 dark:bg-[#005039]'
     },
     error: {
         gradient: 'from-red-500 to-rose-500',
@@ -17,6 +18,7 @@ const typeConfig = {
         iconBg: 'bg-gradient-to-br from-red-500 to-rose-600',
         textColor: 'text-gray-900 dark:text-white',
         progress: 'bg-gradient-to-r from-red-500 to-rose-500',
+        closeBtn: 'bg-[#ff0000]/20 dark:bg-[#550000]'
     },
     warning: {
         gradient: 'from-amber-500 to-orange-500',
@@ -24,6 +26,7 @@ const typeConfig = {
         iconBg: 'bg-gradient-to-br from-amber-500 to-orange-600',
         textColor: 'text-gray-900 dark:text-white',
         progress: 'bg-gradient-to-r from-amber-500 to-orange-500',
+        closeBtn: 'bg-[#ffaa00]/20 dark:bg-[#634200]'
     },
     info: {
         gradient: 'from-blue-500 to-cyan-500',
@@ -31,6 +34,7 @@ const typeConfig = {
         iconBg: 'bg-gradient-to-br from-blue-500 to-cyan-600',
         textColor: 'text-gray-900 dark:text-white',
         progress: 'bg-gradient-to-r from-blue-500 to-cyan-500',
+        closeBtn: 'bg-[#55aaff]/20 dark:bg-[#002368]'
     }
 };
 
@@ -95,7 +99,7 @@ export const Toast = ({ type, message, messageId, duration = null, autoDismiss =
             className="message-toast transform transition-all duration-500 ease-in-out opacity-0 translate-x-full backdrop-blur-lg mb-2"
             data-message-id={messageId}
             data-auto-dismiss={autoDismiss}>
-            <div className="relative bg-white/95 dark:bg-primary-800/85 border border-secondary-400/50 dark:border-accent-200/50 rounded-2xl shadow-2xl p-5 overflow-hidden backdrop-blur-lg">
+            <div className={`relative bg-white/95 ${type === 'success' ? 'dark:bg-[#28783a]/95' : type === 'info' ? 'dark:bg-[#002d87]/95' : type === 'warning' ? 'dark:bg-[#986500]/95' : 'dark:bg-[#830000]/95'} border border-secondary-400/50 dark:border-accent-200/50 rounded-2xl shadow-2xl p-5 overflow-hidden backdrop-blur-lg`}>
                 {/* Animated gradient background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${typeConfig[type].gradient} opacity-5`}></div>
 
@@ -123,7 +127,7 @@ export const Toast = ({ type, message, messageId, duration = null, autoDismiss =
                     {/* Close Button */}
                     <button
                         type="button"
-                        className="ml-4 flex-shrink-0 w-8 h-8 bg-gray-100 dark:bg-primary-800 hover:bg-gray-200 dark:hover:bg-primary-700 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 hover:rotate-90 group"
+                        className={`ml-4 flex-shrink-0 w-8 h-8 ${typeConfig[type].closeBtn} hover:bg-gray-200 dark:hover:bg-primary-700 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 hover:rotate-90 group`}
                         onClick={closePortal}>
                         <svg className="w-4 h-4 text-gray-700 dark:text-gray-200 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors stroke-current dark:stroke-primary-200" fill="none" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
