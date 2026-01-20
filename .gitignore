@@ -1,9 +1,43 @@
-dist/**
-electron/
-bin/
-tests/**
-true/**
-reload.html
+# Ignore the entire src directory (if not needed)
+src/**
+dist/
+true/
+# Ignore this .gitignore file itself (not necessary, but can be included for clarity)
+#.gitignore
+
+# Ignore Python cache directories
+__pycache__/
+*.py[cod]
+
+# Ignore temporary files
 *~
-node_modules/**
-.kateproject.notes
+*.egg-info/**
+# Ignore build directories
+**/build/
+**/dist/
+
+# Ignore IDE and editor files
+.vscode/
+.idea/
+*.vscode/
+*.idea/
+
+# Ignore operating system files
+.DS_Store
+*.db
+
+# Ignore log files
+*.log
+
+# Ignore node_modules (if applicable)
+node_modules/
+
+# Ignore virtual environment directories (if applicable)
+env/
+venv/
+
+# tmp+media files
+*tmp*
+*.wav
+*.mp3
+*.mp4

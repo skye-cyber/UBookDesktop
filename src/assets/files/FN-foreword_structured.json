@@ -13,7 +13,7 @@
           "title": "Foreword",
           "sections": [
             {
-              "section_number": "0:0",
+              "section_number":0,
               "title": "Foreword",
               "paragraphs": [
                 {
@@ -43,7 +43,7 @@
               ]
             },
             {
-              "section_number": "0:1",
+              "section_number":1,
               "title": "Diety and Divinity",
               "paragraphs": [
                 {
@@ -97,7 +97,7 @@
               ]
             },
             {
-              "section_number": "0:2",
+              "section_number":2,
               "title": "God",
               "paragraphs": [
                 {
@@ -127,7 +127,7 @@
               ]
             },
             {
-              "section_number": "0:3",
+              "section_number":3,
               "title": "The First Source and Center",
               "paragraphs": [
                 {
@@ -177,7 +177,7 @@
               ]
             },
             {
-              "section_number": "0:4",
+              "section_number":4,
               "title": "Universe Reality",
               "paragraphs": [
                 {
@@ -207,7 +207,7 @@
               ]
             },
             {
-              "section_number": "0:5",
+              "section_number":5,
               "title": "Personality Realities",
               "paragraphs": [
                 {
@@ -245,7 +245,7 @@
               ]
             },
             {
-              "section_number": "0:6",
+              "section_number":6,
               "title": "Energy and Pattern",
               "paragraphs": [
                 {
@@ -291,7 +291,7 @@
               ]
             },
             {
-              "section_number": "0:7",
+              "section_number":7,
               "title": "The Supreme Being",
               "paragraphs": [
                 {
@@ -329,7 +329,7 @@
               ]
             },
             {
-              "section_number": "0:8",
+              "section_number":8,
               "title": "God the Sevenfold",
               "paragraphs": [
                 {
@@ -355,7 +355,7 @@
               ]
             },
             {
-              "section_number": "0:9",
+              "section_number":9,
               "title": "God the Ultimate",
               "paragraphs": [
                 {
@@ -381,7 +381,7 @@
               ]
             },
             {
-              "section_number": "0:10",
+              "section_number":10,
               "title": "God the Absolute",
               "paragraphs": [
                 {
@@ -395,7 +395,7 @@
               ]
             },
             {
-              "section_number": "0:11",
+              "section_number":11,
               "title": "The three Absolutes",
               "paragraphs": [
                 {
@@ -465,7 +465,7 @@
               ]
             },
             {
-              "section_number": "0:12",
+              "section_number":12,
               "title": "The Trinities",
               "paragraphs": [
                 {

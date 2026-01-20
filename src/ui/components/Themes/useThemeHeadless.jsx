@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { appState } from '../Reader/appState';
+import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 
 export const useTheme = () => {
     const [isDark, setIsDark] = useState(false);
@@ -8,6 +10,8 @@ export const useTheme = () => {
         // Check for saved theme preference or system preference
         const savedTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        appState.currentTheme = savedTheme
 
         if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
             setIsDark(true);
@@ -38,11 +42,18 @@ export const useTheme = () => {
             setIsDark(true);
             document.documentElement.classList.add('dark');
             localStorage.setItem('theme', 'dark');
+            appState.currentTheme = 'dark'
         } else {
             setIsDark(false);
             document.documentElement.classList.remove('dark');
             localStorage.setItem('theme', 'light');
+            appState.currentTheme = 'light'
         }
+
+        // Update toolbar theme value
+        try {
+            StateManager.get('UpdateToolbarTheme')(theme)
+        } catch (err) { }
     };
 
     return {

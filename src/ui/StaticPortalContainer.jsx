@@ -1,7 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import { BookItem } from './components/Reader/Book/BookItem';
+import { Toast } from './components/StatusUI/ToastsUI';
+import { Readable, Textual } from './components/Reader/Book/ContentWrapper';
+import { ContentEmpty } from './components/Panels/BookContentPanel';
+import { NoteCard } from './components/Panels/Note';
+import { ConfirmationDialog } from './components/StatusUI/confirm';
+import { LoadingSpinner } from './components/StatusUI/StatusUI';
+import { ResultCard } from './Pages/Search';
 
-const componentRegistry = {};
+const componentRegistry = {
+    BookItem,
+    Toast,
+    Readable,
+    Textual,
+    ContentEmpty,
+    NoteCard,
+    ConfirmationDialog,
+    LoadingSpinner,
+    ResultCard
+};
 
 export const StaticPortalContainer = () => {
     const [portals, setPortals] = useState([]);
@@ -134,11 +152,10 @@ export const StaticPortalContainer = () => {
                     console.warn(`Container ${containerId} not found in DOM`);
                     return null;
                 }
-
-                const portalRoot = containerElement.querySelector('.react-portal-root');
+                let portalRoot = containerElement.querySelector('.react-portal-root');
                 if (!portalRoot) {
-                    console.warn(`Container .react-portal-root not found in ${containerId}`);
-                    return null;
+                    console.warn(`Container .react-portal-root not found in ${containerId}: Defaulting to self`);
+                    portalRoot = containerElement;
                 }
 
                 return ReactDOM.createPortal(

@@ -96,6 +96,7 @@ const api = {
     },
     deleteNote: async (noteId, fpath = path.join(notesDir, 'notes.json')) => {
         try {
+            if (!noteId) return false
             // noteId = note Timetamb
             //
             // Check if file exists and is accessible
@@ -103,7 +104,7 @@ const api = {
 
             // Read the existing file content
             const data = JSON.parse(await fs.promises.readFile(fpath, 'utf-8'));
-            const filtered_notes = data.notes.filter(note => (new Date(note.timestamp).toLocaleString() !== noteId))
+            const filtered_notes = data.notes.filter(note => (note.timestamp !== noteId))
 
             // Write the updated data back to the file
             await fs.promises.writeFile(fpath, JSON.stringify({ notes: filtered_notes }, null, 2));
@@ -114,7 +115,7 @@ const api = {
             return false;
         }
     },
-    addBookmark: async (data, fpath = path.join(bookmarkDir, 'bookmark.json')) => {
+    Bookmark: async (data, fpath = path.join(bookmarkDir, 'bookmark.json')) => {
         try {
             // Ensure file exists, otherwise initialize with default structure
             let existingData = { bookmark: [] };
@@ -126,7 +127,6 @@ const api = {
                 existingData = JSON.parse(fileContent || '{"bookmark": []}');
             }
 
-            console.log(existingData)
             // Check if the bookmark already exists
             const index = existingData.bookmark.findIndex(bookmark =>
                 bookmark.part_id === data.part_id &&
@@ -153,7 +153,7 @@ const api = {
             return { 'success': false, 'task': 'any' };
         }
     },
-    addFavourite: async (data, fpath = path.join(favouriteDir, 'fav.json')) => {
+    Favourite: async (data, fpath = path.join(favouriteDir, 'fav.json')) => {
         try {
             // Ensure file exists, otherwise initialize with default structure
             let existingData = { fav: [] };
@@ -165,7 +165,6 @@ const api = {
                 existingData = JSON.parse(fileContent || '{"fav": []}');
             }
 
-            console.log(existingData)
             // Check if the bookmark already exists
             const index = existingData.fav.findIndex(fav =>
                 fav.part_id === data.part_id &&
@@ -398,7 +397,7 @@ const sm_api = {
 
 }
 
-const read = {
+const player = {
     play: async (filePath = null) => {
         try {
             if (!audioContext) audioContext = new AudioContext();
@@ -425,7 +424,7 @@ const read = {
             pauseTime = audioContext.currentTime - startTime;
             sourceNode = null;
         }
-        return "Paused";
+        return "paused";
     },
 
     resume: (time = null) => {
@@ -433,7 +432,7 @@ const read = {
         if (audioBuffer && pauseTime) {
             playFrom(pauseTime);
             pauseTime = 0;
-            return "Resumed";
+            return "resumed";
         }
         return "Nothing to resume";
     },
@@ -448,7 +447,7 @@ const read = {
         audioBuffer = null;
         pauseTime = 0;
         currentOffset = 0;
-        return "Stopped";
+        return "stopped";
     },
 
     // ✅ Seek support
@@ -531,6 +530,6 @@ function playFrom(offset = 0) {
 contextBridge.exposeInMainWorld('ubook', {
     api,
     sm_api,
-    read,
+    player,
     playFrom
 });
