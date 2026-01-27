@@ -7,9 +7,27 @@ let mainWindow;
 
 const isDev = !app.isPackaged;
 
-const iconPath = isDev
-    ? path.join(__dirname, '../assets/ubookdesktop.png') // for dev
-    : path.join(process.resourcesPath, './assets/ubookdesktop.png'); // for prod
+let iconPath
+
+// Set the appropriate icon based on system theme
+function setAppIcon() {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+
+    if (isDarkMode) {
+        iconPath = isDev
+            ? path.join(__dirname, '../assets/ubookdesktop.png') // for dev
+            : path.join(process.resourcesPath, './assets/ubookdesktop.png'); // for prod
+
+    } else {
+        iconPath = isDev
+            ? path.join(__dirname, '../assets/ubookdesktop.png') // for dev
+            : path.join(process.resourcesPath, './assets/ubookdesktop.png'); // for prod
+
+    }
+}
+
+// Set initial icon
+setAppIcon()
 
 app.disableHardwareAcceleration()
 
@@ -409,4 +427,10 @@ ipcMain.handle('get-app-version', async (event, accounts) => {
 
 ipcMain.handle('get-dev-status', async (event) => {
     return isDev
+})
+
+
+// Listen for theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    setAppIcon()
 })
