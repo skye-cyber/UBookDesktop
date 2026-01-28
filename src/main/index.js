@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron');
+const { app, BrowserWindow, Tray, Menu, ipcMain, nativeTheme } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -8,15 +8,12 @@ let mainWindow;
 const isDev = !app.isPackaged;
 
 let iconPath
-
-// Set the appropriate icon based on system theme
 function setAppIcon() {
-    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
-
+    const isDarkMode = nativeTheme.shouldUseDarkColors
     if (isDarkMode) {
         iconPath = isDev
-            ? path.join(__dirname, '../assets/ubookdesktop.png') // for dev
-            : path.join(process.resourcesPath, './assets/ubookdesktop.png'); // for prod
+            ? path.join(__dirname, '../assets/ubookdesktop-light.png') // for dev
+            : path.join(process.resourcesPath, './assets/ubookdesktop-light.png'); // for prod
 
     } else {
         iconPath = isDev
@@ -26,7 +23,6 @@ function setAppIcon() {
     }
 }
 
-// Set initial icon
 setAppIcon()
 
 app.disableHardwareAcceleration()
@@ -400,7 +396,7 @@ async function prepBookmarkFile() {
     try {
         // Check if file exists asynchronously
         await fs.promises.access(file, fs.constants.F_OK);
-        // File exists
+        // File exists→
         return true;
     } catch (err) {
         // File does not exist, create directory and file
@@ -429,8 +425,22 @@ ipcMain.handle('get-dev-status', async (event) => {
     return isDev
 })
 
+// Listen for theme change events from renderer
+ipcMain.on('theme-changed', (event, isDarkMode) => {
+    if (isDarkMode) {
+        iconPath = isDev
+            ? path.join(__dirname, '../assets/ubookdesktop-light.png') // for dev
+            : path.join(process.resourcesPath, './assets/ubookdesktop-light.png'); // for prod
 
-// Listen for theme changes
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    } else {
+        iconPath = isDev
+            ? path.join(__dirname, '../assets/ubookdesktop.png') // for dev
+            : path.join(process.resourcesPath, './assets/ubookdesktop.png'); // for prod
+
+    }
+})
+
+
+nativeTheme.on('updated', () => {
     setAppIcon()
 })

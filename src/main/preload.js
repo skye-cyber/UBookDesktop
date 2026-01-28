@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require('electron');
+const { contextBridge, ipcRenderer, nativeTheme } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -533,3 +533,14 @@ contextBridge.exposeInMainWorld('ubook', {
     player,
     playFrom
 });
+
+// Set the appropriate icon based on system theme
+function setAppIcon() {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    ipcRenderer.send('theme-changed', isDarkMode)
+}
+
+// Set initial icon
+setAppIcon()
+
+// Listen for theme changes

@@ -84,7 +84,8 @@
     "src/main/**/*",
     "public/**/*",
     "!node_modules/",
-    "!.eproj"
+    "!.eproj",
+    "!icons"
   ],
   "build": {
     "appId": "com.ubookdesktop.app",
