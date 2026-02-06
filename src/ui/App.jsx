@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { MainLayout } from './components/Layout/MainLayout';
-import { Header } from '@components/Header/Header';
-import { BookContentPanel } from '@components/Panels/BookContentPanel';
+import { Header } from './components/Header/Header';
+import { BookContentPanel } from './components/Panels/BookContentPanel';
 import { QuickReadPanel } from './components/Panels/QuickReadPanel';
 import { ReaderUI } from './components/Reader/ui';
-import ErrorBoundary from '@components/ErrorHandler/ErrorBoundary';
-import '@css/styles.css';
-import { StatusUI } from '@components/StatusUI/StatusUI.jsx';
-import '@js/shortcuts/keyshortcuts';
+import ErrorBoundary from './components/ErrorHandler/ErrorBoundary';
+import { StatusUI } from './components/StatusUI/StatusUI.jsx';
 import { StaticPortalContainer } from './StaticPortalContainer';
 import { StreamingPortalContainer } from './StreamingPortalContainer';
 import '../renderer/js/react-portal-bridge';
@@ -15,6 +13,8 @@ import './PortalTargetRegister';
 import '../renderer/js/syscore/StatesManager';
 import '../renderer/js/Status/Manager';
 import { NotesPage } from './Pages/Notes';
+import '@css/styles.css';
+import '@js/shortcuts/keyshortcuts';
 
 const App = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);

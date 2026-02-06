@@ -71,16 +71,37 @@ export const BookContentPanel = ({ }) => {
             </div>
             <section className="h-fit max-h-[72%] overflow-y-auto scrollbar-custom select-none bg-indigo-950/25 dark:bg-[#002b36] rounded-lg">
                 <ul className="mt-3">
-                    <li ref={forewordRef} id="foreword" className="flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer" onClick={() => ContentLoader_ins.setForeword()}>📖 Foreword</li>
-                    <li id="central-and-superuniverse" className="flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer" onClick={() => ContentLoader_ins.setSuperUniverse()}><span className="bg-pink-600 rounded-full px-0.5">🌀</span>&nbsp; The Central and Superuniverses</li>
-                    <li id="local-universe" className="flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer" onClick={() => ContentLoader_ins.setLocalUniverse()}>🌍 The Local Universe</li>
-                    <li id="history-of-urantia" className="flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer" onClick={() => ContentLoader_ins.setHistoryOfUrantia()}>📜 The History of Urantia</li>
-                    <li id="life-and-teachings-of-jesus" className="flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer" onClick={() => ContentLoader_ins.setJesusTeachings()}>✝️ The Life and Teachings of Jesus</li>
-                    <li id="favourite" className="flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer" onClick={() => ContentLoader_ins.loadFavourites()}>⭐ Favourite</li>
-                    <li id="bookmark" className="flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer" onClick={() => ContentLoader_ins.loadBookmarks()}>🔖 Bookmarks</li>
-                    <li id="notes" className="flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer" onClick={() => ContentLoader_ins.renderNotes()}>📔 Notes</li>
-                    <li id="more-apps" className="flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer">🧰 More Applications</li>
-                    <li id="exit-app" className="flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer">🚪 Exit</li>
+                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li ref={forewordRef} id="foreword" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.setForeword()}>📖 Foreword</li>
+                    </div>
+                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="central-and-superuniverse" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.setSuperUniverse()}><span className="bg-pink-600/0 rounded-full px-0.5">🌀</span>&nbsp; The Central and Superuniverses</li>
+                    </div>
+                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="local-universe" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.setLocalUniverse()}>🌍 The Local Universe</li>
+                    </div>
+                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="history-of-urantia" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.setHistoryOfUrantia()}>📜 The History of Urantia</li>
+                    </div>
+                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="life-and-teachings-of-jesus" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.setJesusTeachings()}>✝️ The Life and Teachings of Jesus</li>
+                    </div>
+                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+
+                        <li id="favourite" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.loadFavourites()}>⭐ Favourite</li>
+                    </div>
+                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="bookmark" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.loadBookmarks()}>🔖 Bookmarks</li>
+                    </div>
+                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="notes" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.renderNotes()}>📔 Notes</li>
+                    </div>
+                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="more-apps" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">🧰 More Applications</li>
+                    </div>
+                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="exit-app" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">🚪 Exit</li>
+                    </div>
                 </ul>
             </section>
             <div className="absolute left-0 bottom-4 flex items-center justify-center w-full px-6">
