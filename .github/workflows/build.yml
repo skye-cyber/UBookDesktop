@@ -26,7 +26,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20.18.1'
+        node-version: '24.2.0'
         # npm-version: '10.9.2'
 
     - name: Cache node modules
@@ -86,9 +86,10 @@ jobs:
     - name: Ensure build directory exists
       run: mkdir -p dist
       shell: bash
-
+  
     - name: Build react first
       run: npm run build:react
+    
     - name: Build for specific platform
       run: |
         if [ "${{ runner.os }}" == "Linux" ]; then
