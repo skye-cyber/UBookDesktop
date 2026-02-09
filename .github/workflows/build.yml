@@ -26,8 +26,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20.18.1'
-        # npm-version: '10.9.2'
+        node-version: '24.2.0'
 
     - name: Cache node modules
       uses: actions/cache@v4
@@ -52,7 +51,7 @@ jobs:
 
     - name: install native dependencies(--)
       run: npx electron-builder install-app-deps
-      
+
     - name: Get current version from package.json
       id: get_version
       run: |
@@ -86,9 +85,10 @@ jobs:
     - name: Ensure build directory exists
       run: mkdir -p dist
       shell: bash
-
+  
     - name: Build react first
       run: npm run build:react
+    
     - name: Build for specific platform
       run: |
         if [ "${{ runner.os }}" == "Linux" ]; then
