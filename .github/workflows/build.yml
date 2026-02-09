@@ -135,10 +135,7 @@ jobs:
       shell: bash
 
     - name: show dist content
-      run: |
-        if [ "${{ runner.os }}" == "Linux" ]; then
-        ls dist
-        fi
+      run: ls dist
       shell: bash
 
     # Upload artifacts
