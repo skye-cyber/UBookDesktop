@@ -93,9 +93,8 @@ jobs:
     - name: Build for specific platform
       run: |
         if [ "${{ runner.os }}" == "Linux" ]; then
-          ls -l node_modules/app-builder-bin/linux/x64/
-          file node_modules/app-builder-bin/linux/x64/app-builder
-          ldd node_modules/app-builder-bin/linux/x64/app-builder || true
+          # Install snapcraft for snap build
+          sudo snap install snapcraft --classic
 
           # Build DEB separately
           sudo npm run build:electron -- --linux
