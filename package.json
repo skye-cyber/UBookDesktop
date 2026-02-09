@@ -126,11 +126,8 @@
       ],
       "icon": "src/assets/ubookdesktop.icns",
       "category": "public.app-category.productivity",
-      "hardenedRuntime": true,
-      "gatekeeperAssess": false,
-      "entitlements": "entitlements.mac.plist",
-      "entitlementsInherit": "entitlements.mac.plist",
-      "provisioningProfile": "embedded.provisionprofile"
+      "hardenedRuntime": false,
+      "identity": null
     },
     "dmg": {
       "artifactName": "${productName}-${version}-${arch}.dmg"
