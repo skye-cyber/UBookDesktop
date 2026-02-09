@@ -72,6 +72,8 @@ export const NotesComposer = () => {
         target.scrollTop = target.scrollHeight;
     });
 
+    StateManager.set('noteComposerComment', notComment)
+
     useEffect(() => {
         document.addEventListener('OpenNotesComposer', openComposer);
         document.addEventListener('closeNoteComposer', closeComposer);
