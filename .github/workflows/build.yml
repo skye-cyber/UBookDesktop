@@ -7,11 +7,12 @@ on:
   pull_request:
     branches:
       - main
-    
+
 permissions:
   contents: write
   actions: write
-  packages: write 
+  packages: write
+
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -85,38 +86,27 @@ jobs:
     - name: Ensure build directory exists
       run: mkdir -p dist
       shell: bash
-  
+
     - name: Build react first
       run: npm run build:react
-    
+
     - name: Build for specific platform
       run: |
         if [ "${{ runner.os }}" == "Linux" ]; then
+          ls -l node_modules/app-builder-bin/linux/x64/
+          file node_modules/app-builder-bin/linux/x64/app-builder
+          ldd node_modules/app-builder-bin/linux/x64/app-builder || true
+
           # Build DEB separately
           sudo npm run build:electron -- --linux
-          # sudo npm run build:electron -- --linux deb --arm64
-          # Build AppImage separately
-          # sudo npm run build:electron -- --linux appimage --x64
-          # sudo npm run build:electron -- --linux appimage --arm64
 
-          # Build SNAP separately
-          # sudo npm run build:electron -- --linux snap
         elif [ "${{ runner.os }}" == "macOS" ]; then
           # Build the macOS target
           sudo npm run build:electron -- --mac
-          # sudo npm run build:electron -- --mac --arm64
+
         elif [ "${{ runner.os }}" == "Windows" ]; then
           # Build the Windows target
           npm run build:electron -- --win
-
-          # Standard installer (.exe)
-          # npm run build:electron -- --win nsis --x64
-          # Portable app (no install)
-          # npm run build:electron -- --win portable --x64
-          # MSI installer
-          # npm run build:electron -- --win msi --x64
-          # AppX (Windows Store)
-          # npm run build:electron -- --win appx --x64
 
         else
           echo "Unsupported platform: ${{ runner.os }}"
