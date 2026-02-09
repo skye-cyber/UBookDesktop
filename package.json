@@ -1,6 +1,6 @@
 {
   "name": "ubookdesktop",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "An application providing urantia book content.",
   "main": "src/main/index.js",
   "homepage": "src/renderer/home.html",
@@ -84,7 +84,8 @@
     "src/main/**/*",
     "public/**/*",
     "!node_modules/",
-    "!.eproj"
+    "!.eproj",
+    "!icons"
   ],
   "build": {
     "appId": "com.ubookdesktop.app",
@@ -151,6 +152,13 @@
             "x64",
             "arm64"
           ]
+        },
+        {
+          "target": "msi",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
         }
       ]
     },
@@ -161,9 +169,14 @@
       "perMachine": true,
       "allowElevation": true,
       "allowToChangeInstallationDirectory": true,
-      "license": "LICENSE"
+      "license": "LICENSE",
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+
     },
     "portable": {
+      "artifactName": "${productName}-portable-${version}-${arch}.${ext}"
+    },
+    "msi": {
       "artifactName": "${productName}-portable-${version}-${arch}.${ext}"
     },
     "linux": {
@@ -183,13 +196,19 @@
             "arm64"
           ]
         },
-        "snap"
+        {
+          "target": "snap",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
       ],
       "category": "Utility",
       "icon": "src/icons",
       "maintainer": "Mwikya -- swskye17@gmail.com",
       "synopsis": "UBookDesktop",
-      "description": "Read Urantia Book on Your Desktop (favourite, bookmark, save notes)"
+      "description": "Read Urantia Book on Your Desktop (favourite, bookmark, search, save notes)"
     },
     "appImage": {
       "artifactName": "${productName}-${version}-${arch}.AppImage"
@@ -206,7 +225,8 @@
         "network",
         "home",
         "audio-playback"
-      ]
+      ],
+      "artifactName": "${productName}_${version}_${arch}.snap"
     }
   }
 }

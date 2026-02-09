@@ -4,12 +4,13 @@ import { BookNavigator } from "../../../ui/components/Reader/navigator";
 import { FontSizeManager_ins } from "../../../ui/components/Reader/font_manager";
 
 
+function isInputFocused() {
+    const inputFields = [
+        StateManager.get('noteComposerComment'),
+        StateManager.get('searchInput')
+    ]
 
-function inputFieldsActive(e) {
-    const inputFields = []
-    const index = inputFields.map(f => (f.contains(e.target))).findIndex(v => (v === true))
-    return index !== -1
-
+    return inputFields.includes(document.activeElement) || StateManager.get('NoteComposer_open')
 }
 
 export function ImplementShortcutKeys() {
@@ -28,7 +29,7 @@ export function ImplementShortcutKeys() {
                 document.dispatchEvent(new CustomEvent('escape-key-down'))
             }
             if (event.ctrlKey && event.key === 'A' || event.ctrlKey && event.key === 'a') {
-                const isFocused = document.activeElement === StateManager.get('searchInput');
+                const isFocused = isInputFocused();
 
                 if (StateManager.get('NoteComposer_open') || isFocused) return
 
@@ -48,7 +49,7 @@ export function ImplementShortcutKeys() {
                 event.preventDefault(); // Prevent any default action
                 print()
             } else if (event.key.toLocaleLowerCase() === ' ') {
-                const isFocused = document.activeElement === StateManager.get('searchInput');
+                const isFocused = isInputFocused()
                 if (!isFocused) {
                     event.preventDefault();
                     StateManager.get('onPlayPause')()

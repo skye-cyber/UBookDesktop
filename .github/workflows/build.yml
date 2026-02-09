@@ -79,36 +79,45 @@ jobs:
         fi
       shell: bash
 
-    - name: Clean dist directory
-      run: rm -rf dist/*
+    - name: Clean dist and build directory
+      run: rm -rf dist/* build
       shell: bash
 
     - name: Ensure build directory exists
       run: mkdir -p dist
       shell: bash
-  
+
+    - name: Build react first
+      run: npm run build:react
     - name: Build for specific platform
       run: |
         if [ "${{ runner.os }}" == "Linux" ]; then
           # Build DEB separately
-          sudo npm run dist -- --linux deb --x64
-          sudo npm run dist -- --linux deb --arm64
-
+          sudo npm run build:electron -- --linux
+          # sudo npm run build:electron -- --linux deb --arm64
           # Build AppImage separately
-          sudo npm run dist -- --linux appimage --x64
-          sudo npm run dist -- --linux appimage --arm64
+          # sudo npm run build:electron -- --linux appimage --x64
+          # sudo npm run build:electron -- --linux appimage --arm64
 
           # Build SNAP separately
-          sudo npm run dist -- --linux snap
+          # sudo npm run build:electron -- --linux snap
         elif [ "${{ runner.os }}" == "macOS" ]; then
           # Build the macOS target
-          sudo npm run dist -- --mac --x64
-          sudo npm run dist -- --mac --arm64
+          sudo npm run build:electron -- --mac
+          # sudo npm run build:electron -- --mac --arm64
         elif [ "${{ runner.os }}" == "Windows" ]; then
           # Build the Windows target
-          npm run dist -- --win --x64
-          npm run dist -- --win --ia32
-          npm run dist -- --win --arm64
+          npm run build:electron -- --win
+
+          # Standard installer (.exe)
+          # npm run build:electron -- --win nsis --x64
+          # Portable app (no install)
+          # npm run build:electron -- --win portable --x64
+          # MSI installer
+          # npm run build:electron -- --win msi --x64
+          # AppX (Windows Store)
+          # npm run build:electron -- --win appx --x64
+
         else
           echo "Unsupported platform: ${{ runner.os }}"
           exit 1
@@ -126,10 +135,7 @@ jobs:
       shell: bash
 
     - name: show dist content
-      run: |
-        if [ "${{ runner.os }}" == "Linux" ]; then
-        ls dist
-        fi
+      run: ls dist
       shell: bash
 
     # Upload artifacts

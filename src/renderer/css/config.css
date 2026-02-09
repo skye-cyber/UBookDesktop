@@ -254,3 +254,102 @@ height: 2.4em; /* Adjust this value to match the height of an empty row */
     background: #c1c1c1;
     border-radius: 4px;
 }
+
+
+/* Enhanced animations */
+@keyframes smoothProgress {
+    0% { width: 100%; }
+    100% { width: 0%; }
+}
+
+.progress-bar-smooth {
+    animation: smoothProgress linear forwards;
+}
+
+@keyframes iconPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.icon-pulse {
+    animation: iconPulse 2s ease-in-out infinite;
+}
+
+/* Glass morphism effects */
+.message-toast {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* Smooth transitions */
+.message-toast {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* canvas toggle styling*/
+@keyframes wave {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1.5); }
+}
+
+.animate-wave {
+    animation: wave 1s ease-in-out infinite;
+}
+
+@keyframes ping {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    75%, 100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.animate-ping {
+    animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/*Copy modal styling*/
+@keyframes ping-slow {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes progress {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+.animate-ping-slow {
+    animation: ping-slow 2s ease-in-out infinite;
+}
+
+.animate-progress {
+    animation: progress 4.5s ease-in-out forwards;
+}
+
+@keyframes progress-inverse {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.animate-progress-inverse {
+    animation: progress-inverse 4.5s ease-in-out forwards;
+}

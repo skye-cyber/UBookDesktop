@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron');
+const { app, BrowserWindow, Tray, Menu, ipcMain, nativeTheme } = require('electron');
 const path = require('path');
 const fs = require('fs');
 
@@ -7,9 +7,23 @@ let mainWindow;
 
 const isDev = !app.isPackaged;
 
-const iconPath = isDev
-    ? path.join(__dirname, '../assets/ubookdesktop.png') // for dev
-    : path.join(process.resourcesPath, './assets/ubookdesktop.png'); // for prod
+let iconPath
+function setAppIcon() {
+    const isDarkMode = nativeTheme.shouldUseDarkColors
+    if (isDarkMode) {
+        iconPath = isDev
+            ? path.join(__dirname, '../assets/ubookdesktop-light.png') // for dev
+            : path.join(process.resourcesPath, './assets/ubookdesktop-light.png'); // for prod
+
+    } else {
+        iconPath = isDev
+            ? path.join(__dirname, '../assets/ubookdesktop.png') // for dev
+            : path.join(process.resourcesPath, './assets/ubookdesktop.png'); // for prod
+
+    }
+}
+
+setAppIcon()
 
 app.disableHardwareAcceleration()
 
@@ -382,7 +396,7 @@ async function prepBookmarkFile() {
     try {
         // Check if file exists asynchronously
         await fs.promises.access(file, fs.constants.F_OK);
-        // File exists
+        // File exists→
         return true;
     } catch (err) {
         // File does not exist, create directory and file
@@ -409,4 +423,24 @@ ipcMain.handle('get-app-version', async (event, accounts) => {
 
 ipcMain.handle('get-dev-status', async (event) => {
     return isDev
+})
+
+// Listen for theme change events from renderer
+ipcMain.on('theme-changed', (event, isDarkMode) => {
+    if (isDarkMode) {
+        iconPath = isDev
+            ? path.join(__dirname, '../assets/ubookdesktop-light.png') // for dev
+            : path.join(process.resourcesPath, './assets/ubookdesktop-light.png'); // for prod
+
+    } else {
+        iconPath = isDev
+            ? path.join(__dirname, '../assets/ubookdesktop.png') // for dev
+            : path.join(process.resourcesPath, './assets/ubookdesktop.png'); // for prod
+
+    }
+})
+
+
+nativeTheme.on('updated', () => {
+    setAppIcon()
 })

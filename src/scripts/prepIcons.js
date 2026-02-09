@@ -6,7 +6,7 @@ const { exec } = require('child_process');
 //const pngToIco = require('png-to-ico');
 //npm install @fiahfy/icns --seve-dev
 
-const baseImageName = 'ubookdesktop';
+const baseImageName = 'ubookdesktop-light';
 const baseImagePath = `../assets/${baseImageName}.png`;
 const IconsoutputDir = '../icons';
 // Directory containing the icon PNG files
@@ -137,6 +137,6 @@ async function init(what = 'all') {
     }
 }
 
-const what = process.argv[2] || 'all';
-init(what);
+const scope = process.argv[2] || 'all';
+init(scope);
 //extractImages()
