@@ -81,7 +81,9 @@ export class HightlightSearchEngine {
             while (span.firstChild) {
                 parent.insertBefore(span.firstChild, span);
             }
-            parent.removeChild(span);
+            try {
+                parent.removeChild(span);
+            } catch (err) { }
         });
     }
 
