@@ -129,83 +129,26 @@ jobs:
       run: ls dist
       shell: bash
 
-    # Upload artifacts
-    # Upload .deb artifacts
-    - name: Upload DEB (x64)
-      if: runner.os == 'Linux' && runner.arch == 'x64'
-      uses: actions/upload-artifact@v4
-      with:
-        name: UBookDesktop-${{ env.CURRENT_VERSION }}-Linux-amd64
-        path: dist/*amd64.deb
-        if-no-files-found: error
+    - name: Upload release assets (per file)
+      if: startsWith(github.ref, 'refs/tags/')
+      shell: bash
+      run: |
+          shopt -s nullglob
+          for file in dist/*; do
+          # skip directories
+          [ -f "$file" ] || continue
 
-    - name: Upload DEB (arm64)  
-      if: runner.os == 'Linux' && runner.arch == 'arm64'
-      uses: actions/upload-artifact@v4
-      with:
-        name: UBookDesktop-${{ env.CURRENT_VERSION }}-Linux-arm64
-        path: dist/*arm64.deb
-        if-no-files-found: error
+          # skip blockmaps and metadata
+          case "$file" in
+              *.blockmap|*.yml|builder-debug.yml) continue ;;
+          esac
 
-    # Upload AppImage
-    - name: Upload AppImage (x64)
-      if: runner.os == 'Linux' && runner.arch == 'x64'
-      uses: actions/upload-artifact@v4
-      with:
-        name: UBookDesktop-${{ env.CURRENT_VERSION }}-Linux-AppImage-x64
-        path: dist/*x86_64.AppImage
-        if-no-files-found: error
+          echo "Uploading $(basename "$file")"
+          gh release upload "${{ github.ref_name }}" "$file" --clobber
+          done
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Upload AppImage (arm64)
-      if: runner.os == 'Linux' && runner.arch == 'arm64'
-      uses: actions/upload-artifact@v4
-      with:
-        name: UBookDesktop-${{ env.CURRENT_VERSION }}-Linux-AppImage-arm64
-        path: dist/*arm64.AppImage
-        if-no-files-found: error
-
-    # Upload Snap
-    - name: Upload Snap
-      if: runner.os == 'Linux'
-      uses: actions/upload-artifact@v4
-      with:
-        name: UBookDesktop-${{ env.CURRENT_VERSION }}-Linux-Snap
-        path: dist/*.snap
-        if-no-files-found: error
-
-    # Upload macOS .dmg (x64 + arm64)
-    - name: Upload macOS DMG (x64)
-      if: runner.os == 'macOS' && runner.arch == 'x64'
-      uses: actions/upload-artifact@v4
-      with:
-        name: UBookDesktop-${{ env.CURRENT_VERSION }}-macOS-x64
-        path: dist/*x64.dmg
-        if-no-files-found: error
-
-    - name: Upload macOS DMG (arm64)
-      if: runner.os == 'macOS' && runner.arch == 'arm64'
-      uses: actions/upload-artifact@v4
-      with:
-        name: UBookDesktop-${{ env.CURRENT_VERSION }}-macOS-arm64
-        path: dist/*arm64.dmg
-        if-no-files-found: error
-
-    # Upload Windows NSIS and Portable
-    - name: Upload Windows Installer (NSIS x64)
-      if: runner.os == 'Windows' && runner.arch == 'x64'
-      uses: actions/upload-artifact@v4
-      with:
-        name: UBookDesktop-${{ env.CURRENT_VERSION }}-Windows-NSIS-x64
-        path: dist/*Setup*.exe
-        if-no-files-found: error
-
-    - name: Upload Windows Portable (x64)
-      if: runner.os == 'Windows' && runner.arch == 'x64'
-      uses: actions/upload-artifact@v4
-      with:
-        name: UBookDesktop-${{ env.CURRENT_VERSION }}-Windows-Portable-x64
-        path: dist/*portable*x64.exe
-        if-no-files-found: error
 
     - name: Save current version
       run: echo "${{ env.CURRENT_VERSION }}" > last_version.txt
