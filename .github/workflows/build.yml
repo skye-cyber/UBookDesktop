@@ -80,8 +80,7 @@ jobs:
       shell: bash
 
     - name: Clean dist and build directory
-      run: rm -rf dist/*
-      run: rm -rf build
+      run: rm -rf dist/* build
       shell: bash
 
     - name: Ensure build directory exists
@@ -109,7 +108,7 @@ jobs:
         elif [ "${{ runner.os }}" == "Windows" ]; then
           # Build the Windows target
           npm run build:electron -- --win
-          
+
           # Standard installer (.exe)
           # npm run build:electron -- --win nsis --x64
           # Portable app (no install)
