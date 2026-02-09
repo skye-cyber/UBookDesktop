@@ -19,7 +19,7 @@
     "preview": "vite preview",
     "package": "electron-packager .",
     "forge": "electron-forge package",
-    "generate:linux-icons": "node src/scripts/generate-linux-icons.js"
+    "generate:linux-icons": "node src/scripts/generate-linux-icons.js",
   },
   "keywords": [
     "Urantia",
