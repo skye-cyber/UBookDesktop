@@ -49,11 +49,11 @@ jobs:
             - name: Build Electron
               run: |
                   if [ "${{ runner.os }}" == "Linux" ]; then
-                    sudo npm run build:electron -- --linux
+                    sudo npm run build:electron -- --linux --publish never
                   elif [ "${{ runner.os }}" == "macOS" ]; then
-                    sudo npm run build:electron -- --mac
+                    sudo npm run build:electron -- --mac --publish never
                   elif [ "${{ runner.os }}" == "Windows" ]; then
-                    npm run build:electron -- --win
+                    npm run build:electron -- --win --publish never
                   fi
               shell: bash
 
@@ -70,8 +70,8 @@ jobs:
             - name: Fix permissions safely
               shell: bash
               run: |
-                sudo chown -R $(id -u):$(id -g) dist
-                chmod -R u+rwX dist
+                  sudo chown -R $(id -u):$(id -g) dist
+                  chmod -R u+rwX dist
 
             - name: Generate SHA256 checksums
               shell: bash
