@@ -68,7 +68,7 @@ jobs:
                   done
 
             - name: Fix permissions safely
-              if: runner.os == 'Linux'
+              shell: bash
               run: |
                 sudo chown -R $USER:$USER dist
                 chmod -R u+rwX dist
