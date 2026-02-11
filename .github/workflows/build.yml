@@ -71,7 +71,7 @@ jobs:
               shell: bash
               run: |
                   cd dist
-                  sha256sum * > SHA256SUMS.txt
+                  sudo sha256sum * > SHA256SUMS.txt
 
             - name: Upload build artifacts
               uses: actions/upload-artifact@v4
