@@ -70,7 +70,7 @@ jobs:
             - name: Fix permissions safely
               shell: bash
               run: |
-                sudo chown -R $USER:$USER dist
+                sudo chown -R $(id -u):$(id -g) dist
                 chmod -R u+rwX dist
 
             - name: Generate SHA256 checksums
