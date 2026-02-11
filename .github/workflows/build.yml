@@ -60,10 +60,12 @@ jobs:
             - name: Remove unwanted files
               shell: bash
               run: |
+                  sudo chown -R $(id -u):$(id -g) dist
+                  chmod -R u+rwX dist
                   shopt -s nullglob
                   for file in dist/*; do
                     case "$file" in
-                      *.blockmap|*.yml|builder-debug.yml) sudo rm -f "$file" ;;
+                      *.blockmap|*.yml|builder-debug.yml) rm -f "$file" ;;
                     esac
                   done
 
