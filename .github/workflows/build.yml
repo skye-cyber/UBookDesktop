@@ -63,7 +63,7 @@ jobs:
                   shopt -s nullglob
                   for file in dist/*; do
                     case "$file" in
-                      *.blockmap|*.yml|builder-debug.yml) rm -f "$file" ;;
+                      *.blockmap|*.yml|builder-debug.yml) sudo rm -f "$file" ;;
                     esac
                   done
 
