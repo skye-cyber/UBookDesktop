@@ -67,11 +67,17 @@ jobs:
                     esac
                   done
 
+            - name: Fix permissions safely
+              if: runner.os == 'Linux'
+              run: |
+                sudo chown -R $USER:$USER dist
+                chmod -R u+rwX dist
+
             - name: Generate SHA256 checksums
               shell: bash
               run: |
                   cd dist
-                  sudo sha256sum * > SHA256SUMS.txt
+                  sha256sum * > SHA256SUMS.txt
 
             - name: Upload build artifacts
               uses: actions/upload-artifact@v4
