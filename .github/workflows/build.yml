@@ -57,13 +57,6 @@ jobs:
                   fi
               shell: bash
 
-
-            - name: Fix permissions safely(1)
-              shell: bash
-              run: |
-                  sudo chown -R $(id -u):$(id -g) dist
-                  chmod -R u+rwX dist
-
             - name: Remove unwanted files
               shell: bash
               run: |
@@ -74,7 +67,7 @@ jobs:
                     esac
                   done
 
-            - name: Fix permissions safely(2)
+            - name: Fix permissions safely
               shell: bash
               run: |
                   sudo chown -R $(id -u):$(id -g) dist
