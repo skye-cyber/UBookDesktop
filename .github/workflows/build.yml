@@ -66,12 +66,12 @@ jobs:
             #           *.blockmap|*.yml|builder-debug.yml) rm -f "$file" ;;
             #         esac
             #       done
-
-            - name: Fix permissions safely
-              shell: bash
-              run: |
-                  sudo chown -R $(id -u):$(id -g) dist
-                  chmod -R u+rwX dist
+            #
+            # - name: Fix permissions safely
+            #   shell: bash
+            #   run: |
+            #       sudo chown -R $(id -u):$(id -g) dist
+            #       chmod -R u+rwX dist
 
             - name: Generate SHA256 checksums
               shell: bash
