@@ -57,15 +57,15 @@ jobs:
                   fi
               shell: bash
 
-            - name: Remove unwanted files
-              shell: bash
-              run: |
-                  shopt -s nullglob
-                  for file in dist/*; do
-                    case "$file" in
-                      *.blockmap|*.yml|builder-debug.yml) rm -f "$file" ;;
-                    esac
-                  done
+            # - name: Remove unwanted files
+            #   shell: bash
+            #   run: |
+            #       shopt -s nullglob
+            #       for file in dist/*; do
+            #         case "$file" in
+            #           *.blockmap|*.yml|builder-debug.yml) rm -f "$file" ;;
+            #         esac
+            #       done
 
             - name: Fix permissions safely
               shell: bash
@@ -128,6 +128,12 @@ jobs:
             - name: Upload all release assets
               run: |
                   for file in final/*; do
+                    [ -f "$file" ] || continue
+
+                    case "$file" in
+                        *.blockmap|*.yml|builder-debug.yml) continue ;;
+                    esac
+
                     echo "Uploading $(basename "$file")"
                     gh release upload "${{ github.ref_name }}" "$file" --clobber
                   done
