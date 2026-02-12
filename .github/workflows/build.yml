@@ -73,11 +73,11 @@ jobs:
             #       sudo chown -R $(id -u):$(id -g) dist
             #       chmod -R u+rwX dist
 
-            - name: Generate SHA256 checksums
-              shell: bash
-              run: |
-                  cd dist
-                  find . -maxdepth 1 -type f -exec sha256sum {} \; > SHA256SUMS.txt
+            # - name: Generate SHA256 checksums
+            #   shell: bash
+            #   run: |
+            #       cd dist
+            #       find . -maxdepth 1 -type f -exec sha256sum {} \; > SHA256SUMS.txt
 
             - name: Upload build artifacts
               uses: actions/upload-artifact@v4
