@@ -60,7 +60,7 @@ jobs:
             - name: Remove unwanted files
               shell: bash
               run: |
-                  sudo chown -R $(id -u):$(id -g) dist
+                  chown -R $(id -u):$(id -g) dist
                   chmod -R u+rwX dist
                   shopt -s nullglob
                   for file in dist/*; do
