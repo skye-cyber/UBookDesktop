@@ -57,11 +57,16 @@ jobs:
                   fi
               shell: bash
 
+
+            - name: Fix permissions safely(1)
+              shell: bash
+              run: |
+                  sudo chown -R $(id -u):$(id -g) dist
+                  chmod -R u+rwX dist
+
             - name: Remove unwanted files
               shell: bash
               run: |
-                  chown -R $(id -u):$(id -g) dist
-                  chmod -R u+rwX dist
                   shopt -s nullglob
                   for file in dist/*; do
                     case "$file" in
@@ -69,7 +74,7 @@ jobs:
                     esac
                   done
 
-            - name: Fix permissions safely
+            - name: Fix permissions safely(2)
               shell: bash
               run: |
                   sudo chown -R $(id -u):$(id -g) dist
