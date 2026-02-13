@@ -116,7 +116,16 @@ jobs:
 
                 case "$file" in
                   *.exe|*.msi|*.deb|*.rpm|*.AppImage|*.dmg|*.zip|*.tar.gz)
-                    echo "Adding $(basename "$file")"
+
+                    filename="$(basename "$file")"
+
+                        # Exclude specific unwanted executables
+                    if [[ "$filename" == "esbuild.exe" || "$filename" == "elevate.exe" ]]; then
+                        echo "Skipping $filename"
+                        continue
+                    fi
+
+                    echo "Adding $filename"
                     mv "$file" final/
                     ;;
                 esac
