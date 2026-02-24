@@ -184,7 +184,7 @@ export class ContentSearch {
             if (titleWords.includes(word)) matchCount++;
         }
 
-        return matchCount;
+        return matchCount === queryWords.length ? matchCount : 0;
     }
 
     async readSrcFile(src) {

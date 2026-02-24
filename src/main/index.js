@@ -150,7 +150,7 @@ function createWindow() {
     loadingWindow.show(); // Show the loading window immediately
 
     // Create the main window
-    const win = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         icon: iconPath, // Path to your icon file
@@ -163,23 +163,22 @@ function createWindow() {
         }
     });
 
-    mainWindow = win
-
     // Load the main application when it is ready
     if (isDev) {
-        win.loadURL('http://localhost:30001/')
+        mainWindow.loadURL('http://localhost:30001/')
         // Open DevTools in development
         //mainWindow.webContents.openDevTools()
     } else {
         isDev
-            ? win.loadFile(path.join(__dirname, '../build/index.html'))
-            : win.loadFile(path.join(process.resourcesPath, './build/index.html'))
+            ? mainWindow.loadFile(path.join(__dirname, '../build/index.html'))
+            : mainWindow.loadFile(path.join(process.resourcesPath, './build/index.html'))
     }
 
+
     // Use 'did-finish-load' or 'dom-ready' for reliability
-    win.webContents.once('did-finish-load', () => {
+    mainWindow.webContents.once('did-finish-load', () => {
         //console.log('did-finish-load fired (show main window)');
-        win.show();
+        mainWindow.show();
 
         // Prefer destroy over close for the splash
         if (!loadingWindow.isDestroyed()) {
@@ -188,16 +187,16 @@ function createWindow() {
     });
 
     // Intercept the window close event
-    win.on('close', (event) => {
+    mainWindow.on('close', (event) => {
         if (!app.isQuiting && process.platform !== 'darwin') {
             event.preventDefault();   // prevent window from actually closing
-            win.hide();        // just hide it to tray
+            mainWindow.hide();        // just hide it to tray
         }
         return false;
     });
 
     // Return the main window for reference
-    return win;
+    return mainWindow;
 }
 
 // Set the app user model ID
@@ -266,23 +265,6 @@ app.on('window-all-closed', (event) => {
         app.quit(); // Quit when all windows are closed, except on macOS
     }*/
 });
-
-// Handle window close properly - ONLY if mainWindow exists
-if (mainWindow) {
-    mainWindow.on('close', (event) => {
-        try {
-            if (process.platform !== 'darwin') {
-                // On Windows/Linux, hide instead of close
-                event.preventDefault();
-                mainWindow.hide();
-            }
-            // On macOS, let the close happen normally
-
-            // Remove references to prevent memory leaks
-            mainWindow.removeAllListeners();
-        } catch (err) { }
-    });
-}
 
 app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {

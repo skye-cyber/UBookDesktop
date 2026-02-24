@@ -71,30 +71,29 @@ export const BookContentPanel = ({ }) => {
             </div>
             <section className="h-fit max-h-[72%] overflow-y-auto scrollbar-custom select-none bg-indigo-950/25 dark:bg-[#002b36] rounded-lg">
                 <ul className="mt-3">
-                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
-                        <li ref={forewordRef} id="foreword" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.setForeword()}>📖 Foreword</li>
+                    <div onClick={() => ContentLoader_ins.setForeword()} className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li ref={forewordRef} id="foreword" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">📖 Foreword</li>
                     </div>
-                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
-                        <li id="central-and-superuniverse" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.setSuperUniverse()}><span className="bg-pink-600/0 rounded-full px-0.5">🌀</span>&nbsp; The Central and Superuniverses</li>
+                    <div onClick={() => ContentLoader_ins.setSuperUniverse()} className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="central-and-superuniverse" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out"><span className="bg-pink-600/0 rounded-full px-0.5">🌀</span>&nbsp; The Central and Superuniverses</li>
                     </div>
-                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
-                        <li id="local-universe" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.setLocalUniverse()}>🌍 The Local Universe</li>
+                    <div onClick={() => ContentLoader_ins.setLocalUniverse()} className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="local-universe" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">🌍 The Local Universe</li>
                     </div>
-                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
-                        <li id="history-of-urantia" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.setHistoryOfUrantia()}>📜 The History of Urantia</li>
+                    <div onClick={() => ContentLoader_ins.setHistoryOfUrantia()} className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="history-of-urantia" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">📜 The History of Urantia</li>
                     </div>
-                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
-                        <li id="life-and-teachings-of-jesus" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.setJesusTeachings()}>✝️ The Life and Teachings of Jesus</li>
+                    <div onClick={() => ContentLoader_ins.setJesusTeachings()} className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="life-and-teachings-of-jesus" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">✝️ The Life and Teachings of Jesus</li>
                     </div>
-                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
-
-                        <li id="favourite" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.loadFavourites()}>⭐ Favourite</li>
+                    <div onClick={() => ContentLoader_ins.loadFavourites()} className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="favourite" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">⭐ Favourite</li>
                     </div>
-                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
-                        <li id="bookmark" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.loadBookmarks()}>🔖 Bookmarks</li>
+                    <div onClick={() => ContentLoader_ins.loadBookmarks()} className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="bookmark" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">🔖 Bookmarks</li>
                     </div>
-                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
-                        <li id="notes" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out" onClick={() => ContentLoader_ins.renderNotes()}>📔 Notes</li>
+                    <div onClick={() => ContentLoader_ins.renderNotes()} className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                        <li id="notes" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">📔 Notes</li>
                     </div>
                     <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
                         <li id="more-apps" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">🧰 More Applications</li>
