@@ -150,7 +150,7 @@ function createWindow() {
     loadingWindow.show(); // Show the loading window immediately
 
     // Create the main window
-    mainWindow = new BrowserWindow({
+    const win = new BrowserWindow({
         width: 800,
         height: 600,
         icon: iconPath, // Path to your icon file
@@ -163,48 +163,23 @@ function createWindow() {
         }
     });
 
-    /*
-    mainWindow.webContents.on('did-finish-load', () => {
-        console.log('did-finish-load fired');
-    });
-
-    mainWindow.webContents.on('did-fail-load', (event, errorCode, errorDescription, validatedURL) => {
-        console.error('did-fail-load', errorCode, errorDescription, validatedURL);
-    });
-
-    mainWindow.webContents.on('render-process-gone', (event, details) => {
-        console.error('Renderer crashed or exited', details);
-    });
-    */
+    mainWindow = win
 
     // Load the main application when it is ready
     if (isDev) {
-        mainWindow.loadURL('http://localhost:30001/')
+        win.loadURL('http://localhost:30001/')
         // Open DevTools in development
         //mainWindow.webContents.openDevTools()
     } else {
         isDev
-            ? mainWindow.loadFile(path.join(__dirname, '../build/index.html'))
-            : mainWindow.loadFile(path.join(process.resourcesPath, './build/index.html'))
+            ? win.loadFile(path.join(__dirname, '../build/index.html'))
+            : win.loadFile(path.join(process.resourcesPath, './build/index.html'))
     }
 
-    // Show the main window and close the loading window when the main window is ready to show**
-    /*mainWindow.once('ready-to-show', () => {
-        console.log('Main window ready')
-        console.log('ready-to-show fired');
-        // Load the main application when it is ready
-        mainWindow.show();
-        //loadingWindow.close();
-        // Prefer destroy over close for the splash
-        if (!loadingWindow.isDestroyed()) {
-            loadingWindow.destroy();
-        }
-    });*/
-
     // Use 'did-finish-load' or 'dom-ready' for reliability
-    mainWindow.webContents.once('did-finish-load', () => {
+    win.webContents.once('did-finish-load', () => {
         //console.log('did-finish-load fired (show main window)');
-        mainWindow.show();
+        win.show();
 
         // Prefer destroy over close for the splash
         if (!loadingWindow.isDestroyed()) {
@@ -213,16 +188,16 @@ function createWindow() {
     });
 
     // Intercept the window close event
-    mainWindow.on('close', (event) => {
-        if (!app.isQuiting) {
-            //event.preventDefault();   // ❌ prevent window from actually closing
-            mainWindow.hide();        // ✅ just hide it to tray
+    win.on('close', (event) => {
+        if (!app.isQuiting && process.platform !== 'darwin') {
+            event.preventDefault();   // prevent window from actually closing
+            win.hide();        // just hide it to tray
         }
         return false;
     });
 
     // Return the main window for reference
-    return mainWindow;
+    return win;
 }
 
 // Set the app user model ID
