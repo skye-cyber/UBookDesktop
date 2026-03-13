@@ -5,7 +5,7 @@ import { BookItemSelectorUI } from '../SelectorUI/ItemSelector';
 import { ContextMenuToast, DefaultToast } from '../Notifications/Toasts';
 import { CopyFeedback } from '../StatusUI/ToastsUI';
 import { NotesComposer } from '../ContextMenu/Modals/Notes';
-import { SearchSettings_new } from '../../Pages/searchSettings';
+import { SearchSettings } from '../../Pages/searchSettings';
 import { SearchResultPage } from '../../Pages/Search';
 import { Controls } from './controlbar';
 import { StateManager } from '../../../common/syscore/StatesManager';
@@ -38,7 +38,7 @@ export const ReaderUI = ({ }) => {
             <BookItemSelectorUI />
             <CopyFeedback />
             <NotesComposer />
-            <SearchSettings_new />
+            <SearchSettings />
             <SearchResultPage />
         </>
     );
