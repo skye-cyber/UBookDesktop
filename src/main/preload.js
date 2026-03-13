@@ -258,13 +258,9 @@ const api = {
             const picowave = await ipcRenderer.invoke('get-picowave-path');
             const fallbackCmd = `echo "${safeText}" | ${picowave} -w "${cacheFile}"`;
 
-            if (isLinux) {
-                await new Promise((resolve, reject) => {
-                    exec(fallbackCmd, (err) => (err ? reject(err) : resolve()));
-                });
-            } else {
-                console.log('Fallback Not implemented on this OS');
-            }
+            await new Promise((resolve, reject) => {
+                exec(fallbackCmd, (err) => (err ? reject(err) : resolve()));
+            });
         }
 
         // For linux use picowave for shorter text
@@ -280,7 +276,11 @@ const api = {
                 });
             } catch (err) {
                 console.log("Using FallBack Voice:", err)
-                await linuxFallback()
+                if (isLinux) {
+                    await linuxFallback()
+                } else {
+                    console.log('Fallback Not implemented on this OS');
+                }
             }
         }
 
