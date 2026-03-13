@@ -249,8 +249,7 @@ const api = {
             .replace(/[\[\]]/g, "")
             .replace(/“/g, "'")
             .replace(/”/g, "'")
-
-        safeText = (model === 'ttskit3') ? safeText.replace(/—/g, "\,") : safeText;
+            .replace(/—/g, ", that is to say")
 
         const cacheFile = path.join(cacheDir, `tts_${Math.random().toString(34).substring(3, 9)}.wav`);
 
