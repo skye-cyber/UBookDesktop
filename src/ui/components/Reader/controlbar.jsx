@@ -3,6 +3,7 @@ import { ChangeFontName, FontSizeManager_ins } from './font_manager';
 import { BookNavigator } from './navigator';
 import { ThemeManager } from './theme_manager';
 import { StateManager } from '../../../common/syscore/StatesManager';
+import { appState } from '../../State/appState';
 
 export const Controls = ({ }) => {
     const controlBar = useRef(null)
@@ -72,11 +73,9 @@ export const Controls = ({ }) => {
                             defaultValue={'normal'}
                             id="themeSelector"
                             className="bg-gray-200 dark:bg-zinc-600 text-sm border border-gray-800/0 dark:border-gray-800 rounded py-1 focus:ring-none focus:outline-none" onChange={(e) => { ChangeFontName(e.currentTarget.value) }}>
-                            <option value="normal">Default</option>
-                            <option value="handwriting">Handwriting</option>
-                            <option value="mono">Mono</option>
-                            <option value="brand">Brand</option>
-                            <option value="elegant">Elegant</option>
+                            {appState.reader.Fonts.map((font, key)=> {
+                                return <option key={key} value={font.value}>{font.label}</option>
+                            })}
                         </select>
                     </div>
 
@@ -87,10 +86,9 @@ export const Controls = ({ }) => {
                             defaultValue={'light'}
                             id="themeSelector"
                             className="bg-gray-200 dark:bg-zinc-600 text-sm border border-gray-800/0 dark:border-gray-800 rounded py-1 focus:ring-none focus:outline-none" onChange={(e) => ThemeManager.changeTheme(e.currentTarget.value)}>
-                            <option value="sepia">Sepia</option>
-                            <option value="light">Light</option>
-                            <option value="dark">Dark</option>
-                            <option value="night">Night</option>
+                            {appState.reader.Themes.map((theme, key)=> {
+                                return <option key={key} value={theme.value}>{theme.label}</option>
+                            })}
                         </select>
                     </div>
                 </div>

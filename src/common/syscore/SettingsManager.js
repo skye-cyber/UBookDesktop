@@ -1,53 +1,13 @@
+/// <reference path="../../types/preload.d.ts" />
 import { FontSizeManager_ins } from "../../ui/components/Reader/font_manager";
 import { StateManager } from "./StatesManager";
+import { appSettings, updateAppState } from "../../ui/State/appState";
 
 class SettingsManager {
     constructor() {
-        this.settings = {
-            appearance: {
-                theme: 'system', // 'light', 'dark', 'system'
-                fontSize: 14,
-                fontFamily: 'sans',
-                focusMode: false,
-                reducedMotion: false
-            },
-            search: {
-                defaultMode: 'text',
-                defaultParts: [1, 2, 3, 4, 5],
-                caseSensitive: false,
-                wholeWords: false,
-                historySize: 50,
-                saveHistory: true
-            },
-            reader: {
-                fontSize: 18,
-                fontFamily: 'reader',
-                lineHeight: 1.6,
-                maxWidth: 800,
-                justifyText: true,
-                autoScrollSpeed: 0
-            },
-            audio: {
-                voice: 'default',
-                speed: 0.86,
-                pitch: 1.0,
-                autoPlay: false
-            },
-            privacy: {
-                analytics: false,
-                crashReports: true,
-                autoSaveNotes: true
-            },
-            shortcuts: {
-                toggleSearch: 'Ctrl+K',
-                toggleSettings: 'Ctrl+,',
-                toggleReader: 'Ctrl+R',
-                toggleDarkMode: 'Ctrl+D'
-            }
-        };
-
         this.listeners = new Set();
         this.loadSettings();
+        this.subscribe(updateAppState)
     }
 
     // Load from disk (using your existing fs API)
@@ -57,7 +17,8 @@ class SettingsManager {
                 window.ubook.fs.join(window.ubook.fs.homedir(), '.UBookDesk', 'config', 'user-settings.json')
             );
             if (saved) {
-                this.settings = this.mergeSettings(saved, this.settings);
+                appSettings = this.mergeSettings(saved, appSettings);
+                updateAppState(saved)
             }
         } catch (e) {
             console.log('No saved settings found, using defaults');
@@ -70,8 +31,9 @@ class SettingsManager {
         try {
             await window.ubook.fs.write(
                 window.ubook.fs.join(window.ubook.fs.homedir(), '.UBookDesk', 'config', 'user-settings.json'),
-                JSON.stringify(this.settings, null, 2)
+                JSON.stringify(appSettings, null, 2)
             );
+            updateAppState(appSettings)
         } catch (e) {
             console.error('Failed to save settings:', e);
         }
@@ -79,20 +41,20 @@ class SettingsManager {
 
     // Get all settings
     getAll() {
-        return { ...this.settings };
+        return { ...appSettings };
     }
 
     // Get a specific setting
     get(category, key) {
-        return this.settings[category]?.[key];
+        return appSettings[category]?.[key];
     }
 
     // Update a setting
     async set(category, key, value) {
-        if (!this.settings[category]) {
-            this.settings[category] = {};
+        if (!appSettings[category]) {
+            appSettings[category] = {};
         }
-        this.settings[category][key] = value;
+        appSettings[category][key] = value;
         await this.saveSettings();
         this.notifyListeners();
 
@@ -102,8 +64,8 @@ class SettingsManager {
 
     // Update multiple settings at once
     async update(category, updates) {
-        this.settings[category] = {
-            ...this.settings[category],
+        appSettings[category] = {
+            ...appSettings[category],
             ...updates
         };
         await this.saveSettings();
@@ -119,7 +81,7 @@ class SettingsManager {
     applySetting(category, key, value) {
         switch (category) {
             case 'appearance':
-                if (key === 'theme') this.applyTheme(value);
+                if (key === 'theme') StateManager.set('theme', value)
                 if (key === 'fontSize') FontSizeManager_ins.changeFontSize(0, value);
                 if (key === 'focusMode') {
                     const isfocused = StateManager.get('focusMode')
@@ -157,7 +119,7 @@ class SettingsManager {
     }
 
     notifyListeners() {
-        this.listeners.forEach(listener => listener(this.settings));
+        this.listeners.forEach(listener => listener(appSettings));
     }
 
     // Merge saved settings with defaults
@@ -175,7 +137,7 @@ class SettingsManager {
 
     // Reset to defaults
     async resetToDefaults() {
-        this.settings = {
+        appSettings = {
             appearance: { theme: 'system', fontSize: 14, fontFamily: 'sans', focusMode: false, reducedMotion: false },
             search: { defaultMode: 'text', defaultParts: [1, 2, 3, 4, 5], caseSensitive: false, wholeWords: false, historySize: 50, saveHistory: true },
             reader: { fontSize: 18, fontFamily: 'reader', lineHeight: 1.6, maxWidth: 800, justifyText: true, autoScrollSpeed: 0 },
@@ -187,7 +149,7 @@ class SettingsManager {
         this.notifyListeners();
 
         // Reapply all settings
-        Object.entries(this.settings).forEach(([category, values]) => {
+        Object.entries(appSettings).forEach(([category, values]) => {
             Object.entries(values).forEach(([key, value]) => {
                 this.applySetting(category, key, value);
             });

@@ -20,10 +20,10 @@ export class ThemeManager {
         // Add base classes
         readable?.classList.add('book-content', 'p-6', 'rounded-lg', 'border');
 
-        readable?.classList.remove(ThemeClassMap[appState.currentTheme])
+        readable?.classList.remove(ThemeClassMap[appState.appearance.theme])
         readable?.classList.add(...ThemeClassMap[`${theme}`])
 
-        appState.currentTheme = theme;
+        appState.appearance.theme = theme;
     }
     static resetTheme() {
         const readable = StateManager.get('readerSection')

@@ -7,7 +7,7 @@ export const SettingsPage = () => {
     const [settings, setSettings] = useState(settingsManager.getAll());
     const [activeTab, setActiveTab] = useState('appearance');
     const [isVisible, setIsVisible] = useState(false);
-    const [isDirty, setIsDirty] = useState(false);
+    const [isModified, setIsDirty] = useState(false);
 
     const containerRef = useRef(null);
     const backdropRef = useRef(null);
@@ -24,7 +24,7 @@ export const SettingsPage = () => {
     useEffect(() => {
         const openSettings = () => setIsVisible(true);
         const closeSettings = () => {
-            if (isDirty) {
+            if (isModified) {
                 if (confirm('You have unsaved changes. Discard them?')) {
                     setIsVisible(false);
                     setIsDirty(false);
@@ -43,7 +43,7 @@ export const SettingsPage = () => {
             document.removeEventListener('close-settings', closeSettings);
             document.removeEventListener('escape-key-down', closeSettings);
         };
-    }, [isDirty]);
+    }, [isModified]);
 
     // Animation classes
     useEffect(() => {
@@ -156,7 +156,7 @@ export const SettingsPage = () => {
             {/* Settings Panel */}
             <div
                 ref={containerRef}
-                className="fixed inset-1 left-1/2 -translate-x-1/2 top-1/7 bottom-auto right-auto m-auto w-[90vw] max-w-6xl h-full max-h-screen bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden hidden translate-y-[100vh] transition-all duration-300 z-[60]"
+                className="fixed inset-1 left-1/2 -translate-x-1/2 top-1/7 bottom-auto right-auto m-auto w-[90vw] max-w-full md:max-w-4xl h-full max-h-screen bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden hidden translate-y-[100vh] transition-all duration-300 z-[60]"
             >
                 {/* Header */}
                 <div className="bg-gradient-to-r from-primary-600 to-primary-800 p-6 relative">
@@ -180,10 +180,10 @@ export const SettingsPage = () => {
                     </div>
 
                     {/* Unsaved indicator */}
-                    {isDirty && (
+                    {isModified && (
                         <div className="absolute bottom-4 right-6 text-yellow-300 text-sm flex items-center gap-2">
                             <span className="w-2 h-2 bg-yellow-300 rounded-full animate-pulse"></span>
-                            Unsaved changes
+                            Modified
                         </div>
                     )}
                 </div>
@@ -195,8 +195,8 @@ export const SettingsPage = () => {
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={`px-4 py-3 font-medium text-sm transition-colors relative ${activeTab === tab.id
-                                    ? 'text-primary-600 dark:text-primary-400'
-                                    : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
+                                ? 'text-primary-600 dark:text-primary-400'
+                                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200'
                                 }`}
                         >
                             <span className="flex items-center gap-2">
@@ -293,19 +293,22 @@ export const SettingsPage = () => {
                                 <div className="space-y-2">
                                     {[1, 2, 3, 4, 5].map(part => (
                                         <div key={part} className="flex items-center gap-3">
-                                            <input
-                                                type="checkbox"
-                                                id={`default-part-${part}`}
-                                                checked={settings.search.defaultParts.includes(part)}
-                                                onChange={(e) => {
-                                                    const newParts = e.target.checked
-                                                        ? [...settings.search.defaultParts, part]
-                                                        : settings.search.defaultParts.filter(p => p !== part);
-                                                    updateSetting('search', 'defaultParts', newParts);
-                                                }}
-                                                className="rounded border-slate-300 text-primary-600 focus:ring-primary-500"
-                                            />
-                                            <label htmlFor={`default-part-${part}`} className="text-sm">
+                                            <label className="relative inline-flex items-center cursor-pointer ml-2">
+                                                <input
+                                                    type="checkbox"
+                                                    id={`default-part-${part}`}
+                                                    defaultChecked={settings.search.defaultParts.includes(part)}
+                                                    onChange={(e) => {
+                                                        const newParts = e.target.checked
+                                                            ? [...settings.search.defaultParts, part]
+                                                            : settings.search.defaultParts.filter(p => p !== part);
+                                                        updateSetting('search', 'defaultParts', newParts);
+                                                    }}
+                                                    className="hidden rounded border-slate-300 text-primary-600 focus:ring-primary-500 sr-only peer"
+                                                />
+                                                <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer dark:bg-slate-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-600 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed"></div>
+                                            </label>
+                                            <label htmlFor={`default-part-${part}`} className="text-sm text-gray-700 dark:text-white">
                                                 Part {part}: {['Foreword', 'Central Universe', 'Local Universe', 'Urantia History', 'Jesus'][part - 1]}
                                             </label>
                                         </div>
@@ -489,18 +492,18 @@ export const SettingsPage = () => {
                                 onChange={(val) => updateSetting('privacy', 'autoSaveNotes', val)}
                             />
 
-                            <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
+                            <div className="mt-6 pt-4 text-gray-700 dark:text-gray-200 border-t border-slate-200 dark:border-slate-700">
                                 <h4 className="font-medium mb-3">Data Management</h4>
                                 <div className="flex gap-3">
                                     <button
                                         onClick={exportSettings}
-                                        className="px-4 py-2 bg-slate-200 dark:bg-slate-700 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                                        className="px-4 py-2 text-gray-700 dark:text-white bg-slate-200 dark:bg-slate-700 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
                                     >
                                         Export Settings
                                     </button>
                                     <button
                                         onClick={importSettings}
-                                        className="px-4 py-2 bg-slate-200 dark:bg-slate-700 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                                        className="px-4 py-2 text-gray-700 dark:text-white bg-slate-200 dark:bg-slate-700 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
                                     >
                                         Import Settings
                                     </button>
@@ -550,10 +553,10 @@ export const SettingsPage = () => {
                         </button>
                         <button
                             onClick={saveChanges}
-                            disabled={!isDirty}
-                            className={`px-6 py-2 rounded-lg text-white font-medium transition-all bg-gradient-to-r ${isDirty
-                                    ? 'from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 shadow-md'
-                                    : 'bg-slate-200 dark:bg-slate-600 cursor-not-allowed'
+                            disabled={!isModified}
+                            className={`px-6 py-2 rounded-lg text-white font-medium transition-all bg-gradient-to-r ${isModified
+                                ? 'from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 shadow-md'
+                                : 'bg-slate-200 dark:bg-slate-600 cursor-not-allowed'
                                 }`}
                         >
                             Save Changes

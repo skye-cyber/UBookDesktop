@@ -6,7 +6,7 @@ export const Header = ({ }) => {
     let searchContainer = useRef(null)
     const searchInput = useRef(null)
 
-    const { isDark, toggleTheme, setTheme } = useTheme();
+    const { isDark, setTheme } = useTheme();
 
     useEffect(() => {
         if (!searchInput) return
@@ -17,29 +17,29 @@ export const Header = ({ }) => {
         document.dispatchEvent(new CustomEvent('toggle-left-panel'))
     })
 
-    const ToggleSearchBar = useCallback(() => {
-        if (!searchContainer) searchContainer = document.getElementById('search-container')
-
-        searchContainer.current.classList.toggle('opacity-0');
-        searchContainer.current.classList.toggle('opacity-100');
-        searchContainer.current.classList.toggle('pointer-events-none');
-    })
+    //     const ToggleSearchBar = useCallback(() => {
+    //         if (!searchContainer) searchContainer = document.getElementById('search-container')
+    //
+    //         searchContainer.current.classList.toggle('opacity-0');
+    //         searchContainer.current.classList.toggle('opacity-100');
+    //         searchContainer.current.classList.toggle('pointer-events-none');
+    //     })
 
     const ShowSearchResult = useCallback(() => {
         document.dispatchEvent(new CustomEvent('showSearchResult'))
     })
 
-    const openSearchPref = useCallback(() => {
-        document.dispatchEvent(new CustomEvent('open-search-settings'))
-    })
+    //     const openSearchPref = useCallback(() => {
+    //         document.dispatchEvent(new CustomEvent('open-search-settings'))
+    //     })
 
     const OpenSettings = useCallback(() => {
         document.dispatchEvent(new CustomEvent('open-settings'))
     })
 
-    const CloseSettings= useCallback(() => {
-        document.dispatchEvent(new CustomEvent('open-settings'))
-    })
+    //     const CloseSettings = useCallback(() => {
+    //         document.dispatchEvent(new CustomEvent('open-settings'))
+    //     })
 
     /**
      * Clears the interface of all distracting ui for distraction free reading
@@ -59,7 +59,9 @@ export const Header = ({ }) => {
 
     useEffect(() => {
         searchInput.current.addEventListener('keyup', handle_enterKey)
+        StateManager.subscribe('theme', setTheme)
         return () => {
+            StateManager.unsubscribe('theme', setTheme)
             searchInput.current.removeEventListener('keyup', handle_enterKey)
         }
     })

@@ -15,13 +15,13 @@ export class FontSizeManager {
             this.readable = el
             this.currentFontSize = parseInt(getComputedStyle(this.readable).fontSize)
             this.innitialFontSize = parseInt(getComputedStyle(this.readable).fontSize)
-            appState.currentFontSize = this.currentFontSize
-            appState.innitialFontSize = this.innitialFontSize
+            appState.reader.fontSize = this.currentFontSize
+            appState.reader.fontSize = this.innitialFontSize
         })
     }
     changeFontSize(delta = 1, size = null) {
         this.currentFontSize = parseInt(getComputedStyle(this.readable).fontSize);
-        appState.currentFontSize = this.currentFontSize
+        appState.reader.fontSize = this.currentFontSize
 
         size && typeof size === 'number' ? this.currentFontSize = size : this.currentFontSize += delta;
         this.readable.style.fontSize = this.currentFontSize + 'px';
@@ -29,7 +29,7 @@ export class FontSizeManager {
     resetFontSize() {
         this.readable.style.fontSize = this.innitialFontSize + 'px';
         this.currentFontSize = this.innitialFontSize;
-        appState.currentFontSize = this.currentFontSize
+        appState.reader.fontSize = this.currentFontSize
     }
 }
 
@@ -43,11 +43,11 @@ export function ChangeFontName(fontname) {
     if (!textuals) return false
 
     textuals.forEach((textual) => {
-        textual.classList.remove(`font-${appState.currentFontName}`)
+        textual.classList.remove(`font-${appState.reader.fontName}`)
         textual.classList.add(`font-${fontname}`)
     })
 
-    appState.currentFontName = fontname
+    appState.reader.fontName = fontname
 
     return true
 }

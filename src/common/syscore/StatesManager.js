@@ -16,6 +16,10 @@ export const StateManager = (() => {
         subscribe(key, callback) {
             if (!listeners[key]) listeners[key] = [];
             listeners[key].push(callback);
+        },
+        unsubscribe(key, callback) {
+            if (!listeners[key]) return;
+            listeners[key].pop(callback);
         }
     };
 })();

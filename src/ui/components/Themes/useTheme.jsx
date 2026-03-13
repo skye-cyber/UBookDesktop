@@ -28,11 +28,11 @@ const ThemeToggle = () => {
         if (newTheme) {
             document.documentElement.classList.add('dark');
             localStorage.setItem('theme', 'dark');
-            appState.currentTheme = 'dark'
+            appState.appearance.theme = 'dark'
         } else {
             document.documentElement.classList.remove('dark');
             localStorage.setItem('theme', 'light');
-            appState.currentTheme = 'light'
+            appState.appearance.theme = 'light'
         }
     };
 

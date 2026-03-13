@@ -8,7 +8,7 @@ export const SettingsInput = ({ label, description, value, onChange, type = 'tex
         )}
         <input
             type={type}
-            value={value}
+            defaultValue={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
             className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"

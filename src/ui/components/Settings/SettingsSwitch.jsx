@@ -10,7 +10,7 @@ export const SettingsSwitch = ({ label, description, checked, onChange, disabled
             <input
                 type="checkbox"
                 className="sr-only peer"
-                checked={checked}
+                defaultChecked={checked}
                 onChange={(e) => onChange(e.target.checked)}
                 disabled={disabled}
             />

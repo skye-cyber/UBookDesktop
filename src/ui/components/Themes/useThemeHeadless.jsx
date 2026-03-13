@@ -11,7 +11,7 @@ export const useTheme = () => {
         const savedTheme = localStorage.getItem('theme');
         const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-        appState.currentTheme = savedTheme
+        appState.appearance.theme = savedTheme
 
         if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
             setIsDark(true);
@@ -38,16 +38,20 @@ export const useTheme = () => {
     };
 
     const setTheme = (theme) => {
+        if (theme === 'system') {
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            theme = systemPrefersDark ? "dark" : "light"
+        }
         if (theme === 'dark') {
             setIsDark(true);
             document.documentElement.classList.add('dark');
             localStorage.setItem('theme', 'dark');
-            appState.currentTheme = 'dark'
+            appState.appearance.theme = 'dark'
         } else {
             setIsDark(false);
             document.documentElement.classList.remove('dark');
             localStorage.setItem('theme', 'light');
-            appState.currentTheme = 'light'
+            appState.appearance.theme = 'light'
         }
 
         // Update toolbar theme value

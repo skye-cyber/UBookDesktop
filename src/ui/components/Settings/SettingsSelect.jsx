@@ -8,8 +8,8 @@ export const SettingsSelect = ({ label, description, value, onChange, options })
         )}
         <div className="relative">
             <select
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
+                defaultValue={value}
+                onChange={(e) => onChange(parseFloat(e.target.value))}
                 className="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none cursor-pointer"
             >
                 {options.map(opt => (
