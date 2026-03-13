@@ -250,6 +250,7 @@ const api = {
             .replace(/“/g, "'")
             .replace(/”/g, "'")
             .replace(/—/g, ", that is to say")
+            .replace(/ /g, " ")
 
         const cacheFile = path.join(cacheDir, `tts_${Math.random().toString(34).substring(3, 9)}.wav`);
 
