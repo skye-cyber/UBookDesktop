@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer, nativeTheme } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -241,13 +241,14 @@ const api = {
             return false;
         }
     },
-    TTSConvert: async (text, model = 'ttskit3') => {
+    TextToAudio: async (text, model = 'ttskit3') => {
         if (!text.trim()) return null;
         const isLinux = (os.platform() === 'linux')
 
         let safeText = text
             .replace(/[\[\]]/g, "")
-            .replace(/"/g, "")
+            .replace(/“/g, "'")
+            .replace(/”/g, "'")
 
         safeText = (model === 'ttskit3') ? safeText.replace(/—/g, "\,") : safeText;
 

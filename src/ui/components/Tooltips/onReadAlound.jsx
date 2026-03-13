@@ -52,7 +52,7 @@ export const PlayerTooltip = ({ }) => {
 
             StateManager.get('showTTSLoader')()
 
-            const audio_file = await window.ubook.api.TTSConvert(text, ttsmodel)
+            const audio_file = await window.ubook.api.TextToAudio(text, ttsmodel)
             if (audio_file) {
                 StateManager.get('hideTTSLoader')();
 
