@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { appState } from '../Reader/appState';
+import { appState } from '../../State/appState';
 import { contextmenu } from './Helpers/ContextMenu';
 import { StateManager } from '../../../common/syscore/StatesManager';
 import {

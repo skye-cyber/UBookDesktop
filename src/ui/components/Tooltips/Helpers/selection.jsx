@@ -1,4 +1,4 @@
-import { appState } from "../../Reader/appState";
+import { appState } from '../../../State/appState';
 import { hightlightsearch } from "../../Reader/Search/hightlightSearch";
 
 class SelectionHelper {

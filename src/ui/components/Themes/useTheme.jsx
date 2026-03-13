@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { appState } from '../Reader/appState';
+import { useState, useEffect } from 'react';
+import { appState } from '../../State/appState';
 
 const ThemeToggle = () => {
     const [isDark, setIsDark] = useState(false);

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { appState } from '../Reader/appState';
+import { appState } from '../../State/appState';
 import { StateManager } from '../../../common/syscore/StatesManager';
 
 export const useTheme = () => {

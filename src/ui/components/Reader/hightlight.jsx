@@ -1,4 +1,4 @@
-import { appState } from "./appState";
+import { appState } from '../../State/appState';
 
 class HighlightManager {
     constructor() {

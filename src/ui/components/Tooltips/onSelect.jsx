@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { menuaction } from './Helpers/action';
-import { appState } from '../Reader/appState';
+import { appState } from '../../State/appState';
 import { Highlighter } from '../Reader/hightlight';
 import { StateManager } from '../../../common/syscore/StatesManager';
 

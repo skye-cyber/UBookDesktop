@@ -1,5 +1,4 @@
-// src/renderer/components/Settings/index.js
-export { SettingsPage } from './SettingsPage';
+export { SettingsPage } from '../../Pages/SettingsPage';
 export { SettingsSection } from './SettingsSection';
 export { SettingsSwitch } from './SettingsSwitch';
 export { SettingsSelect } from './SettingsSelect';

@@ -15,6 +15,7 @@ import '../common/Status/Manager';
 import { NotesPage } from './Pages/Notes';
 import '../styles/index.css';
 import '../common/shortcuts/keyshortcuts';
+import { SettingsPage } from './Pages/SettingsPage.jsx';
 
 const App = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -39,6 +40,7 @@ const App = () => {
                 </div>
                 {/* confirm dialog */}
                 <div data-portal-container='confirm-dialog-container' id='confirm-dialog-container'></div>
+                <SettingsPage />
             </MainLayout>
             {/* Portal containers for vanilla JS components */}
             <ErrorBoundary>

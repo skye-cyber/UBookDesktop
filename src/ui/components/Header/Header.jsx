@@ -33,6 +33,14 @@ export const Header = ({ }) => {
         document.dispatchEvent(new CustomEvent('open-search-settings'))
     })
 
+    const OpenSettings = useCallback(() => {
+        document.dispatchEvent(new CustomEvent('open-settings'))
+    })
+
+    const CloseSettings= useCallback(() => {
+        document.dispatchEvent(new CustomEvent('open-settings'))
+    })
+
     /**
      * Clears the interface of all distracting ui for distraction free reading
      */
@@ -90,7 +98,7 @@ export const Header = ({ }) => {
             {/* Right Section: Buttons */}
             <div className="flex items-center space-x-3">
                 {/* Search Preferences Button */}
-                <button onClick={openSearchPref} title="Open Search Preferences" aria-label="Open Search Preferences focus:outline-none"
+                <button onClick={OpenSettings} title="Open Search Preferences" aria-label="Open Search Preferences focus:outline-none"
                     className="flex items-center justify-center h-10 w-10 rounded-xl bg-primary-600 dark:bg-[#004754] dark:hover:bg-[#002d34] text-white shadow-md hover:shadow-lg hover:from-primary-600 hover:to-primary-700 transition-all duration-300 ease-in-out focus:outline-none ring-none focus:ring-none hover:scale-[90%]">
                     <svg className="h-5 w-5 fill-current text-white dark:text-slate-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M96 128C78.3 128 64 142.3 64 160C64 177.7 78.3 192 96 192L182.7 192C195 220.3 223.2 240 256 240C288.8 240 317 220.3 329.3 192L544 192C561.7 192 576 177.7 576 160C576 142.3 561.7 128 544 128L329.3 128C317 99.7 288.8 80 256 80C223.2 80 195 99.7 182.7 128L96 128zM96 288C78.3 288 64 302.3 64 320C64 337.7 78.3 352 96 352L342.7 352C355 380.3 383.2 400 416 400C448.8 400 477 380.3 489.3 352L544 352C561.7 352 576 337.7 576 320C576 302.3 561.7 288 544 288L489.3 288C477 259.7 448.8 240 416 240C383.2 240 355 259.7 342.7 288L96 288zM96 448C78.3 448 64 462.3 64 480C64 497.7 78.3 512 96 512L150.7 512C163 540.3 191.2 560 224 560C256.8 560 285 540.3 297.3 512L544 512C561.7 512 576 497.7 576 480C576 462.3 561.7 448 544 448L297.3 448C285 419.7 256.8 400 224 400C191.2 400 163 419.7 150.7 448L96 448z" /></svg>
                 </button>
@@ -121,11 +129,11 @@ export const Header = ({ }) => {
                             <p className='bg-white py-[2.5px] px-[0.7px] rounded-md rotate-45'></p>
                         </div>
                     </div>
-                    <div className='block space-y-0.5'>
-                        <p className='bg-white w-fit py-[1.4px] px-[12px] rounded-md'></p>
-                        <p className='bg-white w-fit py-[1.5px] px-2 rounded-md'></p>
-                        <p className='bg-white w-fit py-[1.5px] px-2 rounded-md'></p>
-                        <p className='bg-white w-fit py-[1.8px] px-3 rounded-md'></p>
+                    <div className='block space-y-[3.2px]'>
+                        <p className='bg-white w-fit py-[1.3px] px-3 rounded-md'></p>
+                        <p className='bg-white w-fit py-[1.3px] px-2 rounded-md'></p>
+                        <p className='bg-white w-fit py-[1.3px] px-2 rounded-md'></p>
+                        <p className='bg-white w-fit py-[1.3px] px-3 rounded-md'></p>
                     </div>
                 </button>
 

@@ -5,7 +5,7 @@ import { BookItemSelectorUI } from '../SelectorUI/ItemSelector';
 import { ContextMenuToast, DefaultToast } from '../Notifications/Toasts';
 import { CopyFeedback } from '../StatusUI/ToastsUI';
 import { NotesComposer } from '../ContextMenu/Modals/Notes';
-import { SearchSettings } from '../../Pages/searchSettings';
+import { SearchSettings } from '../../Pages/SearchSettings';
 import { SearchResultPage } from '../../Pages/Search';
 import { Controls } from './controlbar';
 import { StateManager } from '../../../common/syscore/StatesManager';

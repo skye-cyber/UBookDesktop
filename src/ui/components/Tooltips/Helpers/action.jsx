@@ -1,4 +1,4 @@
-import { appState } from "../../Reader/appState";
+import { appState } from '../../../State/appState';
 import { StateManager } from "../../../../common/syscore/StatesManager";
 import { modalmanager } from "../../../../common/Status/Manager";
 
