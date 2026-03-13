@@ -1,6 +1,6 @@
 import React from 'react';
 import { appIsDev } from '../../hooks/api';
-import { modalmanager } from '../../../renderer/js/Status/Manager';
+import { modalmanager } from '../../../common/Status/Manager';
 
 class ErrorBoundary extends React.Component {
     constructor(props) {

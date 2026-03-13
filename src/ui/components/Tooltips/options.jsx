@@ -7,7 +7,7 @@ import {
     HightlightSubmenu,
     SelectionSubmenu
 } from './SubMenu/submenu';
-import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { StateManager } from '../../../common/syscore/StatesManager';
 
 export const SelectionOption = ({ autohide, selectoption }) => {
     const submenuref = useRef(null)

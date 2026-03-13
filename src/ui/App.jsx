@@ -8,13 +8,13 @@ import ErrorBoundary from './components/ErrorHandler/ErrorBoundary';
 import { StatusUI } from './components/StatusUI/StatusUI.jsx';
 import { StaticPortalContainer } from './StaticPortalContainer';
 import { StreamingPortalContainer } from './StreamingPortalContainer';
-import '../renderer/js/react-portal-bridge';
+import '../common/react-portal-bridge';
 import './PortalTargetRegister';
-import '../renderer/js/syscore/StatesManager';
-import '../renderer/js/Status/Manager';
+import '../common/syscore/StatesManager';
+import '../common/Status/Manager';
 import { NotesPage } from './Pages/Notes';
-import '@css/styles.css';
-import '@js/shortcuts/keyshortcuts';
+import '../styles/index.css';
+import '../common/shortcuts/keyshortcuts';
 
 const App = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);

@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { appState } from '../Reader/appState';
 import { contextmenu } from './Helpers/ContextMenu';
-import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { StateManager } from '../../../common/syscore/StatesManager';
 import {
     SelectionOption,
     ThemeOption,

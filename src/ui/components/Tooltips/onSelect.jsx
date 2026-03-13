@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { menuaction } from './Helpers/action';
 import { appState } from '../Reader/appState';
 import { Highlighter } from '../Reader/hightlight';
-import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { StateManager } from '../../../common/syscore/StatesManager';
 
 export const OnselectTooltip = ({ }) => {
     const tooltip = useRef(null);

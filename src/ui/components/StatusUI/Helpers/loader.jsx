@@ -1,4 +1,4 @@
-import { reactPortalBridge } from "../../../../renderer/js/react-portal-bridge"
+import { reactPortalBridge } from "../../../../common/react-portal-bridge"
 
 export class LoadingSpinner {
     constructor() {

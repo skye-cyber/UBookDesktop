@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { ContentHelper } from './utils';
-import { StateManager } from '../../../../renderer/js/syscore/StatesManager';
-import { modalmanager } from '../../../../renderer/js/Status/Manager';
-import { reactPortalBridge } from '../../../../renderer/js/react-portal-bridge';
+/// <reference path="../../../../types/preload.d.ts" />
 
-//import { waitForElement } from '../../../../renderer/js/syscore/dom_utils';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { ContentHelper } from './utils';
+import { reactPortalBridge } from '../../../../common/react-portal-bridge';
+import { modalmanager } from '../../../../common/Status/Manager';
+import { StateManager } from '../../../../common/syscore/StatesManager';
 
 /**
  * Create item and handle favouriting and bookmarking
@@ -88,7 +88,7 @@ export const BookItem = ({ part, paper, section, title, tag, struct }) => {
     const FavouriteItem = useCallback(async () => {
         const structure = ContentHelper.createStructure(section, paper, part);
 
-        const status = await window.ubook.api.Favourite(structure);
+        const status = await window.ubook.favourites.toggle(structure);
         if (status.success) {
             //highLightFav(status.task);
             setfav(status.task === 'add')
@@ -105,7 +105,7 @@ export const BookItem = ({ part, paper, section, title, tag, struct }) => {
      */
     const BookmarkItem = useCallback(async () => {
         const structure = ContentHelper.createStructure(section, paper, part);
-        const status = await window.ubook.api.Bookmark(structure);
+        const status = await window.ubook.bookmarks.toggle(structure);
         if (status.success) {
             //highLightBookmark(status.task);
             setbookmarked(status.task === 'add')

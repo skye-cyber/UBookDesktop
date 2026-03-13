@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { ChangeFontName, FontSizeManager_ins } from './font_manager';
 import { BookNavigator } from './navigator';
 import { ThemeManager } from './theme_manager';
-import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { StateManager } from '../../../common/syscore/StatesManager';
 
 export const Controls = ({ }) => {
     const controlBar = useRef(null)

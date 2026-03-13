@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { reactPortalBridge } from '../../../renderer/js/react-portal-bridge';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { reactPortalBridge } from '../../../common/react-portal-bridge';
 
 export const ConfirmationDialog = ({ title, message, dialog_id, portal_id, resolve }) => {
     const portalRef = useRef(null)

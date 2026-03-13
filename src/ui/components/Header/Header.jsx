@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useTheme } from '../Themes/useThemeHeadless';
-import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { StateManager } from '../../../common/syscore/StatesManager';
 
 export const Header = ({ }) => {
     let searchContainer = useRef(null)
@@ -131,7 +131,7 @@ export const Header = ({ }) => {
 
                 {/* Clear interface (focus mode) new*/}
                 <button onClick={focusModeToggle} className='max-sm:hidden flex space-x-1 justify-center items-center h-10 w-10 bg-primary-500 dark:bg-[#004754] dark:hover:bg-[#002d34]  hover:bg-primary-600 hover:scale-[90%] ease-in-out p-1.5 rounded-xl text-white transition-all duration-300 focus:outline-none'>
-                    <svg className='h-6 w-6' viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg className='h-6 w-6' viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M4 7V4h3"></path>
                         <path d="M20 7V4h-3"></path>
                         <path d="M4 17v3h3"></path>

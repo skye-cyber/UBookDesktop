@@ -1,5 +1,5 @@
-import { StateManager } from "../../../../renderer/js/syscore/StatesManager";
 import { appState } from "../appState";
+import { StateManager } from "../../../../common/syscore/StatesManager";
 
 export class HightlightSearchEngine {
     constructor(wrapper = null) {

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { StateManager } from '../../renderer/js/syscore/StatesManager';
+import { StateManager } from '../../common/syscore/StatesManager';
 import { loadingspinner } from '../components/StatusUI/Helpers/loader';
-import { waitForElement } from '../../renderer/js/syscore/dom_utils';
+import { waitForElement } from '../../common/syscore/dom_utils';
 import { ContentLoader_ins } from '../components/Panels/content_loader';
 import { BaseSearchEntry } from './Search/search_entry';
 

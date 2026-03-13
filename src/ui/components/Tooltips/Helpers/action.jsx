@@ -1,6 +1,6 @@
 import { appState } from "../../Reader/appState";
-import { StateManager } from "../../../../renderer/js/syscore/StatesManager";
-import { modalmanager } from "../../../../renderer/js/Status/Manager";
+import { StateManager } from "../../../../common/syscore/StatesManager";
+import { modalmanager } from "../../../../common/Status/Manager";
 
 class MenuAction{
     copy(text = null) {

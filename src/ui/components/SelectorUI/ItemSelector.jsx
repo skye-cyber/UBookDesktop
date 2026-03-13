@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef } from 'react';
-import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { useCallback, useEffect, useRef } from 'react';
+import { StateManager } from '../../../common/syscore/StatesManager';
 
 export const BookItemSelectorUI = ({ }) => {
     const itemSelector = useRef(null)

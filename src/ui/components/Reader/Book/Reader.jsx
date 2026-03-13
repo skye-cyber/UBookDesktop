@@ -1,6 +1,6 @@
 import { ContentHelper } from "./utils";
-import { reactPortalBridge } from "../../../../renderer/js/react-portal-bridge";
-import { StateManager } from "../../../../renderer/js/syscore/StatesManager";
+import { StateManager } from "../../../../common/syscore/StatesManager";
+import { reactPortalBridge } from "../../../../common/react-portal-bridge";
 
 /**
  * Reader is responsible for rendering paper sections into a container,
@@ -13,11 +13,11 @@ export class BookReader {
      * @param {HTMLElement} readerSection - The DOM element where full section content will be displayed.
      * @param {Object} api - API interface for performing data operations (e.g., fetching, bookmarking).
      */
-    constructor(container, readerSection, api = window.ubook.api) {
+    constructor(container, readerSection) {
         this.paperContainer = container;
         StateManager.subscribe('readerSection', (el) => this.readerSection = el)
         if (this.readerSection && readerSection) this.readerSection = readerSection;
-        this.api = api;
+        this.api = window.ubook;
     }
 
     /**
@@ -28,7 +28,7 @@ export class BookReader {
      * @param {boolean} [incr=false] - (Unused) Optional flag to control numbering or UI logic.
      */
     async load(part = null, part_data = null) {
-        const data = part_data || await this.api.readContent(part);
+        const data = part_data || await this.api.content.read(part);
         const partData = part_data ? data : data.parts?.[0];
 
         if (!partData || !partData.papers) return;
@@ -104,7 +104,7 @@ export class BookReader {
     async handleFavouriteClick(node, section, paper, part) {
         highLightFav(node.getElementsByTagName('svg')[0]);
         const structure = this.createStructure(section, paper, part);
-        const status = { success: true } //await this.api.addFavourite(structure);
+        const status = await this.api.favourites.toggle(structure);
         if (status.success) {
             status.task === 'add'
                 ? showActionToast('favourite')
@@ -123,7 +123,7 @@ export class BookReader {
     async handleBookmarkClick(node, section, paper, part) {
         highLightBookmark(node.getElementsByTagName('svg')[0]);
         const structure = this.createStructure(section, paper, part);
-        const status = { success: true } //await this.api.addBookmark(structure);
+        const status = await this.api.bookmarks.toggle(structure);
         if (status.success) {
             status.task === 'add'
                 ? showActionToast('bookmark')

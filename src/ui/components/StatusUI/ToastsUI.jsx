@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { GenerateId } from '../utils/utils';
-import { modalmanager } from '../../../renderer/js/Status/Manager';
-import { reactPortalBridge } from '../../../renderer/js/react-portal-bridge';
+import { modalmanager } from '../../../common/Status/Manager';
+import { reactPortalBridge } from '../../../common/react-portal-bridge';
 
 const typeConfig = {
     success: {

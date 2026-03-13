@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { appState } from '../Reader/appState';
-import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { StateManager } from '../../../common/syscore/StatesManager';
 
 export const useTheme = () => {
     const [isDark, setIsDark] = useState(false);

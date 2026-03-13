@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import ubookdesktopDark from '@assets/ubookdesktop.png';
 import ubookdesktopLight from '@assets/ubookdesktop-light.png';
 import { useTheme } from '../Themes/useThemeHeadless';
-import { waitForElement } from '../../../renderer/js/syscore/dom_utils';
-import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { waitForElement } from '../../../common/syscore/dom_utils';
+import { StateManager } from '../../../common/syscore/StatesManager';
 import { ContentLoader_ins } from './content_loader';
 
 export const BookContentPanel = ({ }) => {

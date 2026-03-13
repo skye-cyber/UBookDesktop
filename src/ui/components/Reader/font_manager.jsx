@@ -1,6 +1,6 @@
-import { waitForElement } from "../../../renderer/js/syscore/dom_utils"
-import { StateManager } from "../../../renderer/js/syscore/StatesManager"
 import { appState } from "./appState"
+import { StateManager } from "../../../common/syscore/StatesManager"
+import { waitForElement } from "../../../common/syscore/dom_utils"
 
 export class FontSizeManager {
     constructor() {

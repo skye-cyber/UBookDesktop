@@ -6,6 +6,9 @@ export default defineConfig({
     plugins: [
         react()
     ],
+    css: {
+        postcss: null, // Disable PostCSS as Tailwind v4 handles it
+    },
     base: './',
     //root: resolve(__dirname, 'src/ui'),
     //publicDir: resolve(__dirname, 'src/assets'),
@@ -17,15 +20,6 @@ export default defineConfig({
         emptyOutDir: true,
         rollupOptions: {
             input: resolve(__dirname, 'index.html'),
-            //input: resolve(__dirname, 'src/ui/'),
-            /*
-             * output: {
-             *                // Ensure relative paths in build
-             *                entryFileNames: 'assets/[name]-[hash].js',
-             *                chunkFileNames: 'assets/[name]-[hash].js',
-             *                assetFileNames: 'assets/[name]-[hash].[ext]'
-            }
-            */
         },
     },
     resolve: {
@@ -35,8 +29,8 @@ export default defineConfig({
             '@common': resolve(__dirname, 'src/common'),
             '@renderer': resolve(__dirname, 'src/renderer'),
             '@main': resolve(__dirname, 'src/main'),
-            '@js': resolve(__dirname, 'src/renderer/js'),
-            '@css': resolve(__dirname, 'src/renderer/css'),
+            '@styles': resolve(__dirname, 'src/styles/'),
+            '@types': resolve(__dirname, 'src/types'),
             crypto: require.resolve('crypto-browserify'),
             process: require.resolve('process/browser'),
             fs: require.resolve('browserify-fs'),
@@ -49,6 +43,10 @@ export default defineConfig({
     optimizeDeps: {
         include: ['buffer'],
         //force: true
+    },
+    compilerOptions: {
+        // jsx: "react-jsx", // For React 17+ JSX transform
+        jsx: "react-jsxdev" // For development with better debugging
     },
     // Ensure proper React configuration
     esbuild: {

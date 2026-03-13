@@ -1,8 +1,8 @@
-import { reactPortalBridge } from "../../../renderer/js/react-portal-bridge";
-import { searchcontent } from "../../../renderer/js/searchBase/contentsearch";
-import { modalmanager } from "../../../renderer/js/Status/Manager";
-import { StateManager } from "../../../renderer/js/syscore/StatesManager";
-import { lunrsearch } from "../../../renderer/js/searchBase/LunrSearch";
+import { reactPortalBridge } from "../../../common/react-portal-bridge";
+import { searchcontent } from "../../../common/searchBase/contentsearch";
+import { modalmanager } from "../../../common/Status/Manager";
+import { StateManager } from "../../../common/syscore/StatesManager";
+import { lunrsearch } from "../../../common/searchBase/LunrSearch";
 
 export class BaseSearchEntry {
     /**

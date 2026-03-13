@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { TTSLoaderUI } from '../StatusUI/ttsaction';
 import { appState } from '../Reader/appState';
-import { modalmanager } from '../../../renderer/js/Status/Manager';
+import { StateManager } from '../../../common/syscore/StatesManager';
+import { modalmanager } from '../../../common/Status/Manager';
 
 export const PlayerTooltip = ({ }) => {
     const playertooltip = useRef(null)
@@ -52,7 +52,7 @@ export const PlayerTooltip = ({ }) => {
 
             StateManager.get('showTTSLoader')()
 
-            const audio_file = await window.ubook.api.TextToAudio(text, ttsmodel)
+            const audio_file = await window.ubook.tts.generate(text, ttsmodel)
             if (audio_file) {
                 StateManager.get('hideTTSLoader')();
 
@@ -79,15 +79,15 @@ export const PlayerTooltip = ({ }) => {
         playertooltip.current.classList.add('translate-x-[110%]')
     })
 
-    const onPlayPause = useCallback(async () => {
+    const onPlayPause = useCallback(() => {
         if (!isPlaying) {
-            const status = await window.ubook.player.resume();
+            const status = window.ubook.player.resume();
 
             if (status === 'resumed') {
                 SetIsPlaying(true);
             }
         } else {
-            const status = await window.ubook.player.pause();
+            const status = window.ubook.player.pause();
 
             if (status === "paused") {
                 SetIsPlaying(false);
@@ -95,11 +95,11 @@ export const PlayerTooltip = ({ }) => {
         }
     })
 
-    const onStop = useCallback(async () => {
-        setTimeout(async () => {
+    const onStop = useCallback(() => {
+        setTimeout(() => {
             SetIsPlaying(false);
 
-            const status = await window.ubook.player.stop();
+            const status = window.ubook.player.stop();
 
             status === "stopped" ? hidePlayerTool() : '';
         }, 100)
@@ -111,12 +111,12 @@ export const PlayerTooltip = ({ }) => {
         hidePlayerTool();
     })
 
-    const seekForward = useCallback(async () => {
+    const seekForward = useCallback(() => {
         let play_status = isPlaying
 
         if (isPlaying) {
             // Pause first
-            const status = await window.ubook.player.pause();
+            const status = window.ubook.player.pause();
 
             if (status === "paused") {
                 SetIsPlaying(false);
@@ -131,12 +131,12 @@ export const PlayerTooltip = ({ }) => {
         }
     })
 
-    const seekBackward = useCallback(async () => {
+    const seekBackward = useCallback(() => {
         let play_status = isPlaying
 
         if (isPlaying) {
             // Pause first
-            const status = await window.ubook.player.pause();
+            const status = window.ubook.player.pause();
 
             if (status === "paused") {
                 //statusLabel.current.textContent = 'Paused';

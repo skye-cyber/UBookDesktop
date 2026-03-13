@@ -1,4 +1,4 @@
-import { StateManager } from "../../../../renderer/js/syscore/StatesManager";
+import { StateManager } from "../../../../common/syscore/StatesManager";
 
 export class ContextMenuHelper {
     constructor() {

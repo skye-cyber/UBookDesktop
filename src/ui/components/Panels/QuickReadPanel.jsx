@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { QuickRead } from '../Reader/Book/QuickRead';
-import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { StateManager } from '../../../common/syscore/StatesManager';
 
 export const QuickReadPanel = ({ }) => {
     const panel = useRef(null)

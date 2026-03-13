@@ -1,5 +1,5 @@
-import React, { useCallback, useRef } from 'react';
-import { StateManager } from '../../../renderer/js/syscore/StatesManager';
+import { useCallback, useRef } from 'react';
+import { StateManager } from '../../../common/syscore/StatesManager';
 
 export const TTSLoaderUI = ({ }) => {
     const loader = useRef(null)

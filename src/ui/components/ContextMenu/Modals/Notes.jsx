@@ -1,8 +1,7 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { appState } from '../../Reader/appState';
-import { modalmanager } from '../../../../renderer/js/Status/Manager';
-import { StateManager } from '../../../../renderer/js/syscore/StatesManager';
-
+import { modalmanager } from '../../../../common/Status/Manager';
+import { StateManager } from '../../../../common/syscore/StatesManager';
 export const NotesComposer = () => {
     const noteModal = useRef(null);
     const noteBox = useRef(null);
@@ -51,7 +50,7 @@ export const NotesComposer = () => {
             content: appState.selectedHTML
         };
 
-        const status_ok = window.ubook.api.saveNote(note);
+        const status_ok = window.ubook.notes.save(note);
         if (status_ok) {
             modalmanager.showMessage('Note saved successfully', 'success');
         } else {

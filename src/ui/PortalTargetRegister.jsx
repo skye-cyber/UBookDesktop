@@ -1,5 +1,5 @@
-import { waitForElement } from "../renderer/js/syscore/dom_utils";
-import { reactPortalBridge } from "../renderer/js/react-portal-bridge";
+import { waitForElement } from "../common/syscore/dom_utils";
+import { reactPortalBridge } from "../common/react-portal-bridge";
 
 waitForElement('#paper-container', (el) => {
     reactPortalBridge.registerContainer("paper-container", el);

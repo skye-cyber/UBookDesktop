@@ -1,7 +1,7 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { selectionhelper } from '../Tooltips/Helpers/selection';
-import { StateManager } from '../../../renderer/js/syscore/StatesManager';
 import { hightlightsearch } from './Search/hightlightSearch';
+import { StateManager } from '../../../common/syscore/StatesManager';
 
 export const ReaderContent = ({ }) => {
     const readerSection = useRef(null)

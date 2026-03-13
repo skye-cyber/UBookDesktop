@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { ReaderContent } from './content';
 import { ToolTipUI } from '../Tooltips/tooltip';
 import { BookItemSelectorUI } from '../SelectorUI/ItemSelector';
 import { ContextMenuToast, DefaultToast } from '../Notifications/Toasts';
 import { CopyFeedback } from '../StatusUI/ToastsUI';
 import { NotesComposer } from '../ContextMenu/Modals/Notes';
-import { StateManager } from '../../../renderer/js/syscore/StatesManager';
-import { SearchSettings } from '../../Pages/searchSettings';
+import { SearchSettings_new } from '../../Pages/searchSettings';
 import { SearchResultPage } from '../../Pages/Search';
 import { Controls } from './controlbar';
+import { StateManager } from '../../../common/syscore/StatesManager';
 
 export const ReaderUI = ({ }) => {
     const readerSection = useRef(null);
@@ -38,7 +38,7 @@ export const ReaderUI = ({ }) => {
             <BookItemSelectorUI />
             <CopyFeedback />
             <NotesComposer />
-            <SearchSettings />
+            <SearchSettings_new />
             <SearchResultPage />
         </>
     );

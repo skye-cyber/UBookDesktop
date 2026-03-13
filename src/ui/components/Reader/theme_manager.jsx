@@ -1,5 +1,5 @@
 import { appState } from "./appState";
-import { StateManager } from "../../../renderer/js/syscore/StatesManager";
+import { StateManager } from "../../../common/syscore/StatesManager";
 
 const ThemeClassMap = {
     'light': ['bg-white', 'text-gray-800'],

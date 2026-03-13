@@ -117,7 +117,7 @@ export class ContentHelper {
     }
     static async isFavourited(struct) {
         // Read Favourites file
-        const fav = await window.ubook.api.readFavourites();
+        const fav = await window.ubook.favourites.readAll();
 
         if (!fav || !Array.isArray(fav.fav)) return;
 
@@ -130,7 +130,7 @@ export class ContentHelper {
         return matchFound
     }
     static async isBookmarked(struct) {
-        const bookmarks = await window.ubook.api.readBookmarks();
+        const bookmarks = await window.ubook.bookmarks.readAll();
 
         if (!bookmarks || !Array.isArray(bookmarks.bookmark)) return;
 

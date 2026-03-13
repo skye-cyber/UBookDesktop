@@ -1,9 +1,9 @@
-import { modalmanager } from '../../../renderer/js/Status/Manager';
 import { ContentHelper } from '../Reader/Book/utils';
 import { BookReader } from '../Reader/Book/Reader';
-import { waitForElement } from '../../../renderer/js/syscore/dom_utils';
-import { StateManager } from '../../../renderer/js/syscore/StatesManager';
-import { reactPortalBridge } from '../../../renderer/js/react-portal-bridge';
+import { reactPortalBridge } from '../../../common/react-portal-bridge';
+import { StateManager } from '../../../common/syscore/StatesManager';
+import { waitForElement } from '../../../common/syscore/dom_utils';
+import { modalmanager } from '../../../common/Status/Manager';
 
 export class ContentLoader {
     constructor() {
@@ -93,7 +93,12 @@ export class ContentLoader {
      * @param {Bool} silent Items  selector interface display stays hidden
      */
     async loader(type = 'favourites', silent = false) {
-        const data = await window.ubook.api[`read${ContentHelper.capitalize(type)}`]();
+        let data
+        if (type === 'favourites') {
+            data = await window.ubook.favourites.readAll()
+        } else{
+            data = await window.ubook.bookmarks.readAll()
+        }
         const items = data?.[type === 'favourites' ? 'fav' : 'bookmark'];
 
         if (!Array.isArray(items) || items.length === 0) {
@@ -110,7 +115,7 @@ export class ContentLoader {
 
         const contentFile = 'FN-Combined_Structured_UB.json';
 
-        const fullData = await window.ubook.api.readContent(contentFile);
+        const fullData = await window.ubook.content.read(contentFile);
         const PartsDataById = Object.fromEntries(fullData.parts.map(part => [part.id, part]));
 
         // const reader = new BookReader(this.paper_container, this.reader_section)
@@ -162,7 +167,7 @@ export class ContentLoader {
      *
      */
     async renderNotes(silent = false) {
-        const notesData = await window.ubook.api.readNotes();
+        const notesData = await window.ubook.notes.readAll();
         const items = notesData?.notes;
 
         if (!Array.isArray(items) || items.length === 0) {
