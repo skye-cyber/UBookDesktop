@@ -107,7 +107,7 @@ export const BookContentPanel = ({ }) => {
                 <div className="flex items-center select-none bg-indigo-600 dark:bg-[#002a39] rounded-full p-2 w-full">
                     <span className="text-xs text-indigo-200 font-medium mr-2 hidden md:block">Theme</span>
                     <label className="relative inline-block w-12 h-6 cursor-pointer select-none">
-                        <input onChange={() => setTheme(isDark ? 'light' : 'dark')} checked={isDark} type="checkbox" id="theme-toggle" className="peer hidden"></input>
+                        <input onChange={() => setTheme(isDark ? 'light' : 'dark')} checked={isDark} type="checkbox" id="theme-toggle" className="bookpanel-themtoggle peer hidden"></input>
                         <span className="absolute inset-0 bg-indigo-500 peer-checked:bg-teal-500 transition rounded-full"></span>
                         <span className="absolute left-1 bottom-1 w-4 h-4 bg-white rounded-full transition peer-checked:translate-x-6"></span>
                     </label>
