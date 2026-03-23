@@ -3,6 +3,9 @@ import { searchcontent } from "../../../common/searchBase/contentsearch";
 import { modalmanager } from "../../../common/Status/Manager";
 import { StateManager } from "../../../common/syscore/StatesManager";
 import { lunrsearch } from "../../../common/searchBase/LunrSearch";
+import { appSettings } from "../../State/appState";
+
+let MAX_RESULTS = 50
 
 export class BaseSearchEntry {
     /**
@@ -15,7 +18,8 @@ export class BaseSearchEntry {
 
         try {
             // Add reasonable limit to prevent memory overload
-            results = await lunrsearch.search(ids, query, 50);
+            MAX_RESULTS = appSettings.search.historySize
+            results = await lunrsearch.search(ids, query, MAX_RESULTS);
 
             if (!results || results.length === 0) {
                 modalmanager.showMessage('No results found', 'info');

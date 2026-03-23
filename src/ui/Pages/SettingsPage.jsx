@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { loadingspinner } from '../components/StatusUI/Helpers/loader';
 import { settingsManager } from '../../common/syscore/SettingsManager';
 import { SettingsSection, SettingsSwitch, SettingsSelect, SettingsSlider, SettingsInput } from '../components/Settings/index';
+import { ChangeFontName } from '../components/Reader/font_manager';
+import { appState } from '../State/appState';
 
 export const SettingsPage = () => {
     const [settings, setSettings] = useState(settingsManager.getAll());
@@ -141,7 +143,7 @@ export const SettingsPage = () => {
         { id: 'reader', label: 'Reader', icon: '📖' },
         { id: 'audio', label: 'Audio', icon: '🔊' },
         { id: 'privacy', label: 'Privacy', icon: '🔒' },
-        { id: 'shortcuts', label: 'Shortcuts', icon: '⌨️' }
+        //         { id: 'shortcuts', label: 'Shortcuts', icon: '⌨️' }
     ];
 
     return (
@@ -230,18 +232,21 @@ export const SettingsPage = () => {
                                 ]}
                             />
 
-                            <SettingsSelect
-                                label="Font Family"
-                                description="Default font for the interface"
-                                value={settings.appearance.fontFamily}
-                                onChange={(val) => updateSetting('appearance', 'fontFamily', val)}
-                                options={[
-                                    { value: 'sans', label: 'Sans-serif (Inter)' },
-                                    { value: 'serif', label: 'Serif (Source Serif)' },
-                                    { value: 'reader', label: 'Reader Optimized' },
-                                    { value: 'mono', label: 'Monospace' }
-                                ]}
-                            />
+                            <div className='relative'>
+                                <div className='absolute inset-0 z-10 cursor-not-allowed'></div>
+                                <SettingsSelect
+                                    label="Font Family"
+                                    description="Default font for the interface"
+                                    value={settings.appearance.fontFamily}
+                                    onChange={(val) => updateSetting('appearance', 'fontFamily', val)}
+                                    options={[
+                                        { value: 'sans', label: 'Sans-serif (Inter)' },
+                                        { value: 'serif', label: 'Serif (Source Serif)' },
+                                        { value: 'reader', label: 'Reader Optimized' },
+                                        { value: 'mono', label: 'Monospace' }
+                                    ]}
+                                />
+                            </div>
 
                             <SettingsSlider
                                 label="Font Size"
@@ -256,6 +261,7 @@ export const SettingsPage = () => {
                             <SettingsSwitch
                                 label="Compact Mode"
                                 description="Reduce spacing for more content"
+                                disabled={true}
                                 checked={settings.appearance.focusMode}
                                 onChange={(val) => updateSetting('appearance', 'focusMode', val)}
                             />
@@ -263,6 +269,7 @@ export const SettingsPage = () => {
                             <SettingsSwitch
                                 label="Reduced Motion"
                                 description="Minimize animations"
+                                disabled={true}
                                 checked={settings.appearance.reducedMotion}
                                 onChange={(val) => updateSetting('appearance', 'reducedMotion', val)}
                             />
@@ -357,24 +364,19 @@ export const SettingsPage = () => {
                             icon={<span className="text-xl">📖</span>}
                         >
                             <SettingsSelect
-                                label="Font Family"
+                                label="Font Name"
                                 description="Font for reading content"
-                                value={settings.reader.fontFamily}
-                                onChange={(val) => updateSetting('reader', 'fontFamily', val)}
-                                options={[
-                                    { value: 'reader', label: 'Source Serif Pro' },
-                                    { value: 'serif', label: 'Georgia' },
-                                    { value: 'sans', label: 'Inter' },
-                                    { value: 'mono', label: 'JetBrains Mono' }
-                                ]}
+                                value={settings.reader.fontName}
+                                onChange={(e) => updateSetting('reader', 'fontName', e)}
+                                options={appState.reader.Fonts}
                             />
 
                             <SettingsSlider
                                 label="Font Size"
                                 description="Reading text size"
                                 value={settings.reader.fontSize}
-                                min={12}
-                                max={32}
+                                min={16}
+                                max={36}
                                 step={1}
                                 onChange={(val) => updateSetting('reader', 'fontSize', val)}
                             />
@@ -383,38 +385,46 @@ export const SettingsPage = () => {
                                 label="Line Height"
                                 description="Space between lines"
                                 value={settings.reader.lineHeight}
-                                min={1.2}
-                                max={2.4}
+                                min={2.0}
+                                max={5.0}
                                 step={0.1}
                                 onChange={(val) => updateSetting('reader', 'lineHeight', val)}
                             />
 
-                            <SettingsSlider
-                                label="Max Width"
-                                description="Maximum content width (px)"
-                                value={settings.reader.maxWidth}
-                                min={400}
-                                max={1200}
-                                step={50}
-                                onChange={(val) => updateSetting('reader', 'maxWidth', val)}
-                            />
+                            <div className='relative'>
+                                <div className='absolute inset-0 cursor-not-allowed'></div>
+                                <SettingsSlider
+                                    label="Max Width"
+                                    description="Maximum content width (px)"
+                                    disabled={true}
+                                    value={settings.reader.maxWidth}
+                                    min={400}
+                                    max={1200}
+                                    step={50}
+                                    onChange={(val) => updateSetting('reader', 'maxWidth', val)}
+                                />
+                            </div>
 
                             <SettingsSwitch
                                 label="Justify Text"
                                 description="Align text evenly"
                                 checked={settings.reader.justifyText}
+                                disabled={true}
                                 onChange={(val) => updateSetting('reader', 'justifyText', val)}
                             />
 
-                            <SettingsSlider
-                                label="Auto-scroll Speed"
-                                description="0 = disabled"
-                                value={settings.reader.autoScrollSpeed}
-                                min={0}
-                                max={10}
-                                step={0.5}
-                                onChange={(val) => updateSetting('reader', 'autoScrollSpeed', val)}
-                            />
+                            <div className='relative'>
+                                <div className='absolute inset-0 cursor-not-allowed'></div>
+                                <SettingsSlider
+                                    label="Auto-scroll Speed"
+                                    description="0 = disabled"
+                                    value={settings.reader.autoScrollSpeed}
+                                    min={0}
+                                    max={10}
+                                    step={0.5}
+                                    onChange={(val) => updateSetting('reader', 'autoScrollSpeed', val)}
+                                />
+                            </div>
                         </SettingsSection>
                     )}
 
@@ -473,6 +483,7 @@ export const SettingsPage = () => {
                         >
                             <SettingsSwitch
                                 label="Analytics"
+                                disabled={true}
                                 description="Help improve UBook by sending anonymous usage data"
                                 checked={settings.privacy.analytics}
                                 onChange={(val) => updateSetting('privacy', 'analytics', val)}
@@ -480,6 +491,7 @@ export const SettingsPage = () => {
 
                             <SettingsSwitch
                                 label="Crash Reports"
+                                disabled={true}
                                 description="Automatically send crash reports"
                                 checked={settings.privacy.crashReports}
                                 onChange={(val) => updateSetting('privacy', 'crashReports', val)}
@@ -487,6 +499,7 @@ export const SettingsPage = () => {
 
                             <SettingsSwitch
                                 label="Auto-save Notes"
+                                disabled={true}
                                 description="Automatically save notes as you type"
                                 checked={settings.privacy.autoSaveNotes}
                                 onChange={(val) => updateSetting('privacy', 'autoSaveNotes', val)}

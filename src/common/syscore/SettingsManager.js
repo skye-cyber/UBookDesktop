@@ -2,6 +2,8 @@
 import { FontSizeManager_ins } from "../../ui/components/Reader/font_manager";
 import { StateManager } from "./StatesManager";
 import { appSettings, updateAppState } from "../../ui/State/appState";
+import { ChangeFontName as ChangeReaderFontName } from "../../ui/components/Reader/font_manager";
+import { textmanager } from "../../ui/components/Reader/TextManager";
 
 class SettingsManager {
     constructor() {
@@ -95,6 +97,10 @@ class SettingsManager {
                 }
                 break;
             case 'reader':
+                if (key === 'fontSize') FontSizeManager_ins.changeFontSize(0, value);
+                if (key === 'fontName') ChangeReaderFontName(value);
+                if (key === 'lineHeight') textmanager.changeLineHeight(value);
+
                 if (key === 'fontFamily') {
                     document.querySelector('.reader-content')?.style.setProperty('--font-family', value);
                 }
