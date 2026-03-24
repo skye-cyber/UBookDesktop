@@ -6,7 +6,7 @@ const { exec } = require('child_process');
 //const pngToIco = require('png-to-ico');
 //npm install @fiahfy/icns --seve-dev
 
-const baseImageName = 'ubookdesktop-light';
+const baseImageName = 'vellichor';
 const baseImagePath = `../assets/${baseImageName}.png`;
 const IconsoutputDir = '../icons';
 // Directory containing the icon PNG files
