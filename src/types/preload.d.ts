@@ -1,9 +1,12 @@
+import type { TTSValidator } from "../main/types/utils/type";
+import type { AppConfig } from "../main/types";
+
 interface ConfigApi {
-    init(): Promise<object>;
-    read(): Promise<object | false>;
+    init(): Promise<AppConfig>;
+    read(): Promise<AppConfig | false>;
     update(newConfig: object): Promise<boolean>;
     updateTTS(ttsConfig: object): Promise<boolean>;
-    reset(): Promise<object | false>;
+    reset(): Promise<AppConfig | false>;
 }
 
 interface TtsApi {
@@ -12,6 +15,7 @@ interface TtsApi {
     test(): Promise<boolean>;
     stop(): boolean;
 }
+
 
 interface FsApi {
     mkdir(dir: string): Promise<boolean>;
@@ -99,6 +103,7 @@ declare global {
             config: ConfigApi;
             tts: TtsApi;
             fs: FsApi;
+            TTSValidator: TTSValidator,
             notes: NotesApi;
             bookmarks: BookmarksApi;
             favourites: FavouritesApi;

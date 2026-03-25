@@ -1,4 +1,4 @@
-export const appSettings = {
+export let appSettings = {
     appearance: {
         theme: 'system',
         fontSize: 14,
@@ -68,6 +68,15 @@ export let appState = {
     currentFontName: 'normal',
     ...appSettings
 };
+
+export function updateAppSettings(settings) {
+    // Update appState with saved settings
+    appSettings = {
+        ...appSettings,
+        ...settings
+    }
+}
+
 
 export function updateAppState(settings) {
     // Update appState with saved settings

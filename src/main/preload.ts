@@ -3,7 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import { exec, ExecException } from 'child_process';
-import type { Note, BookmarkData, FavouriteData, TTSConfig, AppConfig, ToggleResult } from './types';
+import type { Note, BookmarkData, FavouriteData, TTSConfig, AppConfig, ToggleResult, DefaultTTSEngine as defaultEnginConfig } from './types';
+import { TTSValidator } from './utils/ttsValidation';
 
 // Base directories with types
 const BaseDir: string = path.join(os.homedir(), '.UBookDesk');
@@ -87,6 +88,7 @@ const configApi = {
     },
 
     updateTTS: async (ttsConfig: Partial<TTSConfig>): Promise<boolean> => {
+        console.log(ttsConfig)
         const config = await configApi.read();
         if (config && typeof config === 'object') {
             config.tts = { ...config.tts, ...ttsConfig };
@@ -94,6 +96,7 @@ const configApi = {
         }
         return false;
     },
+
 
     reset: async (): Promise<AppConfig | false> => {
         const configPath = path.join(configDir, 'config.json');
@@ -118,7 +121,7 @@ const ttsApi = {
         if (!config || typeof config !== 'object') return null;
 
         const ttsConfig = config.tts;
-        const selectedEngine = engine || ttsConfig.engine;
+        const selectedEngine = engine || ttsConfig.engine || ttsConfig.defaultEngine.engine;
 
         // Check text length
         if (text.length > ttsConfig.maxTextLength) {
@@ -135,35 +138,44 @@ const ttsApi = {
 
         const cacheFile = path.join(cacheDir, `tts_${Math.random().toString(36).substring(2, 10)}.wav`);
 
+        const prepCommand = (config: TTSConfig | defaultEnginConfig, cmd: string): string | boolean => {
+            if (config.inputType === 'file') {
+                return cmd.replace('{file}', safeText).replace('{output}', cacheFile);
+            } else if (config.inputType === 'text') {
+                return cmd.replace('{text}', safeText).replace('{output}', cacheFile);
+            }
+            return false
+        }
         // Execute TTS command
         try {
-            let command: string;
-            if (selectedEngine === 'ttskit3' && ttsConfig.command) {
-                command = ttsConfig.command
-                    .replace('{text}', safeText)
-                    .replace('{output}', cacheFile);
-            } else if (ttsConfig.fallbackCommand) {
-                command = ttsConfig.fallbackCommand
-                    .replace('{text}', safeText)
-                    .replace('{output}', cacheFile);
+            let command: string | boolean;
+            if (selectedEngine && ttsConfig.command) {
+                command = prepCommand(ttsConfig, ttsConfig.command)
+            } else if (ttsConfig.defaultEngine) {
+                command = prepCommand(ttsConfig.defaultEngine, ttsConfig.defaultEngine.command)
             } else {
                 throw new Error('No valid TTS command configured');
             }
 
-            await new Promise<void>((resolve, reject) => {
-                exec(command, (error: ExecException | null, stdout: string, stderr: string) => {
-                    if (error||stderr) {
-                        console.error('TTS execution error:', error||stderr, "Output", stdout);
-                        reject(error);
-                    } else {
-                        resolve();
-                    }
-                });
-            });
 
-            // Verify file was created
-            await fs.promises.access(cacheFile, fs.constants.F_OK);
-            return cacheFile;
+            if (command && typeof command === 'string') {
+
+                await new Promise<void>((resolve, reject) => {
+                    exec(command, (error: ExecException | null, stdout: string, stderr: string) => {
+                        if (error || stderr) {
+                            console.error('TTS execution error:', error || stderr, "Output", stdout);
+                            reject(error);
+                        } else {
+                            resolve();
+                        }
+                    });
+                });
+
+                // Verify file was created
+                await fs.promises.access(cacheFile, fs.constants.F_OK);
+                return cacheFile;
+            }
+            throw "Error: command not valid"
 
         } catch (err) {
             console.error('TTS generation failed:', err);
@@ -681,9 +693,11 @@ const themeApi = {
 };
 
 // ==================== EXPOSE APIS ====================
+
 contextBridge.exposeInMainWorld('ubook', {
     config: configApi,
     tts: ttsApi,
+    TTSValidator: TTSValidator,
     fs: fsApi,
     notes: notesApi,
     bookmarks: bookmarksApi,

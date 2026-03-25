@@ -1,4 +1,4 @@
-// tsconfig.renderer.json - Renderer (React/TSX)
+// tsconfig.common.json - Renderer (React/TSX)
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {

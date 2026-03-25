@@ -1,26 +1,47 @@
+/// <reference path="../../types/preload.d.ts" />
 import { useState, useEffect, useRef } from 'react';
 import { loadingspinner } from '../components/StatusUI/Helpers/loader';
 import { settingsManager } from '../../common/syscore/SettingsManager';
 import { SettingsSection, SettingsSwitch, SettingsSelect, SettingsSlider, SettingsInput } from '../components/Settings/index';
-import { ChangeFontName } from '../components/Reader/font_manager';
+// import { ChangeFontName } from '../components/Reader/font_manager';
 import { appState } from '../State/appState';
+import { TTSConfigManager } from '../components/TTSConfigManager';
+import { Button } from '@mui/material';
+import { Settings as SettingsIcon } from '@mui/icons-material';
 
 export const SettingsPage = () => {
     const [settings, setSettings] = useState(settingsManager.getAll());
     const [activeTab, setActiveTab] = useState('appearance');
     const [isVisible, setIsVisible] = useState(false);
     const [isModified, setIsDirty] = useState(false);
+    const [configDialogOpen, setConfigDialogOpen] = useState(false);
+    const [ttsConfig, setTTSconfig] = useState({})
 
     const containerRef = useRef(null);
     const backdropRef = useRef(null);
 
+    const fetchTTSConfig = async () => {
+        const config = await window.ubook.config.read()
+        if (config) {
+            setTTSconfig(config.tts)
+        }
+    }
+
     // Subscribe to settings changes
     useEffect(() => {
+        fetchTTSConfig()
+
         const unsubscribe = settingsManager.subscribe(newSettings => {
             setSettings(newSettings);
         });
         return unsubscribe;
     }, []);
+
+    const handleSave = async (newConfig) => {
+        // Save handled in the component via ubook.configApi
+        console.log(newConfig)
+        // window.ubook.config.updateTTS(newConfig)
+    };
 
     // Event listeners for opening/closing
     useEffect(() => {
@@ -434,15 +455,49 @@ export const SettingsPage = () => {
                             title="Audio Settings"
                             icon={<span className="text-xl">🔊</span>}
                         >
+                            <div className=''>
+                                <div className="relative">
+                                    <Button
+                                        onClick={() => setConfigDialogOpen(true)}
+                                        variant="outlined"
+                                        startIcon={<SettingsIcon />}
+                                        className='dark:bg-blue-300 dark:hover:bg-blue-400'
+                                        sx={{
+                                            borderRadius: '10px',
+                                            textTransform: 'none',
+                                            px: 2,
+                                            py: 1,
+                                            fontWeight: 500,
+                                            transition: 'all 0.2s ease',
+                                            borderColor: 'divider',
+                                            color: 'text.primary',
+                                            '&:hover': {
+                                                transform: 'translateY(-1px)',
+                                                borderColor: 'primary.main',
+                                                backgroundColor: 'action.hover',
+                                            },
+                                        }}
+                                    >
+                                        Configure TTS Engine
+                                    </Button>
+
+                                    <TTSConfigManager
+                                        open={configDialogOpen}
+                                        onClose={() => setConfigDialogOpen(false)}
+                                        //                                         initialConfig={currentConfig?.tts || undefined}
+                                        onSave={handleSave}
+                                        ubookConfigApi={ubook.configApi}
+                                    />
+                                </div>
+                            </div>
                             <SettingsSelect
                                 label="Voice"
                                 description="Text-to-speech voice"
                                 value={settings.audio.voice}
                                 onChange={(val) => updateSetting('audio', 'voice', val)}
                                 options={[
-                                    { value: 'default', label: 'System Default' },
-                                    { value: 'ttskit3', label: 'TTSKit3' },
-                                    { value: 'picowave', label: 'PicoWave' }
+                                    { value: ttsConfig.defaultEngine.engine || 'default', label: 'System Default' },
+                                    {value: ttsConfig.engine, label: "Custom Engine"},
                                 ]}
                             />
 

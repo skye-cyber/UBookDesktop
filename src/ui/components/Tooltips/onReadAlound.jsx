@@ -18,8 +18,6 @@ export const PlayerTooltip = ({ }) => {
             // Hide modal to reset state if playing
             if (isPlaying) onStop()
 
-            const ttsmodel = StateManager.get('ttsModel')
-
             const heading = StateManager.get('readerSection').querySelector('h1').textContent
 
             // Default to selected text
@@ -52,7 +50,7 @@ export const PlayerTooltip = ({ }) => {
 
             StateManager.get('showTTSLoader')()
 
-            const audio_file = await window.ubook.tts.generate(text, ttsmodel)
+            const audio_file = await window.ubook.tts.generate(text)
             if (audio_file) {
                 StateManager.get('hideTTSLoader')();
 

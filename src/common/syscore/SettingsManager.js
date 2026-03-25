@@ -1,7 +1,7 @@
 /// <reference path="../../types/preload.d.ts" />
 import { FontSizeManager_ins } from "../../ui/components/Reader/font_manager";
 import { StateManager } from "./StatesManager";
-import { appSettings, updateAppState } from "../../ui/State/appState";
+import { appSettings, updateAppSettings, updateAppState } from "../../ui/State/appState";
 import { ChangeFontName as ChangeReaderFontName } from "../../ui/components/Reader/font_manager";
 import { textmanager } from "../../ui/components/Reader/TextManager";
 
@@ -19,7 +19,7 @@ class SettingsManager {
                 window.ubook.fs.join(window.ubook.fs.homedir(), '.UBookDesk', 'config', 'user-settings.json')
             );
             if (saved) {
-                appSettings = this.mergeSettings(saved, appSettings);
+                updateAppSettings(this.mergeSettings(saved, appSettings));
                 updateAppState(saved)
             }
         } catch (e) {
@@ -143,7 +143,7 @@ class SettingsManager {
 
     // Reset to defaults
     async resetToDefaults() {
-        appSettings = {
+         const settings ={
             appearance: { theme: 'system', fontSize: 14, fontFamily: 'sans', focusMode: false, reducedMotion: false },
             search: { defaultMode: 'text', defaultParts: [1, 2, 3, 4, 5], caseSensitive: false, wholeWords: false, historySize: 50, saveHistory: true },
             reader: { fontSize: 18, fontFamily: 'reader', lineHeight: 1.6, maxWidth: 800, justifyText: true, autoScrollSpeed: 0 },
@@ -151,6 +151,7 @@ class SettingsManager {
             privacy: { analytics: false, crashReports: true, autoSaveNotes: true },
             shortcuts: { toggleSearch: 'Ctrl+K', toggleSettings: 'Ctrl+,', toggleReader: 'Ctrl+R', toggleDarkMode: 'Ctrl+D' }
         };
+        updateAppSettings(settings)
         await this.saveSettings();
         this.notifyListeners();
 
