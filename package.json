@@ -94,7 +94,7 @@
     "LICENSE",
     "package.json",
     "build/**/*",
-    "src/renderer/**/*",
+    "src/common/**/*",
     "src/main/**/*",
     "public/**/*",
     "!node_modules/",

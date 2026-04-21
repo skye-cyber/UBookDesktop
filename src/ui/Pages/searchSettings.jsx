@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { loadingspinner } from '../components/StatusUI/Helpers/loader';
-import { StateManager } from '../../renderer/js/syscore/StatesManager';
+import { StateManager } from '../../common/syscore/StatesManager';
 import { BaseSearchEntry } from './Search/search_entry';
 
 let call_count = 0

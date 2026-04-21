@@ -27,7 +27,6 @@ export default defineConfig({
             '@': resolve(__dirname, 'src/ui/'),
             '@assets': resolve(__dirname, 'src/assets'),
             '@common': resolve(__dirname, 'src/common'),
-            '@renderer': resolve(__dirname, 'src/renderer'),
             '@main': resolve(__dirname, 'src/main'),
             '@styles': resolve(__dirname, 'src/styles/'),
             '@types': resolve(__dirname, 'src/types'),

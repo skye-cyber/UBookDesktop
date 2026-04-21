@@ -6,7 +6,8 @@ import { FontSizeManager_ins } from "../../ui/components/Reader/font_manager";
 function isInputFocused() {
     const inputFields = [
         StateManager.get('noteComposerComment'),
-        StateManager.get('searchInput')
+        StateManager.get('searchInput'),
+        StateManager.get('filterContentInput')
     ]
 
     return inputFields.includes(document.activeElement) || StateManager.get('NoteComposer_open')
