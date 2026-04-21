@@ -12,6 +12,6 @@
     "declaration": true,
     "declarationDir": "./src/main/types"
   },
-  "include": ["src/main/**/*"]
-  //"exclude": ["src/main/types.ts"] //, "src/preload/**/*"]
+  "include": ["src/main/**/*"],
+  "exclude": ["src/main/types/**/*"] //, "src/preload/**/*"]
 }

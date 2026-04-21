@@ -1221,6 +1221,18 @@ video {
   min-height: 40vh;
 }
 
+.min-h-\[50vh\] {
+  min-height: 50vh;
+}
+
+.min-h-\[60vh\] {
+  min-height: 60vh;
+}
+
+.min-h-\[70vh\] {
+  min-height: 70vh;
+}
+
 .w-1\/3 {
   width: 33.333333%;
 }

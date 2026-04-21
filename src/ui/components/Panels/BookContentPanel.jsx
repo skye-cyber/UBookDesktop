@@ -10,7 +10,7 @@ export const BookContentPanel = ({ }) => {
     const panel = useRef(null)
     const forewordRef = useRef(null)
 
-    const { isDark, toggleTheme, setTheme } = useTheme();
+    const { isDark, setTheme } = useTheme();
 
     const icon = useRef(isDark ? ubookdesktopLight : ubookdesktopDark)
 

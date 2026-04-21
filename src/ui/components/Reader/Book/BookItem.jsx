@@ -121,6 +121,7 @@ export const BookItem = ({ part, paper, section, title, tag, struct }) => {
     return (
         <li
             data-tag={tag}
+            data-title={title}
             ref={sectionRef}
             onClick={(e) => {
                 if (![bookmarksvg.current.parentElement, favsvg.current.parentElement].some(el => el.contains(e.target) || el === e.target)) {

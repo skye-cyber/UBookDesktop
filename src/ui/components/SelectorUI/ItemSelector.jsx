@@ -14,7 +14,7 @@ export const BookItemSelectorUI = ({ }) => {
         setTimeout(() => {
             itemSelectorBox.current.classList.remove('hidden', 'animate-exit')
             itemSelectorBox.current.classList.add('animate-enter')
-        }, 300)
+        }, 100)
     })
 
     const hideSelectorModal = useCallback(() => {
@@ -34,25 +34,24 @@ export const BookItemSelectorUI = ({ }) => {
 
     })
 
-    const searchChats = useCallback((e) => {
+    const searchPartSections = useCallback((e) => {
         const value = e.target.value.trim().toLowerCase();
         //if (!value) return;
 
         // const parts = value.split(/\s+/);
-        const conversations = refs.current?.length ? refs.current : document.querySelectorAll('#chat-item');
+        const bookSections = paperContainer?.current.childNodes || [];
 
-        if (!conversations?.length) return;
+        if (!bookSections?.length) return;
 
-        conversations.forEach(chat => {
+        bookSections.forEach(item => {
             // Unhide items hidden by previous chat
-            if (!value) return chat.classList.remove('hidden')
+            if (!value) return item.classList.remove('hidden')
 
-                //Perform search
-                const name = chat.dataset?.name?.toLowerCase() || "";
-            const id = chat.dataset?.id?.toLowerCase() || "";
-            const highlight = chat.dataset?.highlight?.toLowerCase() || "";
-            const fmatch = name.includes(value) || id.includes(value) || highlight.includes(value);
-            chat.classList.toggle('hidden', !fmatch);
+            //Perform search
+            const title = item.dataset?.title?.toLowerCase() || "";
+            const datatag = item.dataset?.tag?.toLowerCase() || "";
+            const fmatch = title.includes(value) || datatag.includes(value);
+            item.classList.toggle('hidden', !fmatch);
         });
     }, []);
 
@@ -87,11 +86,15 @@ export const BookItemSelectorUI = ({ }) => {
             id="itemsSelector"
             className="fixed flex inset-0 z-[50] items-center justify-center backdrop-brightness-50 animate-exit hidden transform transition-all duration-50">
             <div ref={itemSelectorBox} id="itemsSelectorBox" className="relative w-full max-w-xl mt-[7vh] max-h-[90vh] overflow-y-hidden rounded-2xl bg-white dark:bg-zinc-950 shadow-none transform transition-all duration-300 ease-in-out animate-exit hidden z-[60] select-none">
-                <div className="relative sticky top-0 w-full p-2 flex items-center justify-center border-b border-gray-200 dark:border-zinc-700 bg-[#282873] dark:bg-zinc-900 shadow-inner shadow-lg transition-colors duration-700">
+                <div className="relative sticky top-0 w-full p-2 flex items-center justify-center border-b border-gray-200 dark:border-zinc-700 bg-[#282873] dark:bg-zinc-900 shadow-inner shadow-lg transition-colors duration-500">
                     <div className='block'>
                         <h2 ref={selectorTitle} id="selector-part-title" className="text-2xl font-bold text-gray-200 dark:text-gray-100 overflow-x-hidden mr-12">Select Items</h2>
-
-                        <input ref={filterContentInputRef} id='filterContentInput' type='text' className='bg-[#282873]/60 text-gray-50 dark:bg-zinc-900 border border-[#5757ff] dark:border-zinc-500 focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none focus:ring-none font-handwritting rounded-md py-1 px-2 text-[15px]' placeholder="Filter" />
+                        <input
+                            ref={filterContentInputRef}
+                            id='filterContentInput'
+                            type='text'
+                            onInput={searchPartSections}
+                            className='bg-[#282873]/60 text-gray-50 dark:bg-zinc-900 border border-[#5757ff] dark:border-zinc-500 focus:border-blue-500 dark:focus:border-blue-400 focus:outline-none focus:ring-none font-handwritting rounded-md py-1 px-2 text-[15px]' placeholder="Filter" />
                     </div>
                     <button onClick={hideSelectorModal} className="absolute top-2 right-2 text-gray-200 dark:text-gray-300 hover:text-red-400 dark:hover:text-red-500 transition-colors text-2xl leading-none colors duration-700" aria-label="Close modal" title="Close modal">&times;</button>
                 </div>
@@ -99,7 +102,7 @@ export const BookItemSelectorUI = ({ }) => {
                     ref={paperContainer}
                     data-portal-container='paper-container'
                     id="paper-container"
-                    className="divide-y divide-gray-300 dark:divide-zinc-800 px-6 py-1 transition-all duration-700 overflow-y-auto max-h-[90vh] pb-[10vh] scrollbar-custom">
+                    className="divide-y divide-gray-300 dark:divide-zinc-800 px-6 py-1 transition-all duration-700 overflow-y-auto min-h-[70vh] max-h-[90vh] pb-[10vh] scrollbar-custom">
                     <h2>Emtpy</h2>
                 </ul>
             </div>
