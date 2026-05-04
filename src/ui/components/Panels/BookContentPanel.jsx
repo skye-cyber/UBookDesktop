@@ -95,12 +95,6 @@ export const BookContentPanel = ({ }) => {
                     <div onClick={() => ContentLoader_ins.renderNotes()} className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
                         <li id="notes" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">📔 Notes</li>
                     </div>
-                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
-                        <li id="more-apps" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">🧰 More Applications</li>
-                    </div>
-                    <div className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
-                        <li id="exit-app" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">🚪 Exit</li>
-                    </div>
                 </ul>
             </section>
             <div className="absolute left-0 bottom-4 flex items-center justify-center w-full px-6">

@@ -20,6 +20,16 @@ export default defineConfig({
         emptyOutDir: true,
         rollupOptions: {
             input: resolve(__dirname, 'index.html'),
+            output: {
+                // Ensure relative paths in build
+                entryFileNames: 'assets/[name]-[hash].js',
+                chunkFileNames: 'assets/[name]-[hash].js',
+                assetFileNames: 'assets/[name]-[hash].[ext]'
+            },
+            manualChunks: {
+                // ← Split heavy deps into separate chunks
+                'vendor-react': ['react', 'react-dom'],
+            }
         },
     },
     resolve: {
@@ -40,15 +50,15 @@ export default defineConfig({
         'process.env': {}
     },
     optimizeDeps: {
-        include: ['buffer'],
-        //force: true
+        include: [
+            'buffer',
+            'crypto-browserify',
+            'process/browser',
+            'browserify-fs',
+        ],
     },
     compilerOptions: {
         // jsx: "react-jsx", // For React 17+ JSX transform
         jsx: "react-jsxdev" // For development with better debugging
     },
-    // Ensure proper React configuration
-    esbuild: {
-        //jsxInject: `import React from 'react'`
-    }
 });

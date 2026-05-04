@@ -2,10 +2,10 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "Node16",
     //"outDir": "./dist/main",
     "rootDir": "./src/main",
-    "lib": ["ES2020", "DOM"],
+    "lib": ["ES2021", "DOM"],
     "types": ["node", "electron"],
     "resolveJsonModule": true,
     "isolatedModules": true,

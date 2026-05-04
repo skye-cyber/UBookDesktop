@@ -8,7 +8,7 @@ export const Header = ({ }) => {
     const searchInput = useRef(null)
     const ThemeToggle = useRef(null)
 
-    const { isDark, setTheme } = useTheme();
+    const { setTheme } = useTheme();
 
     useEffect(() => {
         if (!searchInput) return
