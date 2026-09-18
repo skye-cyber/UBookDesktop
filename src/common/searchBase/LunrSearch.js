@@ -1,4 +1,3 @@
-/// <reference path="../../types/preload.d.ts" />
 import lunr from 'lunr';
 
 export class LunrSearch {

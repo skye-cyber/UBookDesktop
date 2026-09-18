@@ -1,4 +1,3 @@
-/// <reference path="../../types/preload.d.ts" />
 import { FontSizeManager_ins } from "../../ui/components/Reader/font_manager";
 import { StateManager } from "./StatesManager";
 import { appSettings, updateAppSettings, updateAppState } from "../../ui/State/appState";

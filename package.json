@@ -2,28 +2,25 @@
   "name": "ubookdesktop",
   "version": "1.3.3",
   "description": "An application providing urantia book content.",
-  "main": "src/main/index.js",
-  "homepage": "src/common/home.html",
+  "private": "true",
+  "type": "module",
   "scripts": {
     "dev": "concurrently \"npm:dev:*\"",
     "dev:react": "vite",
-    "dev:electron": "electron .",
     "dev:types": "tsc --noEmit --watch",
     "dev:styles": "tailwindcss -i ./src/styles/config.css -o ./src/styles/index.css --watch",
     "dev:common": "tsc -p tsconfig.common.json --watch",
-    "dev:main": "tsc -p tsconfig.main.json --watch",
+    "dev:tauri": "tauri dev",
     "build": "npm run clean && npm run type-check && npm run build:all",
-    "build:all": "npm-run-all build:main build:preload build:common build:react",
-    "build:main": "tsc -p tsconfig.main.json",
+    "build:all": "npm-run-all build:common build:react build:tauri",
     "build:common": "tsc -p tsconfig.common.json",
-    "build:ui": "tsc -p tsconfig.ui.json",
     "build:react": "vite build",
-    "package": "npm run build && npm run package:electron",
-    "package:electron": "electron-builder",
+    "build:tauri": "tauri build",
+    "package": "npm run build",
     "clean": "rimraf dist",
-    "type-check": "tsc --noEmit",
+    "type-check": "tsc -p tsconfig.common.json --noEmit",
     "styles": "tailwindcss -i ./src/styles/config.css -o ./src/styles/index.css",
-    "postinstall": "node src/scripts/post-install.js"
+    "tauri": "tauri"
   },
   "keywords": [
     "Urantia",
@@ -39,203 +36,33 @@
   },
   "license": "GNU",
   "devDependencies": {
-    "@tailwindcss/cli": "^4.2.0",
     "@tailwindcss/typography": "^0.5.19",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
-    "@types/which": "^3.0.4",
-    "audit": "^0.0.6",
-    "autoprefixer": "^10.4.27",
+    "@tauri-apps/cli": "^2.11.4",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^6.0.2",
+    "autoprefixer": "^10.6.1",
     "concurrently": "^9.2.1",
-    "electron": "latest",
-    "electron-builder": "latest",
-    "fix": "^0.0.6",
     "npm-run-all": "^4.1.5",
-    "postcss": "^8.5.8",
-    "sharp": "^0.30.7",
-    "tailwindcss": "^3.4.17"
+    "postcss": "^8.5.28",
+    "rimraf": "^6.0.1",
+    "tailwindcss": "^3.4.19",
+    "typescript": "~6.0.3",
+    "vite": "^8.0.16"
   },
   "dependencies": {
-    "@babel/core": "latest",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
-    "@fiahfy/icns": "^0.0.7",
     "@mui/icons-material": "^7.3.9",
     "@mui/material": "^7.3.9",
-    "@vitejs/plugin-react": "^5.1.2",
-    "assert": "^2.1.0",
-    "base": "^3.0.0",
-    "bl": "^6.0.16",
-    "braces": "^3.0.3",
-    "browser": "^0.2.6",
-    "browserify-fs": "^1.0.0",
-    "browserify-zlib": "^0.2.0",
-    "child_process": "^1.0.2",
-    "child-process-promise": "latest",
-    "fs": "latest",
-    "https-browserify": "^1.0.0",
+    "@tauri-apps/api": "^2.11.1",
+    "@tauri-apps/plugin-dialog": "^2.7.3",
+    "@tauri-apps/plugin-fs": "^2.5.2",
+    "@tauri-apps/plugin-opener": "^2.5.5",
+    "@tauri-apps/plugin-shell": "^2.3.6",
+    "@tauri-apps/plugin-store": "^2.4.5",
     "lunr": "^2.3.9",
-    "os-browserify": "^0.3.0",
-    "path-browserify": "^1.0.1",
-    "play-sound": "^1.1.6",
-    "process": "^0.11.10",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "rollup-plugin-node-polyfills": "^0.2.1",
-    "stream-browserify": "^3.0.0",
-    "stream-http": "^3.2.0",
-    "url": "^0.11.4",
-    "vite": "^7.1.12",
-    "vite-plugin-node-polyfills": "^0.24.0",
-    "vm-browserify": "^1.1.2"
-  },
-  "files": [
-    "README.md",
-    "LICENSE",
-    "package.json",
-    "build/**/*",
-    "src/common/**/*",
-    "src/main/**/*",
-    "public/**/*",
-    "!node_modules/",
-    "!.eproj",
-    "!icons"
-  ],
-  "build": {
-    "appId": "com.ubookdesktop.app",
-    "productName": "UBookDesktop",
-    "electronDownload": {
-      "cache": true
-    },
-    "asar": true,
-    "files": [
-      "**/*"
-    ],
-    "extraResources": [
-      {
-        "from": "src/assets/",
-        "to": "assets/"
-      },
-      {
-        "from": "build/",
-        "to": "build/",
-        "filter": [
-          "**/*"
-        ]
-      },
-      {
-        "from": "src/common/",
-        "to": "common/"
-      }
-    ],
-    "mac": {
-      "target": [
-        {
-          "target": "dmg",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        }
-      ],
-      "icon": "src/assets/ubookdesktop.icns",
-      "category": "public.app-category.productivity",
-      "hardenedRuntime": false,
-      "identity": null
-    },
-    "dmg": {
-      "artifactName": "${productName}-${version}-${arch}.dmg"
-    },
-    "win": {
-      "icon": "src/assets/ubookdesktop.ico",
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64",
-            "ia32",
-            "arm64"
-          ]
-        },
-        {
-          "target": "portable",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        },
-        {
-          "target": "msi",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        }
-      ]
-    },
-    "nsis": {
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "oneClick": false,
-      "perMachine": true,
-      "allowElevation": true,
-      "allowToChangeInstallationDirectory": true,
-      "license": "LICENSE",
-      "artifactName": "${productName}-${version}-${arch}.${ext}"
-    },
-    "portable": {
-      "artifactName": "${productName}-portable-${version}-${arch}.${ext}"
-    },
-    "msi": {
-      "artifactName": "${productName}-portable-${version}-${arch}.${ext}"
-    },
-    "linux": {
-      "target": [
-        {
-          "target": "AppImage",
-          "arch": [
-            "x64",
-            "armv7l",
-            "arm64"
-          ]
-        },
-        {
-          "target": "deb",
-          "arch": [
-            "x64",
-            "arm64"
-          ]
-        },
-        {
-          "target": "snap",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "category": "Utility",
-      "icon": "src/icons",
-      "maintainer": "Mwikya -- swskye17@gmail.com",
-      "synopsis": "UBookDesktop",
-      "description": "Read Urantia Book on Your Desktop (favourite, bookmark, search, save notes)"
-    },
-    "appImage": {
-      "artifactName": "${productName}-${version}-${arch}.AppImage"
-    },
-    "deb": {
-      "priority": "optional",
-      "artifactName": "${productName}_${version}_${arch}.deb"
-    },
-    "snap": {
-      "summary": "UBookDesktop Snap Package",
-      "grade": "stable",
-      "confinement": "classic",
-      "plugs": [
-        "network",
-        "home",
-        "audio-playback"
-      ],
-      "artifactName": "${productName}_${version}_${arch}.snap"
-    }
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   }
 }

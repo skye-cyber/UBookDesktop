@@ -1,5 +1,3 @@
-/// <reference path="../../../../types/preload.d.ts" />
-
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ContentHelper } from './utils';
 import { reactPortalBridge } from '../../../../common/react-portal-bridge';

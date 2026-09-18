@@ -43,3 +43,5 @@ venv/
 *.mp4
 *.map
 src/main/**/*.js
+/target/
+/gen/

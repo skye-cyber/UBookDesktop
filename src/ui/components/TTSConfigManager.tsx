@@ -1,8 +1,7 @@
-/// <reference path="../../types/preload.d.ts" />
-/// <reference path="../../main/types.ts" />
-/// <reference path="../../main/types/utils/ttsValidation.d.ts" />
-import type { ValidationResult } from '../../main/utils/type';
-import type { TTSConfig } from '../../main/types';
+/// <reference path="../../common/types.ts" />
+/// <reference path="../../common/types/utils/ttsValidation.d.ts" />
+import type { ValidationResult } from '../../common/utils/type';
+import type { TTSConfig } from '../../common/types';
 import React, { useState, useEffect } from 'react';
 import {
     Dialog,
@@ -24,7 +23,7 @@ import {
     IconButton,
     //     Tooltip,
     Collapse,
-    Paper
+//     Paper
 } from '@mui/material';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';

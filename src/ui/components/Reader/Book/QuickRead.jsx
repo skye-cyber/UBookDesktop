@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ContentHelper } from './utils';
 import { Textual } from './ContentWrapper';
 
@@ -16,6 +16,7 @@ export const QuickRead = ({ }) => {
 
     const set_content = useCallback(async () => {
         const data = await get_data()
+        if (!data) return
         // Get Random paper
         const papers = data['parts'][0]['papers']
         const random_paper = papers[Math.floor(Math.random() * papers.length)]

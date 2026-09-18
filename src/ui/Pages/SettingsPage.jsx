@@ -1,4 +1,3 @@
-/// <reference path="../../types/preload.d.ts" />
 import { useState, useEffect, useRef } from 'react';
 import { loadingspinner } from '../components/StatusUI/Helpers/loader';
 import { settingsManager } from '../../common/syscore/SettingsManager';

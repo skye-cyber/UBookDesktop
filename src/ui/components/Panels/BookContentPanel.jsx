@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
 import ubookdesktopDark from '@assets/ubookdesktop.png';
-import ubookdesktopLight from '@assets/ubookdesktop-light.png';
+import ubookdesktopLight from '@assets/ubookdesktop-square.png';
 import { useTheme } from '../Themes/useThemeHeadless';
 import { waitForElement } from '../../../common/syscore/dom_utils';
 import { StateManager } from '../../../common/syscore/StatesManager';
@@ -66,7 +66,7 @@ export const BookContentPanel = ({ }) => {
             id="sidepane"
             className="fixed z-40 left-0 w-[300px] bg-gradient-to-br from-indigo-900 to-indigo-950 dark:from-[#001f2b] dark:to-[#001f2b] h-[calc(100vh-7vh)] shadow-2xl transform transition-transform -translate-x-full xl:translate-x-0 transition-colors duration-700 ease-in-out select-none">
             <div className="flex items-center p-4 border-b border-indigo-700 dark:border-[#00455e]">
-                <img className="h-12 w-14 rounded-full" src={icon.current}></img>
+            {/*<img className="h-12 w-14 rounded-full" src={icon.current}></img>*/}
                 <h1 className="text-white dark:text-gray-300 text-2xl ml-2">Urantia Book Desktop</h1>
             </div>
             <section className="h-fit max-h-[72%] overflow-y-auto scrollbar-custom select-none bg-indigo-950/25 dark:bg-[#002b36] rounded-lg">
