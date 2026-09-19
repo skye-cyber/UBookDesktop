@@ -21,6 +21,7 @@ export const SettingsPage = () => {
 
     const fetchTTSConfig = async () => {
         const config = await window.ubook.config.read()
+        const ttsAvailable = cfg?.tts && Object.keys(cfg.tts).length > 0;
         if (config) {
             setTTSconfig(config.tts)
         }

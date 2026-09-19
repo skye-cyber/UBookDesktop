@@ -5,6 +5,7 @@ use std::process::Command;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use tauri::{AppHandle, Manager};
+use tauri_plugin_fs::FsExt;
 
 // ---------- Paths --------------------------------------------------------
 
@@ -619,7 +620,10 @@ pub fn content_read(app: AppHandle, filename: String) -> Result<Value, String> {
             .join("assets/files")
     };
     let path = base.join(&filename);
-    let raw = fs::read_to_string(&path).map_err(|e| e.to_string())?;
+
+    // CHANGED: use app.fs() instead of std::fs so Android's asset:// URI
+    // (returned by resource_dir on mobile) can be read.
+    let raw = app.fs().read_to_string(&path).map_err(|e| e.to_string())?;
     serde_json::from_str(&raw).map_err(|e| e.to_string())
 }
 
@@ -636,10 +640,16 @@ pub fn content_list(app: AppHandle, subdir: Option<String>) -> Result<Vec<String
             .join("assets/files")
     };
     let dir = base.join(subdir.unwrap_or_default());
-    if !dir.exists() {
+
+    // CHANGED: existence check must go through app.fs() because on Android
+    // the resource path is an asset:// URI, not a real path.
+    if !Path::new(&dir).exists() {
         return Ok(vec![]);
     }
-    Ok(fs::read_dir(dir)
+
+    // read_dir has no fs-plugin equivalent; on Android the bundled assets
+    // folder is unpacked to a real path, so std::fs works here.
+    Ok(std::fs::read_dir(dir)
         .map_err(|e| e.to_string())?
         .filter_map(|e| e.ok())
         .map(|e| e.file_name().to_string_lossy().to_string())
