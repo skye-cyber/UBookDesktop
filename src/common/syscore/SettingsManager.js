@@ -15,7 +15,7 @@ class SettingsManager {
     async loadSettings() {
         try {
             const saved = await window.ubook.fs.read(
-                window.ubook.fs.join(window.ubook.fs.homedir(), '.UBookDesk', 'config', 'user-settings.json')
+                window.ubook.fs.join(window.ubook.fs.homedir(), '.UBook', 'config', 'user-settings.json')
             );
             if (saved) {
                 updateAppSettings(this.mergeSettings(saved, appSettings));
@@ -31,7 +31,7 @@ class SettingsManager {
     async saveSettings() {
         try {
             await window.ubook.fs.write(
-                window.ubook.fs.join(window.ubook.fs.homedir(), '.UBookDesk', 'config', 'user-settings.json'),
+                window.ubook.fs.join(window.ubook.fs.homedir(), '.UBook', 'config', 'user-settings.json'),
                 JSON.stringify(appSettings, null, 2)
             );
             updateAppState(appSettings)

@@ -91,7 +91,7 @@ export const ContextMenu = ({ }) => {
             ref={tooltip}
             //onClick={autohidesubmenu}
             id="contextMenu"
-            className="context-menu fixed top-auto right-auto left-1/2 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg shadow-centered-md shadow-zinc-400 py-2 min-w-[220px] h-fit max-w-fit z-50 border border-[#f8f4e9] dark:border-gray-700 transition-all duration-500 -translate-y-[5px] scale-[0.95] pointer-event-none opacity-0 active:scale-100 active:translate-y-0 scrollbar-custom select-none">
+            className="context-menu fixed top-auto right-auto left-1/2 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg shadow-centered-sm shadow-zinc-800 py-2 min-w-[220px] h-fit max-w-fit z-50 border border-[#f8f4e9] dark:border-gray-700 transition-all duration-500 -translate-y-[5px] scale-[0.95] pointer-event-none opacity-0 active:scale-100 active:translate-y-0 scrollbar-custom select-none">
             <div className="context-menu-options">
                 {/* Text Selection Options*/}
                 <SelectionOption autohide={autohidesubmenu} selectoption={selectoption} />

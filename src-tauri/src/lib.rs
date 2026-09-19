@@ -238,19 +238,26 @@ fn register_shortcuts<R: Runtime>(app: &AppHandle<R>) -> Result<(), Box<dyn std:
     // F12 — toggle devtools
     let f12 = Shortcut::new(None, Code::F12);
     app.global_shortcut().on_shortcut(f12, |app, _sc, ev| {
+        #[cfg(debug_assertions)]
         if ev.state == ShortcutState::Pressed {
             if let Some(win) = app.get_webview_window("main") {
-                // if win.is_devtools_open() {
-                //     win.close_devtools();
-                // } else {
-                //     win.open_devtools();
-                // }
+                {
+                    if win.is_devtools_open() {
+                        win.close_devtools();
+                    } else {
+                        win.open_devtools();
+                    }
+                }
             }
         }
     })?;
 
-    // Ctrl/Cmd + R — reload
-    let reload = Shortcut::new(Some(Modifiers::CONTROL | Modifiers::META), Code::KeyR);
+    // Reload — Cmd+R on macOS, Ctrl+R on Windows/Linux
+    #[cfg(target_os = "macos")]
+    let reload = Shortcut::new(Some(Modifiers::META), Code::KeyR);
+    #[cfg(not(target_os = "macos"))]
+    let reload = Shortcut::new(Some(Modifiers::CONTROL), Code::KeyR);
+
     app.global_shortcut().on_shortcut(reload, |app, _sc, ev| {
         if ev.state == ShortcutState::Pressed {
             if let Some(win) = app.get_webview_window("main") {
@@ -259,11 +266,12 @@ fn register_shortcuts<R: Runtime>(app: &AppHandle<R>) -> Result<(), Box<dyn std:
         }
     })?;
 
-    // Ctrl/Cmd + Shift + R — force reload
-    let force_reload = Shortcut::new(
-        Some(Modifiers::CONTROL | Modifiers::META | Modifiers::SHIFT),
-                                     Code::KeyR,
-    );
+    // Force reload — Cmd+Shift+R on macOS, Ctrl+Shift+R on Windows/Linux
+    #[cfg(target_os = "macos")]
+    let force_reload = Shortcut::new(Some(Modifiers::META | Modifiers::SHIFT), Code::KeyR);
+    #[cfg(not(target_os = "macos"))]
+    let force_reload = Shortcut::new(Some(Modifiers::CONTROL | Modifiers::SHIFT), Code::KeyR);
+
     app.global_shortcut()
     .on_shortcut(force_reload, |app, _sc, ev| {
         if ev.state == ShortcutState::Pressed {
@@ -273,9 +281,17 @@ fn register_shortcuts<R: Runtime>(app: &AppHandle<R>) -> Result<(), Box<dyn std:
         }
     })?;
 
-    // F11 — fullscreen (was commented out in Electron; keep disabled)
-    // let f11 = Shortcut::new(None, Code::F11);
-    // ...
+    // F11 — toggle fullscreen
+    let f11 = Shortcut::new(None, Code::F11);
+    app.global_shortcut().on_shortcut(f11, |app, _sc, ev| {
+        if ev.state == ShortcutState::Pressed {
+            if let Some(win) = app.get_webview_window("main") {
+                if let Ok(is_fs) = win.is_fullscreen() {
+                    let _ = win.set_fullscreen(!is_fs);
+                }
+            }
+        }
+    })?;
 
     Ok(())
 }
@@ -285,7 +301,7 @@ fn register_shortcuts<R: Runtime>(app: &AppHandle<R>) -> Result<(), Box<dyn std:
 fn prep_directories() -> std::io::Result<PathBuf> {
     let base = dirs::home_dir()
     .ok_or_else(|| std::io::Error::new(std::io::ErrorKind::NotFound, "no home dir"))?
-    .join(".UBookDesk");
+    .join(".UBook");
 
     fs::create_dir_all(&base)?;
     for sub in [".saveNotes", ".favourites", ".bookmark", ".cache"] {
@@ -399,7 +415,7 @@ pub fn run() {
     .setup(|app| {
         let handle = app.handle().clone();
 
-        // 1. Prep ~/.UBookDesk tree (was `prepDirectories()` + file preps).
+        // 1. Prep ~/.UBook tree (was `prepDirectories()` + file preps).
         if let Ok(base) = prep_directories() {
             let _ = prep_all_files(&base);
         }

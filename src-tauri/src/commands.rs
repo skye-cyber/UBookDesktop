@@ -11,7 +11,7 @@ use tauri::{AppHandle, Manager};
 fn base_dir() -> PathBuf {
     dirs::home_dir()
     .unwrap_or_else(|| PathBuf::from("."))
-    .join(".UBookDesk")
+    .join(".UBook")
 }
 
 fn notes_dir() -> PathBuf { base_dir().join(".notes") }
