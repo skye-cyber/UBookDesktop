@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react';
-import ubookdesktopDark from '@assets/ubookdesktop.png';
-import ubookdesktopLight from '@assets/ubookdesktop-square.png';
+// import ubookdesktopDark from '@assets/ubook.png';
+// import ubookdesktopLight from '@assets/ubook-square.png';
 import { useTheme } from '../Themes/useThemeHeadless';
 import { waitForElement } from '../../../common/syscore/dom_utils';
 import { StateManager } from '../../../common/syscore/StatesManager';
@@ -12,11 +12,11 @@ export const BookContentPanel = ({ }) => {
 
     const { isDark, setTheme } = useTheme();
 
-    const icon = useRef(isDark ? ubookdesktopLight : ubookdesktopDark)
+    // const icon = useRef(isDark ? ubookdesktopLight : ubookdesktopDark)
 
-    useEffect(() => {
-        icon.current = isDark ? ubookdesktopLight : ubookdesktopDark
-    }, [isDark])
+    // useEffect(() => {
+    //     icon.current = isDark ? ubookdesktopLight : ubookdesktopDark
+    // }, [isDark])
 
     const ToggleBookContentPanel = useCallback(() => {
         const focused = StateManager.get('focusMode')

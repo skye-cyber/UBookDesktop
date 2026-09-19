@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    ubookdesktop_lib::run()
+    ubook_lib::run()
 }

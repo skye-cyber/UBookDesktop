@@ -110,7 +110,7 @@ fn wire_main_window<R: Runtime>(app: &AppHandle<R>) {
 
 /// Replaces `setAppIcon()` + the `theme-changed` IPC listener.
 fn resolve_icon_path<R: Runtime>(app: &AppHandle<R>, _dark: bool) -> PathBuf {
-    let filename = "ubookdesktop-rounded.png";
+    let filename = "ubook-rounded.png";
 
     if cfg!(debug_assertions) {
         std::env::current_dir()
@@ -169,12 +169,11 @@ fn build_tray<R: Runtime>(app: &AppHandle<R>) -> tauri::Result<()> {
 
     let menu = Menu::with_items(app, &[&show_i, &new_i, &help_i, &sep, &quit_i])?;
 
-    // let icon = tauri::image::Image::from_path("/home/skye/UBookDesktop/src/assets/ubookdesktop.png")?;
     let icon = tauri::image::Image::from_path(resolve_icon_path(app, false))?;
 
     let _tray = TrayIconBuilder::with_id("main-tray")
     .icon(icon)
-    .tooltip("UBookDesktop")
+    .tooltip("UBook")
     .menu(&menu)
     .show_menu_on_left_click(false)
     .on_menu_event(|app, event| match event.id.as_ref() {
@@ -459,7 +458,7 @@ pub fn run() {
 }
 
 pub fn apply_theme_for<R: Runtime>(app: &AppHandle<R>, dark: bool) {
-    let filename = if dark { "ubookdesktop-squared.png" } else { "ubookdesktop.png" };
+    let filename = if dark { "ubook-squared.png" } else { "ubook.png" };
     let path = if cfg!(debug_assertions) {
         std::env::current_dir().unwrap_or_default().join("../src/assets").join(filename)
     } else {
