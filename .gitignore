@@ -45,3 +45,4 @@ venv/
 src/main/**/*.js
 /target/
 /gen/
+*.lock

@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"npm:dev:*\"",
-    "dev:react": "vite",
+    "dev:react": "vite --host 0.0.0.0",
     "watch:types": "tsc --noEmit --watch",
     "dev:styles": "tailwindcss -i ./src/styles/config.css -o ./src/styles/index.css --watch",
     "dev:common": "tsc -p tsconfig.common.json --watch",

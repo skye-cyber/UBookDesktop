@@ -1,8 +1,9 @@
 {
-  "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "default",
-  "description": "Default capability for all app windows",
-  "windows": ["main", "splash", "documentation"],
+  "$schema": "../gen/schemas/mobile-schema.json",
+  "identifier": "mobile-capability",
+  "description": "Capabilities for mobile platforms only",
+  "platforms": ["android", "iOS"],
+  "windows": ["main"],
   "permissions": [
     "core:default",
     "core:window:allow-show",
@@ -10,8 +11,6 @@
     "core:window:allow-set-focus",
     "core:window:allow-close",
     "core:window:allow-is-visible",
-    "core:window:allow-set-icon",
-    "core:webview:allow-internal-toggle-devtools",
     "core:app:allow-version",
     "opener:default",
     "dialog:default",
@@ -37,11 +36,6 @@
     "fs:allow-home-write-recursive",
     "fs:allow-resource-read-recursive",
     "store:default",
-    "shell:allow-open",
-    "global-shortcut:allow-register",
-    "global-shortcut:allow-unregister",
-    "global-shortcut:allow-is-registered",
-    "shell:allow-execute",
-    "shell:allow-spawn"
+    "shell:allow-open"
   ]
 }

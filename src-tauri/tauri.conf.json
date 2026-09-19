@@ -5,7 +5,7 @@
   "identifier": "com.skye.ub",
   "build": {
     "beforeDevCommand": "",
-    "devUrl": "http://localhost:4043",
+    "devUrl": "http://0.0.0.0:4043",
     "beforeBuildCommand": "npm run type-check",
     "frontendDist": "../dist"
   },

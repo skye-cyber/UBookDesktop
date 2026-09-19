@@ -10,18 +10,35 @@ use tauri::{AppHandle, Manager};
 
 fn base_dir() -> PathBuf {
     dirs::home_dir()
-    .unwrap_or_else(|| PathBuf::from("."))
-    .join(".UBook")
+        .unwrap_or_else(|| PathBuf::from("."))
+        .join(".UBook")
 }
 
-fn notes_dir() -> PathBuf { base_dir().join(".notes") }
-fn favourite_dir() -> PathBuf { base_dir().join(".favourites") }
-fn bookmark_dir() -> PathBuf { base_dir().join(".bookmark") }
-fn cache_dir() -> PathBuf { base_dir().join(".cache") }
-fn config_dir() -> PathBuf { base_dir().join("config") }
+fn notes_dir() -> PathBuf {
+    base_dir().join(".notes")
+}
+fn favourite_dir() -> PathBuf {
+    base_dir().join(".favourites")
+}
+fn bookmark_dir() -> PathBuf {
+    base_dir().join(".bookmark")
+}
+fn cache_dir() -> PathBuf {
+    base_dir().join(".cache")
+}
+fn config_dir() -> PathBuf {
+    base_dir().join("config")
+}
 
 fn ensure_all_dirs() -> std::io::Result<()> {
-    for d in [base_dir(), notes_dir(), favourite_dir(), bookmark_dir(), cache_dir(), config_dir()] {
+    for d in [
+        base_dir(),
+        notes_dir(),
+        favourite_dir(),
+        bookmark_dir(),
+        cache_dir(),
+        config_dir(),
+    ] {
         fs::create_dir_all(d)?;
     }
     Ok(())
@@ -61,7 +78,10 @@ pub fn config_init(app: AppHandle) -> Result<Value, String> {
                                         "cache": cache_dir().to_string_lossy()
             }
         });
-        fs::write(&config_path, serde_json::to_string_pretty(&default).unwrap())
+        fs::write(
+            &config_path,
+            serde_json::to_string_pretty(&default).unwrap(),
+        )
         .map_err(|e| e.to_string())?;
         return Ok(default);
     }
@@ -82,7 +102,7 @@ pub fn config_read() -> Result<Value, String> {
 pub fn config_update(new_config: Value) -> Result<bool, String> {
     let path = config_dir().join("config.json");
     fs::write(&path, serde_json::to_string_pretty(&new_config).unwrap())
-    .map_err(|e| e.to_string())?;
+        .map_err(|e| e.to_string())?;
     Ok(true)
 }
 
@@ -113,17 +133,17 @@ pub fn config_reset(app: AppHandle) -> Result<Value, String> {
 fn picowave_path_string(app: &AppHandle) -> String {
     if cfg!(debug_assertions) {
         std::env::current_dir()
-        .unwrap_or_default()
-        .join("src/common/pico_bundle/bin/pico2wave")
-        .to_string_lossy()
-        .to_string()
+            .unwrap_or_default()
+            .join("src/common/pico_bundle/bin/pico2wave")
+            .to_string_lossy()
+            .to_string()
     } else {
         app.path()
-        .resource_dir()
-        .unwrap_or_default()
-        .join("common/pico_bundle/bin/pico2wave")
-        .to_string_lossy()
-        .to_string()
+            .resource_dir()
+            .unwrap_or_default()
+            .join("common/pico_bundle/bin/pico2wave")
+            .to_string_lossy()
+            .to_string()
     }
 }
 
@@ -133,7 +153,11 @@ pub fn get_picowave_path(app: AppHandle) -> String {
 }
 
 #[tauri::command]
-pub fn tts_generate(app: AppHandle, text: String, engine: Option<String>) -> Result<Option<String>, String> {
+pub fn tts_generate(
+    app: AppHandle,
+    text: String,
+    engine: Option<String>,
+) -> Result<Option<String>, String> {
     if text.trim().is_empty() {
         return Ok(None);
     }
@@ -145,22 +169,26 @@ pub fn tts_generate(app: AppHandle, text: String, engine: Option<String>) -> Res
     let tts = cfg.get("tts").cloned().unwrap_or(Value::Null);
 
     let selected = engine
-    .or_else(|| tts.get("engine").and_then(|v| v.as_str()).map(String::from))
-    .unwrap_or_else(|| "ttskit3".to_string());
+        .or_else(|| tts.get("engine").and_then(|v| v.as_str()).map(String::from))
+        .unwrap_or_else(|| "ttskit3".to_string());
 
-    let max_len = tts.get("maxTextLength").and_then(|v| v.as_u64()).unwrap_or(1000) as usize;
-    let text = if text.len() > max_len { text[..max_len].to_string() } else { text };
+    let max_len = tts
+        .get("maxTextLength")
+        .and_then(|v| v.as_u64())
+        .unwrap_or(1000) as usize;
+    let text = if text.len() > max_len {
+        text[..max_len].to_string()
+    } else {
+        text
+    };
 
     let safe_text = text
-    .replace(['[', ']'], "")
-    .replace(['“', '”'], "'")
-    .replace('—', ", that is to say")
-    .replace('\u{00A0}', " ");
+        .replace(['[', ']'], "")
+        .replace(['“', '”'], "'")
+        .replace('—', ", that is to say")
+        .replace('\u{00A0}', " ");
 
-    let cache_file = cache_dir().join(format!(
-        "tts_{}.wav",
-        uuid_like()
-    ));
+    let cache_file = cache_dir().join(format!("tts_{}.wav", uuid_like()));
     let cache_file_s = cache_file.to_string_lossy().to_string();
 
     // Pick the command template
@@ -175,9 +203,9 @@ pub fn tts_generate(app: AppHandle, text: String, engine: Option<String>) -> Res
     }
     .or_else(|| {
         tts.get("defaultEngine")
-        .and_then(|d| d.get("command"))
-        .and_then(|v| v.as_str())
-        .map(String::from)
+            .and_then(|d| d.get("command"))
+            .and_then(|v| v.as_str())
+            .map(String::from)
     });
 
     let Some(cmd_tpl) = template else {
@@ -185,18 +213,18 @@ pub fn tts_generate(app: AppHandle, text: String, engine: Option<String>) -> Res
     };
 
     let input_type = tts
-    .get("inputType")
-    .and_then(|v| v.as_str())
-    .unwrap_or("text");
+        .get("inputType")
+        .and_then(|v| v.as_str())
+        .unwrap_or("text");
 
     let command = match input_type {
         "file" => cmd_tpl
-        .replace("{file}", &safe_text)
-        .replace("{output}", &cache_file_s),
+            .replace("{file}", &safe_text)
+            .replace("{output}", &cache_file_s),
         _ => cmd_tpl
-        .replace("{text}", &safe_text)
-        .replace("{output}", &cache_file_s)
-        .replace("{cacheFile}", &cache_file_s),
+            .replace("{text}", &safe_text)
+            .replace("{output}", &cache_file_s)
+            .replace("{cacheFile}", &cache_file_s),
     };
 
     let status = if cfg!(target_os = "windows") {
@@ -213,7 +241,10 @@ pub fn tts_generate(app: AppHandle, text: String, engine: Option<String>) -> Res
 
 fn uuid_like() -> String {
     use std::time::{SystemTime, UNIX_EPOCH};
-    let nanos = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().subsec_nanos();
+    let nanos = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .subsec_nanos();
     format!("{:x}{:x}", nanos, std::process::id())
 }
 
@@ -221,21 +252,25 @@ fn uuid_like() -> String {
 
 #[tauri::command]
 pub fn fs_mkdir(dir: String) -> Result<bool, String> {
-    fs::create_dir_all(&dir).map(|_| true).map_err(|e| e.to_string())
+    fs::create_dir_all(&dir)
+        .map(|_| true)
+        .map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 pub fn fs_read_dir(dir: String) -> Result<Vec<String>, String> {
     let entries = fs::read_dir(&dir).map_err(|e| e.to_string())?;
     Ok(entries
-    .filter_map(|e| e.ok())
-    .map(|e| e.file_name().to_string_lossy().to_string())
-    .collect())
+        .filter_map(|e| e.ok())
+        .map(|e| e.file_name().to_string_lossy().to_string())
+        .collect())
 }
 
 #[tauri::command]
 pub fn fs_write(file_path: String, data: String) -> Result<bool, String> {
-    fs::write(&file_path, data).map(|_| true).map_err(|e| e.to_string())
+    fs::write(&file_path, data)
+        .map(|_| true)
+        .map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -247,7 +282,9 @@ pub fn fs_read(file_path: String) -> Result<Value, String> {
 #[tauri::command]
 pub fn fs_delete(file_path: String) -> Result<bool, String> {
     if Path::new(&file_path).exists() {
-        fs::remove_file(&file_path).map(|_| true).map_err(|e| e.to_string())
+        fs::remove_file(&file_path)
+            .map(|_| true)
+            .map_err(|e| e.to_string())
     } else {
         Ok(false)
     }
@@ -260,12 +297,16 @@ pub fn fs_exists(file_path: String) -> bool {
 
 #[tauri::command]
 pub fn fs_rename(old_path: String, new_path: String) -> Result<bool, String> {
-    fs::rename(&old_path, &new_path).map(|_| true).map_err(|e| e.to_string())
+    fs::rename(&old_path, &new_path)
+        .map(|_| true)
+        .map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 pub fn fs_stat_size(file_path: String) -> Result<u64, String> {
-    fs::metadata(&file_path).map(|m| m.len()).map_err(|e| e.to_string())
+    fs::metadata(&file_path)
+        .map(|m| m.len())
+        .map_err(|e| e.to_string())
 }
 
 #[tauri::command]
@@ -277,39 +318,63 @@ pub fn fs_trash(file_path: String) -> Result<bool, String> {
     let trash = trash_dir();
     fs::create_dir_all(&trash).map_err(|e| e.to_string())?;
 
-    let name = p.file_name().unwrap_or_default().to_string_lossy().to_string();
+    let name = p
+        .file_name()
+        .unwrap_or_default()
+        .to_string_lossy()
+        .to_string();
     let mut target = trash.join(&name);
     let mut i = 1;
     while target.exists() {
         let stem = p.file_stem().unwrap_or_default().to_string_lossy();
-        let ext = p.extension().map(|e| format!(".{}", e.to_string_lossy())).unwrap_or_default();
+        let ext = p
+            .extension()
+            .map(|e| format!(".{}", e.to_string_lossy()))
+            .unwrap_or_default();
         target = trash.join(format!("{} ({}){}", stem, i, ext));
         i += 1;
     }
-    fs::rename(&p, &target).map(|_| true).map_err(|e| e.to_string())
+    fs::rename(&p, &target)
+        .map(|_| true)
+        .map_err(|e| e.to_string())
 }
 
 fn trash_dir() -> PathBuf {
     #[cfg(target_os = "macos")]
-    { dirs::home_dir().unwrap_or_default().join(".Trash") }
+    {
+        dirs::home_dir().unwrap_or_default().join(".Trash")
+    }
     #[cfg(target_os = "linux")]
-    { dirs::home_dir().unwrap_or_default().join(".local/share/Trash/files") }
+    {
+        dirs::home_dir()
+            .unwrap_or_default()
+            .join(".local/share/Trash/files")
+    }
     #[cfg(target_os = "windows")]
-    { dirs::data_dir().unwrap_or_default().join("Microsoft/Windows/Recycle Bin") }
+    {
+        dirs::data_dir()
+            .unwrap_or_default()
+            .join("Microsoft/Windows/Recycle Bin")
+    }
+    #[cfg(not(any(target_os = "macos", target_os = "linux", target_os = "windows")))]
+    dirs::home_dir().unwrap_or_default().join(".trash")
 }
 
 #[tauri::command]
 pub fn fs_homedir() -> String {
-    dirs::home_dir().unwrap_or_default().to_string_lossy().to_string()
+    dirs::home_dir()
+        .unwrap_or_default()
+        .to_string_lossy()
+        .to_string()
 }
 
 #[tauri::command]
 pub fn fs_downloads() -> String {
     dirs::download_dir()
-    .or_else(|| dirs::home_dir().map(|h| h.join("Downloads")))
-    .unwrap_or_default()
-    .to_string_lossy()
-    .to_string()
+        .or_else(|| dirs::home_dir().map(|h| h.join("Downloads")))
+        .unwrap_or_default()
+        .to_string_lossy()
+        .to_string()
 }
 
 #[tauri::command]
@@ -320,13 +385,17 @@ pub fn fs_temp() -> String {
 // ---------- Notes --------------------------------------------------------
 
 #[derive(Serialize, Deserialize)]
-struct NotesFile { notes: Vec<Value> }
+struct NotesFile {
+    notes: Vec<Value>,
+}
 
 #[tauri::command]
 pub fn notes_save(note: Value, file_path: Option<String>) -> Result<bool, String> {
-    let path = file_path.unwrap_or_else(|| notes_dir().join("notes.json").to_string_lossy().to_string());
+    let path =
+        file_path.unwrap_or_else(|| notes_dir().join("notes.json").to_string_lossy().to_string());
     let mut data: NotesFile = if Path::new(&path).exists() {
-        serde_json::from_str(&fs::read_to_string(&path).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?
+        serde_json::from_str(&fs::read_to_string(&path).map_err(|e| e.to_string())?)
+            .map_err(|e| e.to_string())?
     } else {
         NotesFile { notes: vec![] }
     };
@@ -337,7 +406,8 @@ pub fn notes_save(note: Value, file_path: Option<String>) -> Result<bool, String
 
 #[tauri::command]
 pub fn notes_read_all(file_path: Option<String>) -> Result<Value, String> {
-    let path = file_path.unwrap_or_else(|| notes_dir().join("notes.json").to_string_lossy().to_string());
+    let path =
+        file_path.unwrap_or_else(|| notes_dir().join("notes.json").to_string_lossy().to_string());
     if !Path::new(&path).exists() {
         return Ok(serde_json::json!({ "notes": [] }));
     }
@@ -347,25 +417,48 @@ pub fn notes_read_all(file_path: Option<String>) -> Result<Value, String> {
 
 #[tauri::command]
 pub fn notes_delete(note_id: String, file_path: Option<String>) -> Result<bool, String> {
-    let path = file_path.unwrap_or_else(|| notes_dir().join("notes.json").to_string_lossy().to_string());
-    if !Path::new(&path).exists() { return Ok(false); }
-    let mut data: NotesFile = serde_json::from_str(&fs::read_to_string(&path).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?;
-    data.notes.retain(|n| n.get("timestamp").and_then(|v| v.as_str()) != Some(&note_id));
+    let path =
+        file_path.unwrap_or_else(|| notes_dir().join("notes.json").to_string_lossy().to_string());
+    if !Path::new(&path).exists() {
+        return Ok(false);
+    }
+    let mut data: NotesFile =
+        serde_json::from_str(&fs::read_to_string(&path).map_err(|e| e.to_string())?)
+            .map_err(|e| e.to_string())?;
+    data.notes
+        .retain(|n| n.get("timestamp").and_then(|v| v.as_str()) != Some(&note_id));
     fs::write(&path, serde_json::to_string_pretty(&data).unwrap()).map_err(|e| e.to_string())?;
     Ok(true)
 }
 
 #[tauri::command]
-pub fn notes_update(note_id: String, updated_note: Value, file_path: Option<String>) -> Result<bool, String> {
-    let path = file_path.unwrap_or_else(|| notes_dir().join("notes.json").to_string_lossy().to_string());
-    if !Path::new(&path).exists() { return Ok(false); }
-    let mut data: NotesFile = serde_json::from_str(&fs::read_to_string(&path).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?;
-    if let Some(i) = data.notes.iter().position(|n| n.get("timestamp").and_then(|v| v.as_str()) == Some(&note_id)) {
-        if let (Some(old), Some(patch)) = (data.notes[i].as_object_mut(), updated_note.as_object()) {
-            for (k, v) in patch { old.insert(k.clone(), v.clone()); }
+pub fn notes_update(
+    note_id: String,
+    updated_note: Value,
+    file_path: Option<String>,
+) -> Result<bool, String> {
+    let path =
+        file_path.unwrap_or_else(|| notes_dir().join("notes.json").to_string_lossy().to_string());
+    if !Path::new(&path).exists() {
+        return Ok(false);
+    }
+    let mut data: NotesFile =
+        serde_json::from_str(&fs::read_to_string(&path).map_err(|e| e.to_string())?)
+            .map_err(|e| e.to_string())?;
+    if let Some(i) = data
+        .notes
+        .iter()
+        .position(|n| n.get("timestamp").and_then(|v| v.as_str()) == Some(&note_id))
+    {
+        if let (Some(old), Some(patch)) = (data.notes[i].as_object_mut(), updated_note.as_object())
+        {
+            for (k, v) in patch {
+                old.insert(k.clone(), v.clone());
+            }
             old.insert("timestamp".into(), Value::String(note_id));
         }
-        fs::write(&path, serde_json::to_string_pretty(&data).unwrap()).map_err(|e| e.to_string())?;
+        fs::write(&path, serde_json::to_string_pretty(&data).unwrap())
+            .map_err(|e| e.to_string())?;
         Ok(true)
     } else {
         Ok(false)
@@ -376,18 +469,29 @@ pub fn notes_update(note_id: String, updated_note: Value, file_path: Option<Stri
 
 #[tauri::command]
 pub fn bookmarks_toggle(data: Value, file_path: Option<String>) -> Result<Value, String> {
-    let path = file_path.unwrap_or_else(|| bookmark_dir().join("bookmark.json").to_string_lossy().to_string());
+    let path = file_path.unwrap_or_else(|| {
+        bookmark_dir()
+            .join("bookmark.json")
+            .to_string_lossy()
+            .to_string()
+    });
     let mut root: Value = if Path::new(&path).exists() {
-        serde_json::from_str(&fs::read_to_string(&path).map_err(|e| e.to_string())?).unwrap_or(serde_json::json!({"bookmark": []}))
+        serde_json::from_str(&fs::read_to_string(&path).map_err(|e| e.to_string())?)
+            .unwrap_or(serde_json::json!({"bookmark": []}))
     } else {
         serde_json::json!({"bookmark": []})
     };
-    let arr = root.get_mut("bookmark").and_then(|v| v.as_array_mut()).ok_or("bad shape")?;
-    let key = |v: &Value| (
-        v.get("part_id").and_then(|x| x.as_i64()),
-                           v.get("paper_id").and_then(|x| x.as_i64()),
-                           v.get("section_number").and_then(|x| x.as_i64()),
-    );
+    let arr = root
+        .get_mut("bookmark")
+        .and_then(|v| v.as_array_mut())
+        .ok_or("bad shape")?;
+    let key = |v: &Value| {
+        (
+            v.get("part_id").and_then(|x| x.as_i64()),
+            v.get("paper_id").and_then(|x| x.as_i64()),
+            v.get("section_number").and_then(|x| x.as_i64()),
+        )
+    };
     let target = key(&data);
     let idx = arr.iter().position(|b| key(b) == target);
     let task = if let Some(i) = idx {
@@ -395,7 +499,9 @@ pub fn bookmarks_toggle(data: Value, file_path: Option<String>) -> Result<Value,
         "remove"
     } else {
         let mut with_added = data.clone();
-        with_added.as_object_mut().map(|o| o.insert("addedAt".into(), Value::String(now_iso())));
+        with_added
+            .as_object_mut()
+            .map(|o| o.insert("addedAt".into(), Value::String(now_iso())));
         arr.push(with_added);
         "add"
     };
@@ -405,17 +511,33 @@ pub fn bookmarks_toggle(data: Value, file_path: Option<String>) -> Result<Value,
 
 #[tauri::command]
 pub fn bookmarks_read_all(file_path: Option<String>) -> Result<Value, String> {
-    let path = file_path.unwrap_or_else(|| bookmark_dir().join("bookmark.json").to_string_lossy().to_string());
-    if !Path::new(&path).exists() { return Ok(serde_json::json!({"bookmark": []})); }
+    let path = file_path.unwrap_or_else(|| {
+        bookmark_dir()
+            .join("bookmark.json")
+            .to_string_lossy()
+            .to_string()
+    });
+    if !Path::new(&path).exists() {
+        return Ok(serde_json::json!({"bookmark": []}));
+    }
     let raw = fs::read_to_string(&path).map_err(|e| e.to_string())?;
     serde_json::from_str(&raw).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
 pub fn bookmarks_delete(bookmark_id: String, file_path: Option<String>) -> Result<bool, String> {
-    let path = file_path.unwrap_or_else(|| bookmark_dir().join("bookmark.json").to_string_lossy().to_string());
-    if !Path::new(&path).exists() { return Ok(false); }
-    let mut root: Value = serde_json::from_str(&fs::read_to_string(&path).map_err(|e| e.to_string())?).map_err(|e| e.to_string())?;
+    let path = file_path.unwrap_or_else(|| {
+        bookmark_dir()
+            .join("bookmark.json")
+            .to_string_lossy()
+            .to_string()
+    });
+    if !Path::new(&path).exists() {
+        return Ok(false);
+    }
+    let mut root: Value =
+        serde_json::from_str(&fs::read_to_string(&path).map_err(|e| e.to_string())?)
+            .map_err(|e| e.to_string())?;
     if let Some(arr) = root.get_mut("bookmark").and_then(|v| v.as_array_mut()) {
         arr.retain(|b| b.get("id").and_then(|v| v.as_str()) != Some(&bookmark_id));
     }
@@ -427,18 +549,29 @@ pub fn bookmarks_delete(bookmark_id: String, file_path: Option<String>) -> Resul
 
 #[tauri::command]
 pub fn favourites_toggle(data: Value, file_path: Option<String>) -> Result<Value, String> {
-    let path = file_path.unwrap_or_else(|| favourite_dir().join("fav.json").to_string_lossy().to_string());
+    let path = file_path.unwrap_or_else(|| {
+        favourite_dir()
+            .join("fav.json")
+            .to_string_lossy()
+            .to_string()
+    });
     let mut root: Value = if Path::new(&path).exists() {
-        serde_json::from_str(&fs::read_to_string(&path).map_err(|e| e.to_string())?).unwrap_or(serde_json::json!({"fav": []}))
+        serde_json::from_str(&fs::read_to_string(&path).map_err(|e| e.to_string())?)
+            .unwrap_or(serde_json::json!({"fav": []}))
     } else {
         serde_json::json!({"fav": []})
     };
-    let arr = root.get_mut("fav").and_then(|v| v.as_array_mut()).ok_or("bad shape")?;
-    let key = |v: &Value| (
-        v.get("part_id").and_then(|x| x.as_i64()),
-                           v.get("paper_id").and_then(|x| x.as_i64()),
-                           v.get("section_number").and_then(|x| x.as_i64()),
-    );
+    let arr = root
+        .get_mut("fav")
+        .and_then(|v| v.as_array_mut())
+        .ok_or("bad shape")?;
+    let key = |v: &Value| {
+        (
+            v.get("part_id").and_then(|x| x.as_i64()),
+            v.get("paper_id").and_then(|x| x.as_i64()),
+            v.get("section_number").and_then(|x| x.as_i64()),
+        )
+    };
     let target = key(&data);
     let idx = arr.iter().position(|f| key(f) == target);
     let task = if let Some(i) = idx {
@@ -446,7 +579,9 @@ pub fn favourites_toggle(data: Value, file_path: Option<String>) -> Result<Value
         "remove"
     } else {
         let mut with_added = data.clone();
-        with_added.as_object_mut().map(|o| o.insert("addedAt".into(), Value::String(now_iso())));
+        with_added
+            .as_object_mut()
+            .map(|o| o.insert("addedAt".into(), Value::String(now_iso())));
         arr.push(with_added);
         "add"
     };
@@ -456,8 +591,15 @@ pub fn favourites_toggle(data: Value, file_path: Option<String>) -> Result<Value
 
 #[tauri::command]
 pub fn favourites_read_all(file_path: Option<String>) -> Result<Value, String> {
-    let path = file_path.unwrap_or_else(|| favourite_dir().join("fav.json").to_string_lossy().to_string());
-    if !Path::new(&path).exists() { return Ok(serde_json::json!({"fav": []})); }
+    let path = file_path.unwrap_or_else(|| {
+        favourite_dir()
+            .join("fav.json")
+            .to_string_lossy()
+            .to_string()
+    });
+    if !Path::new(&path).exists() {
+        return Ok(serde_json::json!({"fav": []}));
+    }
     let raw = fs::read_to_string(&path).map_err(|e| e.to_string())?;
     serde_json::from_str(&raw).map_err(|e| e.to_string())
 }
@@ -467,9 +609,14 @@ pub fn favourites_read_all(file_path: Option<String>) -> Result<Value, String> {
 #[tauri::command]
 pub fn content_read(app: AppHandle, filename: String) -> Result<Value, String> {
     let base = if cfg!(debug_assertions) {
-        std::env::current_dir().unwrap_or_default().join("../src/assets/files")
+        std::env::current_dir()
+            .unwrap_or_default()
+            .join("../src/assets/files")
     } else {
-        app.path().resource_dir().unwrap_or_default().join("assets/files")
+        app.path()
+            .resource_dir()
+            .unwrap_or_default()
+            .join("assets/files")
     };
     let path = base.join(&filename);
     let raw = fs::read_to_string(&path).map_err(|e| e.to_string())?;
@@ -479,18 +626,25 @@ pub fn content_read(app: AppHandle, filename: String) -> Result<Value, String> {
 #[tauri::command]
 pub fn content_list(app: AppHandle, subdir: Option<String>) -> Result<Vec<String>, String> {
     let base = if cfg!(debug_assertions) {
-        std::env::current_dir().unwrap_or_default().join("../src/assets/files")
+        std::env::current_dir()
+            .unwrap_or_default()
+            .join("../src/assets/files")
     } else {
-        app.path().resource_dir().unwrap_or_default().join("assets/files")
+        app.path()
+            .resource_dir()
+            .unwrap_or_default()
+            .join("assets/files")
     };
     let dir = base.join(subdir.unwrap_or_default());
-    if !dir.exists() { return Ok(vec![]); }
+    if !dir.exists() {
+        return Ok(vec![]);
+    }
     Ok(fs::read_dir(dir)
-    .map_err(|e| e.to_string())?
-    .filter_map(|e| e.ok())
-    .map(|e| e.file_name().to_string_lossy().to_string())
-    .filter(|n| n.ends_with(".json"))
-    .collect())
+        .map_err(|e| e.to_string())?
+        .filter_map(|e| e.ok())
+        .map(|e| e.file_name().to_string_lossy().to_string())
+        .filter(|n| n.ends_with(".json"))
+        .collect())
 }
 
 // ---------- System -------------------------------------------------------
@@ -513,7 +667,10 @@ pub fn system_format_date(iso: String) -> String {
 
 fn now_iso() -> String {
     use std::time::{SystemTime, UNIX_EPOCH};
-    let secs = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
+    let secs = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs();
     format!("{}", secs) // simple epoch; frontend can render
 }
 
@@ -544,11 +701,19 @@ pub fn check_executable_exists(executable: String) -> ExecutableCheck {
     let p = Path::new(&executable);
     if p.is_absolute() || executable.contains('/') || executable.contains('\\') {
         if !p.exists() {
-            return ExecutableCheck { exists: false, warning: None };
+            return ExecutableCheck {
+                exists: false,
+                warning: None,
+            };
         }
         let md = match fs::metadata(p) {
             Ok(m) => m,
-            Err(_) => return ExecutableCheck { exists: false, warning: None },
+            Err(_) => {
+                return ExecutableCheck {
+                    exists: false,
+                    warning: None,
+                }
+            }
         };
         if !md.is_file() {
             return ExecutableCheck {
@@ -565,13 +730,22 @@ pub fn check_executable_exists(executable: String) -> ExecutableCheck {
                 };
             }
         }
-        return ExecutableCheck { exists: true, warning: None };
+        return ExecutableCheck {
+            exists: true,
+            warning: None,
+        };
     }
 
     // Otherwise: resolve via PATH.
     match which_in_path(&executable) {
-        Some(_) => ExecutableCheck { exists: true, warning: None },
-        None => ExecutableCheck { exists: false, warning: None },
+        Some(_) => ExecutableCheck {
+            exists: true,
+            warning: None,
+        },
+        None => ExecutableCheck {
+            exists: false,
+            warning: None,
+        },
     }
 }
 
@@ -620,15 +794,12 @@ pub struct HelpTestResult {
 /// Returns `success: true` if the process exits 0 OR if its output contains
 /// the words "usage" or "help" (many CLI tools exit non-zero for `-h`).
 #[tauri::command]
-pub async fn test_command_with_help(
-    command: String,
-    timeout_ms: Option<u64>,
-) -> HelpTestResult {
+pub async fn test_command_with_help(command: String, timeout_ms: Option<u64>) -> HelpTestResult {
     // Placeholder substitution — mirrors the TS version.
     let test_cmd = command
-    .replace("{file}", "/tmp/test.txt")
-    .replace("{text}", "test")
-    .replace("{output}", "/tmp/output.wav");
+        .replace("{file}", "/tmp/test.txt")
+        .replace("{text}", "test")
+        .replace("{output}", "/tmp/output.wav");
 
     let with_help = if !test_cmd.contains("-h") && !test_cmd.contains("--help") {
         format!("{} -h", test_cmd)
@@ -643,11 +814,17 @@ pub async fn test_command_with_help(
     match result {
         Ok((code, stdout, stderr)) => {
             if code == Some(0) {
-                return HelpTestResult { success: true, error: None };
+                return HelpTestResult {
+                    success: true,
+                    error: None,
+                };
             }
             let combined = format!("{}\n{}", stdout, stderr).to_lowercase();
             if combined.contains("usage") || combined.contains("help") {
-                HelpTestResult { success: true, error: None }
+                HelpTestResult {
+                    success: true,
+                    error: None,
+                }
             } else {
                 HelpTestResult {
                     success: false,
@@ -655,7 +832,10 @@ pub async fn test_command_with_help(
                 }
             }
         }
-        Err(e) => HelpTestResult { success: false, error: Some(e) },
+        Err(e) => HelpTestResult {
+            success: false,
+            error: Some(e),
+        },
     }
 }
 
@@ -667,16 +847,16 @@ fn run_shell_with_timeout(
 
     let mut child = if cfg!(target_os = "windows") {
         Command::new("cmd")
-        .args(["/C", cmd])
-        .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
-        .spawn()
+            .args(["/C", cmd])
+            .stdout(Stdio::piped())
+            .stderr(Stdio::piped())
+            .spawn()
     } else {
         Command::new("sh")
-        .args(["-c", cmd])
-        .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
-        .spawn()
+            .args(["-c", cmd])
+            .stdout(Stdio::piped())
+            .stderr(Stdio::piped())
+            .spawn()
     }
     .map_err(|e| e.to_string())?;
 
