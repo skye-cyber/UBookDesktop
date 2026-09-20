@@ -15,8 +15,8 @@ export const ContextMenu = ({ }) => {
     const tooltip = useRef(null);
     const selectoption = useRef(null);
     const selection = useRef(null);
-    const [selectedText, SetselectedText] = useState(null);
-    const [selectedHtml, SetselectedHtml] = useState(null);
+    //     const [selectedText, SetselectedText] = useState(null);
+    //     const [selectedHtml, SetselectedHtml] = useState(null);
     const [readerSection, setreaderSection] = useState(null);
     const [sub_menu, set_sub_menu] = useState(null)
 
@@ -51,9 +51,9 @@ export const ContextMenu = ({ }) => {
     })
 
     const hideTooltip = useCallback(() => {
-        tooltip.current.classList.remove('active')
-        tooltip.current.classList.add('opacity-0', 'pointer-events-none');
-        tooltip.current.classList.remove('opacity-100', 'pointer-events-all');
+        tooltip.current?.classList.add('opacity-0', 'pointer-events-none');
+        tooltip.current?.classList.remove('active')
+        tooltip.current?.classList.remove('opacity-100', 'pointer-events-all');
         autohidesubmenu()
     })
 
@@ -73,7 +73,7 @@ export const ContextMenu = ({ }) => {
         if (!readerSection) return
 
         document.addEventListener('click', (e) => {
-            if (!tooltip.current.contains(e.target)) hideTooltip()
+            if (!tooltip?.current?.contains(e.target)) hideTooltip()
         })
         document.addEventListener('escape-key-down', hideTooltip)
         readerSection.addEventListener('show-contextmenu-tooltip-menu', showTooltip)

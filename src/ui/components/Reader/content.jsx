@@ -50,7 +50,7 @@ export const ReaderContent = ({ }) => {
 
         document.addEventListener('clear-reader-section', clearSection)
         return () => {
-            readerSection.current.removeEventListener('contextmenu', contextmenu)
+            readerSection.current?.removeEventListener('contextmenu', contextmenu)
             document.removeEventListener('clear-reader-section', clearSection)
             document.removeEventListener('selectionchange', handle_selectionchange)
             document.addEventListener('escape-key-down', () => hightlightsearch.removeHighlightedSpans())

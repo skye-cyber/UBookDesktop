@@ -22,6 +22,7 @@ class ErrorBoundary extends React.Component {
         // Check dev mode only when an error occurs
         try {
             const isDev = await appIsDev();
+
             this.setState({
                 error: error,
                 errorInfo: errorInfo,

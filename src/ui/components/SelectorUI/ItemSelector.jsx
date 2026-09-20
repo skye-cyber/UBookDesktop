@@ -85,10 +85,10 @@ export const BookItemSelectorUI = ({ }) => {
             }}
             id="itemsSelector"
             className="fixed flex inset-0 z-[50] items-center justify-center backdrop-brightness-50 animate-exit hidden transform transition-all duration-50">
-            <div ref={itemSelectorBox} id="itemsSelectorBox" className="relative w-full max-w-xl mt-[7vh] max-h-[90vh] overflow-y-hidden rounded-2xl bg-white dark:bg-zinc-950 shadow-none transform transition-all duration-300 ease-in-out animate-exit hidden z-[60] select-none">
+            <div ref={itemSelectorBox} id="itemsSelectorBox" className="relative w-full max-w-xl mt-0 sm:mt-[7vh] h-full max-h-[100dvh] sm:max-h-[90vh] overflow-y-hidden rounded-sm sm:rounded-2xl bg-white dark:bg-zinc-950 shadow-none transform transition-all duration-300 ease-in-out animate-exit hidden z-[60] select-none">
                 <div className="relative sticky top-0 w-full p-2 flex items-center justify-center border-b border-gray-200 dark:border-zinc-700 bg-[#282873] dark:bg-zinc-900 shadow-inner shadow-lg transition-colors duration-500">
                     <div className='block'>
-                        <h2 ref={selectorTitle} id="selector-part-title" className="text-2xl font-bold text-gray-200 dark:text-gray-100 overflow-x-hidden mr-12">Select Items</h2>
+                        <h2 ref={selectorTitle} id="selector-part-title" className="text-xl sm:text-2xl font-bold text-gray-200 dark:text-gray-100 overflow-x-hidden mr-12">Select Items</h2>
                         <input
                             ref={filterContentInputRef}
                             id='filterContentInput'

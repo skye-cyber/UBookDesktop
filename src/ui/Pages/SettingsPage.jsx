@@ -21,7 +21,7 @@ export const SettingsPage = () => {
 
     const fetchTTSConfig = async () => {
         const config = await window.ubook.config.read()
-        const ttsAvailable = cfg?.tts && Object.keys(cfg.tts).length > 0;
+        // const ttsAvailable = cfg?.tts && Object.keys(cfg.tts).length > 0;
         if (config) {
             setTTSconfig(config.tts)
         }
@@ -39,7 +39,7 @@ export const SettingsPage = () => {
 
     const handleSave = async (newConfig) => {
         // Save handled in the component via ubook.configApi
-        console.log(newConfig)
+        //         console.log(newConfig)
         // window.ubook.config.updateTTS(newConfig)
     };
 
@@ -179,7 +179,7 @@ export const SettingsPage = () => {
             {/* Settings Panel */}
             <div
                 ref={containerRef}
-                className="fixed inset-1 left-1/2 -translate-x-1/2 top-1/7 bottom-auto right-auto m-auto sm:w-[90vw] max-w-full md:max-w-4xl h-full max-h-screen bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden hidden translate-y-[100vh] transition-all duration-300 z-[60]"
+                className="fixed inset-1 left-1/2 -translate-x-1/2 top-1/7 bottom-auto right-auto m-auto sm:w-[90vw] max-w-full md:max-w-4xl h-full max-h-[100dvh] bg-white dark:bg-slate-800 rounded-sm sm:rounded-2xl shadow-2xl overflow-hidden hidden translate-y-[100vh] transition-all duration-300 z-[60]"
             >
                 {/* Header */}
                 <div className="bg-gradient-to-r from-primary-600 to-primary-800 p-6 relative">
@@ -491,13 +491,14 @@ export const SettingsPage = () => {
                                 </div>
                             </div>
                             <SettingsSelect
+                                key={settings?.audio?.voice || 'ttsVoice'}
                                 label="Voice"
                                 description="Text-to-speech voice"
                                 value={settings.audio.voice}
                                 onChange={(val) => updateSetting('audio', 'voice', val)}
                                 options={[
-                                    { value: ttsConfig.defaultEngine.engine || 'default', label: 'System Default' },
-                                    { value: ttsConfig.engine, label: "Custom Engine" },
+                                    { value: ttsConfig?.defaultEngine?.engine || 'default', label: 'System Default' },
+                                    { value: ttsConfig?.engine, label: "Custom Engine" },
                                 ]}
                             />
 
@@ -607,9 +608,11 @@ export const SettingsPage = () => {
                     <div className="flex gap-3">
                         <button
                             onClick={resetToDefaults}
-                            className="px-4 py-2 text-sm text-gray-900 dark:text-white rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                            className="px-4 py-2 text-gray-900 dark:text-white rounded-lg border border-slate-300 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
                         >
-                            Reset to Defaults
+                            {(window.innerWidth > 400) ? (
+                                "Reset to Defaults") : "Reset"
+                            }
                         </button>
                     </div>
                     <div className="flex gap-3">
@@ -627,7 +630,9 @@ export const SettingsPage = () => {
                                 : 'bg-slate-200 dark:bg-slate-600 cursor-not-allowed'
                                 }`}
                         >
-                            Save Changes
+                            {(window.innerWidth > 400) ? (
+                                "Save Changes") : "Save"
+                            }
                         </button>
                     </div>
                 </div>

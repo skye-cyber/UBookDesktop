@@ -39,6 +39,7 @@ export const StaticPortalContainer = () => {
 
         const handleShowTargetedPortal = (event) => {
             const { portalId, componentType, containerId, props } = event.detail;
+
             setTargetedPortals(prev => {
                 const newMap = new Map(prev);
                 const containerPortals = newMap.get(containerId) || [];

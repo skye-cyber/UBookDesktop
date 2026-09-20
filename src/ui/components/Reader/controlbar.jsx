@@ -5,7 +5,7 @@ import { ThemeManager } from './theme_manager';
 import { StateManager } from '../../../common/syscore/StatesManager';
 import { appState } from '../../State/appState';
 
-const SelectChevron = ({ className = '' }) => (
+export const SelectChevron = ({ className = '' }) => (
     <svg
         className={`pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-500 dark:text-slate-400 ${className}`}
         viewBox="0 0 20 20"
@@ -62,7 +62,7 @@ export const Controls = ({ }) => {
             <div
                 ref={controlBar}
                 id="controlbar-utils"
-                className="flex flex-wrap items-center justify-between bg-white dark:bg-[#3b3b3b] dark:text-white rounded-lg shadow-sm px-0 rounded-none border-b-2 border-t border-blue-500 border-t-[#534afd] dark:border-b-blue-500 dark:border-t-zinc-800"
+                className="flex flex-wrap items-center justify-between bg-none bg-white dark:bg-[#3b3b3b] dark:text-white rounded-lg shadow-sm px-0 rounded-none border-none border-b-2 border-t border-blue-500 border-t-[#534afd] dark:border-b-blue-500 dark:border-t-zinc-800"
             >
                 {/* Navigate to previous section */}
                 <button

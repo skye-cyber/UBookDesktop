@@ -186,7 +186,7 @@ export const TTSConfigManager: React.FC<TTSConfigManagerProps> = ({
                                 width: 32,
                                 height: 32,
                                 borderRadius: '10px',
-                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                background: 'linear-gradient(135deg, #667eea 0%, #00557f 100%)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -198,7 +198,7 @@ export const TTSConfigManager: React.FC<TTSConfigManagerProps> = ({
                             variant="h6"
                             sx={{
                                 fontWeight: 600,
-                                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                                background: 'linear-gradient(135deg, #5468c1 0%, #00557f 100%)',
                                 backgroundClip: 'text',
                                 WebkitBackgroundClip: 'text',
                                 color: 'transparent',
@@ -599,10 +599,7 @@ export const TTSConfigManager: React.FC<TTSConfigManagerProps> = ({
                         textTransform: 'none',
                         color: 'white',
                         px: 3,
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                        '&:hover': {
-                            background: 'linear-gradient(135deg, #5a67d8 0%, #6b46a0 100%)',
-                        },
+                        background: "#00628f",
                     }}
                 >
                     Save Configuration

@@ -30,7 +30,6 @@ export class ModalManager {
         // Create message container if it doesn't exist
         const messageId = GenerateId(type)
         this.messagePId = reactPortalBridge.showComponentInTarget('Toast', 'messageContainer', { type: type, messageId: messageId, message: message, duration: duration, autoDismiss: autoDismiss }, "toast")
-
         return this.messagePId;
     }
 
