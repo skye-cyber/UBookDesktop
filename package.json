@@ -20,7 +20,9 @@
     "clean": "rimraf dist",
     "type-check": "tsc -p tsconfig.common.json --noEmit",
     "styles": "tailwindcss -i ./src/styles/config.css -o ./src/styles/index.css",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "cert:gen": "keytool -genkey -v -keystore ~/ubook-upload-keystore.jks -alias ubook -keyalg RSA -keysize 2048 -validity 10000",
+    "clean:mobile": "cargo clean -p ubook --release"
   },
   "keywords": [
     "Urantia",

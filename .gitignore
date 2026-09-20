@@ -46,3 +46,4 @@ src/main/**/*.js
 /target/
 /gen/
 *.lock
+keystore.properties
