@@ -76,7 +76,7 @@ export const SettingsPage = () => {
             setTimeout(() => {
                 containerRef.current?.classList.add('translate-y-0');
                 containerRef.current?.classList.remove('translate-y-[100vh]');
-            }, 10);
+            }, 0);
         } else {
             containerRef.current?.classList.add('translate-y-[100vh]');
             containerRef.current?.classList.remove('translate-y-0');
@@ -95,7 +95,7 @@ export const SettingsPage = () => {
 
     // Save all changes
     const saveChanges = async () => {
-        const spinner = await loadingspinner.open('Saving settings...');
+        await loadingspinner.open('Saving settings...');
         try {
             await settingsManager.saveSettings();
             setIsDirty(false);
@@ -108,7 +108,7 @@ export const SettingsPage = () => {
     // Reset to defaults
     const resetToDefaults = async () => {
         if (confirm('Reset all settings to default values?')) {
-            const spinner = await loadingspinner.open('Resetting settings...');
+            await loadingspinner.open('Resetting settings...');
             try {
                 await settingsManager.resetToDefaults();
                 setIsDirty(false);
@@ -179,7 +179,7 @@ export const SettingsPage = () => {
             {/* Settings Panel */}
             <div
                 ref={containerRef}
-                className="fixed inset-1 left-1/2 -translate-x-1/2 top-1/7 bottom-auto right-auto m-auto w-[90vw] max-w-full md:max-w-4xl h-full max-h-screen bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden hidden translate-y-[100vh] transition-all duration-300 z-[60]"
+                className="fixed inset-1 left-1/2 -translate-x-1/2 top-1/7 bottom-auto right-auto m-auto sm:w-[90vw] max-w-full md:max-w-4xl h-full max-h-screen bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden hidden translate-y-[100vh] transition-all duration-300 z-[60]"
             >
                 {/* Header */}
                 <div className="bg-gradient-to-r from-primary-600 to-primary-800 p-6 relative">
@@ -212,7 +212,7 @@ export const SettingsPage = () => {
                 </div>
 
                 {/* Tabs */}
-                <div className="flex border-b border-slate-200 dark:border-slate-700 px-6">
+                <div className="flex border-b border-slate-200 dark:border-slate-700 sm:px-3 md:px-6 w-full overflow-auto scroll-smooth">
                     {tabs.map(tab => (
                         <button
                             key={tab.id}
@@ -497,7 +497,7 @@ export const SettingsPage = () => {
                                 onChange={(val) => updateSetting('audio', 'voice', val)}
                                 options={[
                                     { value: ttsConfig.defaultEngine.engine || 'default', label: 'System Default' },
-                                    {value: ttsConfig.engine, label: "Custom Engine"},
+                                    { value: ttsConfig.engine, label: "Custom Engine" },
                                 ]}
                             />
 
