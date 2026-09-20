@@ -56,7 +56,7 @@ export const BookContentPanel = ({ }) => {
         <div
             ref={panel}
             id="sidepane"
-            className="fixed z-40 left-0 w-[300px] bg-gradient-to-br from-indigo-900 to-indigo-950 dark:from-[#001f2b] dark:to-[#001f2b] h-[calc(100dvh-7vh)] shadow-2xl transform transition-transform -translate-x-full xl:translate-x-0 transition-colors duration-700 ease-in-out select-none">
+            className="fixed z-40 left-0 w-[300px] bg-gradient-to-br from-indigo-900 to-indigo-950 dark:from-[#001f2b] dark:to-[#001f2b] h-[90dvh] sm:h-[93vh] shadow-2xl transform transition-transform -translate-x-full xl:translate-x-0 transition-colors duration-700 ease-in-out select-none">
             <div className="flex items-center p-4 border-b border-indigo-700 dark:border-[#00455e]">
                 <h1 className="text-white dark:text-gray-300 text-2xl ml-2">Urantia Book</h1>
             </div>
@@ -83,12 +83,12 @@ export const BookContentPanel = ({ }) => {
                     <div onClick={() => ContentLoader_ins.loadBookmarks()} className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
                         <li id="bookmark" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">🔖 Bookmarks</li>
                     </div>
-                    <div onClick={() => ContentLoader_ins.renderNotes()} className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
+                    <div onClick={() => document.dispatchEvent(new CustomEvent('show-notes'))} className='group flex items-center p-2 text-white dark:text-gray-300 hover:bg-indigo-800/80 dark:hover:bg-[#00445f]/70 cursor-pointer'>
                         <li id="notes" className="transiton-all duration-300  group-hover:translate-x-2 ease-in-out">📔 Notes</li>
                     </div>
                 </ul>
             </section>
-            <div className="absolute left-0 bottom-4 flex items-center justify-center w-full px-0">
+            <div className="absolute left-0 bottom-16 flex items-center justify-center w-full px-0">
                 <div className="flex items-center select-none bg-indigo-600 dark:bg-[#002a39] rounded-full p-2 w-full">
                     <span className="text-xs text-indigo-200 font-medium mr-2 hidden md:block">Theme</span>
                     <label className="relative inline-block w-12 h-6 cursor-pointer select-none">

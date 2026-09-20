@@ -170,7 +170,7 @@ export const PlayerTooltip = ({ }) => {
             <div
                 ref={playertooltip}
                 id="player-tooltip"
-                className="fixed bottom-2 right-4 z-50 p-3 bg-gradient-to-br from-white/40 via-white/60 to-white/40 dark:from-gray-800/40 dark:via-gray-800/60 dark:to-gray-800/40 backdrop-blur-sm rounded-xl shadow-centered-lg shadow-gray-950 flex items-center space-x-3 transition-transform transform hover:scale-105 translate-x-[110%] transition-all duration-700">
+                className="fixed bottom-12 sm:bottom-2 right-3 z-50 p-3 bg-gradient-to-br from-white/40 via-white/60 to-white/40 dark:from-gray-800/40 dark:via-gray-800/60 dark:to-gray-800/40 backdrop-blur-sm rounded-xl shadow-centered-lg shadow-gray-950 flex items-center space-x-3 transition-transform transform sm:hover:scale-105 translate-x-[110%] transition-all duration-700">
 
                 {/* Seek Backward */}
                 <button onClick={seekBackward} id="btn-backward"

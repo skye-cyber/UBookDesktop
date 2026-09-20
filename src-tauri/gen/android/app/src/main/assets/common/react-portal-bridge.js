@@ -27,7 +27,6 @@ export class ReactPortalBridge {
         }
 
         props.portal_id = portalId
-
         const event = new CustomEvent('react-portal-show-targeted', {
             detail: { portalId, componentType, containerId, props }
         });

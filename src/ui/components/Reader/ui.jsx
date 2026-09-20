@@ -12,7 +12,7 @@ import { StateManager } from '../../../common/syscore/StatesManager';
 import { BookNavigator } from './navigator';
 
 const NavigatorUi = () => (
-    <section className='fixed bottom-4 left-3 flex gap-5'>
+    <section className='fixed bottom-16 left-1 flex gap-5'>
         {/* Navigate to previous section */}
         <button
             onClick={() => BookNavigator.previousSection()}
@@ -61,7 +61,7 @@ export const ReaderUI = ({ }) => {
 
     return (
         <>
-            <section className="w-screen max-h-[calc(100vh-0vh)] overflow-y-hidden">
+            <section className="w-screen h-[90dvh] sm:max-h-[100dvh] overflow-y-hidden">
                 <section className='flex justify-center items-center rounded-xl max-w-full md:max-w-3xl mx-auto shadow-xl shadow-y-none shadow-gray-400 dark:shadow-slate-900'>
                     {/*Hide in mobile devices/small devices */}
                     {(window.innerWidth > 400) && (

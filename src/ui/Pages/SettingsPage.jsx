@@ -179,7 +179,7 @@ export const SettingsPage = () => {
             {/* Settings Panel */}
             <div
                 ref={containerRef}
-                className="fixed inset-1 left-1/2 -translate-x-1/2 top-1/7 bottom-auto right-auto m-auto sm:w-[90vw] max-w-full md:max-w-4xl h-full max-h-[100dvh] bg-white dark:bg-slate-800 rounded-sm sm:rounded-2xl shadow-2xl overflow-hidden hidden translate-y-[100vh] transition-all duration-300 z-[60]"
+                className="fixed inset-1 left-1/2 -translate-x-1/2 top-1/7 bottom-auto right-auto m-auto sm:w-[90vw] max-w-full md:max-w-4xl h-full max-h-[95dvh] bg-white dark:bg-slate-800 rounded-sm sm:rounded-2xl shadow-2xl overflow-hidden hidden translate-y-[100vh] transition-all duration-300 z-[60]"
             >
                 {/* Header */}
                 <div className="bg-gradient-to-r from-primary-600 to-primary-800 p-6 relative">
