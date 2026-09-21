@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { StateManager } from '../../common/syscore/StatesManager';
 import { loadingspinner } from '../components/StatusUI/Helpers/loader';
 import { waitForElement } from '../../common/syscore/dom_utils';
@@ -170,6 +170,8 @@ export const ResultCard = ({ result, highlightedContent, count, link_data }) => 
 
     const openSearchContent = useCallback(() => {
         //console.log(`Find: ${link_data.part_id}-${link_data.paper_id}-${link_data.section_number}`)
+        loadingspinner.open('Loading content, please wait...')
+        let ready = false // For cloasing loader
 
         /*
          * STEP1: Prepare part content
@@ -180,19 +182,16 @@ export const ResultCard = ({ result, highlightedContent, count, link_data }) => 
         // closeResult page
         StateManager.get('hideSearchResult')()
 
+
+        //STEP3: find and click right section
+        waitForElement(`[data-tag="${link_data.part_id}-${link_data.paper_id}-${link_data.section_number}"]`, (e) => {
+            e.click()
+            ready = true
+        })
         // Given the page time to animate out
         setTimeout(() => {
-            loadingspinner.open('Loading section, please wait...')
-
-            //STEP3: find and click right section
-            let ready = false
-            waitForElement(`[data-tag="${link_data.part_id}-${link_data.paper_id}-${link_data.section_number}"]`, (e) => {
-                e.click()
-                ready = true
-            })
             if (ready) loadingspinner.close();
         }, 300)
-
     })
 
     return (
