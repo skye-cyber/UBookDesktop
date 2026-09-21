@@ -28,6 +28,7 @@ export class ContextMenuHelper {
 
         // Adjust if menu goes out of viewport
         setTimeout(() => {
+            if (!this.readerContent) return
             const rect = menu.getBoundingClientRect();
             const viewportWidth = parseInt(getComputedStyle(this.readerContent).width)
             const viewportHeight = window.innerHeight
@@ -46,7 +47,6 @@ export class ContextMenuHelper {
             if (y > (viewportHeight * 0.7)) {
                 menu.style.bottom = viewportHeight - y + 'px';
                 menu.style.top = 'auto';
-                console.log(menu.style.bottom)
             }
             else {
                 menu.style.top = y + 'px';

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
 // Define the Electron API interface
-const electronAPI = window.desk.api2 || {};
+const electronAPI = window.ubook.api2 || {};
 
 export const useElectron = (callbacks = {}) => {
     const [appVersion, setAppVersion] = useState('');
@@ -10,7 +10,7 @@ export const useElectron = (callbacks = {}) => {
 
     // Check if we're running in Electron
     useEffect(() => {
-        setIsElectron(!!window.desk.api2);
+        setIsElectron(!!window.ubook.api2);
         //console.log('Electron API available:', !!window.desk.api2);
     }, []);
 

@@ -1,13 +1,44 @@
-// tsconfig.common.json - Renderer (React/TSX)
+// tsconfig.common.json — Shared code that runs in the Tauri webview (ESM + DOM)
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "module": "commonjs",
-    //"outDir": "./dist/main",
+    // ---- Module system: browser ESM, resolved by Vite ----
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+
+    // ---- Root/output ----
     "rootDir": "./src/common",
-    "lib": ["ES2020"],
-    "types": ["node"]
+    // "outDir": "./dist/common",  // not needed: Vite bundles; tsc is type-check only
+
+    // ---- Environment: webview = browser + Web APIs ----
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    // No "node" — no fs, path, os, child_process anymore.
+    // "vite/client" provides import.meta.env typings.
+    "types": ["vite/client"],
+
+    // ---- Interop with JSON and modern syntax ----
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "verbatimModuleSyntax": true,
+    "jsx": "react-jsx",
+
+    // ---- Emit declarations only (for consumers that want types) ----
+    "declaration": true,
+    "declarationDir": "./src/common/types",
+    "emitDeclarationOnly": true
   },
-  "include": ["src/common/**/*"],
-  "exclude": ["src/common/pico_bundle"]
+  "include": ["src/common/**/*.ts"],
+  "exclude": [
+    // Vendored binaries / scripts — never type-checked
+    "src/common/pico_bundle",
+    // Compiled JS output
+    "src/common/**/*.js",
+    // Generated declaration output (prevents feedback loops)
+    "src/common/types/**/*",
+    // Anything that still imports Node built-ins during migration
+    "src/common/**/*.node.ts"
+  ]
 }

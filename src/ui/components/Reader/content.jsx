@@ -42,20 +42,31 @@ export const ReaderContent = ({ }) => {
         StateManager.set('readerSection', readerSection.current)
 
         // Show context menu on right click
-        readerSection.current.addEventListener('contextmenu', contextmenu)
+        if (window.innerWidth > 400) {
+            readerSection.current.addEventListener('contextmenu', contextmenu)
+        }
         document.addEventListener('escape-key-down', () => hightlightsearch.removeHighlightedSpans())
         document.addEventListener('selectionchange', handle_selectionchange)
 
         //readerSection.current.addEventListener('mouseup', () => hightlightsearch.searchPage())
 
+        // Let zoom increase font on small devices
         document.addEventListener('clear-reader-section', clearSection)
+        // readerSection.current.addEventListener('k', (e) => {
+        //     e.preventDefault()
+        //     alert("Zoom", e)
+        // })
         return () => {
-            readerSection.current.removeEventListener('contextmenu', contextmenu)
+            if (window.innerWidth > 400) {
+                readerSection.current?.removeEventListener('contextmenu', contextmenu)
+            }
             document.removeEventListener('clear-reader-section', clearSection)
             document.removeEventListener('selectionchange', handle_selectionchange)
             document.addEventListener('escape-key-down', () => hightlightsearch.removeHighlightedSpans())
+            readerSection.current.removeEventListener('click')
         }
     })
+
 
     return (
         <article

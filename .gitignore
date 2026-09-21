@@ -42,3 +42,8 @@ venv/
 *.mp3
 *.mp4
 *.map
+src/main/**/*.js
+/target/
+/gen/
+*.lock
+keystore.properties

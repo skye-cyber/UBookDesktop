@@ -113,8 +113,8 @@ export const SearchResultPage = ({ }) => {
     })
 
     return (
-        <div ref={resultContainer} id="search-result-container" className="fixed inset-0 flex items-center justify-center p-4 bg-black/20 backdrop-brightness-100 translate-y-[100vh] z-50 transition-all duration-300">
-            <div className="bg-[#1d0066] dark:bg-[#0e0e2c] rounded-lg border border-[#4800ff] dark:border-purple-600 shadow-lg max-w-full lg:max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden transition-colors duration-300 font-reader shadow-lg shadow-primary-950">
+        <div ref={resultContainer} id="search-result-container" className="fixed inset-0 flex items-center justify-center sm:p-2 md:p-4 bg-black/20 backdrop-brightness-100 translate-y-[100vh] z-50 transition-all duration-300">
+            <div className="bg-[#1d0066] dark:bg-[#0e0e2c] rounded-sm sm:rounded-lg border border-[#4800ff] dark:border-purple-600 shadow-lg max-w-full lg:max-w-4xl w-full max-h-[90dvh] flex flex-col overflow-hidden transition-colors duration-300 font-reader shadow-lg shadow-primary-950">
                 {/* Header */}
                 <div className="flex justify-between items-center p-3 bg-[#1d0066] dark:bg-[#0e0e2c] border-b border-[#4800ff]/80 dark:border-[#8a2be2]/70">
                     <h2 className="text-xl font-mono font-semibold text-white">Search Result:<span className="text-[#5555ff]">?</span><span ref={searchQuery} id="search-query" className="max-w-[30%] rounded-md text-[#5555ff] underline overflow-x-hidden text-sm truncate"></span></h2>

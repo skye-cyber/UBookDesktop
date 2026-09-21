@@ -56,6 +56,10 @@ This project aims to create a desktop application for **The Urantia Book** using
 4. Run the application with `npm start`.
 4. Build from source `npm run dist -- --<dist e.g linux/win/macos>`.
 
+### Android build
+```shell
+rustup target add aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android
+```
 
 ## UI Overview
 1. Foreword
