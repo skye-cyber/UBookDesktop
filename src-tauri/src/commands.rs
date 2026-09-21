@@ -1,56 +1,18 @@
+use crate::paths;
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
-
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
 use tauri::{AppHandle, Manager};
 use tauri_plugin_fs::FsExt;
-
-// ---------- Paths --------------------------------------------------------
-
-fn base_dir() -> PathBuf {
-    dirs::home_dir()
-        .unwrap_or_else(|| PathBuf::from("."))
-        .join(".UBook")
-}
-
-fn notes_dir() -> PathBuf {
-    base_dir().join(".notes")
-}
-fn favourite_dir() -> PathBuf {
-    base_dir().join(".favourites")
-}
-fn bookmark_dir() -> PathBuf {
-    base_dir().join(".bookmark")
-}
-fn cache_dir() -> PathBuf {
-    base_dir().join(".cache")
-}
-fn config_dir() -> PathBuf {
-    base_dir().join("config")
-}
-
-fn ensure_all_dirs() -> std::io::Result<()> {
-    for d in [
-        base_dir(),
-        notes_dir(),
-        favourite_dir(),
-        bookmark_dir(),
-        cache_dir(),
-        config_dir(),
-    ] {
-        fs::create_dir_all(d)?;
-    }
-    Ok(())
-}
 
 // ---------- Config API ---------------------------------------------------
 
 #[tauri::command]
 pub fn config_init(app: AppHandle) -> Result<Value, String> {
-    ensure_all_dirs().map_err(|e| e.to_string())?;
-    let config_path = config_dir().join("config.json");
+    paths::ensure_data_dirs(&app).map_err(|e| e.to_string())?;
+    let config_path = paths::config_dir(&app).join("config.json");
 
     if !config_path.exists() {
         let picowave = picowave_path_string(&app);
@@ -60,23 +22,23 @@ pub fn config_init(app: AppHandle) -> Result<Value, String> {
                     "name": "picowave",
                     "engine": picowave,
                     "command": format!(r#"echo "{{safeText}}" | {} -w "{{cacheFile}}""#, picowave),
-                                        "inputType": "text",
-                                        "outputFormat": "wav",
-                                        "maxTextLength": 1000
+                    "inputType": "text",
+                    "outputFormat": "wav",
+                    "maxTextLength": 1000
                 },
                 "engine": "ttskit3",
                 "command": r#"ttskit3 --text "{text}" -o "{output}" --threads 8 --speed 0.86"#,
                 "fallbackCommand": format!(r#"echo "{{text}}" | {} -w "{{output}}""#, picowave),
-                                        "inputType": "text",
-                                        "outputFormat": "wav",
-                                        "maxTextLength": 1000
+                "inputType": "text",
+                "outputFormat": "wav",
+                "maxTextLength": 1000
             },
             "appearance": { "theme": "system", "fontSize": 14 },
             "paths": {
-                "notes": notes_dir().to_string_lossy(),
-                                        "favourites": favourite_dir().to_string_lossy(),
-                                        "bookmark": bookmark_dir().to_string_lossy(),
-                                        "cache": cache_dir().to_string_lossy()
+                "notes": paths::notes_dir(&app).to_string_lossy(),
+                "favourites": paths::favourites_dir(&app).to_string_lossy(),
+                "bookmark": paths::bookmark_dir(&app).to_string_lossy(),
+                "cache": paths::cache_dir(&app).to_string_lossy()
             }
         });
         fs::write(
@@ -86,30 +48,30 @@ pub fn config_init(app: AppHandle) -> Result<Value, String> {
         .map_err(|e| e.to_string())?;
         return Ok(default);
     }
-    config_read()
+    config_read(app)
 }
 
 #[tauri::command]
-pub fn config_read() -> Result<Value, String> {
-    let path = config_dir().join("config.json");
+pub fn config_read(app: AppHandle) -> Result<Value, String> {
+    let path = paths::config_dir(&app).join("config.json");
     if !path.exists() {
         return Err("config missing".into());
     }
-    let raw = fs::read_to_string(&path).map_err(|e| e.to_string())?;
+    let raw = std::fs::read_to_string(&path).map_err(|e| e.to_string())?;
     serde_json::from_str(&raw).map_err(|e| e.to_string())
 }
 
 #[tauri::command]
-pub fn config_update(new_config: Value) -> Result<bool, String> {
-    let path = config_dir().join("config.json");
+pub fn config_update(app: AppHandle, new_config: Value) -> Result<bool, String> {
+    let path = paths::config_dir(&app).join("config.json");
     fs::write(&path, serde_json::to_string_pretty(&new_config).unwrap())
         .map_err(|e| e.to_string())?;
     Ok(true)
 }
 
 #[tauri::command]
-pub fn config_update_tts(patch: Value) -> Result<bool, String> {
-    let mut cfg = config_read()?;
+pub fn config_update_tts(app: AppHandle, patch: Value) -> Result<bool, String> {
+    let mut cfg = config_read(app.clone())?;
     if let Some(tts) = cfg.get_mut("tts") {
         if let (Some(obj), Some(patch_obj)) = (tts.as_object_mut(), patch.as_object()) {
             for (k, v) in patch_obj {
@@ -117,12 +79,12 @@ pub fn config_update_tts(patch: Value) -> Result<bool, String> {
             }
         }
     }
-    config_update(cfg)
+    config_update(app, cfg)
 }
 
 #[tauri::command]
 pub fn config_reset(app: AppHandle) -> Result<Value, String> {
-    let path = config_dir().join("config.json");
+    let path = paths::config_dir(&app).join("config.json");
     if path.exists() {
         fs::remove_file(&path).map_err(|e| e.to_string())?;
     }
@@ -135,7 +97,7 @@ fn picowave_path_string(app: &AppHandle) -> String {
     if cfg!(debug_assertions) {
         std::env::current_dir()
             .unwrap_or_default()
-            .join("src/common/pico_bundle/bin/pico2wave")
+            .join("../src/common/pico_bundle/bin/pico2wave")
             .to_string_lossy()
             .to_string()
     } else {
@@ -163,7 +125,7 @@ pub fn tts_generate(
         return Ok(None);
     }
 
-    let cfg = match config_read() {
+    let cfg = match config_read(app.clone()) {
         Ok(c) => c,
         Err(_) => config_init(app.clone())?,
     };
@@ -189,7 +151,9 @@ pub fn tts_generate(
         .replace('—', ", that is to say")
         .replace('\u{00A0}', " ");
 
-    let cache_file = cache_dir().join(format!("tts_{}.wav", uuid_like()));
+    // cache_dir() is only used inside tts_generate, which is already desktop-only.
+    let cache_file = paths::cache_dir(&app).join(format!("tts_{}.wav", uuid_like()));
+
     let cache_file_s = cache_file.to_string_lossy().to_string();
 
     // Pick the command template
@@ -391,9 +355,13 @@ struct NotesFile {
 }
 
 #[tauri::command]
-pub fn notes_save(note: Value, file_path: Option<String>) -> Result<bool, String> {
-    let path =
-        file_path.unwrap_or_else(|| notes_dir().join("notes.json").to_string_lossy().to_string());
+pub fn notes_save(app: AppHandle, note: Value, file_path: Option<String>) -> Result<bool, String> {
+    let path = file_path.unwrap_or_else(|| {
+        paths::notes_dir(&app)
+            .join("notes.json")
+            .to_string_lossy()
+            .to_string()
+    });
     let mut data: NotesFile = if Path::new(&path).exists() {
         serde_json::from_str(&fs::read_to_string(&path).map_err(|e| e.to_string())?)
             .map_err(|e| e.to_string())?
@@ -406,9 +374,13 @@ pub fn notes_save(note: Value, file_path: Option<String>) -> Result<bool, String
 }
 
 #[tauri::command]
-pub fn notes_read_all(file_path: Option<String>) -> Result<Value, String> {
-    let path =
-        file_path.unwrap_or_else(|| notes_dir().join("notes.json").to_string_lossy().to_string());
+pub fn notes_read_all(app: AppHandle, file_path: Option<String>) -> Result<Value, String> {
+    let path = file_path.unwrap_or_else(|| {
+        paths::notes_dir(&app)
+            .join("notes.json")
+            .to_string_lossy()
+            .to_string()
+    });
     if !Path::new(&path).exists() {
         return Ok(serde_json::json!({ "notes": [] }));
     }
@@ -417,9 +389,17 @@ pub fn notes_read_all(file_path: Option<String>) -> Result<Value, String> {
 }
 
 #[tauri::command]
-pub fn notes_delete(note_id: String, file_path: Option<String>) -> Result<bool, String> {
-    let path =
-        file_path.unwrap_or_else(|| notes_dir().join("notes.json").to_string_lossy().to_string());
+pub fn notes_delete(
+    app: AppHandle,
+    note_id: String,
+    file_path: Option<String>,
+) -> Result<bool, String> {
+    let path = file_path.unwrap_or_else(|| {
+        paths::notes_dir(&app)
+            .join("notes.json")
+            .to_string_lossy()
+            .to_string()
+    });
     if !Path::new(&path).exists() {
         return Ok(false);
     }
@@ -434,12 +414,17 @@ pub fn notes_delete(note_id: String, file_path: Option<String>) -> Result<bool, 
 
 #[tauri::command]
 pub fn notes_update(
+    app: AppHandle,
     note_id: String,
     updated_note: Value,
     file_path: Option<String>,
 ) -> Result<bool, String> {
-    let path =
-        file_path.unwrap_or_else(|| notes_dir().join("notes.json").to_string_lossy().to_string());
+    let path = file_path.unwrap_or_else(|| {
+        paths::notes_dir(&app)
+            .join("notes.json")
+            .to_string_lossy()
+            .to_string()
+    });
     if !Path::new(&path).exists() {
         return Ok(false);
     }
@@ -469,9 +454,13 @@ pub fn notes_update(
 // ---------- Bookmarks ----------------------------------------------------
 
 #[tauri::command]
-pub fn bookmarks_toggle(data: Value, file_path: Option<String>) -> Result<Value, String> {
+pub fn bookmarks_toggle(
+    app: AppHandle,
+    data: Value,
+    file_path: Option<String>,
+) -> Result<Value, String> {
     let path = file_path.unwrap_or_else(|| {
-        bookmark_dir()
+        paths::bookmark_dir(&app)
             .join("bookmark.json")
             .to_string_lossy()
             .to_string()
@@ -511,9 +500,9 @@ pub fn bookmarks_toggle(data: Value, file_path: Option<String>) -> Result<Value,
 }
 
 #[tauri::command]
-pub fn bookmarks_read_all(file_path: Option<String>) -> Result<Value, String> {
+pub fn bookmarks_read_all(app: AppHandle, file_path: Option<String>) -> Result<Value, String> {
     let path = file_path.unwrap_or_else(|| {
-        bookmark_dir()
+        paths::bookmark_dir(&app)
             .join("bookmark.json")
             .to_string_lossy()
             .to_string()
@@ -526,9 +515,13 @@ pub fn bookmarks_read_all(file_path: Option<String>) -> Result<Value, String> {
 }
 
 #[tauri::command]
-pub fn bookmarks_delete(bookmark_id: String, file_path: Option<String>) -> Result<bool, String> {
+pub fn bookmarks_delete(
+    app: AppHandle,
+    bookmark_id: String,
+    file_path: Option<String>,
+) -> Result<bool, String> {
     let path = file_path.unwrap_or_else(|| {
-        bookmark_dir()
+        paths::bookmark_dir(&app)
             .join("bookmark.json")
             .to_string_lossy()
             .to_string()
@@ -549,9 +542,13 @@ pub fn bookmarks_delete(bookmark_id: String, file_path: Option<String>) -> Resul
 // ---------- Favourites ---------------------------------------------------
 
 #[tauri::command]
-pub fn favourites_toggle(data: Value, file_path: Option<String>) -> Result<Value, String> {
+pub fn favourites_toggle(
+    app: AppHandle,
+    data: Value,
+    file_path: Option<String>,
+) -> Result<Value, String> {
     let path = file_path.unwrap_or_else(|| {
-        favourite_dir()
+        paths::favourites_dir(&app)
             .join("fav.json")
             .to_string_lossy()
             .to_string()
@@ -591,9 +588,9 @@ pub fn favourites_toggle(data: Value, file_path: Option<String>) -> Result<Value
 }
 
 #[tauri::command]
-pub fn favourites_read_all(file_path: Option<String>) -> Result<Value, String> {
+pub fn favourites_read_all(app: AppHandle, file_path: Option<String>) -> Result<Value, String> {
     let path = file_path.unwrap_or_else(|| {
-        favourite_dir()
+        paths::favourites_dir(&app)
             .join("fav.json")
             .to_string_lossy()
             .to_string()

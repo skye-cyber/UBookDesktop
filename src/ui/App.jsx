@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MainLayout } from './components/Layout/MainLayout';
-import { Header } from './components/Header/Header';
-import { BookContentPanel } from './components/Panels/BookContentPanel';
+import { Header } from './components/Header/Header.tsx';
+import { BookContentPanel } from './components/Panels/BookContentPanel.tsx';
 import { QuickReadPanel } from './components/Panels/QuickReadPanel';
 import { ReaderUI } from './components/Reader/ui';
 import ErrorBoundary from './components/ErrorHandler/ErrorBoundary';

@@ -1,14 +1,20 @@
-import React from 'react';
 import { OnselectTooltip } from './onSelect';
 import { PlayerTooltip } from './onReadAlound';
 import { ContextMenu } from './onContextmenu';
+import { useMediaQuery } from '@mui/material';
 
 export const ToolTipUI = ({ }) => {
     return (
         <section id="tooltip">
-            <OnselectTooltip />
+        {/*Hide on mobile device: no tooltips&ContextMenu*/}
+            {useMediaQuery('(min-width: 400px)') && (
+                <>
+                    <OnselectTooltip />
+                    <ContextMenu />
+                </>
+            )}
             <PlayerTooltip />
-            < ContextMenu />
+
         </section>
     )
 }

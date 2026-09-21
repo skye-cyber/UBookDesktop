@@ -1,9 +1,8 @@
 mod commands;
-use std::fs;
+mod paths;
+use serde::Serialize;
 use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
-
-use serde::Serialize;
 
 // Cross-platform imports — used on desktop, Android, and iOS
 use tauri::{AppHandle, Manager, Runtime, WebviewUrl, WebviewWindowBuilder, WindowEvent};
@@ -357,55 +356,6 @@ fn register_shortcuts<R: Runtime>(app: &AppHandle<R>) -> Result<(), Box<dyn std:
     Ok(())
 }
 
-// ---- Filesystem prep (was prepDirectories / prepNoteFile / ...) ---------
-
-/// Cross-platform: uses only `std::fs` and `dirs`. Works identically on
-/// desktop and mobile (mobile sandboxes may remap `home_dir`, but the API
-/// still succeeds).
-fn prep_directories() -> std::io::Result<PathBuf> {
-    let base = dirs::home_dir()
-        .ok_or_else(|| std::io::Error::new(std::io::ErrorKind::NotFound, "no home dir"))?
-        .join(".UBook");
-
-    fs::create_dir_all(&base)?;
-    for sub in [".saveNotes", ".favourites", ".bookmark", ".cache"] {
-        fs::create_dir_all(base.join(sub))?;
-    }
-    Ok(base)
-}
-
-fn ensure_json_file(path: &PathBuf, initial: &str) -> std::io::Result<()> {
-    if !path.exists() {
-        if let Some(parent) = path.parent() {
-            fs::create_dir_all(parent)?;
-        }
-        fs::write(path, initial)?;
-    }
-    Ok(())
-}
-
-fn prep_all_files(base: &PathBuf) -> std::io::Result<()> {
-    ensure_json_file(
-        &base.join(".saveNotes").join("notes.json"),
-        r#"{
-                     "notes": []
-}"#,
-    )?;
-    ensure_json_file(
-        &base.join(".favourites").join("fav.json"),
-        r#"{
-                     "fav": []
-}"#,
-    )?;
-    ensure_json_file(
-        &base.join(".bookmark").join("bookmark.json"),
-        r#"{
-                     "bookmark": []
-}"#,
-    )?;
-    Ok(())
-}
-
 // ---- App builder --------------------------------------------------------
 
 /// Builds the Tauri app with plugins appropriate for the current platform.
@@ -493,10 +443,11 @@ pub fn run() {
         .setup(|app| {
             let handle = app.handle().clone();
 
-            // 1. Prep ~/.UBook tree (was `prepDirectories()` + file preps).
-            //    Cross-platform — runs on desktop and mobile alike.
-            if let Ok(base) = prep_directories() {
-                let _ = prep_all_files(&base);
+            // 1. Prep the user-data tree. Uses the platform-aware resolver in
+            //    `paths`, so on desktop this creates `~/.UBook` (unchanged) and on
+            //    mobile it creates the sandboxed app data directory.
+            if let Err(e) = paths::ensure_data_files(&handle) {
+                eprintln!("failed to prepare data directory: {e}");
             }
 
             // Desktop-only setup. Everything below touches APIs that are

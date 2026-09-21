@@ -7,7 +7,7 @@ import { CopyFeedback } from '../StatusUI/ToastsUI';
 import { NotesComposer } from '../ContextMenu/Modals/Notes';
 import { SearchSettings } from '../../Pages/SearchSettings';
 import { SearchResultPage } from '../../Pages/Search';
-import { Controls } from './controlbar';
+import { Controls } from './controlbar.tsx';
 import { StateManager } from '../../../common/syscore/StatesManager';
 import { BookNavigator } from './navigator';
 
