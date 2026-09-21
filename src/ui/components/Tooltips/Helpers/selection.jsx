@@ -1,5 +1,6 @@
 import { appState } from '../../../State/appState';
 import { hightlightsearch } from "../../Reader/Search/hightlightSearch";
+import { useMediaQuery } from '@mui/material';
 
 class SelectionHelper {
     updateAppstate() {
@@ -25,8 +26,8 @@ class SelectionHelper {
             appState.selectedHTML = selectionHTML
             document.dispatchEvent(new CustomEvent('update-note-content'))
 
-            // only if selected tect has really changed
-            if (selectedText !== previousText) hightlightsearch.searchPage()
+            // only if selected text has really changed
+            if (selectedText !== previousText && useMediaQuery('(min-width: 400px)')) hightlightsearch.searchPage()
 
         } catch (err) {
             return false

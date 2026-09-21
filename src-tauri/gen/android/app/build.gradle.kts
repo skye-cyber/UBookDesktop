@@ -38,6 +38,12 @@ android {
         storeFile = file(keystoreProperties.getProperty("storeFile"))
         storePassword = keystoreProperties.getProperty("password")
       }
+      getByName("debug") {
+        keyAlias = keystoreProperties.getProperty("keyAlias")
+        keyPassword = keystoreProperties.getProperty("password")
+        storeFile = file(keystoreProperties.getProperty("storeFile"))
+        storePassword = keystoreProperties.getProperty("password")
+      }
     }
     buildTypes {
         getByName("debug") {
