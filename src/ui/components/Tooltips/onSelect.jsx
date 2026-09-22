@@ -3,6 +3,7 @@ import { menuaction } from './Helpers/action';
 import { appState } from '../../State/appState';
 import { Highlighter } from '../Reader/hightlight';
 import { StateManager } from '../../../common/syscore/StatesManager';
+import { useMediaQuery } from '@mui/material';
 
 export const OnselectTooltip = ({ }) => {
     const tooltip = useRef(null);
@@ -35,8 +36,8 @@ export const OnselectTooltip = ({ }) => {
 
                 // Constrain within wrapper bounds
                 left = Math.max(8, Math.min(left, wrapper.offsetWidth - tooltipWidth - 8));
-
-                tooltip.current.style.top = `${top}px`;
+                let effectiveTop = (window.innerWidth < 400) ? (top + 100) : top
+                tooltip.current.style.top = `${effectiveTop}px`;
                 tooltip.current.style.left = `${left}px`;
                 tooltip.current.style.visibility = 'visible';
                 tooltip.current.classList.remove('hidden', '-translate-x-[200%]');
@@ -112,7 +113,12 @@ export const OnselectTooltip = ({ }) => {
                         <span ref={activeColorRef} id="current-color-circle" className="size-6 rounded-full bg-yellow-300 dark:bg-yellow-500 mr-1"></span>
                         <span>Color</span>
                     </button>
-                    <button onClick={() => Highlighter.hightlight()} className="hover:text-yellow-400 dark:hover:text-yellow-600">🖊️Highlight</button>
+                    <button
+                        disabled={useMediaQuery('(max-width: 400px)') && (
+                            true
+                        )}
+                        onClick={() => Highlighter.hightlight()}
+                        className={` ${useMediaQuery('(max-width: 400px)') ? 'pointer-events-none text-gray-500' : ''} flex hover:text-yellow-400 dark:hover:text-yellow-600`}>🖊️Highlight</button>
                     <button onClick={() => StateManager.get('ReadInnitializer')()} className="hover:text-pink-400 dark:hover:text-pink-600">
                         🔊 Read
                     </button>

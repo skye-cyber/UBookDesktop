@@ -23,7 +23,9 @@ import {
     IconButton,
     //     Tooltip,
     Collapse,
-//     Paper
+    useMediaQuery,
+    Breakpoint,
+    //     Paper
 } from '@mui/material';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
@@ -41,7 +43,6 @@ import {
     Terminal as TerminalIcon
 } from '@mui/icons-material';
 
-
 interface TTSConfigManagerProps {
     open: boolean;
     onClose: () => void;
@@ -53,7 +54,7 @@ interface TTSConfigManagerProps {
 export const TTSConfigManager: React.FC<TTSConfigManagerProps> = ({
     open,
     onClose,
-//     initialConfig,
+    //     initialConfig,
     onSave,
     ubookConfigApi
 }) => {
@@ -162,7 +163,7 @@ export const TTSConfigManager: React.FC<TTSConfigManagerProps> = ({
         <Dialog
             open={open}
             onClose={onClose}
-            maxWidth="md"
+            fullScreen={useMediaQuery('(max-width: 400px)') ? true : false}
             fullWidth
             PaperProps={{
                 sx: {
@@ -473,7 +474,7 @@ export const TTSConfigManager: React.FC<TTSConfigManagerProps> = ({
                             {validationResult.isValid && validationResult.warnings.length === 0 && (
                                 <Alert
                                     severity="success"
-                                    icon={<CheckCircleIcon sx={{fill:"white"}}/>}
+                                    icon={<CheckCircleIcon sx={{ fill: "white" }} />}
                                     sx={{
                                         borderRadius: '12px',
                                         border: '1px solid',
@@ -564,7 +565,7 @@ export const TTSConfigManager: React.FC<TTSConfigManagerProps> = ({
                 </Box>
             </DialogContent>
 
-            <DialogActions sx={{ px: 3, py: 2.5, gap: 1.5 }}>
+            <DialogActions sx={{ px: 3, py: 2.5, gap: 1.5, mb: `${useMediaQuery('(max-width: 400px)') ? '2rem' : 0}` }}>
                 <Button
                     onClick={onClose}
                     disabled={saving}
@@ -587,7 +588,11 @@ export const TTSConfigManager: React.FC<TTSConfigManagerProps> = ({
                         px: 2,
                     }}
                 >
-                    Test Command
+                    {useMediaQuery('(max-width: 400px)') ? (
+                        "Test"
+                    ) :
+                    "Test Command"
+                    }
                 </Button>
                 <Button
                     onClick={handleSave}
@@ -602,7 +607,11 @@ export const TTSConfigManager: React.FC<TTSConfigManagerProps> = ({
                         background: "#00628f",
                     }}
                 >
-                    Save Configuration
+                    {useMediaQuery('(max-width: 400px)') ? (
+                        "Save"
+                    ) :
+                        "Save Configuration"
+                    }
                 </Button>
             </DialogActions>
         </Dialog>

@@ -232,7 +232,7 @@ export const BookContentPanel = ({ }) => {
                             <li id="bookmark" className={rowIcon}>🔖 Bookmarks</li>
                         </div>
                         <div
-                            onClick={() => document.dispatchEvent(new CustomEvent('show-notes'))}
+                            onClick={() => ContentLoader_ins.renderNotes()}
                             className={rowBase}
                         >
                             <li id="notes" className={rowIcon}>📔 Notes</li>

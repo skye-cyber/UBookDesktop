@@ -6,10 +6,10 @@ import { useMediaQuery } from '@mui/material';
 export const ToolTipUI = ({ }) => {
     return (
         <section id="tooltip">
-        {/*Hide on mobile device: no tooltips&ContextMenu*/}
+            {/*Hide on mobile device: no tooltips&ContextMenu*/}
+            <OnselectTooltip />
             {useMediaQuery('(min-width: 400px)') && (
                 <>
-                    <OnselectTooltip />
                     <ContextMenu />
                 </>
             )}

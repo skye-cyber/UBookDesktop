@@ -95,14 +95,14 @@ export const SettingsPage = () => {
 
     // Save all changes
     const saveChanges = async () => {
-        await loadingspinner.open('Saving settings...');
+        // This is not heavy work no need for loader
+
+        // await loadingspinner.open('Saving settings...');
         try {
             await settingsManager.saveSettings();
             setIsDirty(false);
             // Optional: show success message
-        } finally {
-            loadingspinner.close();
-        }
+        } catch (err) { }
     };
 
     // Reset to defaults
