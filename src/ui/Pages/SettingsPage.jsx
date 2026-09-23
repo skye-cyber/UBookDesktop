@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { loadingspinner } from '../components/StatusUI/Helpers/loader';
 import { settingsManager } from '../../common/syscore/SettingsManager';
 import { SettingsSection, SettingsSwitch, SettingsSelect, SettingsSlider, SettingsInput } from '../components/Settings/index';
@@ -7,6 +7,9 @@ import { appState } from '../State/appState';
 import { TTSConfigManager } from '../components/TTSConfigManager';
 import { Button } from '@mui/material';
 import { Settings as SettingsIcon } from '@mui/icons-material';
+import { BaseSearchEntry } from './Search/search_entry';
+import { StateManager } from '../../common/syscore/StatesManager';
+import { modalmanager } from '../../common/Status/Manager';
 
 export const SettingsPage = () => {
     const [settings, setSettings] = useState(settingsManager.getAll());
@@ -156,6 +159,53 @@ export const SettingsPage = () => {
         };
         input.click();
     };
+
+    const applysearch = useCallback(async (searchText) => {
+
+        // clear previous search result
+        StateManager.get('clearSearchResult')();
+
+        await loadingspinner.open('Searching, please wait ...');
+
+        setTimeout(async () => {
+            const searchInput = StateManager.get('searchInput');
+            let query = null;
+
+            if (searchText) {
+                query = searchText
+            } else if (searchInput) {
+                query = searchInput.value
+                // clear input
+                searchInput.value = ""
+            } else {
+                modalmanager.showMessage("Nothing to search", "error")
+            }
+
+            // Enforce case
+            query = (settings.search.caseSensitive) ? query : query.toLowerCase()
+
+            let parts = settings.search.defaultParts
+
+            let result;
+            const isTextSearch = settings.search.defaultMode === 'text'
+
+            try {
+                result = await (isTextSearch
+                    ? BaseSearchEntry.fullTextSearch(parts, query)
+                    : BaseSearchEntry.sectionSearch(parts, query));
+
+            } finally {
+                try {
+                    loadingspinner.close();
+                    if (result && isTextSearch) {
+                        StateManager.get('showSearchResult')();
+                    }
+                } catch (err) { }
+            }
+        }, 200);
+    }, []);
+
+    StateManager.set('applysearch', applysearch)
 
     // Tab configuration
     const tabs = [
