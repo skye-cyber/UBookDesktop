@@ -225,9 +225,10 @@ adb shell rm /sdcard/fav.json /sdcard/bookmark.json /sdcard/notes.json
 
 4. Content selector
    ![part-nav-preview](public/docs/content_selector.png"content_selector")
-
+---
 5. Mobile
    ![part-nav-preview](public/docs/mobile-dark.png"moble app")
+-
    ![part-nav-preview](public/docs/mobile-light.png"moble app")
 
    
