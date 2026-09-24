@@ -224,12 +224,12 @@ adb shell rm /sdcard/fav.json /sdcard/bookmark.json /sdcard/notes.json
    ![notes-preview](public/docs/notes.png "notes-preview")
 
 4. Content selector
-   ![content_selectorpreview](public/docs/content_selector.png"content_selector")
+   ![content_selectorpreview](public/docs/content_selector.png "content_selector")
 ---
 5. Mobile dark
-   ![part-nav-preview](public/docs/mobile-dark.png"moble app")
+   ![mobile-app-preview](public/docs/mobile-dark.png "mobile app")
 6. Mobile light
-   ![part-nav-preview](public/docs/mobile-light.png"moble app")
+   ![mobile-app-preview](public/docs/mobile-light.png "mobile app")
 
    
 ## Contributing
