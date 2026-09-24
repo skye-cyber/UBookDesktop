@@ -213,22 +213,22 @@ adb shell rm /sdcard/fav.json /sdcard/bookmark.json /sdcard/notes.json
 
 ## UI Overview
 
-1. Foreword
-   ![foreword-overview](public/docs/overview-dark.png "overview")
-   ![foreword-overview](public/docs/overview-light.png "overview")
+1. Overview
+   ![dark-overview](public/docs/overview-dark.png "overview")
+   ![light-overview](public/docs/overview-light.png "overview")
 
 2. Settings
-   ![side-left-panel](public/docs/settings.png "settings")
+   ![settings](public/docs/settings.png "settings")
 
 3. Notes
    ![notes-preview](public/docs/notes.png "notes-preview")
 
 4. Content selector
-   ![part-nav-preview](public/docs/content_selector.png"content_selector")
+   ![content_selectorpreview](public/docs/content_selector.png"content_selector")
 ---
-5. Mobile
+5. Mobile dark
    ![part-nav-preview](public/docs/mobile-dark.png"moble app")
--
+6. Mobile light
    ![part-nav-preview](public/docs/mobile-light.png"moble app")
 
    
