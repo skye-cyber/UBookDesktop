@@ -4,14 +4,14 @@
 [![Rust](https://img.shields.io/badge/Rust-1.77%2B-orange.svg?logo=rust)](https://www.rust-lang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-22%2B-green.svg?logo=node.js)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB.svg?logo=react)](https://react.dev/)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/skye-cyber/UBookDesktop/release.yml?branch=main)](https://github.com/skye-cyber/UBookDesktop/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/skye-cyber/UrantiaBook/release.yml?branch=main)](https://github.com/skye-cyber/UrantiaBook/actions)
 
 <!-- Platform targets -->
 ![Platforms](https://img.shields.io/badge/Platforms-Windows%20%7C%20macOS%20%7C%20Linux%20%7C%20Android%20%7C%20iOS-informational)
 
-# Urantia Book Desktop App
+# Urantia Book Project
 
-**Project Link:** [https://github.com/skye-cyber/UBookDesktop](https://github.com/skye-cyber/UBookDesktop)
+**Project Link:** [https://github.com/skye-cyber/UrantiaBook](https://github.com/skye-cyber/UrantiaBook)
 
 ---
 
@@ -33,7 +33,7 @@
 
 ## Introduction
 
-UBookDesktop is a cross-platform application for reading **The Urantia Book**.
+UrantiaBook is a cross-platform application for reading **The Urantia Book**.
 It provides a distraction-free reader with search, bookmarks, favourites,
 notes, customisable typography, and text-to-speech — all usable offline,
 with no network connection required after installation.
@@ -94,8 +94,8 @@ sudo pacman -S webkit2gtk-4.1 base-devel curl wget file openssl \
 ### Clone and run
 
 ```bash
-git clone https://github.com/skye-cyber/UBookDesktop.git
-cd UBookDesktop
+git clone https://github.com/skye-cyber/UrantiaBook.git
+cd UrantiaBook
 npm install
 npm run dev:tauri        # launches the Tauri dev window
 ```
@@ -214,23 +214,23 @@ adb shell rm /sdcard/fav.json /sdcard/bookmark.json /sdcard/notes.json
 ## UI Overview
 
 1. Foreword
-   ![foreword-overview](public/docs/foreword-overview.png "foreword-overview")
+   ![foreword-overview](public/docs/overview-dark.png "overview")
+   ![foreword-overview](public/docs/overview-light.png "overview")
 
-2. Side pane
-   ![side-left-panel](public/docs/side-left-panel.png "side-left-panel")
+2. Settings
+   ![side-left-panel](public/docs/settings.png "settings")
 
-3. Full dark mode
-   ![full-desktop-preview-dark](public/docs/full-desktop-preview-dark.png "full-desktop-preview-dark")
+3. Notes
+   ![notes-preview](public/docs/notes.png "notes-preview")
 
-4. Tooltip
-   ![tooltip-preview](public/docs/tooltip-preview.png "tooltip-preview")
+4. Content selector
+   ![part-nav-preview](public/docs/content_selector.png"content_selector")
 
-5. Notes
-   ![notes-preview](public/docs/notes-preview.png "notes-preview")
+5. Mobile
+   ![part-nav-preview](public/docs/mobile-dark.png"moble app")
+   ![part-nav-preview](public/docs/mobile-light.png"moble app")
 
-6. Section navigation
-   ![part-nav-preview](public/docs/part-nav-preview.png "part-nav-preview")
-
+   
 ## Contributing
 
 Contributions are welcome. Open a pull request against `main` with a brief
